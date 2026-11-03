@@ -7,6 +7,7 @@ import solutions from '../packages/content/src/solutions.json';
 // Dedicated disposable guest only. Never read local tokens or a local D1 database.
 const base=deployment.apiUrl,checks:string[]=[];
 let user:AuthResponse|undefined;
+let socket:WebSocket|undefined;
 const check=(message:string)=>{checks.push(message);console.log('PASS '+message);};
 async function call<T>(path:string,body?:unknown,method=body===undefined?'GET':'POST',authorized=true){
  const response=await fetch(base+path,{method,headers:{'Content-Type':'application/json',Origin:'capacitor://localhost',...(authorized&&user?{Authorization:'Bearer '+user.accessToken}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
@@ -38,7 +39,25 @@ try{
  user=await ok<AuthResponse>('/auth/refresh',{refreshToken:user.refreshToken},undefined,false);
  assert.equal((await ok<{player:Player}>('/me')).player.id,user.player.id);check('remote access and refresh sessions');
  await ok('/catalog');await ok('/offers');await ok('/events');await ok('/rankings?scope=players');await ok('/friends');await ok('/garden/world');await ok('/story');check('catalog, shop, events, rankings, friends, garden and story routes');
+ // Earn the actual guild unlock through three more legal clears; no DB fixture or grant endpoint.
+ for(let i=0;i<3;i++){
+  const {run}=await ok<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});
+  await ok(`/runs/${run.id}/actions`,{key:crypto.randomUUID(),sequence:0,actions:solutions[String(run.level.id) as keyof typeof solutions].actions});
+  await ok(`/runs/${run.id}/finish`,{key:crypto.randomUUID()});
+ }
+ await ok('/guilds',{key:crypto.randomUUID(),name:'API확인'+Date.now(),mode:'open',minLevel:5,emblem:0});
+ const {ticket}=await ok<{ticket:string}>('/guild/socket-ticket',{});
+ const socketUrl=new URL(base+'/guild/socket');socketUrl.protocol='wss:';socketUrl.searchParams.set('ticket',ticket);
+ socket=new WebSocket(socketUrl);
+ await new Promise<void>((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Guild socket open timeout')),15_000);socket!.addEventListener('open',()=>{clearTimeout(timer);resolve();},{once:true});socket!.addEventListener('error',()=>{clearTimeout(timer);reject(new Error('Guild socket connection failed'));},{once:true});});
+ async function socketMessage(predicate:(data:string)=>boolean){return new Promise<void>((resolve,reject)=>{const listener=(event:MessageEvent)=>{if(predicate(String(event.data))){clearTimeout(timer);socket!.removeEventListener('message',listener);resolve();}};const timer=setTimeout(()=>{socket!.removeEventListener('message',listener);reject(new Error('Guild notification timeout'));},15_000);socket!.addEventListener('message',listener);});}
+ const pong=socketMessage(data=>data==='pong');socket.send('ping');await pong;
+ const broadcast=socketMessage(data=>{try{return JSON.parse(data).type==='refresh';}catch{return false;}});
+ await ok('/guild/chat',{key:crypto.randomUUID(),text:'API 연결 확인'});await broadcast;
+ assert.equal((await call('/guild/socket?ticket='+encodeURIComponent(ticket))).status,401);
+ check('live guild WSS, ping/pong, D1 outbox broadcast and single-use ticket');
 }finally{
+ socket?.close();
  if(user){await ok('/account',{confirmation:'DELETE'},'DELETE');check('disposable verification account anonymized and revoked');}
  await mkdir('output/verification',{recursive:true});
  await writeFile('output/verification/cloudflare-api.json',JSON.stringify({at:new Date().toISOString(),apiUrl:base,checks,localProgressRead:false,credentialsRecorded:false},null,2));
