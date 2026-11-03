@@ -97,6 +97,7 @@ export async function deleteAccount(env:ApiEnv,userId:string,body:Record<string,
       if(successor)tx.statements.push(sql(tx.db,"UPDATE guild_members SET role='leader' WHERE user_id=?",successor.user_id));
     }
     tx.player.nickname='삭제된 정원사';tx.player.guildId=null;
+    for(const table of ['activity_counters','activity_days','mission_claims','clear_milestones','treasure_attempts'])tx.statements.push(sql(tx.db,`DELETE FROM ${table} WHERE user_id=?`,userId));
     tx.statements.push(sql(tx.db,'DELETE FROM story_seen WHERE user_id=?',userId),sql(tx.db,'DELETE FROM garden_styles WHERE user_id=?',userId),sql(tx.db,'DELETE FROM garden_worlds WHERE user_id=?',userId));
     tx.statements.push(sql(tx.db,'DELETE FROM apple_authorizations WHERE user_id=?',userId),sql(tx.db,'DELETE FROM auth_challenges WHERE user_id=?',userId));
     tx.statements.push(sql(tx.db,'UPDATE players SET deleted_at=? WHERE id=?',tx.now,userId),sql(tx.db,'UPDATE sessions SET revoked=1 WHERE user_id=?',userId),sql(tx.db,'DELETE FROM auth_links WHERE user_id=?',userId),sql(tx.db,'DELETE FROM guild_members WHERE user_id=?',userId),sql(tx.db,'DELETE FROM guild_applications WHERE user_id=?',userId),sql(tx.db,'UPDATE support_requests SET closed=1 WHERE user_id=?',userId),sql(tx.db,"UPDATE chat_messages SET nickname='삭제된 정원사',text='삭제된 메시지' WHERE user_id=?",userId));

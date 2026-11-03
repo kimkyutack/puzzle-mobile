@@ -4,7 +4,7 @@ import {BRIDGE_EPISODE,bridgeLevel,rescueUnlocked} from '@garden/content';
 import {actionSchema} from './validation';
 import {ensure,readPlayer,sql,type ApiEnv} from './db';
 import {state} from './story';
-const input=z.object({actions:z.array(actionSchema).min(1).max(80)}).strict();
+const input=z.object({actions:z.array(actionSchema.refine(action=>action.type==='swap'||action.type==='tap')).min(1).max(80)}).strict();
 /** Completion is proven by replay. No Player write, heart, inventory, rank or reward mutation. */
 export async function completeBridge(env:ApiEnv,userId:string,body:Record<string,unknown>){
  const player=await readPlayer(env.DB,userId);ensure(rescueUnlocked(player),'EPISODE_LOCKED','7판을 완료하면 구름길 구조대가 열려요.',409);

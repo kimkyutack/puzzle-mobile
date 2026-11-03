@@ -20,7 +20,7 @@ export async function buyHearts(env:ApiEnv,userId:string,body:Record<string,unkn
   });
 }
 export async function buyItem(env:ApiEnv,userId:string,body:Record<string,unknown>){
-  const item=itemSchema.parse(body.item);
+  const item=itemSchema.parse(body.item);ensure(item!=='world-bomb','EARN_ONLY_ITEM','별빛 대폭탄은 새 퍼즐 10판을 완료할 때마다 모여요.');
   return mutate(env,userId,operationKey(body),`shop:buy:${item}`,tx=>{
     ensure(tx.player.level>=5,'LOCKED','4판을 완료하면 상점이 열려요.');
     const bound=spendCoins(tx.player,PRICES[item]);tx.player.inventory[item][bound?'bound':'normal']++;

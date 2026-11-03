@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { HttpError } from './db';
 export const keySchema=z.string().min(8).max(100);
-export const itemSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','sweep-border','wind-row','bomb','rainbow']);
-export const boosterSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','sweep-border']);
+export const itemSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass','wind-row','bomb','rainbow']);
+export const boosterSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass']);
 export const preSchema=z.enum(['wind-row','bomb','rainbow']);
 const at=z.number().int().min(0).max(99);
 export const actionSchema=z.discriminatedUnion('type',[z.object({type:z.literal('swap'),from:at,to:at}).strict(),z.object({type:z.literal('tap'),at}).strict(),z.object({type:z.literal('booster'),item:boosterSchema,at:at.optional()}).strict()]);

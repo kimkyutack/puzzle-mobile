@@ -84,7 +84,7 @@ export async function chat(env:ApiEnv,userId:string,body:Record<string,unknown>)
   });
 }
 export async function requestSupport(env:ApiEnv,userId:string,body:Record<string,unknown>){
-  const kind=z.union([z.literal('heart'),boosterSchema]).parse(body.kind);
+  const kind=z.enum(['heart','hammer','sweep-row','sweep-column','shuffle']).parse(body.kind);
   return mutate(env,userId,operationKey(body),`guild:request:${kind}`,async tx=>{
     const m=await needGuild(tx);const isHeart=kind==='heart';
     const previous=await one<{created_at:number}>(tx.db,`SELECT created_at FROM support_requests WHERE user_id=? AND ${isHeart?"kind='heart'":"kind<>'heart'"} ORDER BY created_at DESC LIMIT 1`,userId);

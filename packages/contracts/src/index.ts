@@ -1,24 +1,26 @@
-export const ENGINE_VERSION = '1.1.0';
+export const ENGINE_VERSION = '1.2.0';
+export const PREVIOUS_ENGINE_VERSION = '1.1.0';
 export const LEGACY_ENGINE_VERSION = '1.0.0';
-export const supportsEngine = (version:string)=>version===ENGINE_VERSION||version===LEGACY_ENGINE_VERSION;
-export const CONTENT_VERSION = 'garden-2026.11.03-flow-v1';
+export const supportsEngine = (version:string)=>version===ENGINE_VERSION||version===PREVIOUS_ENGINE_VERSION||version===LEGACY_ENGINE_VERSION;
+export const CONTENT_VERSION = 'garden-2026.11.03-progression-v14';
 export const COLORS = ['berry','drop','sun','sprout','flower','acorn'] as const;
 export type Color = typeof COLORS[number];
 export type Special = 'wind-row'|'wind-column'|'bomb'|'glider'|'rainbow';
-export type Booster = 'hammer'|'sweep-row'|'sweep-column'|'shuffle'|'sweep-border';
+export type Booster = 'hammer'|'sweep-row'|'sweep-column'|'shuffle'|'sweep-border'|'world-bomb'|'cross-firework'|'color-magnet'|'move-hourglass';
 export type PreBooster = 'wind-row'|'bomb'|'rainbow';
 export type Item = Booster | PreBooster;
 export type Tile = {id:number; kind:'normal';color:Color} | {id:number;kind:Special} | {id:number;kind:'seed'};
 export type ObstacleKind = 'crate'|'vine'|'pot'|'moss'|'cabinet';
 export interface Obstacle {id:string;kind:ObstacleKind;hp:number;maxHp:number;anchor:number;footprint:number[];color?:Color;charge?:number;seeds?:number}
 export interface Cell {exists:boolean;tile:Tile|null;frost:number;obstacleId?:string;exit?:boolean}
-export interface Goal {kind:Color|'crate'|'vine'|'frost'|'seed'|'pot'|'moss'|'cabinet';count:number;remaining:number}
+export interface Goal {kind:Color|'crate'|'vine'|'frost'|'seed'|'pot'|'moss'|'cabinet'|'combo'|'special';count:number;remaining:number}
 export interface LevelDefinition {
  id:number;version:string;engineVersion:string;width:number;height:number;colors:Color[];moves:number;
  seed:number;shape:boolean[];goals:Goal[];obstacles:Obstacle[];frost?:Record<number,number>;
  exits?:number[];inlets?:number[];gravity?:number[][];initial?:Array<Tile|null>;
  difficulty:'normal'|'hard'|'super';tutorial?:{text:string;from:number;to:number;feature:string};
  protectedCells?:number[];approved?:boolean;
+ strategy?:{id:string;name:string;hint:string};
 }
 export interface GameState {
  engineVersion:string;levelId:number;width:number;height:number;cells:Cell[];obstacles:Record<string,Obstacle>;
@@ -40,7 +42,7 @@ export interface Run {
  startedAt:number;expiresAt:number;preBoosters:PreBooster[];heartSpent:boolean;continues:number;
  /** Absent on legacy runs that paid at entry. Unlimited protection lasts for this whole attempt. */
  heartCharge?:'failure'|'protected';
- reward?:{coins:number;stars:number};
+ reward?:{coins:number;stars:number;items?:Partial<Record<Item,number>>};
 }
 export interface Envelope<T> {data:T;serverNow:number;stateVersion:number}
 export interface ApiError {error:{code:string;message:string};serverNow:number}
@@ -86,3 +88,19 @@ export interface StoryScene {id:string;chapterId:StoryChapterId;title:string;tas
 export interface StoryChapter {id:StoryChapterId;title:string;summary:string;art:string;sceneIds:string[]}
 export interface StoryState {contentVersion:string;unlocked:string[];seen:string[];styles:Record<string,GardenStyle>;completedEpisodes?:string[]}
 export interface LocalFeatures {freeHeartRefill:boolean}
+
+export type MissionPeriod='daily'|'weekly';
+export type ActivityMetric='clears'|'hard-clears'|'tiles'|'collect-drop'|'collect-berry'|'specials-made'|'specials-used'|'combos'|'boosters-used'|'minigame-wins'|'active-days';
+export interface ActivityReward {coins:number;items:Partial<Record<Item,number>>}
+export interface MissionDefinition {id:string;period:MissionPeriod;title:string;metric:ActivityMetric;target:number;icon:string;reward:ActivityReward}
+export interface MissionProgress extends MissionDefinition {progress:number;claimed:boolean;claimable:boolean}
+export interface MissionWindow {id:string;endsAt:number;missions:MissionProgress[]}
+export interface TreasurePair {first:number;second:number}
+export interface TreasureAttempt {id:string;day:string;deck:Color[];maxTurns:number;startedAt:number;expiresAt:number;status:'playing'|'won'|'lost';reward?:ActivityReward}
+export interface NotificationCounts {missions:number;events:number;pass:number;gifts:number;friends:number;guild:number;minigame:number;shop:number}
+export interface ProgressionResponse {
+ player:Player;daily:MissionWindow;weekly:MissionWindow;
+ milestone:{clears:number;progress:number;target:10;awarded:number;owned:number};
+ minigame:{remaining:number;maximum:3;nextReset:number;active:TreasureAttempt|null};
+ notifications:NotificationCounts;
+}

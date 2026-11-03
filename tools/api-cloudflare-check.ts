@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {ENGINE_VERSION,type AuthResponse,type Envelope,type Player,type Run} from '@garden/contracts';
+import {ENGINE_VERSION,type AuthResponse,type Envelope,type Player,type Run,type ProgressionResponse,type TreasureAttempt} from '@garden/contracts';
 import deployment from '../config/deployment.json';
 import {applyAction,stateHash} from '@garden/core';
 import solutions from '../packages/content/src/solutions.json';
@@ -42,12 +42,17 @@ try{
  user=await ok<AuthResponse>('/auth/refresh',{refreshToken:user.refreshToken},undefined,false);
  assert.equal((await ok<{player:Player}>('/me')).player.id,user.player.id);check('remote access and refresh sessions');
  await ok('/catalog');await ok('/offers');await ok('/events');await ok('/rankings?scope=players');await ok('/friends');await ok('/garden/world');await ok('/story');check('catalog, shop, events, rankings, friends, garden and story routes');
- // Earn the actual guild unlock through three more legal clears; no DB fixture or grant endpoint.
- for(let i=0;i<3;i++){
+ // Earn the actual guild unlock through nine more legal clears; no DB fixture or grant endpoint.
+ for(let i=0;i<9;i++){
   const {run}=await ok<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});
   await ok(`/runs/${run.id}/actions`,{key:crypto.randomUUID(),sequence:0,actions:solutions[String(run.level.id) as keyof typeof solutions].actions});
   await ok(`/runs/${run.id}/finish`,{key:crypto.randomUUID()});
  }
+ const activity=await ok<ProgressionResponse>('/progression');assert.equal(activity.daily.missions.length,7);assert.equal(activity.weekly.missions.length,10);assert.equal(activity.milestone.clears,10);assert.equal(activity.milestone.owned,1);assert(activity.notifications.missions>0);
+ const beforeMission=(await ok<{player:Player}>('/me')).player;const missionBody={key:crypto.randomUUID(),period:'daily',periodId:activity.daily.id,ids:['d-clear']};await ok('/missions/claim',missionBody);await ok('/missions/claim',missionBody);assert.equal((await ok<{player:Player}>('/me')).player.coins,beforeMission.coins+50);
+ check('daily 7 / weekly 10 missions, real red-dot readiness and one bomb per ten unique clears');
+ const {attempt}=await ok<{attempt:TreasureAttempt}>('/minigames/treasure/start',{key:crypto.randomUUID()});const pairs=[...new Set(attempt.deck)].map(color=>{const indices=attempt.deck.flatMap((value,index)=>value===color?[index]:[]);return {first:indices[0]!,second:indices[1]!};});const beforeMini=(await ok<{player:Player}>('/me')).player;
+ const miniBody={key:crypto.randomUUID(),pairs},mini=await ok<{player:Player;attempt:TreasureAttempt}>(`/minigames/treasure/${attempt.id}/finish`,miniBody);assert.equal(mini.attempt.status,'won');assert.equal(mini.player.coins,beforeMini.coins+25);assert.equal(mini.player.hearts,beforeMini.hearts);assert.deepEqual(await ok(`/minigames/treasure/${attempt.id}/finish`,miniBody),mini);check('live minigame replay grants an inventory item once without using a heart');
  const {run:perimeterRun}=await ok<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});
  const initialItems=(await ok<{player:Player}>('/me')).player.inventory['sweep-border'];
  const perimeterBody={key:crypto.randomUUID(),sequence:perimeterRun.sequence,actions:[{type:'booster' as const,item:'sweep-border' as const}]};

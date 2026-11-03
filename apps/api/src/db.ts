@@ -96,6 +96,6 @@ export async function mutate<T>(env:ApiEnv,userId:string,key:string,fingerprint:
   throw new HttpError('CONFLICT','다른 기기에서 변경되었습니다. 다시 시도해 주세요.',409);
 }
 export function operationKey(body:Record<string,unknown>){return String(body.idempotencyKey??body.key??'');}
-export const ITEMS:Item[]=['hammer','sweep-row','sweep-column','shuffle','sweep-border','wind-row','bomb','rainbow'];
-export const PRICES:Record<Item,number>={'hammer':150,'sweep-row':250,'sweep-column':250,'shuffle':150,'sweep-border':350,'wind-row':150,'bomb':200,'rainbow':300};
-export function newPlayer(id:string,now:number):Player{return {id,nickname:`정원사${id.slice(0,4)}`,level:1,coins:500,boundCoins:0,stars:0,hearts:5,heartAt:0,unlimitedUntil:0,freeClaimAt:0,version:1,inventory:Object.fromEntries(ITEMS.map(item=>[item,{normal:2,bound:0}])) as Player['inventory'],restored:[],tutorials:[],settings:{sound:true,music:true,haptics:true,reducedMotion:false,language:'ko'},guildId:null,passPoints:0};}
+export const ITEMS:Item[]=['hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass','wind-row','bomb','rainbow'];
+export const PRICES:Record<Item,number>={'hammer':150,'sweep-row':250,'sweep-column':250,'shuffle':150,'sweep-border':350,'world-bomb':0,'cross-firework':350,'color-magnet':400,'move-hourglass':300,'wind-row':150,'bomb':200,'rainbow':300};
+export function newPlayer(id:string,now:number):Player{return {id,nickname:`정원사${id.slice(0,4)}`,level:1,coins:500,boundCoins:0,stars:0,hearts:5,heartAt:0,unlimitedUntil:0,freeClaimAt:0,version:1,inventory:Object.fromEntries(ITEMS.map(item=>[item,{normal:item==='world-bomb'?0:2,bound:0}])) as Player['inventory'],restored:[],tutorials:[],settings:{sound:true,music:true,haptics:true,reducedMotion:false,language:'ko'},guildId:null,passPoints:0};}

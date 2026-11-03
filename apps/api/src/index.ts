@@ -7,6 +7,8 @@ import * as auth from './auth';
 import * as run from './runs';
 import * as economy from './economy';
 import * as story from './story';
+import {progression,claimMissions} from './activity';
+import {startTreasure,finishTreasure} from './treasure';
 import {completeBridge} from './rescue';
 import * as guild from './guild';
 import * as money from './monetization';
@@ -70,6 +72,10 @@ async function route(request:Request,env:ApiEnv,ctx:ExecutionContext){
   let data:unknown;
   if(path==='/me'&&method==='GET'){const player=await readPlayer(env.DB,userId);data={player,activeRun:await activeRun(env.DB,userId)};}
   else if(path==='/me'&&method==='PATCH')data=await auth.profile(env,userId,body);
+  else if(path==='/progression'&&method==='GET')data=await progression(env,userId);
+  else if(path==='/missions/claim'&&method==='POST')data=await claimMissions(env,userId,body);
+  else if(path==='/minigames/treasure/start'&&method==='POST')data=await startTreasure(env,userId,body);
+  else if(/^\/minigames\/treasure\/[^/]+\/finish$/.test(path)&&method==='POST')data=await finishTreasure(env,userId,path.split('/')[3],body);
   else if(path==='/rankings'&&method==='GET')data=await rankings(env,userId,url.searchParams.get('scope')??'players');
   else if(path==='/friends'&&method==='GET')data=await friends.friends(env,userId);
   else if(path==='/friends/requests'&&method==='POST')data=await friends.requestFriend(env,userId,body);

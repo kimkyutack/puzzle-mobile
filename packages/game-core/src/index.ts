@@ -1,4 +1,4 @@
-import { COLORS, ENGINE_VERSION, supportsEngine, type Action, type ActionResult, type Color, type GameEvent, type GameState, type Goal, type LevelDefinition, type PreBooster, type Special, type Tile } from '@garden/contracts';
+import { COLORS, ENGINE_VERSION, LEGACY_ENGINE_VERSION, supportsEngine, type Action, type ActionResult, type Color, type GameEvent, type GameState, type Goal, type LevelDefinition, type PreBooster, type Special, type Tile } from '@garden/contracts';
 import {perimeterCells} from './perimeter';
 export {perimeterCells} from './perimeter';
 
@@ -42,7 +42,7 @@ export function validateLevel(level:LevelDefinition):string[] {
  if(seen.size!==level.shape.filter(Boolean).length)errors.push('GRAVITY_COVERAGE');
  for(const i of level.exits??[])if(!level.shape[i]||!lanes.some(l=>l[l.length-1]===i))errors.push('EXIT_UNREACHABLE');
  if(!level.goals.length||new Set(level.goals.map(g=>g.kind)).size!==level.goals.length||level.goals.some(g=>!Number.isInteger(g.count)||g.count<=0||g.remaining!==g.count))errors.push('GOALS');
- for(const g of level.goals){if(COLORS.includes(g.kind as Color)){if(!level.colors.includes(g.kind as Color))errors.push('GOAL_COLOR');continue;}if(g.kind==='frost'){if(g.count!==Object.values(level.frost??{}).reduce((a,b)=>a+b,0))errors.push('GOAL_FROST');}else if(g.kind==='seed'){const seeds=(level.initial??[]).filter(t=>t?.kind==='seed').length+level.obstacles.reduce((a,o)=>a+(o.seeds??0),0);if(g.count!==seeds||!level.exits?.length)errors.push('GOAL_SEED');}else if(g.count!==level.obstacles.filter(o=>o.kind===g.kind).length)errors.push('GOAL_OBSTACLE');}
+ for(const g of level.goals){if(COLORS.includes(g.kind as Color)){if(!level.colors.includes(g.kind as Color))errors.push('GOAL_COLOR');continue;}if(g.kind==='combo'||g.kind==='special')continue;else if(g.kind==='frost'){if(g.count!==Object.values(level.frost??{}).reduce((a,b)=>a+b,0))errors.push('GOAL_FROST');}else if(g.kind==='seed'){const seeds=(level.initial??[]).filter(t=>t?.kind==='seed').length+level.obstacles.reduce((a,o)=>a+(o.seeds??0),0);if(g.count!==seeds||!level.exits?.length)errors.push('GOAL_SEED');}else if(g.count!==level.obstacles.filter(o=>o.kind===g.kind).length)errors.push('GOAL_OBSTACLE');}
  return uniqueStrings(errors);
 }
 const uniqueStrings=(xs:string[])=>[...new Set(xs)];
@@ -92,14 +92,14 @@ interface Effect {id:number;cells:number[];kind:string;color?:Color;adjacent?:bo
 interface Context {s:GameState;events:GameEvent[];queue:Effect[];protected:Set<number>;triggered:Set<number>;mossHit:boolean;effects:number}
 function enqueue(ctx:Context,cells:number[],kind:string,color?:Color,adjacent=false,allowPot=false):void {ctx.queue.push({id:++ctx.s.effectSequence,cells:unique(cells.filter(i=>valid(ctx.s,i))),kind,color,adjacent,allowPot});}
 function activate(ctx:Context,at:number,kind:Special,color?:Color):void {
- const s=ctx.s;ctx.events.push({type:'special',cells:[at],kind});
+ const s=ctx.s;goal(s,'special');ctx.events.push({type:'special',cells:[at],kind});
  if(kind==='wind-row'||kind==='wind-column')enqueue(ctx,line(s,at,kind==='wind-row'),kind);
  else if(kind==='bomb')enqueue(ctx,area(s,at,2),kind);
  else if(kind==='glider'){const origin=unique([at,...neighbors(s,at)]),target=targetCells(s,new Set(origin))[0]??targetCells(s)[0]??at;enqueue(ctx,origin,kind);ctx.events.push({type:'special',kind:'glider-flight',cells:[at,target],from:at,to:target});enqueue(ctx,[target],'glider-impact');}
  else {const chosen=color??mostColor(s);enqueue(ctx,s.cells.flatMap((c,i)=>c.tile?.kind==='normal'&&c.tile.color===chosen?[i]:[]),'rainbow',chosen);}
 }
 function combine(ctx:Context,at:number,a:Special,b:Special,other:number):void {
- const s=ctx.s;ctx.events.push({type:'special',cells:[other,at],kind:`${a}+${b}`});
+ const s=ctx.s;goal(s,'combo');goal(s,'special');ctx.events.push({type:'special',cells:[other,at],kind:`${a}+${b}`});
  // Consumed combination components never trigger a second independent effect.
  for(const i of [at,other]){const t=s.cells[i]!.tile;if(t){ctx.triggered.add(t.id);s.cells[i]!.tile=null;ctx.events.push({type:'remove',cells:[i],kind:t.kind});if(s.cells[i]!.frost){s.cells[i]!.frost--;goal(s,'frost');}}}
  const wind=(k:Special)=>k==='wind-row'||k==='wind-column';
@@ -187,7 +187,7 @@ export function legalActions(s:GameState):Action[] {
 function reshuffle(s:GameState,events:GameEvent[]):boolean {
  const indices=s.cells.flatMap((c,i)=>movable(s,i)&&c.tile?.kind!=='seed'?[i]:[]),original=indices.map(i=>s.cells[i]!.tile!);const originalRng=s.rng;
  // Version 1.0 replays retain their exact first-valid permutation and RNG consumption.
- const minimum=s.engineVersion===ENGINE_VERSION?3:1;
+ const minimum=s.engineVersion===LEGACY_ENGINE_VERSION?1:3;
  let best:{tiles:Tile[];rng:number;choices:number}|undefined;
  for(let attempt=0;attempt<256;attempt++){
   const shuffled=[...original];for(let i=shuffled.length-1;i>0;i--){const j=next(s)%(i+1);[shuffled[i],shuffled[j]]=[shuffled[j]!,shuffled[i]!];}
@@ -215,14 +215,21 @@ export function applyAction(input:GameState,action:Action):ActionResult {
    else if(isSpecial(a)||isSpecial(b)){const power=isSpecial(a)?a:b,at=isSpecial(a)?to:from,normal=isSpecial(a)?b:a;
     // Capture ordinary matches before the power's effects and gravity break their shape.
     // Resolving them in the same phase also protects their new special's creation cell.
-    if(s.engineVersion===ENGINE_VERSION)initial=findMatches(s,[to,from]);
+    if(s.engineVersion!==LEGACY_ENGINE_VERSION)initial=findMatches(s,[to,from]);
     ctx.triggered.add(power.id);s.cells[at]!.tile=null;events.push({type:'remove',cells:[at],kind:power.kind});if(s.cells[at]!.frost){s.cells[at]!.frost--;goal(s,'frost');}activate(ctx,at,power.kind as Special,normal.kind==='normal'?normal.color:undefined);
    }else initial=findMatches(s,[to,from]);
   }else if(action.type==='tap'){
    if(!movable(s,action.at)||!isSpecial(s.cells[action.at]!.tile))return invalid('INVALID_TAP');usesMove=true;enqueue(ctx,[action.at],'tap');
   }else if(action.type==='booster'){
-   if(action.item==='shuffle'){if(!reshuffle(s,events))return invalid('SHUFFLE_UNAVAILABLE');return {state:s,events,accepted:true};}
-   if(action.item==='sweep-border'){
+   if(action.item==='move-hourglass'){if(s.moves>96)return invalid('MOVES_FULL');s.moves+=3;events.push({type:'special',kind:'move-hourglass',cells:[]});return {state:s,events,accepted:true};}
+   if(action.item==='world-bomb'){enqueue(ctx,s.cells.flatMap((cell,index)=>cell.exists?[index]:[]),action.item,undefined,false,true);}
+   else if(action.item==='cross-firework'||action.item==='color-magnet'){
+    const at=action.at;if(at===undefined||!valid(s,at))return invalid('INVALID_BOOSTER_TARGET');
+    if(action.item==='cross-firework')enqueue(ctx,[...line(s,at,true),...line(s,at,false)],action.item,undefined,false,true);
+    else{const tile=s.cells[at]!.tile;if(tile?.kind!=='normal')return invalid('COLOR_TARGET_REQUIRED');enqueue(ctx,s.cells.flatMap((cell,index)=>cell.tile?.kind==='normal'&&cell.tile.color===tile.color?[index]:[]),action.item,tile.color);}
+   }
+   else if(action.item==='shuffle'){if(!reshuffle(s,events))return invalid('SHUFFLE_UNAVAILABLE');return {state:s,events,accepted:true};}
+   else if(action.item==='sweep-border'){
     const targets=perimeterCells(s);
     if(!targets.some(i=>s.cells[i]!.tile||s.cells[i]!.obstacleId||s.cells[i]!.frost))return invalid('NO_EFFECTIVE_TARGET');
     enqueue(ctx,targets,action.item,undefined,false,true);

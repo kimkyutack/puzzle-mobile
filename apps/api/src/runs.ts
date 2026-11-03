@@ -1,8 +1,9 @@
 import { createGame, applyAction } from '@garden/core';
 import { getLevel } from '@garden/content';
-import {ENGINE_VERSION,LEGACY_ENGINE_VERSION,type Action,type GameEvent,type Run} from '@garden/contracts';
+import {ENGINE_VERSION,PREVIOUS_ENGINE_VERSION,LEGACY_ENGINE_VERSION,type Action,type GameEvent,type Run} from '@garden/contracts';
 import { z } from 'zod';
 import { activeRun, assertSQL, consumeHeart, ensure, HttpError, mutate, operationKey, readRun, saveRun, spendCoins, spendItem, sql, uid, type ApiEnv, type MutationContext } from './db';
+import {actionActivity,recordActivity,awardClearMilestones} from './activity';
 import { actionsSchema, boosterSchema, preSchema } from './validation';
 
 function active(tx:MutationContext,run:Run,sequence?:number){
@@ -12,14 +13,14 @@ function active(tx:MutationContext,run:Run,sequence?:number){
   tx.statements.push(assertSQL(tx.db,"SELECT sequence=? AND status='active' FROM runs WHERE id=?",run.sequence,run.id));
 }
 export async function startRun(env:ApiEnv,userId:string,body:Record<string,unknown>){
-  const clientEngine=z.enum([ENGINE_VERSION,LEGACY_ENGINE_VERSION]).default(LEGACY_ENGINE_VERSION).parse(body.engineVersion);
+  const clientEngine=z.enum([ENGINE_VERSION,PREVIOUS_ENGINE_VERSION,LEGACY_ENGINE_VERSION]).default(LEGACY_ENGINE_VERSION).parse(body.engineVersion);
   const preBoosters=z.array(preSchema).max(3).default([]).parse(body.preBoosters);
   ensure(new Set(preBoosters).size===preBoosters.length,'DUPLICATE_BOOSTER','시작 부스터는 종류당 하나만 선택할 수 있어요.');
   return mutate(env,userId,operationKey(body),`run:start:${preBoosters.join(',')}`,async tx=>{
     const existing=await activeRun(tx.db,userId);
-    if(existing&&existing.expiresAt>tx.now){ensure(clientEngine===ENGINE_VERSION||existing.state.engineVersion===LEGACY_ENGINE_VERSION,'UPDATE_REQUIRED','앱을 업데이트하면 진행 중인 퍼즐을 이어할 수 있어요.',409);return {player:tx.player,run:existing};}
+    if(existing&&existing.expiresAt>tx.now){ensure(clientEngine===ENGINE_VERSION||existing.state.engineVersion===clientEngine||existing.state.engineVersion===LEGACY_ENGINE_VERSION,'UPDATE_REQUIRED','앱을 업데이트하면 진행 중인 퍼즐을 이어할 수 있어요.',409);return {player:tx.player,run:existing};}
     if(existing){existing.status='expired';tx.statements.push(saveRun(tx.db,existing));}
-    const level=getLevel(tx.player.level,clientEngine===LEGACY_ENGINE_VERSION);
+    const level=getLevel(tx.player.level,clientEngine);
     ensure(level.approved,'CONTENT_NOT_READY','검증된 퍼즐을 준비 중이에요. 잠시 후 다시 시도해 주세요.',503);
     let state;try{state=createGame(level,preBoosters);}catch(e){throw new HttpError('BOOSTER_PLACEMENT',e instanceof Error?e.message:'부스터를 배치할 수 없는 퍼즐입니다.');}
     ensure(state.status==='playing','INVALID_INITIAL_BOARD','초기 퍼즐 검증에 실패했습니다.',503);
@@ -47,6 +48,7 @@ export async function runActions(env:ApiEnv,userId:string,runId:string,body:Reco
       run.state=result.state;events.push(...result.events);run.sequence++;
       tx.statements.push(sql(tx.db,'INSERT INTO run_actions VALUES(?,?,?,?)',runId,run.sequence,JSON.stringify(action),tx.now));
     }
+    recordActivity(tx,actionActivity(input.actions,events));
     tx.statements.push(saveRun(tx.db,run));return {player:tx.player,run,events};
   });
 }
@@ -57,7 +59,7 @@ export async function useBooster(env:ApiEnv,userId:string,runId:string,body:Reco
     const run=await readRun(tx.db,runId,userId);active(tx,run,sequence);
     const action:Action={type:'booster',item,...(at===undefined?{}:{at})};const result=applyAction(run.state,action);
     ensure(result.accepted && result.state.status!=='error','INVALID_TARGET',result.reason??'이 칸에는 사용할 수 없어요.');
-    spendItem(tx.player,item);run.state=result.state;run.sequence++;
+    spendItem(tx.player,item);recordActivity(tx,actionActivity([action],result.events));run.state=result.state;run.sequence++;
     tx.statements.push(sql(tx.db,'INSERT INTO run_actions VALUES(?,?,?,?)',runId,run.sequence,JSON.stringify(action),tx.now),saveRun(tx.db,run));
     return {player:tx.player,run,events:result.events};
   });
@@ -88,7 +90,7 @@ export async function closeRun(env:ApiEnv,userId:string,runId:string,body:Record
         // The persisted state consists only of replayed, approved actions, never client snapshots.
         const exists=await sql(tx.db,'SELECT 1 FROM level_rewards WHERE user_id=? AND level_id=?',userId,run.level.id).first();
         if(!exists){const coins=run.level.difficulty==='super'?100:run.level.difficulty==='hard'?75:50;
-          run.reward={coins,stars:1};tx.player.coins+=coins;tx.player.stars++;tx.player.level=Math.max(tx.player.level,run.level.id+1);
+          run.reward={coins,stars:1};recordActivity(tx,{clears:1,'hard-clears':run.level.difficulty==='normal'?0:1});const total=(await sql(tx.db,'SELECT count(*) n FROM level_rewards WHERE user_id=?',userId).first<{n:number}>())?.n??0;const bombs=await awardClearMilestones(tx,total+1);if(bombs)run.reward.items={'world-bomb':bombs};tx.player.coins+=coins;tx.player.stars++;tx.player.level=Math.max(tx.player.level,run.level.id+1);
           if(await sql(tx.db,'SELECT 1 FROM seasons WHERE starts_at<=? AND ends_at>? LIMIT 1',tx.now,tx.now).first())tx.player.passPoints+=10;
           tx.statements.push(sql(tx.db,'INSERT INTO level_rewards VALUES(?,?,?,?,?,?)',userId,run.level.id,runId,coins,1,tx.now));
           if(tx.player.guildId)tx.notify(tx.player.guildId,{type:'progress',userId,level:run.level.id});
