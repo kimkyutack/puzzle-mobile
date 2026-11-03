@@ -1,0 +1,29 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "cloud-garden-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {"enabled": true, "head_sampling_rate": 1, "redact_query_string": true},
+  "vars": {
+    "ENVIRONMENT": "development",
+    "LOCAL_DEV_TOOLS": "disabled",
+    "CLIENT_ORIGINS": "http://localhost:5173,http://127.0.0.1:5173,capacitor://localhost,http://localhost,https://localhost",
+    "ASSET_VERSION": "garden-2026.11.02",
+    "ASSET_PUBLIC_ORIGIN": "",
+    "GOOGLE_CLIENT_IDS": "",
+    "APPLE_CLIENT_IDS": "",
+    "GOOGLE_PACKAGE_NAME": "com.cloudgarden.match",
+    "GOOGLE_IAP_ENVIRONMENT": "Sandbox",
+    "APPLE_BUNDLE_ID": "com.cloudgarden.match",
+    "ADMOB_HEART_AD_UNIT": "",
+    "ADMOB_COIN_AD_UNIT": "",
+    "ADMOB_AD_UNITS": "",
+    "ADMOB_REWARD_ITEMS": "reward"
+  },
+  "d1_databases": [{"binding":"DB","database_name":"cloud-garden","database_id":"00000000-0000-0000-0000-000000000001","migrations_dir":"migrations"}],
+  "r2_buckets": [{"binding":"ASSETS","bucket_name":"cloud-garden-assets"}],
+  "durable_objects": {"bindings":[{"name":"GUILD_ROOMS","class_name":"GuildRoom"}]},
+  "migrations": [{"tag":"v1","new_sqlite_classes":["GuildRoom"]}],
+  "triggers": {"crons":["*/5 * * * *"]}
+}

@@ -1,0 +1,12 @@
+{
+ "compilerOptions": {
+  "target":"ES2022", "lib":["ES2022","DOM","DOM.Iterable"],
+  "module":"ESNext", "moduleResolution":"Bundler", "jsx":"react-jsx",
+  "strict":true, "skipLibCheck":true, "esModuleInterop":true,
+  "resolveJsonModule":true, "allowImportingTsExtensions":true, "noEmit":true,
+  "types":["node","vite/client"],
+  "paths":{"@garden/core":["./packages/game-core/src/index.ts"],"@garden/contracts":["./packages/contracts/src/index.ts"],"@garden/content":["./packages/content/src/index.ts"]}
+ },
+ "include":["apps/**/*.ts","apps/**/*.tsx","packages/**/*.ts","tools/**/*.ts","tests/**/*.ts","capacitor.config.ts","vitest.config.ts"],
+ "exclude":["node_modules","android","ios"]
+}

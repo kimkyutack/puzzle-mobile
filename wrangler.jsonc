@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "puzzle-mobile",
+  "account_id": "08f8a12b720a01338f509cb25c7f86a5",
+  "main": "apps/api/src/index.ts",
+  "compatibility_date": "2026-11-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "upload_source_maps": true,
+  "observability": {"enabled": true, "head_sampling_rate": 1, "redact_query_string": true},
+  "vars": {
+    "ENVIRONMENT": "production",
+    "LOCAL_DEV_TOOLS": "disabled",
+    "CLIENT_ORIGINS": "capacitor://localhost,http://localhost,https://localhost,http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173",
+    "ASSET_VERSION": "garden-2026.11.03-shop-v11",
+    "ASSET_PUBLIC_ORIGIN": "",
+    "GOOGLE_CLIENT_IDS": "",
+    "APPLE_CLIENT_IDS": "",
+    "GOOGLE_PACKAGE_NAME": "com.cloudgarden.match",
+    "GOOGLE_IAP_ENVIRONMENT": "Sandbox",
+    "APPLE_BUNDLE_ID": "com.cloudgarden.match",
+    "ADMOB_HEART_AD_UNIT": "",
+    "ADMOB_COIN_AD_UNIT": "",
+    "ADMOB_AD_UNITS": "",
+    "ADMOB_REWARD_ITEMS": "reward"
+  },
+  "d1_databases": [{"binding":"DB","database_name":"puzzle-mobile-db","database_id":"d4a903ca-b1d5-4cb9-b106-3ca6eded1c73","migrations_dir":"apps/api/migrations"}],
+  "r2_buckets": [{"binding":"ASSETS","bucket_name":"puzzle-mobile-assets"}],
+  "durable_objects": {"bindings":[{"name":"GUILD_ROOMS","class_name":"GuildRoom"}]},
+  "migrations": [{"tag":"v1","new_sqlite_classes":["GuildRoom"]}],
+  "triggers": {"crons":["*/5 * * * *"]}
+}

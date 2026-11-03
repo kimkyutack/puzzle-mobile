@@ -1,0 +1,1 @@
+{"extends":"../../tsconfig.json","include":["src/**/*.ts","worker-configuration.d.ts","../../packages/contracts/src/**/*.ts","../../packages/content/src/**/*.ts","../../packages/game-core/src/**/*.ts"],"exclude":["../../node_modules"]}
