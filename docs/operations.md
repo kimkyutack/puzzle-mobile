@@ -38,7 +38,7 @@ If the host denies Wrangler's default log path, set `WRANGLER_LOG_PATH` to a wri
 7. Publish versioned runtime assets. `tools/api-publish-assets.ts` defaults to a dry run; `--remote` uploads with Wrangler. It includes runtime PNG/atlas/sequence files, original synthesized audio and approved content definitions, with a SHA-256 `pack-manifest.json`. It excludes solver logs, source art and private configuration. Serve images from an R2 custom domain or the Worker `/api/assets/<version>/assets/<file>` route. Audio/content remain in the same immutable version under `audio/` and `content/`; native apps also bundle them. `r2.dev` is not a production CDN choice.
 8. Verify CORS, cache headers, hash/version consistency, start/reconnect behavior and one real pair of guild accounts in staging. Retain the previous immutable asset/content version for rollback.
 
-All API clocks are UTC epoch **milliseconds**. The five-minute scheduled handler retries committed outbox records, verified advertisement inbox entries and store notifications. It does not add hearts. Heart recovery is calculated at request time.
+All API clocks are UTC epoch **milliseconds**. The five-minute scheduled handler retries committed outbox records, verified advertisement inbox entries and store notifications. It does not add hearts. Heart recovery is calculated at request time. A fresh attempt checks heart availability without spending; only final failure or explicit give-up debits one, with pinned unlimited protection and idempotent settlement.
 
 ## Identity configuration
 

@@ -23,9 +23,10 @@ export async function startRun(env:ApiEnv,userId:string,body:Record<string,unkno
     ensure(level.approved,'CONTENT_NOT_READY','검증된 퍼즐을 준비 중이에요. 잠시 후 다시 시도해 주세요.',503);
     let state;try{state=createGame(level,preBoosters);}catch(e){throw new HttpError('BOOSTER_PLACEMENT',e instanceof Error?e.message:'부스터를 배치할 수 없는 퍼즐입니다.');}
     ensure(state.status==='playing','INVALID_INITIAL_BOARD','초기 퍼즐 검증에 실패했습니다.',503);
-    const heartSpent=consumeHeart(tx.player,tx.now);
+    const unlimited=tx.player.unlimitedUntil>tx.now;
+    ensure(unlimited||tx.player.hearts>0,'HEARTS_EMPTY','하트가 부족해요. 다음 회복을 기다리거나 무료 보너스를 확인하세요.',409);
     for(const item of preBoosters)spendItem(tx.player,item);
-    const run:Run={id:uid(),userId,level,state,sequence:0,status:'active',startedAt:tx.now,expiresAt:tx.now+86_400_000,preBoosters,heartSpent,continues:0};
+    const run:Run={id:uid(),userId,level,state,sequence:0,status:'active',startedAt:tx.now,expiresAt:tx.now+86_400_000,preBoosters,heartSpent:false,heartCharge:unlimited?'protected':'failure',continues:0};
     tx.statements.push(sql(tx.db,'INSERT INTO runs VALUES(?,?,?,?,?,?,?)',run.id,userId,JSON.stringify(run),run.status,0,run.expiresAt,operationKey(body)));
     return {player:tx.player,run};
   });
@@ -75,7 +76,7 @@ export async function closeRun(env:ApiEnv,userId:string,runId:string,body:Record
     const run=await readRun(tx.db,runId,userId);
     if(run.status!=='active')return {player:tx.player,run};
     tx.statements.push(assertSQL(tx.db,"SELECT sequence=? AND status='active' FROM runs WHERE id=?",run.sequence,run.id));
-    if(abandon){run.status='abandoned';}
+    if(abandon&&run.state.status!=='won'){run.status='abandoned';}
     else{
       ensure(run.expiresAt>tx.now,'RUN_EXPIRED','24시간 복구 기간이 끝났습니다.');
       ensure(run.state.status==='won'||run.state.status==='lost','RUN_NOT_FINISHED','아직 퍼즐이 끝나지 않았어요.');
@@ -90,6 +91,15 @@ export async function closeRun(env:ApiEnv,userId:string,runId:string,body:Record
           if(tx.player.guildId)tx.notify(tx.player.guildId,{type:'progress',userId,level:run.level.id});
         }
       }
+    }
+    if(run.status==='won'&&!run.heartCharge&&run.heartSpent){
+      // An attempt opened by the old app/server already paid at entry. A clear returns it once.
+      tx.player.hearts=Math.min(5,tx.player.hearts+1);
+      if(tx.player.hearts===5)tx.player.heartAt=0;
+      run.heartSpent=false;
+    }
+    if((run.status==='lost'||run.status==='abandoned')&&run.state.status!=='error'&&run.expiresAt>tx.now&&run.heartCharge==='failure'&&!run.heartSpent&&tx.player.hearts>0){
+      run.heartSpent=consumeHeart(tx.player,tx.now);
     }
     tx.statements.push(saveRun(tx.db,run));return {player:tx.player,run};
   });

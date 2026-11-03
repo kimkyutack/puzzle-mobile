@@ -38,6 +38,8 @@ export interface Player {
 export interface Run {
  id:string;userId:string;level:LevelDefinition;state:GameState;sequence:number;status:'active'|'won'|'lost'|'abandoned'|'expired';
  startedAt:number;expiresAt:number;preBoosters:PreBooster[];heartSpent:boolean;continues:number;
+ /** Absent on legacy runs that paid at entry. Unlimited protection lasts for this whole attempt. */
+ heartCharge?:'failure'|'protected';
  reward?:{coins:number;stars:number};
 }
 export interface Envelope<T> {data:T;serverNow:number;stateVersion:number}

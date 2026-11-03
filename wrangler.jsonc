@@ -13,7 +13,7 @@
     "ENVIRONMENT": "production",
     "LOCAL_DEV_TOOLS": "disabled",
     "CLIENT_ORIGINS": "capacitor://localhost,http://localhost,https://localhost,http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173",
-    "ASSET_VERSION": "garden-2026.11.03-shop-v11",
+    "ASSET_VERSION": "garden-2026.11.03-treasure-v12",
     "ASSET_PUBLIC_ORIGIN": "",
     "GOOGLE_CLIENT_IDS": "340736621536-c4d4s18jd1l2t8lp5ug0htvjt2b28959.apps.googleusercontent.com,340736621536-gldihfkfalvc6n4b83i3ll0shi615v2s.apps.googleusercontent.com",
     "APPLE_CLIENT_IDS": "",

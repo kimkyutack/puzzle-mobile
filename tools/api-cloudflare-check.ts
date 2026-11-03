@@ -26,14 +26,16 @@ try{
  assert.equal((await call('/me',undefined,undefined,false)).status,401);
  user=await ok<AuthResponse>('/auth/guest',{},undefined,false);check('remote D1 guest and authenticated profile');
  assert.equal((await ok<{player:Player}>('/me')).player.id,user.player.id);
- const first=await ok<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});
+ const first=await ok<{player:Player;run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});
+ assert.equal(first.player.hearts,user.player.hearts);assert.equal(first.run.heartSpent,false);
  const actions=solutions[String(first.run.level.id) as keyof typeof solutions].actions;
  const actionBody={key:crypto.randomUUID(),sequence:0,actions};
  const played=await ok<{run:Run}>(`/runs/${first.run.id}/actions`,actionBody);assert.equal(played.run.state.status,'won');
  const replay=await ok<{run:Run}>(`/runs/${first.run.id}/actions`,actionBody);assert.equal(replay.run.sequence,played.run.sequence);
  const finishBody={key:crypto.randomUUID()};
  const finished=await ok<{player:Player}>(`/runs/${first.run.id}/finish`,finishBody);
- const repeated=await ok<{player:Player}>(`/runs/${first.run.id}/finish`,finishBody);assert.equal(repeated.player.coins,finished.player.coins);check('server puzzle replay, level reward and duplicate protection');
+ const repeated=await ok<{player:Player}>(`/runs/${first.run.id}/finish`,finishBody);assert.equal(finished.player.hearts,user.player.hearts);assert.equal(repeated.player.coins,finished.player.coins);check('server puzzle replay, level reward and duplicate protection');
+ const {run:givenUp}=await ok<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});const giveUpBody={key:crypto.randomUUID()};const quit=await ok<{player:Player}>(`/runs/${givenUp.id}/abandon`,giveUpBody);assert.equal(quit.player.hearts,finished.player.hearts-1);assert.equal((await ok<{player:Player}>(`/runs/${givenUp.id}/abandon`,giveUpBody)).player.hearts,quit.player.hearts);check('start and clear preserve hearts; final give-up and retry spend exactly one');
  assert.equal((await ok<{freeHeartRefill:boolean}>('/local/features')).freeHeartRefill,false);
  assert.equal((await call('/local/hearts/refill',{key:crypto.randomUUID()})).status,404);check('local-only free hearts disabled remotely');
  user=await ok<AuthResponse>('/auth/refresh',{refreshToken:user.refreshToken},undefined,false);
