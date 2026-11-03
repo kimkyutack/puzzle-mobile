@@ -39,4 +39,10 @@ Vite 개발 서버(`npm run dev`)는 기존 `/api` 로컬 프록시를 유지합
 
 OAuth·광고·인앱결제는 실제 공급자 설정과 Worker secrets를 등록한 뒤 검증해야 합니다. Git 빌드 환경변수와 Worker 런타임 secrets는 구분하며 비밀값을 `VITE_` 변수나 Git 파일에 넣지 마세요.
 
+## 확인한 동작 (2026-11-03)
+
+원격 Worker에서 별도 게스트로 로그인/갱신, 실제 퍼즐 행동 재생과 보상 중복 방지, 화면별 API, 운영 하트 충전 차단, iOS/Android/browser CORS를 확인했습니다. 정상 플레이로 길드를 해제하고 WSS ping/pong, D1 outbox 알림, 일회용 접속표 재사용 차단까지 통과했습니다. 검증 계정은 종료 후 익명화했습니다.
+
+전체 240개 테스트와 타입 검사가 통과했고 Git에 포함된 API 파일만 추출한 별도 디렉터리에서도 Worker 번들을 생성했습니다. 운영 웹 번들의 브라우저 요청이 실제 HTTPS Worker에 도달하는 것을 확인했고 iOS/Android Release 웹 번들에 같은 API 주소를 기록했습니다. 기존 설치 앱에 반영하려면 해당 네이티브 앱을 다시 빌드해야 합니다.
+
 Cloudflare 공식 문서: [Workers Builds 설정](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/), [D1 마이그레이션](https://developers.cloudflare.com/d1/reference/migrations/).
