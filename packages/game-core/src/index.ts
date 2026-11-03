@@ -1,4 +1,6 @@
 import { COLORS, ENGINE_VERSION, supportsEngine, type Action, type ActionResult, type Color, type GameEvent, type GameState, type Goal, type LevelDefinition, type PreBooster, type Special, type Tile } from '@garden/contracts';
+import {perimeterCells} from './perimeter';
+export {perimeterCells} from './perimeter';
 
 export const MAX_CASCADES = 128;
 const MAX_EFFECTS = 2048;
@@ -220,9 +222,15 @@ export function applyAction(input:GameState,action:Action):ActionResult {
    if(!movable(s,action.at)||!isSpecial(s.cells[action.at]!.tile))return invalid('INVALID_TAP');usesMove=true;enqueue(ctx,[action.at],'tap');
   }else if(action.type==='booster'){
    if(action.item==='shuffle'){if(!reshuffle(s,events))return invalid('SHUFFLE_UNAVAILABLE');return {state:s,events,accepted:true};}
+   if(action.item==='sweep-border'){
+    const targets=perimeterCells(s);
+    if(!targets.some(i=>s.cells[i]!.tile||s.cells[i]!.obstacleId||s.cells[i]!.frost))return invalid('NO_EFFECTIVE_TARGET');
+    enqueue(ctx,targets,action.item,undefined,false,true);
+   }else{
    if(!['hammer','sweep-row','sweep-column'].includes(action.item)||action.at===undefined||!valid(s,action.at))return invalid('INVALID_BOOSTER_TARGET');
    const at=action.at;if(!s.cells[at]!.tile&&!obstacleAt(s,at)&&!s.cells[at]!.frost)return invalid('EMPTY_BOOSTER_TARGET');if(s.cells[at]!.tile?.kind==='seed'&&action.item==='hammer')return invalid('SEED_NOT_REMOVABLE');const obstacle=obstacleAt(s,at);if(action.item==='hammer'&&obstacle&&(obstacle.kind==='pot'||(obstacle.kind==='cabinet'&&obstacle.color)))return invalid('COLOR_CHARGE_REQUIRED');
    const targets=action.item==='hammer'?[at]:line(s,at,action.item==='sweep-row');const effective=targets.some(i=>{const o=obstacleAt(s,i),t=s.cells[i]!.tile;return o?o.kind!=='pot'&&!(o.kind==='cabinet'&&o.color):!!t&&t.kind!=='seed';});if(!effective)return invalid('NO_EFFECTIVE_TARGET');enqueue(ctx,targets,action.item);
+   }
   }else return invalid('UNKNOWN_ACTION');
   if(usesMove){s.moves--;s.turn++;}
   cascades(ctx,initial);

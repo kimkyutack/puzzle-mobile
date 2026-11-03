@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {ENGINE_VERSION,type AuthResponse,type Envelope,type Player,type Run} from '@garden/contracts';
 import deployment from '../config/deployment.json';
+import {applyAction,stateHash} from '@garden/core';
 import solutions from '../packages/content/src/solutions.json';
 
 // Dedicated disposable guest only. Never read local tokens or a local D1 database.
@@ -47,6 +48,14 @@ try{
   await ok(`/runs/${run.id}/actions`,{key:crypto.randomUUID(),sequence:0,actions:solutions[String(run.level.id) as keyof typeof solutions].actions});
   await ok(`/runs/${run.id}/finish`,{key:crypto.randomUUID()});
  }
+ const {run:perimeterRun}=await ok<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});
+ const initialItems=(await ok<{player:Player}>('/me')).player.inventory['sweep-border'];
+ const perimeterBody={key:crypto.randomUUID(),sequence:perimeterRun.sequence,actions:[{type:'booster' as const,item:'sweep-border' as const}]};
+ const perimeter=await ok<{run:Run;player:Player}>(`/runs/${perimeterRun.id}/actions`,perimeterBody);
+ assert.equal(stateHash(perimeter.run.state),stateHash(applyAction(perimeterRun.state,perimeterBody.actions[0]!).state));
+ assert.equal(perimeter.player.inventory['sweep-border'].normal+perimeter.player.inventory['sweep-border'].bound,initialItems.normal+initialItems.bound-1);
+ assert.deepEqual(await ok(`/runs/${perimeterRun.id}/actions`,perimeterBody),perimeter);
+ check('locally predicted perimeter item replays identically and is charged once');
  await ok('/guilds',{key:crypto.randomUUID(),name:'API확인'+Date.now(),mode:'open',minLevel:5,emblem:0});
  const {ticket}=await ok<{ticket:string}>('/guild/socket-ticket',{});
  const socketUrl=new URL(base+'/guild/socket');socketUrl.protocol='wss:';socketUrl.searchParams.set('ticket',ticket);

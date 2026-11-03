@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { HttpError } from './db';
 export const keySchema=z.string().min(8).max(100);
-export const itemSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','wind-row','bomb','rainbow']);
-export const boosterSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle']);
+export const itemSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','sweep-border','wind-row','bomb','rainbow']);
+export const boosterSchema=z.enum(['hammer','sweep-row','sweep-column','shuffle','sweep-border']);
 export const preSchema=z.enum(['wind-row','bomb','rainbow']);
 const at=z.number().int().min(0).max(99);
-export const actionSchema=z.discriminatedUnion('type',[z.object({type:z.literal('swap'),from:at,to:at}).strict(),z.object({type:z.literal('tap'),at}).strict()]);
+export const actionSchema=z.discriminatedUnion('type',[z.object({type:z.literal('swap'),from:at,to:at}).strict(),z.object({type:z.literal('tap'),at}).strict(),z.object({type:z.literal('booster'),item:boosterSchema,at:at.optional()}).strict()]);
 export const actionsSchema=z.object({sequence:z.number().int().min(0).max(2000),actions:z.array(actionSchema).min(1).max(200),idempotencyKey:keySchema.optional(),key:keySchema.optional()});
 export async function boundedText(request:Request,maximum=100_000):Promise<string>{
   if(Number(request.headers.get('content-length')??0)>maximum)throw new HttpError('PAYLOAD_TOO_LARGE','요청이 너무 큽니다.',413);

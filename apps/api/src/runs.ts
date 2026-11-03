@@ -41,6 +41,9 @@ export async function runActions(env:ApiEnv,userId:string,runId:string,body:Reco
       const result=applyAction(run.state,action);
       ensure(result.accepted,'INVALID_ACTION',result.reason??'불가능한 이동입니다.');
       ensure(result.state.status!=='error','ENGINE_ERROR','퍼즐 처리 오류가 발생했어요. 보상은 검증 후 지급됩니다.',409);
+      // Predicted consumables are replayed and charged in the same atomic batch.
+      // Never trust the client's inventory, result, or a claimed item deduction.
+      if(action.type==='booster')spendItem(tx.player,action.item);
       run.state=result.state;events.push(...result.events);run.sequence++;
       tx.statements.push(sql(tx.db,'INSERT INTO run_actions VALUES(?,?,?,?)',runId,run.sequence,JSON.stringify(action),tx.now));
     }

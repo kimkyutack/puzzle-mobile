@@ -9,7 +9,7 @@
     "ENVIRONMENT": "development",
     "LOCAL_DEV_TOOLS": "disabled",
     "CLIENT_ORIGINS": "http://localhost:5173,http://127.0.0.1:5173,capacitor://localhost,http://localhost,https://localhost",
-    "ASSET_VERSION": "garden-2026.11.03-treasure-v12",
+    "ASSET_VERSION": "garden-2026.11.03-local-v13",
     "ASSET_PUBLIC_ORIGIN": "",
     "GOOGLE_CLIENT_IDS": "",
     "APPLE_CLIENT_IDS": "",
