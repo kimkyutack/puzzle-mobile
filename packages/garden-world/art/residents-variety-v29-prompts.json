@@ -1,0 +1,20 @@
+[
+  {
+    "id": "visitor_c",
+    "gender": "female",
+    "prompt": "Use case: stylized-concept. Asset type: production transparent character SPRITE SHEET for an isometric mobile garden game. Input image is ONLY a rendering style and body-proportion reference. Create an ORIGINAL SECOND FEMALE visitor, clearly different from the brown bob/coral jacket reference: young adult woman, honey-blonde high ponytail, sky-blue cardigan over a white blouse, dark navy knee-length skirt, white low sneakers, friendly face. Keep normal adult proportions softened into the same polished 3D casual game art. EXACT grid of FOUR equal columns and THREE equal rows, 12 full-body isolated sprites on transparent 2048x1536 canvas. No drawn grid. One identical character per cell, same scale, consistent foot baseline. All feet, hair and arms fully inside cells with generous margins. Elevated isometric camera about 30 degrees. ROW ONE: FRONT three-quarter facing diagonally DOWN-RIGHT, FOUR consecutive slow WALK phases: left foot forward/right back; left planted/right knee passing forward; right foot forward/left back; right planted/left knee passing forward. Near/far legs must visibly exchange their positions, arms counter-swing, never repeat four static stances. ROW TWO: REAR three-quarter facing diagonally UP-RIGHT walking away, same four genuinely different gait phases, back of head and cardigan visible. ROW THREE: front three-quarter down-right view, four leisure poses left to right: relaxed standing; looking around with hand shading brow; admiring flowers with hand near chest; gentle arms-up stretch. Do not add flowers or handheld objects. Same identity and outfit in every cell. Crisp leg silhouettes readable at small size, gentle warm shading, clean alpha cutout. No scenery, floor, pedestal, floor-disc, cast shadow, text, letters, numbers, labels, borders, watermark, checkerboard, glow or extra limbs. Background must be genuinely alpha-transparent.",
+    "reference": "packages/garden-world/art/runtime/residents-v22/visitor_a-0.png",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa28-23f5-7df2-89f5-07da334d8ebf/exec-6f72bf2a-d5ea-481f-8949-8bb33b52b3c7.png",
+    "sourcePath": "packages/garden-world/art/source/residents-variety-v29/visitor_c.png",
+    "method": "built-in image_gen; 4x3 authored walk and leisure sheet"
+  },
+  {
+    "id": "visitor_d",
+    "gender": "male",
+    "prompt": "Create a transparent PNG animation sprite sheet for an isometric family-friendly garden mobile game. One original ADULT male visitor repeated in exactly 4 columns and 3 rows (12 isolated sprites), with wide empty gutters. Friendly ordinary adult proportions, warm brown complexion, short curly black hair, sky-blue T-shirt under an open cream short-sleeved shirt, rust-orange long trousers, navy sneakers. Same face and clothes in every sprite. Charming polished stylized 3D casual game rendering, soft warm shading, clean small-scale silhouette. Camera slightly above, three-quarter isometric. Top row: four consecutive slow walking phases facing diagonally down-right, alternating which leg steps forward; natural arm swing. Middle row: four consecutive walking phases seen from the back facing diagonally up-right. Bottom row: relaxed standing, looking into the distance, admiring the garden with a hand at the chest, gentle shoulder stretch. All clothing stays in place. Consistent scale and feet baseline in every cell, whole figure visible, generous clear margins. No props, scenery, floor, shadows, pedestal, text, numbers, labels, grid lines, extra limbs or watermark. Background fully transparent. 2048x1536 sheet.",
+    "reference": null,
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa28-23f5-7df2-89f5-07da334d8ebf/exec-2a90e33f-bdcc-4084-9328-d5f39319bc25.png",
+    "sourcePath": "packages/garden-world/art/source/residents-variety-v29/visitor_d.png",
+    "method": "built-in image_gen; 4x3 authored walk and leisure sheet"
+  }
+]

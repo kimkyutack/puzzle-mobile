@@ -1,0 +1,560 @@
+{
+  "tool": "image_gen",
+  "generatedOn": "2026-11-02",
+  "styleLock": "Original Cloud Garden Match prerendered 2.5D cartoon, teal/coral/cream, upper-left soft light, no existing game art, no text.",
+  "assets": [
+    {
+      "id": "crate_3",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE front-facing square rounded wooden garden crate with exactly THREE broad horizontal cross bands. Isolated transparent square canvas,78% occupancy, flat front-view, minimal details.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "door_before",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A small freestanding arched greenhouse entry door, teal rounded wooden frame, cream glass panes, coral round handle, tiny leafy arch. BEFORE restoration: gently neglected, faded paint, a few broad visible cracks, drooping plants if any, fountain dry or lamp unlit. Preserve complete basic silhouette; not destroyed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "trail",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE horizontal wind stream beam body sprite, translucent smooth cream and pale teal rounded streak, broad clear center tapering softly at both ends. Aspect4:1, transparent background. Entire glow inside canvas. No text or sparkles.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fragment_green",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE small chunky rounded leaf green enamel petal-shaped shard particle. No whole flower, no cluster. Broad simple pebble-like curved triangle silhouette, centered on transparent square canvas,70% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "crate_2",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE front-facing square rounded wooden garden crate with exactly TWO broad horizontal cross bands. Isolated transparent square canvas,78% occupancy, flat front-view, minimal details.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bomb",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE round coral seed pod wrapped in three thick cream petal bands, small glowing sprout tip. Original garden flower bomb toy powerup, no realistic military features. Object occupies78% square canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fragment_red",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE small chunky rounded coral red enamel petal-shaped shard particle. No whole flower, no cluster. Broad simple pebble-like curved triangle silhouette, centered on transparent square canvas,70% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "wind-row",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE compact teal wind capsule special puzzle tile, exactly two broad cream fins pointing LEFT and RIGHT, coral round central hub. No stand, compact rounded silhouette occupies78% square canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "crate_1",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE front-facing square rounded wooden garden crate with exactly ONE broad horizontal cross band. Isolated transparent square canvas,78% occupancy, flat front-view, minimal details.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fragment_purple",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE small chunky rounded purple enamel petal-shaped shard particle. No whole flower, no cluster. Broad simple pebble-like curved triangle silhouette, centered on transparent square canvas,70% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "tile_drop",
+      "prompt": "One glossy blue water droplet puzzle tile, rounded tip and broad base, upper-left light, toy enamel, centered 78 percent occupancy on real transparent square canvas. No text, accessories, scene or pedestal.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "rainbow_charge",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE round pearlescent garden lantern with smooth cream handle and five large colored translucent panels. CHARGING KEYFRAME: panels lit softly from inside, small cream glow just around object, no beams, no white full screen flash. Transparent square canvas, center pivot,80% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "lumi_sad",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE isolated fullbody Lumi character, EXACT identity/outfit as reference, short limbs round head ringed tail, same standing scale and centered pivot, gentle disappointed yet reassuring expression, relaxed arms. Square transparent canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fountain_before",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A two-tier small round ivory garden fountain with teal rim, central broad lotus spout, three rounded feet. BEFORE restoration: gently neglected, faded paint, a few broad visible cracks, drooping plants if any, fountain dry or lamp unlit. Preserve complete basic silhouette; not destroyed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "glider",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE tiny cream and teal seed glider, two broad rounded wings, a green seed core and coral nose, original garden toy airplane powerup. Object occupies78% square canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "mail",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Cream envelope with coral round wax seal.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "settings",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Compact chunky rounded teal gear with cream center.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "app_icon",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. Square full-bleed app icon: close-up Lumi red panda gardener face with amber eyes cream cheeks teal overalls coral scarf, holding ONE bright blue water drop tile in foreground. Simple deep teal and warm cream garden-light background. Bold readable original silhouette, no border.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": false,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "lumi_happy",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE isolated fullbody Lumi character, EXACT identity/outfit as reference, short limbs round head ringed tail, same standing scale and centered pivot, delighted celebration with arms raised. Square transparent canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "door_after",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A small freestanding arched greenhouse entry door, teal rounded wooden frame, cream glass panes, coral round handle, tiny leafy arch. AFTER restoration: repaired clean polished paint, welcoming, vibrant plants if any, fountain softly flowing or lamp gently lit. Same compact base silhouette.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "lumi_focus",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE isolated fullbody Lumi character, EXACT identity/outfit as reference, short limbs round head ringed tail, same standing scale and centered pivot, focused encouraging smile with one fist gently raised. Square transparent canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bubble",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Wide3:1 empty cream speech bubble, thin teal rim, one small tail lower middle, blank quiet interior, no character.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "tile_sun",
+      "prompt": "One warm yellow sun medallion puzzle tile, six broad rounded rays and slightly raised disc, no face, upper-left highlight, toy enamel, centered 78 percent occupancy on transparent square canvas.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "cabinet",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE two-cell-wide closed garden storage cabinet of painted teal wood, cream doors, coral knobs, rounded silhouette. Front-facing horizontal2:1 footprint, transparent canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "sparkle",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE soft cream-gold four-point starburst sparkle particle with rounded tips and small luminous core. Raster glow entirely within transparent square canvas. No extra stars.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "planter_after",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A broad low round terracotta planter with cream top rim, two teal handles, three thick green sprouts. AFTER restoration: repaired clean polished paint, welcoming, vibrant plants if any, fountain softly flowing or lamp gently lit. Same compact base silhouette.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bench_before",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A short rounded garden bench, four thick teal wooden legs, cream slatted seat and back, two simple coral armrests. BEFORE restoration: gently neglected, faded paint, a few broad visible cracks, drooping plants if any, fountain dry or lamp unlit. Preserve complete basic silhouette; not destroyed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "tile_berry",
+      "prompt": "One plump red garden berry puzzle tile, three broad rounded lobes with no green leaf, glossy enamel, centered with 78 percent optical occupancy, upper-left highlight, dark lower edge. Transparent square canvas, no text or pedestal.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "burst",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE compact flower pollen burst impact keyframe, coral cream round seed dust puff with five chunky leaf/petal fragments flying radially outward. All content within square transparent canvas with generous20% padding. No full-screen flash or smoke.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bg_play",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. Vertical portrait 6:13 quiet garden courtyard background. The center65% is smooth low contrast pale mint mist, with diffuse distant greenhouse only at far upper edges, soft leaves along outer bottom corners. No tiled floor, no bright central accents, no objects in center. No UI, character or board. Full-bleed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": false,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "home",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Cozy small greenhouse doorway with rounded teal roof and cream door.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "shop",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Tiny charming garden market stall with teal roof and coral awning, small flower goods.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fragment_orange",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE small chunky rounded orange enamel petal-shaped shard particle. No whole flower, no cluster. Broad simple pebble-like curved triangle silhouette, centered on transparent square canvas,70% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fountain_after",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A two-tier small round ivory garden fountain with teal rim, central broad lotus spout, three rounded feet. AFTER restoration: repaired clean polished paint, welcoming, vibrant plants if any, fountain softly flowing or lamp gently lit. Same compact base silhouette.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "chest",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Small open teal painted-wood garden reward chest, cream corner bands, glowing yellow star inside.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "button_teal",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Blank wide horizontal3:1 rounded deep teal button, cream thin rim, simple empty middle for runtime text, nine-slice scalable, no decorations.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "halo",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Square rounded-corner selection rim only, creamy yellow with soft baked-in glow, hollow fully transparent center, fits around puzzle tile.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "style-reference",
+      "prompt": "Create a coherent 16:9 art-direction reference sheet for Cloud Garden Match, original premium 2.5D cartoon mobile puzzle. Show Lumi the red panda gardener, six distinct red berry/blue drop/yellow sun/green sprout/purple flower/orange acorn tiles, blank rounded lime button and cream teal popup frame, and floating garden vignette. Separate regions, upper-left soft light, teal coral cream palette, no readable text or existing game branding.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": false,
+      "reference": null
+    },
+    {
+      "id": "fragment_blue",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE small chunky rounded vivid blue enamel petal-shaped shard particle. No whole flower, no cluster. Broad simple pebble-like curved triangle silhouette, centered on transparent square canvas,70% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "tile_acorn",
+      "prompt": "One warm orange acorn puzzle tile, rounded pointed nut and brown cap, broad readable silhouette, upper-left toy enamel light. Centered on genuinely transparent square canvas, no text or extra objects.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "frost",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE thin frosty translucent square cell floor with broad rounded blue crystalline edges, transparent center, no opaque block. Front-view square footprint, transparent canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "telescope_after",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A small cream and teal toy-like garden telescope with coral eyepiece on short three-legged painted wood tripod. AFTER restoration: repaired clean polished paint, welcoming, vibrant plants if any, fountain softly flowing or lamp gently lit. Same compact base silhouette.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "hand",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Friendly cream cartoon tutorial pointer hand, index finger extended diagonally up-left, rounded anatomy, no sleeve.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "cell",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE perfectly front-view square cell floor, warm ivory slightly recessed surface with narrow deep teal rim and very softly rounded corners. No perspective, no tile on it, footprint fills 90% canvas, quiet satin material. Transparent exterior.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "heart",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Plump coral red heart, broad clean highlight.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bg_terrace",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. Portrait6:13 full-bleed fountain terrace floating garden environment. Pale curved cream stone paths, teal railings, small fountain EMPTY platform in center, soft rounded trees and fluffy clouds beyond, rich flowers at edges. Center has vacant restoration slots, upper15% and lower20% calm for UI. No character, puzzle board, UI or movable foreground furniture. Same world/camera as reference.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": false,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "lamp_after",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A small garden lamp post, short thick teal curved stem, cream domed shade, coral round base. AFTER restoration: repaired clean polished paint, welcoming, vibrant plants if any, fountain softly flowing or lamp gently lit. Same compact base silhouette.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "pot",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE rounded terracotta flowerpot with obvious blue color well, cream trim, simple thick sides. Front-facing, transparent square canvas,78% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "wind_open",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE compact teal wind capsule powerup with two cream fins left-right and coral center, same object as reference tile family. FIRING KEYFRAME: capsule slightly open, short broad cream gust emerging left and right. Transparent square canvas, fixed center pivot, content within80%.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "tile_sprout",
+      "prompt": "One vivid green seedling puzzle tile with two thick rounded leaves and short curved stem, glossy toy enamel, readable compact silhouette, upper-left light. Centered on transparent square canvas, no pot or text.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "seed",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE small cream seed pouch with coral drawstring and one simple sprout emblem. Broad readable rounded form, transparent square canvas,78% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "tile_flower",
+      "prompt": "One purple flower puzzle tile with five broad rounded petals and small yellow center, glossy toy enamel, upper-left highlight, centered balanced optical padding. Transparent square canvas, no stem, text or background.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "lamp_before",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A small garden lamp post, short thick teal curved stem, cream domed shade, coral round base. BEFORE restoration: gently neglected, faded paint, a few broad visible cracks, drooping plants if any, fountain dry or lamp unlit. Preserve complete basic silhouette; not destroyed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bomb_open",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE coral flower seed pod wrapped in cream petal bands. OPENING KEYFRAME: shell splitting into three broad curved coral shell pieces, bright cream pollen core revealed, five chunky cream/coral fragments. Transparent square canvas, fixed center pivot, content within80%, no scene-wide flash.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "shuffle",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Two thick curved teal and coral arrows swapping around a small cream seed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "button_green",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE wide blank lime green enamel play button, aspect3:1. Narrow cream rim, inflated rounded endcaps, quiet uniform central region, nine-slice-friendly simple edges, raster soft bottom depth. Transparent exterior. No leaves or decorations.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "panel",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE empty portrait 3:4 popup panel. Thin deep teal rounded rim, broad warm cream empty interior, controlled soft depth, compact corners suited to nine-slice, clean straight repeatable middle edges. Transparent exterior. No decorations or flowers. Completely empty.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "fragment_yellow",
+      "prompt": "Cloud Garden Match original prerendered2.5D game artwork. Match the attached style and Lumi character identity precisely, soft upper-left light, toy-like round enamel/painted wood, teal coral cream. No text, numbers, logos, UI or existing game art. ONE small chunky rounded warm yellow enamel petal-shaped shard particle. No whole flower, no cluster. Broad simple pebble-like curved triangle silhouette, centered on transparent square canvas,70% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "lumi",
+      "prompt": "One original friendly red-panda gardener Lumi, round head, short limbs, amber eyes, cream cheek patches, rust orange fur and ringed tail, teal overalls with a sprout pocket and coral scarf. Neutral cheerful smile with gardening trowel. Premium 2.5D toy-like cartoon, upper-left lighting, same approved style reference. Isolated on transparent square canvas, centered, no frame or text.",
+      "provenance": "reproduction prompt reconstructed from the supplied art brief; not the original call transcript",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "planter_before",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A broad low round terracotta planter with cream top rim, two teal handles, three thick green sprouts. BEFORE restoration: gently neglected, faded paint, a few broad visible cracks, drooping plants if any, fountain dry or lamp unlit. Preserve complete basic silhouette; not destroyed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "sweep-row",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Garden rake with cream wide horizontal head and teal handle, clear LEFT-RIGHT broad cream arrow fins.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "guild",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Three distinct round garden friendship badges grouped together, teal coral green, sprout motif.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "hammer",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Friendly wooden garden mallet with thick coral grip.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "star",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Rounded cream-gold five-point restoration star with tiny teal center accent.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bench_after",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A short rounded garden bench, four thick teal wooden legs, cream slatted seat and back, two simple coral armrests. AFTER restoration: repaired clean polished paint, welcoming, vibrant plants if any, fountain softly flowing or lamp gently lit. Same compact base silhouette.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bg_greenhouse",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. Portrait6:13 full-bleed greenhouse workshop interior environment. Warm morning light through teal arched glass walls, wooden curved floor and quiet empty center with six vacant restoration slots. Broad rich plants around far edges, sky and clouds through glass, top15% and lower20% quiet UI safe areas. No character, puzzle tiles, UI or foreground movable furniture. Same world/camera as reference.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": false,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "bg_home",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. Vertical portrait 6:13 background floating sky garden, curved pale stone path, charming teal greenhouse in middle, fluffy clouds, rounded lush trees and flower borders. Rich calm morning atmosphere. Top15% and bottom20% quieter for future UI, center landscaped lawn with six clear empty restoration slots. No character, UI, foreground props. Scene only, full-bleed. Not an isolated miniature.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": false,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "telescope_before",
+      "prompt": "ONE isolated original Cloud Garden Match restoration prop. Match attached floating garden reference camera, soft upper-left light, polished prerendered 2.5D toy-like painted wood and enamel, teal coral cream palette, rounded shapes, not photorealistic. Orthographic slightly elevated three-quarter view. Square transparent canvas, entire object within78% canvas, ground-contact pivot centered x50% y88%. No text, labels, character, extra object or backdrop. A small cream and teal toy-like garden telescope with coral eyepiece on short three-legged painted wood tripod. BEFORE restoration: gently neglected, faded paint, a few broad visible cracks, drooping plants if any, fountain dry or lamp unlit. Preserve complete basic silhouette; not destroyed.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "vine",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE thick green vine loop overlay framing a square cell, transparent empty middle so underlying tile remains visible. Broad readable rounded leaves at lower right and upper left. Transparent square canvas,78% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "coin",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Round warm yellow coin with simple raised sprout relief.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "moss",
+      "prompt": "Original Cloud Garden Match game asset, match attached visual style reference: polished prerendered 2.5D casual toy-like garden world, smooth enamel and painted wood, broad rounded shapes, soft upper-left light, teal/coral/cream palette. No text, numbers, logos, labels, interface, extra objects. ONE compact soft green moss patch with readable rounded scalloped edges, front view square footprint, no soil or background. Transparent square canvas,78% occupancy.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "close",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Thick smooth coral X cross with symmetrical arms.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "rainbow",
+      "prompt": "Original Cloud Garden Match production game asset. Reference attached is visual style reference only. Polished pre-rendered 2.5D casual mobile game, rounded enamel/painted wood forms, teal/coral/warm cream, upper-left light, clean silhouettes. Absolutely no text, letters, numbers, logo, UI screenshot, unrelated object. ONE compact pearlescent garden lantern with five large translucent rainbow colored panels, smooth cream handle, no disco ball checks. Object occupies78% square canvas.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "sweep-column",
+      "prompt": "Create ONE isolated production UI icon for Cloud Garden Match matching the attached art direction reference: polished prerendered 2.5D toy-like enamel/painted wood, chunky rounded silhouettes, soft upper-left light, harmonious deep teal/coral/cream palette, readable at40px. Square canvas, transparent background, object fills78%, safe padding. NO text, letters, labels, numbers, logo, backdrop or frame. Garden rake with cream head and teal handle oriented vertically, clear UP-DOWN broad cream arrow fins.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "button_green_pressed",
+      "prompt": "Edit this exact blank game button into its PRESSED state. Preserve its exact outer silhouette, cream rim, two side knobs, canvas aspect ratio, center blank text area and camera. Make the center enamel face slightly recessed, darker at upper edge, reduce the upper shine. The button still has its original green color. No text, no symbols, no new decorations or objects. Genuine transparent background; retain the same canvas and padding. Premium smooth 2.5D original game artwork.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/button_green.png"
+    },
+    {
+      "id": "button_green_disabled",
+      "prompt": "Edit this exact blank game button into its DISABLED state. Preserve its exact outer silhouette, cream rim, two side knobs, canvas aspect ratio, center blank text area and camera. Use muted slate teal/grey enamel and less shine to show unavailable state, preserve the cream rim and all shape positions. No text, no symbols, no new decorations or objects. Genuine transparent background; retain the same canvas and padding. Premium smooth 2.5D original game artwork.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/button_green.png"
+    },
+    {
+      "id": "button_teal_pressed",
+      "prompt": "Edit this exact blank game button into its PRESSED state. Preserve its exact outer silhouette, cream rim, two side knobs, canvas aspect ratio, center blank text area and camera. Make the center enamel face slightly recessed, darker at upper edge, reduce the upper shine. The button still has its original teal color. No text, no symbols, no new decorations or objects. Genuine transparent background; retain the same canvas and padding. Premium smooth 2.5D original game artwork.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/button_teal.png"
+    },
+    {
+      "id": "button_teal_disabled",
+      "prompt": "Edit this exact blank game button into its DISABLED state. Preserve its exact outer silhouette, cream rim, two side knobs, canvas aspect ratio, center blank text area and camera. Use muted slate teal/grey enamel and less shine to show unavailable state, preserve the cream rim and all shape positions. No text, no symbols, no new decorations or objects. Genuine transparent background; retain the same canvas and padding. Premium smooth 2.5D original game artwork.",
+      "provenance": "exact generation prompt",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/button_teal.png"
+    },
+    {
+      "id": "glider_flight",
+      "prompt": "Edit the attached approved seed-glider game sprite into its flying keyframe. Preserve this exact object: ONE green seed pod body, small round coral nose at LEFT, two cream petal wings edged with teal enamel, pale wood bands. NO character, NO face, NO eyes, NO animal, NO pilot. Keep the same upper-left light, gloss, camera and object identity. Extend the two petal wings a little for flight, wings angled slightly upward, nose facing LEFT as in the reference. Fixed centered square canvas and same pivot. Original premium 2.5D cartoon game artwork, soft toy shapes. Genuinely transparent background. No text, logos, frame, motion streaks, scene or extra objects.",
+      "provenance": "exact final revision prompt; rejected character-containing version replaced",
+      "transparentBackground": true,
+      "reference": "packages/assets/source/glider.png"
+    }
+  ]
+}

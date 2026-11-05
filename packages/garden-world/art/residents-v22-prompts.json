@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rabbit",
+    "prompt": "Use case: stylized-concept. Asset type: transparent six-frame game character sprite sheet. Primary request: the exact cream rabbit with daisy by the ear in the reference. The input is an identity and rendering-style reference; preserve the animal's markings and accessory exactly. One character only, repeated in EXACTLY 6 isolated frames arranged in a precise equal 3-column by 2-row grid, each frame 512 by 512 on a 1536 by 1024 transparent canvas. Fixed slightly elevated three-quarter isometric garden camera, facing screen-right, full body, identical scale, consistent feet groundline in each frame, generous transparent margins, no scenery or separate floor. Top row: standing relaxed awake; walking right left foot forward; walking right right foot forward. Bottom row: sitting and yawning with mouth visibly open; curled up asleep with closed eyes and head tucked down; waking up and gently stretching. Each character stays entirely inside its own equal cell. Soft warm modeled forms, detailed but readable at small size, soft contact shadow only, match the existing illustrated 3D garden animals. No words, no letters, no frame borders, no checkerboard, no extra characters or objects.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-e4f3af44-d998-41a2-a952-f93ad4186d13.png",
+    "sourcePath": "packages/garden-world/art/source/residents-v22/rabbit.png",
+    "method": "built-in image_gen; six frames in a 3x2 sheet; transparent background",
+    "reference": "packages/garden-world/art/runtime/rabbit.png"
+  },
+  {
+    "id": "cat",
+    "prompt": "Use case: stylized-concept. Asset type: transparent six-frame game character sprite sheet. Primary request: the exact orange tabby kitten with white chest in the reference. The input is an identity and rendering-style reference; preserve the animal's markings and accessory exactly. One character only, repeated in EXACTLY 6 isolated frames arranged in a precise equal 3-column by 2-row grid, each frame 512 by 512 on a 1536 by 1024 transparent canvas. Fixed slightly elevated three-quarter isometric garden camera, facing screen-right, full body, identical scale, consistent feet groundline in each frame, generous transparent margins, no scenery or separate floor. Top row: standing relaxed awake; walking right left foot forward; walking right right foot forward. Bottom row: sitting and yawning with mouth visibly open; curled up asleep with closed eyes and head tucked down; waking up and gently stretching. Each character stays entirely inside its own equal cell. Soft warm modeled forms, detailed but readable at small size, soft contact shadow only, match the existing illustrated 3D garden animals. No words, no letters, no frame borders, no checkerboard, no extra characters or objects.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-bbbb04ac-a8c4-4c78-bfb8-d89565fc69e6.png",
+    "sourcePath": "packages/garden-world/art/source/residents-v22/cat.png",
+    "method": "built-in image_gen; six frames in a 3x2 sheet; transparent background",
+    "reference": "packages/garden-world/art/runtime/cat.png"
+  },
+  {
+    "id": "dog",
+    "prompt": "Use case: stylized-concept. Asset type: transparent six-frame game character sprite sheet. Primary request: the exact orange-and-white corgi puppy in the reference. The input is an identity and rendering-style reference; preserve the animal's markings and accessory exactly. One character only, repeated in EXACTLY 6 isolated frames arranged in a precise equal 3-column by 2-row grid, each frame 512 by 512 on a 1536 by 1024 transparent canvas. Fixed slightly elevated three-quarter isometric garden camera, facing screen-right, full body, identical scale, consistent feet groundline in each frame, generous transparent margins, no scenery or separate floor. Top row: standing relaxed awake; walking right left foot forward; walking right right foot forward. Bottom row: sitting and yawning with mouth visibly open; curled up asleep with closed eyes and head tucked down; waking up and gently stretching. Each character stays entirely inside its own equal cell. Soft warm modeled forms, detailed but readable at small size, soft contact shadow only, match the existing illustrated 3D garden animals. No words, no letters, no frame borders, no checkerboard, no extra characters or objects.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-61ae27a9-38e6-4f7f-b85c-64f7ca855138.png",
+    "sourcePath": "packages/garden-world/art/source/residents-v22/dog.png",
+    "method": "built-in image_gen; six frames in a 3x2 sheet; transparent background",
+    "reference": "packages/garden-world/art/runtime/dog.png"
+  },
+  {
+    "id": "visitor_a",
+    "prompt": "Use case: stylized-concept. Asset type: transparent six-frame game character sprite sheet. Primary request: a friendly ordinary young adult woman garden visitor, dark bob hair, coral jacket, denim trousers, brown shoes. Original character, ordinary human proportions softened into a charming 3D casual mobile game style; not a mascot or royal costume. One character only, repeated in EXACTLY 6 isolated frames arranged in a precise equal 3-column by 2-row grid, each frame 512 by 512 on a 1536 by 1024 transparent canvas. Fixed slightly elevated three-quarter isometric garden camera, facing screen-right, full body, identical scale, consistent feet groundline in each frame, generous transparent margins, no scenery or separate floor. Top row: standing relaxed awake; walking right left foot forward; walking right right foot forward. Bottom row: standing and looking around; standing admiring the garden with one hand lifted; pausing and stretching. Each character stays entirely inside its own equal cell. Soft warm modeled forms, detailed but readable at small size, soft contact shadow only, match the existing illustrated 3D garden animals. No words, no letters, no frame borders, no checkerboard, no extra characters or objects.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-5a65685f-3a8c-4967-8bd6-53d65de94331.png",
+    "sourcePath": "packages/garden-world/art/source/residents-v22/visitor_a.png",
+    "method": "built-in image_gen; six frames in a 3x2 sheet; transparent background",
+    "reference": null
+  },
+  {
+    "id": "visitor_b",
+    "prompt": "Use case: stylized-concept. Asset type: transparent six-frame game character sprite sheet. Primary request: a friendly ordinary adult man garden visitor, short brown hair, mustard shirt, blue trousers, brown shoes. Original character, ordinary human proportions softened into a charming 3D casual mobile game style; not a mascot or royal costume. One character only, repeated in EXACTLY 6 isolated frames arranged in a precise equal 3-column by 2-row grid, each frame 512 by 512 on a 1536 by 1024 transparent canvas. Fixed slightly elevated three-quarter isometric garden camera, facing screen-right, full body, identical scale, consistent feet groundline in each frame, generous transparent margins, no scenery or separate floor. Top row: standing relaxed awake; walking right left foot forward; walking right right foot forward. Bottom row: standing and looking around; standing admiring the garden with one hand lifted; pausing and stretching. Each character stays entirely inside its own equal cell. Soft warm modeled forms, detailed but readable at small size, soft contact shadow only, match the existing illustrated 3D garden animals. No words, no letters, no frame borders, no checkerboard, no extra characters or objects.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-9457f10c-2ef1-4361-8167-b452b52e87bc.png",
+    "sourcePath": "packages/garden-world/art/source/residents-v22/visitor_b.png",
+    "method": "built-in image_gen; six frames in a 3x2 sheet; transparent background",
+    "reference": null
+  }
+]

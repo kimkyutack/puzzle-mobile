@@ -1,0 +1,32 @@
+{
+  "appId": "com.cloudgarden.match",
+  "appName": "구름정원: 루미의 초대장",
+  "webDir": "apps/client/dist",
+  "backgroundColor": "#1645a0",
+  "loggingBehavior": "none",
+  "android": {
+    "allowMixedContent": false
+  },
+  "ios": {
+    "contentInset": "never"
+  },
+  "plugins": {
+    "NativePurchases": {
+      "autoFinishTransactions": false
+    },
+    "SocialLogin": {
+      "providers": {
+        "google": true,
+        "apple": true,
+        "facebook": false,
+        "twitter": false
+      }
+    },
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover",
+      "style": "LIGHT",
+      "hidden": false
+    }
+  }
+}

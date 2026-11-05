@@ -1,0 +1,102 @@
+[
+  {
+    "id": "tori_v8",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "prompt": "Premium original 3D casual mobile garden game art, cohesive with reference Lumi. Friendly rounded toy forms, polished painted wood and cloth, soft fur/feathers, dimensional soft highlights without white glare, deep forest teal/coral/mint/copper palette. No text, numbers, logo or UI. Entire subject visible with clean genuine alpha background. Design Tori, a NEW small anthropomorphic sparrow mail carrier friend, not a red panda. Warm caramel and cream feathers, tiny orange beak, large friendly amber eyes, compact round body and short wings, teal aviator cap with small goggles, coral courier neckerchief, small teal leather mail satchel with copper clasp and a single ivory envelope with a flower wax seal. Standing on two little feet, wing lifted in a cheerful greeting. Front three-quarter camera, whole character, strong readable silhouette at 80px. Match Lumi's rendered world and camera. One character only, no ground/background.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-8ac3e260-738a-43eb-924c-9893f1a552e2.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/tori_v8.png"
+  },
+  {
+    "id": "naru_v8",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "prompt": "Premium original 3D casual mobile garden game art, cohesive with reference Lumi. Friendly rounded toy forms, polished painted wood and cloth, soft fur/feathers, dimensional soft highlights without white glare, deep forest teal/coral/mint/copper palette. No text, numbers, logo or UI. Entire subject visible with clean genuine alpha background. Design Naru, a NEW friendly anthropomorphic river otter repairer friend, not a red panda. Warm brown plush fur, cream muzzle and belly, broad round nose, small ears, gentle amber eyes, thick otter tail. Wearing mint/teal short work overalls with copper buttons, rolled coral shirt sleeves and a tiny tool belt. Holds one small copper wrench, free paw resting on hip. Dependable cheerful expression, short stocky rounded proportions, standing front three-quarter camera. Entire character including feet and tail visible. Match Lumi's rendered world. One character only, no ground/background.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-50d9d0bf-0d6a-4e21-8725-463818effffc.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/naru_v8.png"
+  },
+  {
+    "id": "story_letter_v8",
+    "transparent": true,
+    "refs": [],
+    "prompt": "Premium original 3D casual mobile garden game art, cohesive with reference Lumi. Friendly rounded toy forms, polished painted wood and cloth, soft fur/feathers, dimensional soft highlights without white glare, deep forest teal/coral/mint/copper palette. No text, numbers, logo or UI. Entire subject visible with clean genuine alpha background. One oversized whimsical festival invitation envelope for a mobile game journal button. Thick ivory paper envelope, partly opened, coral flower-shaped wax seal with tiny teal sprout center, teal ribbon and a little folded blue sky-map corner peeking out. Compact square silhouette, front three-quarter view, inviting and highly readable at 32px. No writing, no glyphs, no tiny scattered decorations. Single isolated object.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-6780aff1-f6d6-4890-bea1-9e12c1189597.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/story_letter_v8.png"
+  },
+  {
+    "id": "bench_festival_v8",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bench_after.png"
+    ],
+    "prompt": "Premium original 3D casual mobile garden game art, cohesive with reference Lumi. Friendly rounded toy forms, polished painted wood and cloth, soft fur/feathers, dimensional soft highlights without white glare, deep forest teal/coral/mint/copper palette. No text, numbers, logo or UI. Entire subject visible with clean genuine alpha background. EDIT TARGET is the provided bench: create a FESTIVAL style variant of exactly this garden bench. Preserve the exact camera, proportions, legs/ground footprint, overall silhouette, image margins and angle. Change the cream slatted wood to warm coral pink and retain teal structural posts; replace the white daisy accents with small golden star flowers and a short neat flower garland along the top. Still a functional bench, no added large props, no distortion, no ground. Transparent background preserved. One bench only.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-a9b41c59-bca5-41a4-b63c-b89855421bcc.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bench_festival_v8.png"
+  },
+  {
+    "id": "lamp_festival_v8",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lamp_after.png"
+    ],
+    "prompt": "Premium original 3D casual mobile garden game art, cohesive with reference Lumi. Friendly rounded toy forms, polished painted wood and cloth, soft fur/feathers, dimensional soft highlights without white glare, deep forest teal/coral/mint/copper palette. No text, numbers, logo or UI. Entire subject visible with clean genuine alpha background. EDIT TARGET is provided garden lamp: FESTIVAL variant preserving exact camera, height, curved pole silhouette, hanging bulb location, base size/ground footprint and image margins. Retain teal curved pole and coral base. Replace daisy lampshade with a thick coral flower-petal shade and soft honey/peach luminous glass, add tiny gold star flower decorations on the base. Controlled glow contained within the lamp, no glowing background. Exactly one lamp, transparent alpha retained, no extra lanterns or ground.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-d6818a2d-ce78-46b2-a2e3-a4150e0e0d85.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lamp_festival_v8.png"
+  },
+  {
+    "id": "planter_festival_v8",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/planter_after.png"
+    ],
+    "prompt": "Premium original 3D casual mobile garden game art, cohesive with reference Lumi. Friendly rounded toy forms, polished painted wood and cloth, soft fur/feathers, dimensional soft highlights without white glare, deep forest teal/coral/mint/copper palette. No text, numbers, logo or UI. Entire subject visible with clean genuine alpha background. EDIT TARGET is provided planter fountain: FESTIVAL variant preserving exact camera, bowl silhouette, width, base ground footprint, tier positions and image margins. Retain teal handles and coral bowl. Replace the three large green sprout leaf clusters with blooming coral-pink and golden star flowers of the SAME approximate size and height, retain clearly readable little flowing water channels. The center ornament is a tiny teal flower. No extra large props, no ground/background, one isolated planter with true alpha.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-19ca6575-28af-4c53-8aff-5bce09d0e241.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/planter_festival_v8.png"
+  },
+  {
+    "id": "story_sky_v8",
+    "transparent": false,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "prompt": "Original premium 3D casual garden puzzle story illustration, horizontal 4:3 painting, no words, no writing, no UI. Cohesive deep forest teal, coral, mint, copper and soft cream accents. Detailed polished storybook/toy materials, rounded architecture, soft light with controlled contrast and no white glare. Full-bleed opaque illustration. Main characters and meaningful prop large and clear, not tiny in a vast landscape.  The provided original mascot Lumi is exact reference: happy orange red panda in teal overalls/coral neckerchief. Lumi kneels beside an old teal garden entrance and discovers an ivory festival invitation with coral flower seal tucked in an overgrown mailbox. Garden path, a little bench in distance, cloudy floating islands and a greenhouse hinted behind, only partly renovated. A hopeful gentle morning scene, mystery of the undelivered letter. Lumi and invitation occupy central 65 percent, no other characters. No writing on the invitation.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-39485cf7-56aa-4cdd-a445-24928aeffc0f.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/story_sky_v8.png"
+  },
+  {
+    "id": "story_workshop_v8",
+    "transparent": false,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png",
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/naru_v8.png"
+    ],
+    "prompt": "Original premium 3D casual garden puzzle story illustration, horizontal 4:3 painting, no words, no writing, no UI. Cohesive deep forest teal, coral, mint, copper and soft cream accents. Detailed polished storybook/toy materials, rounded architecture, soft light with controlled contrast and no white glare. Full-bleed opaque illustration. Main characters and meaningful prop large and clear, not tiny in a vast landscape.  EXACT character references are Lumi red panda and Naru brown otter repairer, wearing their provided clothes. Inside a cozy teal glass greenhouse workshop, Lumi holds a pot with one small coral flower beginning to open; Naru gently turns a large copper water valve on a rounded workbench, smiling proudly. Frosted spare pots at side and neatly organized garden tools. A blue water channel begins to glow through a glass tube, linking flower growth to repaired water. Both characters fully recognizable, close friendly composition, no text or extra characters.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-43c2249f-750f-4746-9e06-9d4d521f22b5.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/story_workshop_v8.png"
+  },
+  {
+    "id": "story_terrace_v8",
+    "transparent": false,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png",
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/naru_v8.png",
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/tori_v8.png"
+    ],
+    "prompt": "Original premium 3D casual garden puzzle story illustration, horizontal 4:3 painting, no words, no writing, no UI. Cohesive deep forest teal, coral, mint, copper and soft cream accents. Detailed polished storybook/toy materials, rounded architecture, soft light with controlled contrast and no white glare. Full-bleed opaque illustration. Main characters and meaningful prop large and clear, not tiny in a vast landscape.  EXACT character references Lumi red panda, Naru otter and Tori sparrow in their provided clothes. At twilight on a floating garden terrace, a repaired small teal/coral fountain flows gently, blooming coral flowers and tiny warm lanterns celebrate a modest reunion. Lumi raises an ivory invitation, Tori arrives with mail satchel and spread wing, Naru stands by a copper valve with wrench. The three friends form the clear foreground group around the fountain. A subtle trail of warm island lights curves in the sky far behind, suggesting a new journey. Joyful intimate festival, not a crowded carnival or fireworks spectacle.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-00ea8e55-03db-460a-99c5-b72c91a2c4e9.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/story_terrace_v8.png"
+  }
+]

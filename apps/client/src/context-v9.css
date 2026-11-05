@@ -1,0 +1,188 @@
+/* Context for the authored v9 PNG materials. Surfaces and frames remain raster art. */
+.modal-content{
+  --context-ink:#20335d;
+  --context-muted:#2d4268;
+  --context-ice-title:#1d416f;
+  --context-lavender-title:#493477;
+  --context-peach-title:#713d58;
+  --context-light:#f5f8ff;
+  --context-light-muted:#fff;
+}
+
+/* Light ice, lavender, and peach cards share legible ink, with distinct headings. */
+:is(.modal-layer,.game-page) .modal-content .content-card[data-card-tone="blue"]>h3{color:var(--context-ice-title)}
+:is(.modal-layer,.game-page) .modal-content .content-card[data-card-tone="green"]>h3{color:var(--context-lavender-title)}
+:is(.modal-layer,.game-page) .modal-content .content-card[data-card-tone="gold"]>h3{color:var(--context-peach-title)}
+:is(.modal-layer,.game-page) .modal-content .content-card :is(.row-title,.row-meta strong){color:var(--context-ink)}
+:is(.modal-layer,.game-page) .modal-content .content-card :is(.row-meta,.row-meta small,.fine){color:var(--context-muted)}
+:is(.modal-layer,.game-page) .modal-content .content-card>label{display:block;margin:11px 1px 6px;color:var(--context-ink);font-size:14px;line-height:20px}
+
+/* Shop: image-led peach bundles, alternating product cards, and blue shelf headers. */
+.commerce-shop .package-feature-copy>strong{color:var(--context-peach-title)}
+.commerce-shop .package-feature-copy>span:not(.package-feature-action){color:var(--context-muted)}
+.commerce-shop :is(.tool-product,.coin-product,.catalog-bundle){--surface-ink:var(--context-ink);--surface-muted:var(--context-muted)}
+.commerce-shop .tool-product h4{color:var(--context-ink);min-height:19px}
+.commerce-shop :is(.commerce-stock,.catalog-bundle-head small){color:var(--context-muted)}
+.commerce-shop .catalog-bundle-head h3,.modal-layer .modal-content .commerce-shop .catalog-bundle-head h3,.game-page .modal-content .commerce-shop .catalog-bundle-head h3{color:var(--context-lavender-title)!important}
+.commerce-shop .catalog-bundle[data-frame="card_gold_v4"] .catalog-bundle-head h3{color:var(--context-peach-title)!important}
+.commerce-shop .catalog-bundle-head p,.commerce-shop .commerce-loot,.commerce-shop .coin-product>.resource-amount{color:var(--context-ink)}
+.commerce-shop .commerce-section-title h3,.modal-layer .modal-content .commerce-shop .commerce-section-title h3{color:var(--context-light)!important}
+.commerce-shop .commerce-section-title{margin-top:3px}
+.commerce-shop .tool-shelf,.commerce-shop .coin-shelf{align-items:stretch;gap:9px}
+.commerce-shop .tool-product .commerce-buy{margin-top:auto}
+.commerce-shop .tool-product>.icon{margin-bottom:2px}
+.game-page[data-page="shop"] .commerce-shop :is(.commerce-store-note,.commerce-message){color:var(--context-light-muted)!important}
+.modal-layer.theme-shop .commerce-shop :is(.commerce-store-note,.commerce-message){color:var(--context-muted)!important}
+
+/* Special offers: readable contents stay on the card; timing sits below the art. */
+.offers-menu-v7{color:var(--context-light)}
+.offers-menu-v7 .deal-banner{color:var(--context-ink);--surface-ink:var(--context-ink);--surface-muted:var(--context-muted)}
+.offers-menu-v7 .deal-heading h3,.modal-layer .modal-content .offers-menu-v7 .deal-heading h3{color:var(--context-lavender-title)!important}
+.offers-menu-v7 .deal-banner[data-frame="card_gold_v4"] .deal-heading h3{color:var(--context-peach-title)!important}
+.modal-layer .modal-content .offers-menu-v7 :is(.deal-deadline,.deal-theme-label,.deal-state){color:#263a61}
+.offers-menu-v7 .deal-step{color:var(--context-ink)}
+.offers-menu-v7 .commerce-loot{color:var(--context-ink)}
+.offers-menu-v7 .deal-chain-note,.offers-menu-v7 .deal-message,.modal-layer .modal-content .offers-menu-v7 .deal-chain-note,.modal-layer .modal-content .offers-menu-v7 .deal-message{color:var(--context-light)!important}
+.modal-layer .modal-content .offers-menu-v7 .deal-chain-note small{color:#fff}
+
+/* Rankings keep a compact, consistent row; the personal record uses lavender. */
+.ranking-menu :is(.ranking-table-heading,.ranking-list-note,.ranking-own-record>h3,.ranking-own-record>p){color:var(--context-light-muted)}
+.ranking-menu .ranking-entry{color:var(--context-ink);--surface-ink:var(--context-ink);--surface-muted:var(--context-muted)}
+.ranking-menu :is(.ranking-position,.ranking-name>strong,.ranking-score>strong){color:var(--context-ink)}
+.ranking-menu .ranking-name>small{color:var(--context-muted)}
+.ranking-menu .ranking-entry[data-current="true"] .ranking-name>strong{color:var(--context-lavender-title)}
+.ranking-menu .ranking-name>strong{line-height:21px}
+.ranking-menu .ranking-score{flex:none}
+.ranking-menu .ranking-message p,.ranking-menu .ranking-join p{color:var(--context-ink)}
+
+/* Guild: peach identity, ice conversation well, and lavender personal messages. */
+.theme-guild .guild-title{align-items:center;gap:11px}
+.theme-guild .guild-title>div{min-width:0}
+.theme-guild .guild-title>.icon{flex:none}
+.modal-layer.theme-guild .modal-content .guild-title h3,.game-page.theme-guild .modal-content .guild-title h3{color:var(--context-peach-title);overflow-wrap:anywhere}
+.theme-guild .modal-content .guild-title p,.theme-guild .modal-content .guild-title small{color:var(--context-muted);word-break:keep-all;overflow-wrap:anywhere}
+.theme-guild .modal-content .tabs{align-items:stretch;gap:5px;margin:12px 0}
+.theme-guild .tabs>.game-button{flex-direction:column;gap:2px;min-height:62px;padding:6px 4px 12px;font-size:13px;line-height:17px}
+.theme-guild .tabs>.game-button>.icon{width:25px;height:25px}
+.theme-guild .tabs>.game-button>.button-label{transform:translateY(2px)}
+.theme-guild .modal-content .chat-message{--surface-ink:var(--context-ink);--surface-muted:var(--context-muted)}
+.theme-guild .chat-message>strong{color:var(--context-peach-title)}
+.theme-guild .chat-message[data-frame="card_green_v4"]>strong{color:var(--context-lavender-title)}
+.theme-guild .modal-content .chat-message p{color:var(--context-ink);word-break:keep-all;overflow-wrap:anywhere}
+.theme-guild .modal-content .chat-message small,.theme-guild .chat-message small button{color:var(--context-muted)}
+.theme-guild .chat-message small button{min-height:28px;padding:3px 2px}
+.theme-guild .chat-composer{align-items:center;margin-top:9px;gap:7px}
+.theme-guild .emblem-choice,.theme-guild .emblem-choice small{color:var(--context-ink)!important}
+.theme-guild .emblem-choice[aria-pressed="true"] small,.theme-guild .emblem-choice b{color:var(--context-lavender-title)!important}
+.theme-guild .emblem-choice{height:83px;padding-bottom:15px}
+.theme-guild .emblem-choice small{line-height:17px}
+
+/* Events: peach daily gift, lavender solo goal, ice guild goal, blue progress. */
+.game-page[data-page="events"] .page-content>h3{color:var(--context-light);font-size:19px;line-height:26px;margin:20px 2px 10px}
+:is(.modal-layer,.game-page) .modal-content .offer-strip h3{color:var(--context-peach-title)}
+:is(.modal-layer,.game-page) .modal-content .offer-strip :is(.offer-status,.fine){color:var(--context-ink)}
+:is(.modal-layer,.game-page) .modal-content .event-goals .event-goal-heading h3{color:var(--context-ice-title)}
+:is(.modal-layer,.game-page) .modal-content .event-goals [data-card-tone="green"] .event-goal-heading h3{color:var(--context-lavender-title)}
+:is(.modal-layer,.game-page) .modal-content .event-goals :is(.event-goal-heading p,.quest-footer){color:var(--context-ink)}
+:is(.modal-layer,.game-page) .modal-content .event-goals .quest-footer small{color:var(--context-muted)}
+.event-goals .event-goal-heading{align-items:center}
+.event-goals .event-goal-heading>div{min-width:0}
+.event-goals .quest-footer{gap:9px;align-items:center}
+.event-goals .quest-footer>small{text-align:right;line-height:18px}
+.event-pass-shortcut{--surface-ink:var(--context-ink)}
+.event-pass-shortcut .link-action{color:var(--context-ice-title)}
+
+/* Settings and profile retain separate quiet card groups inside sapphire panels. */
+.modal-layer:has(.preference-toggle) .modal-content .content-card .link-action{color:var(--context-ice-title)}
+.modal-layer:has(.preference-toggle) .modal-content .auxiliary-options>summary{color:var(--context-light);line-height:22px;padding:10px 3px}
+.modal-layer:has(.preference-toggle) .preference-toggle{gap:4px;width:82px;min-height:44px;white-space:nowrap}
+.modal-layer:has(.preference-toggle) .preference-toggle>span{line-height:18px}
+.modal-layer:has(.preference-toggle) .preference-toggle,.modal-layer:has(.preference-toggle) .preference-toggle[aria-checked="false"]{color:#0b2345;-webkit-text-stroke:0;text-shadow:none}
+.modal-layer:has(.profile-hero) .modal-content .profile-hero h3{color:var(--context-peach-title);line-height:27px;overflow-wrap:anywhere}
+.modal-layer:has(.profile-hero) .modal-content .profile-hero p,.modal-layer:has(.profile-hero) .modal-content .hero-reward small{color:var(--context-muted)}
+.modal-layer:has(.profile-hero) .hero-reward{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px}
+.modal-layer:has(.profile-hero) .hero-reward small{max-width:160px;line-height:19px;word-break:keep-all}
+.modal-layer:has(.heart-poster) .modal-content>.intro{color:var(--context-light);line-height:23px;margin:10px 0 14px}
+.modal-layer:has(.heart-poster) .modal-content .auxiliary-options>summary{color:var(--context-light)}
+.modal-layer:has(.heart-poster) .modal-content .offer-strip .fine{color:var(--context-muted);line-height:18px}
+.modal-layer:has(.heart-poster) .modal-content .local-heart-button small{color:inherit}
+.modal-layer:has(.heart-poster) .modal-content .auxiliary-options .link-action{color:var(--context-lavender-title);line-height:22px}
+
+/* Violet pass body uses light labels; both reward tracks use their own light cards. */
+.theme-pass .modal-content>.intro,.theme-pass .modal-content>.fine,.theme-pass .pass-labels{color:var(--context-light)}
+.theme-pass .pass-labels{margin-top:18px;margin-bottom:10px;line-height:20px}
+.theme-pass .pass-row{margin-bottom:11px;align-items:stretch}
+.theme-pass .pass-row>.tier-index{color:var(--context-light);padding-bottom:5px}
+.theme-pass .reward-card{min-height:126px;padding:14px 8px 14px;gap:6px;color:var(--context-ink);--surface-ink:var(--context-ink);--surface-muted:var(--context-muted)}
+.theme-pass .reward-card .reward-amount{color:var(--context-ink)}
+.theme-pass .reward-card .reward-amount strong{width:auto;line-height:24px}
+.theme-pass .reward-card.free .reward-amount strong{color:var(--context-lavender-title)}
+.theme-pass .reward-card.premium .reward-amount strong{color:var(--context-ice-title)}
+.modal-layer.theme-pass .modal-content .reward-card>small,.modal-layer.theme-pass .modal-content .reward-state small{color:var(--context-muted);line-height:17px}
+.theme-pass .reward-card .reward-state{color:var(--context-muted)}
+.theme-pass .pass-row .claim-button{margin-top:auto;min-height:39px;padding:5px 5px 11px;font-size:13px;line-height:17px}
+.theme-pass .pass-row .claim-button .icon{width:25px;height:26px}
+
+/* Start flow separates icy objectives, the blue tool well, and the lime action. */
+.modal-layer .modal-content .start-objectives h3{color:var(--context-ice-title)}
+.modal-layer .modal-content .start-objectives strong{color:var(--context-ink)}
+.modal-layer .modal-content .start-tool-well h3{color:var(--context-light)}
+.modal-layer .modal-content .start-tool-well p{color:var(--context-light-muted);line-height:18px}
+.modal-layer .modal-content .start-tool-well .preboosters>button>small{color:var(--context-light)}
+.modal-layer .modal-content .start-play-action .heart-cost{color:var(--context-light);line-height:20px}
+.start-level-layout{gap:13px}
+.start-play-action .start-error{margin:0 0 8px;color:#fff1b9;font-size:14px;line-height:1.4;text-align:center;overflow-wrap:anywhere}
+.start-objectives{min-width:0}
+.start-objectives .start-goals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:100%;min-width:0;gap:10px 12px;justify-items:center}
+.start-objectives .start-goals[data-goal-count="1"]{grid-template-columns:minmax(0,1fr)}
+.start-objectives .start-goals:has(>div:nth-child(3)):not([data-goal-count="4"]){grid-template-columns:repeat(3,minmax(0,1fr))}
+.start-objectives .start-goals>div{width:100%;min-width:0;max-width:100%;justify-content:center;gap:5px}
+.start-objectives .start-goals:has(>div:nth-child(3)):not([data-goal-count="4"])>div{flex-direction:column;gap:2px}
+.start-objectives .start-goals .icon{width:42px;height:44px;max-width:100%;flex-shrink:0;object-fit:contain}
+.start-objectives .start-goals strong{font-size:28px;line-height:32px;white-space:nowrap}
+.start-tool-well .preboosters{gap:12px}
+.start-tool-well .preboosters>button{max-width:83px}
+
+/* Story: large poster, icy dialogue, violet chapter labels, and mixed action colors. */
+.modal-layer .modal-content .story-dialogue h3{color:var(--context-lavender-title)}
+.modal-layer .modal-content .story-dialogue p{color:var(--context-ink)}
+.modal-layer .modal-content .story-viewer :is(.story-beat-count,.story-viewer-error,.story-skip){color:var(--context-light-muted)}
+.modal-layer .modal-content .story-journal :is(.story-chapter-title,.story-chapter-summary,.story-journal-loading,.story-journal-note){color:var(--context-light)}
+.modal-layer .modal-content .story-journal :is(.story-entry-copy>strong,.story-journal-progress,.story-journal-error>p){color:var(--context-ink)}
+.modal-layer .modal-content .story-journal .story-entry-copy>small{color:var(--context-muted)}
+.story-journal .story-entry-locked{opacity:1}
+.modal-layer .modal-content .story-journal .story-entry-locked .story-entry-copy>strong{color:var(--context-muted)}
+.story-journal .story-journal-progress{line-height:19px}
+.story-journal .story-journal-progress>span:last-child{text-align:right}
+
+/* Labels on real lime / blue / amber button art remain white on every context. */
+.modal-layer .modal-content :is(.deal-tabs>button,.ranking-scope-tab,.story-chapter-tabs>button,.deal-price),
+.modal-layer .modal-content .story-journal .story-entry .story-entry-action,
+.modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock,
+.commerce-shop .package-feature-action{
+  color:#fffdf0;
+  --surface-ink:#fffdf0;
+  --surface-muted:#fffdf0;
+  -webkit-text-stroke:1px #243f77;
+  paint-order:stroke fill;
+  text-shadow:0 1px 0 #243f77;
+}
+.modal-layer .modal-content .deal-price>small{color:#fffdf0}
+.modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock{font-size:14px;line-height:18px}
+.legacy-text .modal-layer .modal-content :is(.deal-tabs>button,.ranking-scope-tab,.story-chapter-tabs>button,.deal-price),
+.legacy-text .modal-layer .modal-content .story-journal .story-entry .story-entry-action,
+.legacy-text .modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock,
+.legacy-text .commerce-shop .package-feature-action{
+  -webkit-text-stroke:0;
+  text-shadow:-1px 0 #243f77,1px 0 #243f77,0 -1px #243f77,0 1px #243f77;
+}
+
+@media(max-width:370px){
+  .commerce-shop .tool-shelf,.commerce-shop .coin-shelf{gap:6px}
+  .theme-guild .tabs>.game-button{gap:1px;font-size:12px;padding-left:3px;padding-right:3px}
+  .theme-guild .tabs>.game-button>.icon{width:23px;height:24px}
+  .theme-pass .reward-card{padding-left:6px;padding-right:6px}
+  .theme-pass .pass-row .claim-button{font-size:12px}
+  .start-tool-well .preboosters{gap:7px}
+  .modal-layer .modal-content .story-journal .story-entry-copy>small{line-height:17px}
+}

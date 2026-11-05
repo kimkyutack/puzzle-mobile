@@ -1,0 +1,10 @@
+.story-loading{position:fixed;inset:0;overflow:hidden;color:#fff;background:#294d3d;font-family:var(--font-game-ui)}
+.story-loading-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% center}
+.story-loading-bottom{position:absolute;left:0;right:0;bottom:calc(var(--safe-bottom) + 28px);display:flex;flex-direction:column;align-items:center;gap:5px;padding:18px 14px}
+.story-loading-bottom p{max-width:340px;text-align:center;font-size:17px;line-height:1.5;color:#fff;-webkit-text-stroke:1px #20335d;paint-order:stroke fill;text-shadow:0 1px #20335d}
+.story-loading-bottom small{font-family:var(--font-game-number);font-size:14px;color:#fff;-webkit-text-stroke:1px #20335d;paint-order:stroke fill;text-shadow:0 1px #20335d}
+.loading-retry{padding:10px 28px;min-height:44px;color:#fff;font-size:18px;text-decoration:underline;-webkit-text-stroke:1px #20335d;paint-order:stroke fill}
+
+.start-play-action.is-preparing .game-button>.icon{animation:loading-lumi .8s ease-in-out infinite}
+@keyframes loading-lumi{0%,100%{transform:translateY(1px) scale(.97)}50%{transform:translateY(-3px) scale(1.04)}}
+@media(prefers-reduced-motion:reduce){.start-play-action.is-preparing .game-button>.icon{animation:none}}

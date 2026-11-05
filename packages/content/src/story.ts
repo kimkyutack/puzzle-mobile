@@ -1,6 +1,7 @@
 import type {Player,StoryChapter,StoryChapterId,StoryScene,StorySpeaker} from '@garden/contracts';
+import {STORY_CONTINUATION} from './story-continuation';
 
-export const STORY_VERSION='cloud-letters-1';
+export const STORY_VERSION='cloud-letters-2';
 
 export const STORY_SPEAKERS:Record<StorySpeaker,{name:string;art:string}>={
  lumi:{name:'루미',art:'lumi'},
@@ -9,7 +10,7 @@ export const STORY_SPEAKERS:Record<StorySpeaker,{name:string;art:string}>={
 };
 
 const chapterArt:Record<StoryChapterId,string>={
- sky:'story_sky_v8',workshop:'story_workshop_v8',terrace:'story_terrace_v8'
+ sky:'story_sky_v8',workshop:'story_workshop_v8',terrace:'story_terrace_v8',postal:'story_postal_v30',firefly:'story_firefly_v30',station:'story_station_v30'
 };
 
 function scene(chapterId:StoryChapterId,taskId:string,title:string,beats:StoryScene['beats']):StoryScene{
@@ -122,13 +123,17 @@ export const STORY_SCENES:StoryScene[]=[
   {speaker:'lumi',text:'아담한 축제지만 우리가 함께 만들었잖아. 정말 고마워!'},
   {speaker:'tori',text:'어? 바람 우체국에서 답장이 왔어. 아직 전하지 못한 편지가 더 있대.'},
   {speaker:'lumi',text:'그 편지도 함께 찾아가자. 오늘은 먼저, 우리 정원을 마음껏 즐기고!'}
- ])
+ ]),
+ ...STORY_CONTINUATION.map(task=>scene(task.area as StoryChapterId,task.id,task.title,task.beats))
 ];
 
 export const STORY_CHAPTERS:StoryChapter[]=[
  {id:'sky',title:'초대장이 도착한 정원',summary:'오래된 문을 열고, 구름길에서 길을 잃은 친구들을 만나요.',art:chapterArt.sky,sceneIds:STORY_SCENES.filter(scene=>scene.chapterId==='sky').map(scene=>scene.id)},
  {id:'workshop',title:'잠든 꽃을 깨우는 온실',summary:'작업실의 빛과 물길을 고쳐 꽃빛축제에 가져갈 꽃을 피워요.',art:chapterArt.workshop,sceneIds:STORY_SCENES.filter(scene=>scene.chapterId==='workshop').map(scene=>scene.id)},
- {id:'terrace',title:'다시 흐르는 꽃빛축제',summary:'기다리던 씨앗을 전하고, 세 정원을 잇는 작은 축제를 열어요.',art:chapterArt.terrace,sceneIds:STORY_SCENES.filter(scene=>scene.chapterId==='terrace').map(scene=>scene.id)}
+ {id:'terrace',title:'다시 흐르는 꽃빛축제',summary:'기다리던 씨앗을 전하고, 세 정원을 잇는 작은 축제를 열어요.',art:chapterArt.terrace,sceneIds:STORY_SCENES.filter(scene=>scene.chapterId==='terrace').map(scene=>scene.id)},
+ {id:'postal',title:'바람 우체국의 밀린 편지',summary:'반송된 봉투를 정리하고 첫 야간 배달을 준비해요.',art:chapterArt.postal,sceneIds:STORY_SCENES.filter(s=>s.chapterId==='postal').map(s=>s.id)},
+ {id:'firefly',title:'반딧불이 지켜 준 답장',summary:'작은 불빛을 따라 연못에 멈춰 있던 편지를 찾아요.',art:chapterArt.firefly,sceneIds:STORY_SCENES.filter(s=>s.chapterId==='firefly').map(s=>s.id)},
+ {id:'station',title:'다시 출발하는 숲속 열차',summary:'멈춘 역을 고쳐 초대장과 친구들을 축제로 데려와요.',art:chapterArt.station,sceneIds:STORY_SCENES.filter(s=>s.chapterId==='station').map(s=>s.id)}
 ];
 
 /** Legacy completed tasks unlock their scenes without replaying or charging for restoration. */

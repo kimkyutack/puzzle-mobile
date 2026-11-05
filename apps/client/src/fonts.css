@@ -1,0 +1,25 @@
+/* Unmodified official Google Fonts files; OFL licenses ship under /fonts. */
+@font-face {
+  font-family: 'Jua';
+  src: url('/fonts/Jua-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lilita One';
+  src: url('/fonts/LilitaOne-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --font-game-ui: 'Jua', 'Arial Rounded MT Bold', sans-serif;
+  --font-game-display: 'Lilita One', 'Jua', sans-serif;
+  --font-game-number: 'Lilita One', 'Jua', sans-serif;
+  font-family: var(--font-game-ui);
+  font-synthesis: none;
+}
+/* Import after the base stylesheet so native/browser controls inherit the same face. */
+body, button, input, select, textarea { font-family: var(--font-game-ui); }
+.font-game-display, .font-game-number { font-family: var(--font-game-display); font-weight: 400; }

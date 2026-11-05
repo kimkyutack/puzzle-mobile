@@ -1,0 +1,229 @@
+{
+  "method": "Built-in image_gen 4x3 authored sheets; technical cell extraction, alpha island cleanup and common-scale normalization; no frame synthesis.",
+  "frames": [
+    {
+      "id": "visitor_c",
+      "view": "front",
+      "frame": 0,
+      "sourceFrame": 0,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-front-0.png",
+      "sha256": "d380b7eafe9b72a11fa1349419d85b26e23275bdf72f91c3426c06f55cb07cc6"
+    },
+    {
+      "id": "visitor_c",
+      "view": "front",
+      "frame": 1,
+      "sourceFrame": 1,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-front-1.png",
+      "sha256": "80a883aed29879cfc66e984505d2ebaf34427a5703f82498c700b98026ae31a2"
+    },
+    {
+      "id": "visitor_c",
+      "view": "front",
+      "frame": 2,
+      "sourceFrame": 2,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-front-2.png",
+      "sha256": "8ad458cd9c180c3bbc0c6a88695ba5f6bb2e2d4f41cb7a12beb37203cec3464f"
+    },
+    {
+      "id": "visitor_c",
+      "view": "front",
+      "frame": 3,
+      "sourceFrame": 3,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-front-3.png",
+      "sha256": "08d47a40c4d96bd7ea52b5622039ccaf1044bccf7f183e87041f6cd05311e156"
+    },
+    {
+      "id": "visitor_c",
+      "view": "rear",
+      "frame": 0,
+      "sourceFrame": 4,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-rear-0.png",
+      "sha256": "0e8392d4b8940783c78e6663b447ee2f0c6a477af37cf1add7caf1ad3a800a30"
+    },
+    {
+      "id": "visitor_c",
+      "view": "rear",
+      "frame": 1,
+      "sourceFrame": 5,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-rear-1.png",
+      "sha256": "d6ca6e3c8d7b4df1dfb614b96f5a50ff3a1c303a5bac90cd0b14a5b5a36bcf41"
+    },
+    {
+      "id": "visitor_c",
+      "view": "rear",
+      "frame": 2,
+      "sourceFrame": 6,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-rear-2.png",
+      "sha256": "9290bc566eb0e99d14ca94dd72a474411264cb6552592af71be832147460dd09"
+    },
+    {
+      "id": "visitor_c",
+      "view": "rear",
+      "frame": 3,
+      "sourceFrame": 7,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-rear-3.png",
+      "sha256": "bc5f01902f03f70e0097d4ae574630e9de2a6c61b3c48bb9ed7ed8c56b10616a"
+    },
+    {
+      "id": "visitor_c",
+      "view": "idle",
+      "frame": 0,
+      "sourceFrame": 8,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-idle-0.png",
+      "sha256": "32d374c10f1cf2c991d44c4423697df31cbc9657a3d92614266504471a32aa4d"
+    },
+    {
+      "id": "visitor_c",
+      "view": "idle",
+      "frame": 1,
+      "sourceFrame": 0,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-idle-1.png",
+      "sha256": "d380b7eafe9b72a11fa1349419d85b26e23275bdf72f91c3426c06f55cb07cc6"
+    },
+    {
+      "id": "visitor_c",
+      "view": "idle",
+      "frame": 2,
+      "sourceFrame": 2,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-idle-2.png",
+      "sha256": "8ad458cd9c180c3bbc0c6a88695ba5f6bb2e2d4f41cb7a12beb37203cec3464f"
+    },
+    {
+      "id": "visitor_c",
+      "view": "idle",
+      "frame": 3,
+      "sourceFrame": 9,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-idle-3.png",
+      "sha256": "507691bd42c95ababdee494f7657ec45ea8e72cfcb06224d1b82b965c1e80558"
+    },
+    {
+      "id": "visitor_c",
+      "view": "idle",
+      "frame": 4,
+      "sourceFrame": 10,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-idle-4.png",
+      "sha256": "2c08ff832caa97a9feb3dce0af6c70ff577d21b646818f90fa0c3993b95a4af0"
+    },
+    {
+      "id": "visitor_c",
+      "view": "idle",
+      "frame": 5,
+      "sourceFrame": 11,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_c-idle-5.png",
+      "sha256": "a961ed4b23db534004eaf1f8f376df8ee282502124e2d937feaf23027d5c5d8b"
+    },
+    {
+      "id": "visitor_d",
+      "view": "front",
+      "frame": 0,
+      "sourceFrame": 0,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-front-0.png",
+      "sha256": "ebf3e363820764a7f97f4b09cd72c90ed45512444107c6ed1966003386a59b15"
+    },
+    {
+      "id": "visitor_d",
+      "view": "front",
+      "frame": 1,
+      "sourceFrame": 1,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-front-1.png",
+      "sha256": "53cde7a075ed2a029a338e88df6f4feb4ddb41798b2eb27cc6212cc5e1104ce4"
+    },
+    {
+      "id": "visitor_d",
+      "view": "front",
+      "frame": 2,
+      "sourceFrame": 2,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-front-2.png",
+      "sha256": "5b9307f9e24835cc7df29923d40355a2af3324aac07748b78cd7f598c53735c5"
+    },
+    {
+      "id": "visitor_d",
+      "view": "front",
+      "frame": 3,
+      "sourceFrame": 3,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-front-3.png",
+      "sha256": "564f88446b42fd5d66e3d54d7e33ab50e985570ca1c975a83f6d40189e65f1fd"
+    },
+    {
+      "id": "visitor_d",
+      "view": "rear",
+      "frame": 0,
+      "sourceFrame": 4,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-rear-0.png",
+      "sha256": "fe339d578afd9fcb6044880bce7407216177535ccd8f5b8988af63d1837226ce"
+    },
+    {
+      "id": "visitor_d",
+      "view": "rear",
+      "frame": 1,
+      "sourceFrame": 5,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-rear-1.png",
+      "sha256": "4936af34ba532d758b341e1cffbae0fc096c5db2cf3537ab24448f1d6d8e736d"
+    },
+    {
+      "id": "visitor_d",
+      "view": "rear",
+      "frame": 2,
+      "sourceFrame": 6,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-rear-2.png",
+      "sha256": "0990f193b1de417f68256c14f8c74f0e1d76cc6db707b76e43bc1950698a3345"
+    },
+    {
+      "id": "visitor_d",
+      "view": "rear",
+      "frame": 3,
+      "sourceFrame": 7,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-rear-3.png",
+      "sha256": "891a73cddceb0e8b61505c370b9dc6d1d399575cacc8ec6081b5951f3fde78db"
+    },
+    {
+      "id": "visitor_d",
+      "view": "idle",
+      "frame": 0,
+      "sourceFrame": 8,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-idle-0.png",
+      "sha256": "2fe4e809900a78f951fba2000d7ee7eac13efbfe84ff173909b3cd72b9107fed"
+    },
+    {
+      "id": "visitor_d",
+      "view": "idle",
+      "frame": 1,
+      "sourceFrame": 0,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-idle-1.png",
+      "sha256": "ebf3e363820764a7f97f4b09cd72c90ed45512444107c6ed1966003386a59b15"
+    },
+    {
+      "id": "visitor_d",
+      "view": "idle",
+      "frame": 2,
+      "sourceFrame": 2,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-idle-2.png",
+      "sha256": "5b9307f9e24835cc7df29923d40355a2af3324aac07748b78cd7f598c53735c5"
+    },
+    {
+      "id": "visitor_d",
+      "view": "idle",
+      "frame": 3,
+      "sourceFrame": 9,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-idle-3.png",
+      "sha256": "0bb05d262dd65e54d92af85f1da31d25a7e56457df0cc407122feca3fbf5b72a"
+    },
+    {
+      "id": "visitor_d",
+      "view": "idle",
+      "frame": 4,
+      "sourceFrame": 10,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-idle-4.png",
+      "sha256": "f7c06194a7b52c267b3eed64713bc3d98c9ae6b36f4b0e5fd67ab969335252a4"
+    },
+    {
+      "id": "visitor_d",
+      "view": "idle",
+      "frame": 5,
+      "sourceFrame": 11,
+      "path": "packages/garden-world/art/runtime/residents-variety-v29/visitor_d-idle-5.png",
+      "sha256": "187010dacac9e18b44bbe68acf14bb21fbb51013f647610c4f0274802043c9ed"
+    }
+  ]
+}

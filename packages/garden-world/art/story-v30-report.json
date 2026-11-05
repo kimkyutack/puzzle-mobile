@@ -1,0 +1,83 @@
+{
+  "method": "Authored front/rear sprites; only alpha cleanup, trim and uniform contain resize. Originals retained.",
+  "assets": [
+    {
+      "id": "post-office",
+      "path": "packages/garden-world/art/runtime/story-v30/post-office.png",
+      "bytes": 461322,
+      "sha256": "03f4acd638e92c10375fb278c0be766c6771957c75e29137f3e719d82ff8419c"
+    },
+    {
+      "id": "mailbox",
+      "path": "packages/garden-world/art/runtime/story-v30/mailbox.png",
+      "bytes": 326084,
+      "sha256": "afba3c722d4dc9500e901f27f1e8fa7b9f19ee74db4870cdb3fd1ca8ad3c29c7"
+    },
+    {
+      "id": "willow",
+      "path": "packages/garden-world/art/runtime/story-v30/willow.png",
+      "bytes": 590926,
+      "sha256": "106f74eedbff112271d6d17af7711652f01cfd6f804a6112580569d835e14ac5"
+    },
+    {
+      "id": "jetty",
+      "path": "packages/garden-world/art/runtime/story-v30/jetty.png",
+      "bytes": 525684,
+      "sha256": "d3f3405cb7e7278ff5bffae8eae4b46bc4c8449b245bdb55f7ba2e72d2612544"
+    },
+    {
+      "id": "forest-station",
+      "path": "packages/garden-world/art/runtime/story-v30/forest-station.png",
+      "bytes": 567365,
+      "sha256": "f67bcd29369b8a972e435de5e14caaa3817656e802ff0350185b6b584f92faac"
+    },
+    {
+      "id": "carriage",
+      "path": "packages/garden-world/art/runtime/story-v30/carriage.png",
+      "bytes": 615267,
+      "sha256": "55b4d540ba2f0a0f63f523438ecce8b2a5ee0b4450817e332bae57628dbd3c42"
+    },
+    {
+      "id": "post-office-rear",
+      "path": "packages/garden-world/art/runtime/story-v30/post-office-rear.png",
+      "bytes": 412667,
+      "sha256": "78f6896d6b1f40029d0cdb77a30acdbab2d30f467da1da7a186b77247df32517"
+    },
+    {
+      "id": "mailbox-rear",
+      "path": "packages/garden-world/art/runtime/story-v30/mailbox-rear.png",
+      "bytes": 302275,
+      "sha256": "9d9629d606ccd02ee6911d97fe12757f532ed95c2591f6db2a9e332963d6832b"
+    },
+    {
+      "id": "willow-rear",
+      "path": "packages/garden-world/art/runtime/story-v30/willow-rear.png",
+      "bytes": 552838,
+      "sha256": "7f196f786eb1feb4f0bbb5dfcd376ec6e8d8263da50788b5c267ea57234ef0b8"
+    },
+    {
+      "id": "jetty-rear",
+      "path": "packages/garden-world/art/runtime/story-v30/jetty-rear.png",
+      "bytes": 511461,
+      "sha256": "b73d4d7c96c60e23cbc724977ed690315e1dd55ca40ab04eee0a012d5e298fa0"
+    },
+    {
+      "id": "forest-station-rear",
+      "path": "packages/garden-world/art/runtime/story-v30/forest-station-rear.png",
+      "bytes": 510908,
+      "sha256": "201fb1362b4b848c85a729179f87958d7bc53334454e100f188a00da62199d14"
+    },
+    {
+      "id": "carriage-rear",
+      "path": "packages/garden-world/art/runtime/story-v30/carriage-rear.png",
+      "bytes": 562004,
+      "sha256": "b2bd107dacb33365f51537d0f30a4d0b788b6b050016d6000d56a27a1ce47dcf"
+    },
+    {
+      "id": "rail",
+      "path": "packages/garden-world/art/runtime/story-v30/rail.png",
+      "bytes": 204552,
+      "sha256": "d9cd23d52c85e795049b4f9212818b95a38a8af319c53a0ab45b4c6ce850a0ba"
+    }
+  ]
+}

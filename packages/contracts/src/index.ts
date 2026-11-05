@@ -1,8 +1,9 @@
-export const ENGINE_VERSION = '1.2.0';
+export const ENGINE_VERSION = '1.3.0';
+export const SCULPTED_ENGINE_VERSION = '1.2.0';
 export const PREVIOUS_ENGINE_VERSION = '1.1.0';
 export const LEGACY_ENGINE_VERSION = '1.0.0';
-export const supportsEngine = (version:string)=>version===ENGINE_VERSION||version===PREVIOUS_ENGINE_VERSION||version===LEGACY_ENGINE_VERSION;
-export const CONTENT_VERSION = 'garden-2026.11.03-progression-v14';
+export const supportsEngine = (version:string)=>version===ENGINE_VERSION||version===SCULPTED_ENGINE_VERSION||version===PREVIOUS_ENGINE_VERSION||version===LEGACY_ENGINE_VERSION;
+export const CONTENT_VERSION = 'garden-2026.11.04-campaign-v20';
 export const COLORS = ['berry','drop','sun','sprout','flower','acorn'] as const;
 export type Color = typeof COLORS[number];
 export type Special = 'wind-row'|'wind-column'|'bomb'|'glider'|'rainbow';
@@ -10,10 +11,12 @@ export type Booster = 'hammer'|'sweep-row'|'sweep-column'|'shuffle'|'sweep-borde
 export type PreBooster = 'wind-row'|'bomb'|'rainbow';
 export type Item = Booster | PreBooster;
 export type Tile = {id:number; kind:'normal';color:Color} | {id:number;kind:Special} | {id:number;kind:'seed'};
-export type ObstacleKind = 'crate'|'vine'|'pot'|'moss'|'cabinet';
-export interface Obstacle {id:string;kind:ObstacleKind;hp:number;maxHp:number;anchor:number;footprint:number[];color?:Color;charge?:number;seeds?:number}
+export type ObstacleKind = 'crate'|'vine'|'pot'|'moss'|'cabinet'|'pipe'|'bud'|'carousel'|'curtain';
+export interface Obstacle {id:string;kind:ObstacleKind;hp:number;maxHp:number;anchor:number;footprint:number[];color?:Color;charge?:number;seeds?:number;path?:number[]}
 export interface Cell {exists:boolean;tile:Tile|null;frost:number;obstacleId?:string;exit?:boolean}
-export interface Goal {kind:Color|'crate'|'vine'|'frost'|'seed'|'pot'|'moss'|'cabinet'|'combo'|'special';count:number;remaining:number}
+export interface Goal {kind:Color|ObstacleKind|'frost'|'seed'|'combo'|'special';count:number;remaining:number}
+export type CampaignBeat='introduction'|'practice'|'easy'|'normal'|'hard'|'super'|'celebration';
+export interface CampaignPosition {pack:number;position:number;beat:CampaignBeat;lesson?:ObstacleKind;phase:1|2|3|4|5}
 export interface LevelDefinition {
  id:number;version:string;engineVersion:string;width:number;height:number;colors:Color[];moves:number;
  seed:number;shape:boolean[];goals:Goal[];obstacles:Obstacle[];frost?:Record<number,number>;
@@ -21,6 +24,7 @@ export interface LevelDefinition {
  difficulty:'normal'|'hard'|'super';tutorial?:{text:string;from:number;to:number;feature:string};
  protectedCells?:number[];approved?:boolean;
  strategy?:{id:string;name:string;hint:string};
+ campaign?:CampaignPosition;
 }
 export interface GameState {
  engineVersion:string;levelId:number;width:number;height:number;cells:Cell[];obstacles:Record<string,Obstacle>;
@@ -28,7 +32,7 @@ export interface GameState {
  status:'playing'|'won'|'lost'|'error';error?:string;colors:Color[];gravity:number[][];
 }
 export type Action = {type:'swap';from:number;to:number}|{type:'tap';at:number}|{type:'booster';item:Booster;at?:number}|{type:'continue';moves:5};
-export interface GameEvent {type:'swap'|'invalid'|'hit'|'remove'|'spawn'|'fall'|'special'|'shuffle'|'win'|'lose'|'moss'|'error';cells:number[];kind?:string;effectId?:number;from?:number;to?:number}
+export interface GameEvent {type:'swap'|'invalid'|'hit'|'remove'|'spawn'|'fall'|'special'|'shuffle'|'win'|'lose'|'moss'|'error'|'mechanic';cells:number[];kind?:string;effectId?:number;from?:number;to?:number;obstacleId?:string;obstacleAfter?:Obstacle|null}
 export interface ActionResult {state:GameState;events:GameEvent[];accepted:boolean;reason?:string}
 export interface InventoryCount {normal:number;bound:number}
 export interface Player {
@@ -81,12 +85,14 @@ export interface RankingsResponse {
 }
 
 export type StorySpeaker='lumi'|'tori'|'naru';
-export type StoryChapterId='sky'|'workshop'|'terrace';
+export type StoryChapterId='sky'|'workshop'|'terrace'|'postal'|'firefly'|'station';
 export type GardenStyle='classic'|'festival';
 export interface StoryBeat {speaker:StorySpeaker;text:string}
 export interface StoryScene {id:string;chapterId:StoryChapterId;title:string;taskId?:string;art:string;beats:StoryBeat[]}
 export interface StoryChapter {id:StoryChapterId;title:string;summary:string;art:string;sceneIds:string[]}
-export interface StoryState {contentVersion:string;unlocked:string[];seen:string[];styles:Record<string,GardenStyle>;completedEpisodes?:string[]}
+export interface DailyRescueState {periodId:string;endsAt:number;reward:{item:Item;quantity:number};claimed:boolean}
+export interface DailyRescueResult {player:Player;dailyRescue:DailyRescueState}
+export interface StoryState {contentVersion:string;unlocked:string[];seen:string[];styles:Record<string,GardenStyle>;completedEpisodes?:string[];dailyRescue?:DailyRescueState}
 export interface LocalFeatures {freeHeartRefill:boolean}
 
 export type MissionPeriod='daily'|'weekly';

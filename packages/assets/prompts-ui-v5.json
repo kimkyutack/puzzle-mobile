@@ -1,0 +1,42 @@
+[
+  {
+    "id": "poster_hearts_v5",
+    "prompt": "Create one premium mobile puzzle game promotional illustration, landscape 4:3, fully painted opaque scene, no UI border, no text, no letters or numbers. Reference image 1 supplies the exact original mascot identity: Lumi the cheerful orange-and-white red panda gardener, brown paws, teal overalls with a sprout badge, coral neckerchief. Draw Lumi riding a whimsical giant glossy ruby-red heart hot-air balloon above a lush floating garden in turquoise sky, golden ropes, smaller red hearts orbiting, a tiny ornate emerald-and-gold greenhouse far below, a few gold sparkles. Very polished dimensional 3D animation game art, tactile toy forms, vivid emerald/red/cobalt/gold contrasting color zones, controlled soft lighting, no pale cream wash. Strong one centered hero object, readable at 300px wide. Entire canvas is the illustration; not a screenshot, no buttons, no labels, no frames.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-175d7321-732a-411e-9032-5530ba97fac7.png",
+    "method": "built-in image_gen",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_hearts_v5.png"
+  },
+  {
+    "id": "poster_gift_v5",
+    "prompt": "Create one premium mobile garden puzzle game illustrated event poster, landscape 4:3, fully painted opaque scene with no UI border, no text, letters or numbers. Reference image 1 is the exact mascot: cheerful orange-and-white red panda Lumi with brown paws, teal overalls, sprout chest badge, coral scarf. Lumi opens a magnificent emerald-green and gold treasure chest in a flower garden under a jewel-purple sunset. An artful fountain of chunky golden leaf coins, one five-petal golden star and ruby hearts rises out of the chest, flowers and gold ribbons in foreground. Strong foreground/midground/background depth, chunky polished 3D animation-game rendering, rich purple/emerald/orange and gold color contrast, contained highlights, clear central silhouette, readable at 300px. No white/cream flat background, no buttons, no captions, no user interface.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-3d29c64a-7fce-4e87-94e4-e399be1d433f.png",
+    "method": "built-in image_gen",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_gift_v5.png"
+  },
+  {
+    "id": "poster_victory_v5",
+    "prompt": "Create one premium mobile garden match-3 victory celebration poster illustration, landscape 4:3, fully opaque painting, no text, no letters, no numerals, no UI border. Use reference image 1 to keep Lumi's identity: joyful orange-and-white red panda gardener, teal overalls with sprout patch, coral scarf, brown paws. Lumi jumps proudly on a rounded garden stone pedestal holding up an ornate golden five-petal star. A newly blooming turquoise-and-gold garden arch rises behind, glossy flower petals and a few leaf-emblem gold coins arc around him, deep cobalt/turquoise sky and saturated coral/emerald flowers create distinct color layers. Premium dimensional 3D animated puzzle game art, big readable mascot hero, sculpted shading, soft daylight, controlled sparkles, no glaring white/cream wash, no buttons or caption areas.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-4155b339-6091-44e1-ab71-064057e75736.png",
+    "method": "built-in image_gen",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_victory_v5.png"
+  },
+  {
+    "id": "poster_continue_v5",
+    "prompt": "Create one illustrated offer poster for an original premium mobile garden match-3 puzzle game, landscape 4:3. Fully opaque dimensional 3D animation game artwork, no UI border, no buttons, no letters. A grand shiny golden pocket watch floats in the CENTER above a little lush garden path. Its dial is a perfectly blank rich cobalt-blue circle (reserved for a real dynamic label in code). A ruby-red and emerald ribbon hangs under it. On the LEFT an encouraging orange-and-white red panda gardener Lumi in teal overalls with sprout badge and coral scarf points towards the pocket watch; use reference image1 for exact mascot identity. On the RIGHT, five small golden flowers shoot up in an arc like extra puzzle moves. Behind is a jewel teal sky, purple cloud islands, green garden and warm sunset light. Clear composition, large central watch occupying 55% image height, blank center face, contrasting royal blue/red/gold/green, richly sculpted forms with soft shadows, controlled highlights, no pale flat background, no text or numerals anywhere.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-51a25f2a-0a1a-4702-89bf-2d3bc55e474d.png",
+    "method": "built-in image_gen",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_continue_v5.png"
+  }
+]

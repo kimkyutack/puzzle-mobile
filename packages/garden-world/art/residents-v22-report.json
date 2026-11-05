@@ -1,0 +1,425 @@
+{
+  "method": "Technical extraction of six authored frames, alpha-bound crop, same scale per actor and aligned foot line; source art unchanged.",
+  "frames": [
+    {
+      "id": "rabbit",
+      "frame": 0,
+      "path": "packages/garden-world/art/runtime/residents-v22/rabbit-0.png",
+      "width": 155,
+      "height": 236,
+      "footY": 250,
+      "sourceBox": {
+        "left": 118,
+        "top": 12,
+        "width": 310,
+        "height": 473
+      }
+    },
+    {
+      "id": "rabbit",
+      "frame": 1,
+      "path": "packages/garden-world/art/runtime/residents-v22/rabbit-1.png",
+      "width": 165,
+      "height": 234,
+      "footY": 250,
+      "sourceBox": {
+        "left": 105,
+        "top": 13,
+        "width": 330,
+        "height": 469
+      }
+    },
+    {
+      "id": "rabbit",
+      "frame": 2,
+      "path": "packages/garden-world/art/runtime/residents-v22/rabbit-2.png",
+      "width": 166,
+      "height": 235,
+      "footY": 250,
+      "sourceBox": {
+        "left": 106,
+        "top": 11,
+        "width": 332,
+        "height": 470
+      }
+    },
+    {
+      "id": "rabbit",
+      "frame": 3,
+      "path": "packages/garden-world/art/runtime/residents-v22/rabbit-3.png",
+      "width": 160,
+      "height": 234,
+      "footY": 250,
+      "sourceBox": {
+        "left": 112,
+        "top": 17,
+        "width": 321,
+        "height": 468
+      }
+    },
+    {
+      "id": "rabbit",
+      "frame": 4,
+      "path": "packages/garden-world/art/runtime/residents-v22/rabbit-4.png",
+      "width": 185,
+      "height": 194,
+      "footY": 250,
+      "sourceBox": {
+        "left": 72,
+        "top": 78,
+        "width": 371,
+        "height": 388
+      }
+    },
+    {
+      "id": "rabbit",
+      "frame": 5,
+      "path": "packages/garden-world/art/runtime/residents-v22/rabbit-5.png",
+      "width": 192,
+      "height": 225,
+      "footY": 250,
+      "sourceBox": {
+        "left": 81,
+        "top": 31,
+        "width": 384,
+        "height": 451
+      }
+    },
+    {
+      "id": "cat",
+      "frame": 0,
+      "path": "packages/garden-world/art/runtime/residents-v22/cat-0.png",
+      "width": 195,
+      "height": 228,
+      "footY": 250,
+      "sourceBox": {
+        "left": 63,
+        "top": 18,
+        "width": 388,
+        "height": 454
+      }
+    },
+    {
+      "id": "cat",
+      "frame": 1,
+      "path": "packages/garden-world/art/runtime/residents-v22/cat-1.png",
+      "width": 197,
+      "height": 223,
+      "footY": 250,
+      "sourceBox": {
+        "left": 59,
+        "top": 25,
+        "width": 392,
+        "height": 444
+      }
+    },
+    {
+      "id": "cat",
+      "frame": 2,
+      "path": "packages/garden-world/art/runtime/residents-v22/cat-2.png",
+      "width": 199,
+      "height": 222,
+      "footY": 250,
+      "sourceBox": {
+        "left": 62,
+        "top": 25,
+        "width": 396,
+        "height": 442
+      }
+    },
+    {
+      "id": "cat",
+      "frame": 3,
+      "path": "packages/garden-world/art/runtime/residents-v22/cat-3.png",
+      "width": 176,
+      "height": 236,
+      "footY": 250,
+      "sourceBox": {
+        "left": 81,
+        "top": 11,
+        "width": 350,
+        "height": 469
+      }
+    },
+    {
+      "id": "cat",
+      "frame": 4,
+      "path": "packages/garden-world/art/runtime/residents-v22/cat-4.png",
+      "width": 219,
+      "height": 149,
+      "footY": 250,
+      "sourceBox": {
+        "left": 42,
+        "top": 171,
+        "width": 435,
+        "height": 296
+      }
+    },
+    {
+      "id": "cat",
+      "frame": 5,
+      "path": "packages/garden-world/art/runtime/residents-v22/cat-5.png",
+      "width": 216,
+      "height": 224,
+      "footY": 250,
+      "sourceBox": {
+        "left": 40,
+        "top": 29,
+        "width": 430,
+        "height": 445
+      }
+    },
+    {
+      "id": "dog",
+      "frame": 0,
+      "path": "packages/garden-world/art/runtime/residents-v22/dog-0.png",
+      "width": 202,
+      "height": 236,
+      "footY": 250,
+      "sourceBox": {
+        "left": 60,
+        "top": 7,
+        "width": 396,
+        "height": 463
+      }
+    },
+    {
+      "id": "dog",
+      "frame": 1,
+      "path": "packages/garden-world/art/runtime/residents-v22/dog-1.png",
+      "width": 208,
+      "height": 231,
+      "footY": 250,
+      "sourceBox": {
+        "left": 51,
+        "top": 11,
+        "width": 409,
+        "height": 453
+      }
+    },
+    {
+      "id": "dog",
+      "frame": 2,
+      "path": "packages/garden-world/art/runtime/residents-v22/dog-2.png",
+      "width": 206,
+      "height": 231,
+      "footY": 250,
+      "sourceBox": {
+        "left": 55,
+        "top": 13,
+        "width": 405,
+        "height": 454
+      }
+    },
+    {
+      "id": "dog",
+      "frame": 3,
+      "path": "packages/garden-world/art/runtime/residents-v22/dog-3.png",
+      "width": 197,
+      "height": 231,
+      "footY": 250,
+      "sourceBox": {
+        "left": 51,
+        "top": 11,
+        "width": 387,
+        "height": 453
+      }
+    },
+    {
+      "id": "dog",
+      "frame": 4,
+      "path": "packages/garden-world/art/runtime/residents-v22/dog-4.png",
+      "width": 212,
+      "height": 152,
+      "footY": 250,
+      "sourceBox": {
+        "left": 44,
+        "top": 158,
+        "width": 415,
+        "height": 298
+      }
+    },
+    {
+      "id": "dog",
+      "frame": 5,
+      "path": "packages/garden-world/art/runtime/residents-v22/dog-5.png",
+      "width": 233,
+      "height": 201,
+      "footY": 250,
+      "sourceBox": {
+        "left": 37,
+        "top": 71,
+        "width": 457,
+        "height": 395
+      }
+    },
+    {
+      "id": "visitor_a",
+      "frame": 0,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_a-0.png",
+      "width": 80,
+      "height": 229,
+      "footY": 250,
+      "sourceBox": {
+        "left": 167,
+        "top": 13,
+        "width": 170,
+        "height": 485
+      }
+    },
+    {
+      "id": "visitor_a",
+      "frame": 1,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_a-1.png",
+      "width": 107,
+      "height": 227,
+      "footY": 250,
+      "sourceBox": {
+        "left": 142,
+        "top": 16,
+        "width": 227,
+        "height": 481
+      }
+    },
+    {
+      "id": "visitor_a",
+      "frame": 2,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_a-2.png",
+      "width": 118,
+      "height": 226,
+      "footY": 250,
+      "sourceBox": {
+        "left": 146,
+        "top": 16,
+        "width": 249,
+        "height": 478
+      }
+    },
+    {
+      "id": "visitor_a",
+      "frame": 3,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_a-3.png",
+      "width": 87,
+      "height": 232,
+      "footY": 250,
+      "sourceBox": {
+        "left": 163,
+        "top": 11,
+        "width": 183,
+        "height": 490
+      }
+    },
+    {
+      "id": "visitor_a",
+      "frame": 4,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_a-4.png",
+      "width": 107,
+      "height": 231,
+      "footY": 250,
+      "sourceBox": {
+        "left": 153,
+        "top": 13,
+        "width": 226,
+        "height": 488
+      }
+    },
+    {
+      "id": "visitor_a",
+      "frame": 5,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_a-5.png",
+      "width": 92,
+      "height": 236,
+      "footY": 250,
+      "sourceBox": {
+        "left": 152,
+        "top": 3,
+        "width": 194,
+        "height": 499
+      }
+    },
+    {
+      "id": "visitor_b",
+      "frame": 0,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_b-0.png",
+      "width": 88,
+      "height": 231,
+      "footY": 250,
+      "sourceBox": {
+        "left": 171,
+        "top": 16,
+        "width": 178,
+        "height": 468
+      }
+    },
+    {
+      "id": "visitor_b",
+      "frame": 1,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_b-1.png",
+      "width": 109,
+      "height": 229,
+      "footY": 250,
+      "sourceBox": {
+        "left": 144,
+        "top": 20,
+        "width": 221,
+        "height": 464
+      }
+    },
+    {
+      "id": "visitor_b",
+      "frame": 2,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_b-2.png",
+      "width": 120,
+      "height": 228,
+      "footY": 250,
+      "sourceBox": {
+        "left": 136,
+        "top": 23,
+        "width": 244,
+        "height": 462
+      }
+    },
+    {
+      "id": "visitor_b",
+      "frame": 3,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_b-3.png",
+      "width": 84,
+      "height": 235,
+      "footY": 250,
+      "sourceBox": {
+        "left": 173,
+        "top": 15,
+        "width": 171,
+        "height": 476
+      }
+    },
+    {
+      "id": "visitor_b",
+      "frame": 4,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_b-4.png",
+      "width": 136,
+      "height": 236,
+      "footY": 250,
+      "sourceBox": {
+        "left": 136,
+        "top": 13,
+        "width": 276,
+        "height": 478
+      }
+    },
+    {
+      "id": "visitor_b",
+      "frame": 5,
+      "path": "packages/garden-world/art/runtime/residents-v22/visitor_b-5.png",
+      "width": 110,
+      "height": 236,
+      "footY": 250,
+      "sourceBox": {
+        "left": 134,
+        "top": 16,
+        "width": 223,
+        "height": 477
+      }
+    }
+  ]
+}

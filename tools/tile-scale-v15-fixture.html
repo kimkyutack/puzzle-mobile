@@ -1,0 +1,12 @@
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>9열 타일 크기 검사</title>
+<script>
+window.__tileQaApiAttempts=[];
+if(new URLSearchParams(location.search).has('capture'))document.documentElement.dataset.capture='';
+const realFetch=window.fetch.bind(window);
+window.fetch=(input,init)=>{const url=typeof input==='string'?input:input.url;if(new URL(url,location.href).pathname.startsWith('/api/')){window.__tileQaApiAttempts.push(url);return Promise.reject(new Error('Renderer fixture blocks API'));}return realFetch(input,init);};
+</script>
+<style>.tile-test-controls{position:absolute!important;left:0;right:0;top:120px;display:flex;gap:8px;justify-content:center;z-index:9!important}.tile-test-controls button{padding:6px 12px;border-radius:8px;background:#24487d;color:#fff;min-height:36px}.tile-test-controls button[aria-pressed=true]{background:#b84f29}.tile-test-result{position:absolute!important;bottom:92px;left:12px;right:12px;font-size:10px;text-align:center;color:#24334f;overflow-wrap:anywhere}.sr-only{display:none}[data-capture] .tile-test-controls,[data-capture] .tile-test-result{display:none}</style>
+</head><body><div id="root"></div><script type="module">
+import RefreshRuntime from '/@react-refresh';RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>type=>type;window.__vite_plugin_react_preamble_installed__=true;
+await import('/@fs/Users/kimkyutack/Desktop/puzzle-mobile/tools/tile-scale-v15-harness.tsx');
+</script></body></html>

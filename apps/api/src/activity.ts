@@ -17,8 +17,8 @@ export function grantActivityReward(tx:MutationContext,reward:ActivityReward){
  tx.player.coins+=reward.coins;
  for(const [item,count]of Object.entries(reward.items) as Array<[Item,number]>){tx.player.inventory[item]??={normal:0,bound:0};tx.player.inventory[item].bound+=count;}
 }
-export async function awardClearMilestones(tx:MutationContext,total:number){
- const previous=(await one<{awarded:number}>(tx.db,'SELECT awarded FROM clear_milestones WHERE user_id=?',tx.player.id))?.awarded??0;
+export async function awardClearMilestones(tx:MutationContext,total:number,previousAwarded?:number){
+ const previous=previousAwarded??(await one<{awarded:number}>(tx.db,'SELECT awarded FROM clear_milestones WHERE user_id=?',tx.player.id))?.awarded??0;
  const earned=Math.floor(total/10),amount=Math.max(0,earned-previous);
  if(amount){tx.touch(tx.player);grantActivityReward(tx,{coins:0,items:{'world-bomb':amount}});tx.statements.push(sql(tx.db,'INSERT INTO clear_milestones(user_id,awarded) VALUES(?,?) ON CONFLICT(user_id) DO UPDATE SET awarded=excluded.awarded',tx.player.id,earned));}
  return amount;

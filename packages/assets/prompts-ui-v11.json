@@ -1,0 +1,160 @@
+{
+  "revision": "shop-v11",
+  "method": "built-in image_gen.imagegen",
+  "runtimeProcessing": "Uniform fit at exact authored aspect ratio; no stretching or nine-slice on poster paintings. Prices, catalog quantities and statuses rendered separately in DOM.",
+  "assets": [
+    {
+      "id": "poster_offer_v11",
+      "method": "built-in image_gen.imagegen; new original artwork from references",
+      "prompt": "Use case: stylized-concept.\nAsset type: ORIGINAL mobile casual match-3 game shop special-package poster background, a single 2:1 wide landscape 1200 x 600 intended runtime artwork. Opaque full canvas. This is an illustrated promotional scene, not a UI screenshot and not a grid.\nInput images: Image 1 lumi.png is character identity reference only; Image 2 bundle_starter_v7.png is original garden treasure/tool material and symbol reference only; Image 3 poster_shop_v9.png is polished casual-game rendering and clean navy negative-space reference only. Create a new scene rather than reproduce any source layout.\nPrimary request: A joyful garden treasure celebration scene with an open coral and gold treasure chest brimming with glossy sprout-emblem gold coins and garden power-up tools, with original Lumi the red panda joyfully presenting it.\nSubject identity: Lumi has vivid orange fur, cream cheeks, huge warm amber eyes, dark brown paws, striped fluffy tail, teal gardener overalls with a sprout badge and coral neckerchief. Keep exactly this character identity and sweet proportions. Lumi, chest, small coral heart balloon, red-gold garden mallet and a couple of floating gold coins fill ONLY the left 47 percent. Main hero objects stay inside a 5 percent safe inset. Everything recognizable and unclipped.\nScene/backdrop: A full dimensional miniature garden-party stall, coral bunting, sunlit garden flowers and soft sky glimpses behind left hero, richly illustrated wooden tabletop and scattered coins in lower left. The RIGHT 49 percent is a large continuous quiet deep saturated royal-navy painted enamel sign integrated naturally into the same stall with a gently curved complete gold rim. Quiet subtle lighting, no busy objects, no glyphs, no buttons. The sign reaches from x=52 percent to x=94 percent, y=9 percent to y=91 percent. This is reserved blank readable space for live white outlined Korean product title, reward icons and purchase button to be overlaid by the app. Do not paint any of those UI elements.\nComposition/framing: 2:1 horizontal poster, left hero and right navy quiet region equally prominent; the whole poster has an inset clean sculpted warm gold outer rim fully visible on all four sides with rounded corners and subtle coral accents, never cropped. Full-bleed opaque illustrated background behind it. Camera straight-on, charming scene depth rather than flat icon-on-color.\nStyle/medium: premium polished 3D casual mobile game illustration, plush detailed fur and glossy toy-like treasure props, rich color separation, clean friendly silhouettes, strong material highlights, believable soft contact shadows and layered depth. Original game art.\nLighting/mood: warm celebratory peach-coral sunlight from upper left, gold sparkle accents concentrated on left, medium value navy right area, cheerful and premium without bright cream glare.\nPalette: coral, warm gold, sky blue environment, navy enamel sign; teal used only for existing Lumi outfit and limited referenced chest details. Avoid heavy purple, dark teal backgrounds and monotone cream.\nConstraints: NO TEXT, no lettering, numbers, logos, labels, watermarks, price marks, captions, UI buttons or placeholder boxes anywhere. One final clean standalone poster. No separate cards, no collage. Keep all important art within the frame. Do not use or reproduce Royal Match characters or assets.",
+      "references": [
+        {
+          "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png",
+          "role": "character identity reference only"
+        },
+        {
+          "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bundle_starter_v7.png",
+          "role": "garden treasure and tool material/symbol reference only"
+        },
+        {
+          "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_shop_v9.png",
+          "role": "rendering style and navy negative-space reference only"
+        }
+      ],
+      "transparent_background": false,
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f94-701f-7982-bd83-1edcf6732cb2/exec-bb4482d3-a2fa-4a85-97ed-f70fbeabb813.png",
+      "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_offer_v11.png",
+      "runtimeTarget": {
+        "width": 1200,
+        "height": 600,
+        "aspectRatio": "2:1"
+      },
+      "sourcePolicy": "Generated PNG copied unchanged; runtime normalization owned by parent",
+      "inspection": "view_image reviewed: complete gold perimeter; Lumi and treasure left; quiet blue enamel right; no text or UI buttons",
+      "sourceSha256": "7f09481d41ff05bc678bc531f0a819bb54985fa46446842054b271e427e663ec",
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "poster_pass_v11",
+      "useCase": "stylized-concept",
+      "method": "built-in image_gen.imagegen",
+      "intent": "generate",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f94-c742-7f12-ae14-d6483f527a24/exec-c14d2cf4-d24a-46c7-b35c-0b79ada1f974.png",
+      "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_pass_v11.png",
+      "runtimeTarget": {
+        "width": 1200,
+        "height": 800,
+        "aspectRatio": "3:2"
+      },
+      "transparentBackground": false,
+      "referenceRoles": [
+        {
+          "path": "packages/assets/source/rainbow.png",
+          "role": "visual reference only; inspected for original rainbow lantern silhouette, teal dome, handle, colored glass and cream flower detailing"
+        },
+        {
+          "path": "packages/assets/source/bundle_tools_v7.png",
+          "role": "visual reference only; glossy casual game material and original garden item visual identity"
+        }
+      ],
+      "imageInputsSubmitted": false,
+      "prompt": "Use case: stylized-concept.\nAsset type: original mobile casual match-3 game premium garden pass bundle promotional poster. One opaque horizontal full-scene illustration, exactly 3:2 aspect, intended runtime 1200x800.\nPrimary request: an enchanting rainbow-lantern and flower-star treasure trail celebration through a lush fountain arch garden. It should feel special and luxurious, like an illustrated collectible event poster, not an interface, a simple flat card or a repeated toolkit workshop image.\nVisual identity guidance from already inspected existing original game rainbow.png: glossy squat oval magical lantern, teal domed lid, golden loop handle, golden ribs around saturated red yellow green blue rainbow glass panels, little cream daisy flowers at its collar and base, green leaves. Preserve that original recognizable lantern as the hero, not a crown, king or unrelated mascot. Original garden flower-star collectible motifs with five rounded golden creamy petals and tiny teal flower center.\nScene: LEFT 48% of composition is a deep lush celebration garden under a graceful warm ivory-gold floral arch. A clear sapphire and turquoise tiered fountain flows beneath the arch in the background, soft coral lantern lights, lush leaves and bright flowers, small hovering flower-stars and a winding golden spark trail leading from an open treasure casket along a garden path toward the fountain. LEFT foreground has one LARGE glowing original rainbow glass lantern on a raised decorated stone pedestal, surrounded by a few oversized golden cream flower-stars, delicate gold sparkles and small closed ribboned gifts. These form one vivid rich layered hero grouping with realistic contact shadows. Avoid a clutter of many tiny objects.\nRIGHT 48% of the entire image must be a visually quiet broad DEEP NAVY / royal cobalt blue enamel garden mural or painted celebratory backdrop integrated into the same scene, no interior frames, no card panels. Almost empty but beautifully painted, with restrained blue reflected light and barely visible soft arched depth. It is a continuous scene surface to allow live white Korean title, reward details and price button to be overlaid later. Keep central and lower right unobstructed by fountain, spark trails, lanterns, gifts or stars. No bright wash in the text area. A subtle warm coral rim light at the distant extreme edge is acceptable.\nFraming: all hero objects remain inside leftmost 48%; no cropping. One complete clean rounded polished GOLD perimeter rim is fully INSIDE all FOUR image edges; every corner and border visible and intact. Flower vines and a coral silk ribbon can decorate the far left corners. Do not place ribbon, letters or button silhouettes across the quiet navy right area.\nStyle: premium original mobile casual 3D painted game artwork; rounded dimensional volumes, brilliant glass, tactile stone, glossy gold, crisp detailed flowers, elegant bevel highlights, rich depth and polished collectible poster composition.\nLighting/color: deep royal blue/navy background, spectacular warm gold rainbow-glass glow on left, controlled coral highlights, lush vibrant greens only as garden foliage, rich jewel contrast; premium inviting joyful mood, no glaring cream background.\nNo words, Korean, English, letters, numerals, prices, quantities, currency glyphs, logos, watermark, premium ownership/status labels, user interface, buttons, placeholders or mockup annotations. The composition itself contains no text. Fully opaque full-bleed PNG. One 3:2 composition, not a grid. Do not reproduce Royal Match graphics.",
+      "saveMethod": "Byte-identical copy of the built-in generated PNG; no creative image processing.",
+      "sourceSha256": "5242103cd53fb3bbfbe8fe5ca3040850b013d8c3ef4d5596edf64542c5b0d31c",
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "poster_starter_v11",
+      "method": "built-in image_gen.imagegen; new original artwork from references",
+      "prompt": "Use case: stylized-concept.\nAsset type: ORIGINAL mobile casual match-3 game shop first-garden starter-bundle poster background, a single 3:2 landscape image intended for 1200 x 800 runtime. Opaque full canvas, no transparency. Create one new finished poster, not a UI screenshot, not a grid.\nInput images: Image 1 lumi.png is character identity reference only; Image 2 bundle_starter_v7.png is original game garden tool and coin material/symbol reference only; Image 3 poster_shop_v9.png is rendering-style and quiet navy-copy-area reference only. Do not repeat the market-stall chest-party composition of another poster. This scene should instead feel like the welcoming first day of gardening.\nPrimary request: Original Lumi the red panda proudly welcomes a new gardener at a beautifully crafted garden potting workbench in a fresh flower-filled greenhouse garden at golden morning. Lumi smiling and waving, standing at the left behind a chunky warm honeywood workbench with a coral-and-gold compact beginner's toolkit, shiny miniature garden rake, trowel, watering can, a sprout seedling in a coral pot, a small pile of sprout-emblem gold coins, and a small strawberry-shaped garden booster. All hero props feel hand-designed, dimensional and generous.\nSubject identity: Lumi has vivid orange fur, cream cheeks, huge warm amber eyes, dark brown paws, striped fluffy tail, teal gardener overalls with a cream sprout badge and coral neckerchief. Keep this exact original character identity and lovable proportions. Hero and toolkit confined to left 47 percent, recognizably large. Character and props must not be cropped, keep their important silhouettes at least 5 percent inside the poster.\nScene/backdrop: Full illustrated greenhouse potting corner, honeywood workbench, airy sky visible through curved glass, warm sun and soft flowering trees, coral geraniums and fresh leaves at the lower left. Golden reflected sunlight on polished garden props. The RIGHT 49 percent is a continuous quiet deep navy-blue painted wooden potting-board panel integrated into the greenhouse wall, with a complete gently rounded gold rim and very subtle blue light gradient, no writing and no clutter. It should extend approximately x=52 percent to x=94 percent, y=9 percent to y=91 percent, providing reserved space for app-overlaid live white outlined Korean title, product quantity icons and purchase button. Do not paint any text, symbols, buttons or placeholder boxes in that right area.\nComposition/framing: Wide 3:2 landscape poster; charming detailed scene on left, calm readable rich blue area on right. An elegant sculpted gold outer perimeter with tiny blue enamel corner accents, fully visible on all four sides with rounded corners. Entire full poster sits inside the canvas with no incomplete border. Straight-on camera with believable miniature scene depth and soft atmospheric background. Full illustrated environment, never an isolated icon on a plain flat card.\nStyle/medium: Premium polished 3D casual mobile game art, plush fur, glossy toy-like garden tools, clean chunky friendly silhouettes, rich hue separation, sculpted metallic gold edges, hand-painted softness and soft contact shadows. Same high production polish as the references.\nLighting/mood: Warm golden morning, new beginnings, inviting and lively; control highlights, no cream-white glare; medium value right blue panel for text readability.\nPalette: honey gold, sky blue, soft coral, warm orange, fresh leaf accents. Navy quiet panel. Teal limited to original Lumi clothing and a few existing tool details, not the background. No purple-heavy palette.\nConstraints: NO TEXT, lettering, numbers, labels, logos, watermarks, prices, UI buttons or button placeholders anywhere. One final clean standalone full-canvas illustration. All art original. No Royal Match characters or copied game assets.",
+      "references": [
+        {
+          "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png",
+          "role": "character identity reference only"
+        },
+        {
+          "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bundle_starter_v7.png",
+          "role": "garden treasure and tool material/symbol reference only"
+        },
+        {
+          "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_shop_v9.png",
+          "role": "rendering style and navy negative-space reference only"
+        }
+      ],
+      "transparent_background": false,
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f94-701f-7982-bd83-1edcf6732cb2/exec-641be8fc-2c47-436b-942a-02e70f78a367.png",
+      "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_starter_v11.png",
+      "runtimeTarget": {
+        "width": 1200,
+        "height": 800,
+        "aspectRatio": "3:2"
+      },
+      "sourcePolicy": "Generated PNG copied unchanged; runtime normalization owned by parent",
+      "inspection": "view_image reviewed: complete gold perimeter; Lumi and potting toolkit left; quiet navy wooden board right; no text or UI buttons",
+      "sourceSha256": "fb9a9ef101459fc4c6dce7e34eb8a94f8309d7d1a037bcf8260a9c7bcf7e9e6f",
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "poster_tools_v11",
+      "useCase": "stylized-concept",
+      "method": "built-in image_gen.imagegen",
+      "intent": "edit / vertical composition expansion",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f94-c742-7f12-ae14-d6483f527a24/exec-cd770694-b51a-407f-865b-b389fcfd1f5e.png",
+      "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_tools_v11.png",
+      "runtimeTarget": {
+        "width": 1200,
+        "height": 800,
+        "aspectRatio": "3:2"
+      },
+      "transparentBackground": false,
+      "referenceRoles": [
+        {
+          "path": "packages/assets/source/bundle_tools_v7.png",
+          "role": "visual reference only; inspected for toolbox/chest identity"
+        },
+        {
+          "path": "packages/assets/source/rainbow.png",
+          "role": "visual reference only; rainbow lantern shape/material identity"
+        },
+        {
+          "path": "packages/assets/source/wind-row.png",
+          "role": "visual reference only; teal/cream/coral propeller identity"
+        },
+        {
+          "path": "packages/assets/source/bomb.png",
+          "role": "visual reference only; coral flower bud and cream petals"
+        },
+        {
+          "path": "packages/assets/source/glider.png",
+          "role": "visual reference only; flying garden tool identity"
+        },
+        {
+          "path": "packages/assets/source/hammer.png",
+          "role": "visual reference only; wood and coral flower mallet identity"
+        }
+      ],
+      "imageInputsSubmitted": true,
+      "prompt": "Use case: precise-object-edit / poster outpaint.\nEdit target image: the supplied existing original garden workshop toolkit poster. Make exactly ONE 3:2 aspect horizontal poster intended for 1200x800 runtime, by expanding the composition vertically. This is the same artwork extended, NOT a new theme, NOT a grid.\nKeep unchanged: the premium glossy 3D casual garden workshop style, honey wood and coral flower mallet, coral flower bud bomb, teal cream propeller, rainbow glass lantern, open dark emerald copper treasure toolbox, warm workshop window lighting and coral ribbons; their illustrated identities and left-side arrangement should remain visually faithful. Do not flatten or stretch objects.\nChange only composition/aspect: add taller natural workshop space above/below to achieve exactly 3:2 width to height. Keep every hero/tool/chest entirely within the LEFT 48% of canvas; simplify any objects encroaching across center. The full RIGHT 48% must be a large uninterrupted, visually quiet, deep navy and cobalt blue enamel/painted workshop wall zone, from near top rim to near bottom rim, suitable for live white outlined Korean title, eight product reward lines and a price button to be placed later by code. No text or button shape or inset border on that zone. Very subtle blue brushed paint and reflected light only. This area must NOT be occupied by ribbons, shelves, flowers, furniture or bright glows.\nA clean polished complete gold perimeter rim must be fully visible INSIDE all four edges and all corners. Retain ribbon/flower accents only along the far LEFT perimeter. Expand wall and workshop environment coherently, preserving visual depth. Do not crop the chest, rim, tools, or window silhouettes. Right half is darker than left.\nFully opaque PNG; no letters, numerals, language, text, logos, currencies, UI controls or placeholders, watermarks. Original artwork only. One final complete 3:2 poster.",
+      "saveMethod": "Byte-identical copy of the built-in generated PNG; no creative image processing.",
+      "generations": [
+        {
+          "method": "built-in image_gen.imagegen",
+          "intent": "generate",
+          "prompt": "Use case: stylized-concept.\nAsset type: original mobile casual match-3 game shop bundle poster, opaque full-background painted 3D illustration, one wide 2:1 composition intended for a 1200x600 runtime banner.\nPrimary request: a powerful garden workshop toolkit bundle promotional scene, no words anywhere. This is a fully illustrated poster artwork, not an interface mockup and not a grid.\nInput images: the six existing game asset references already inspected are visual identity guidance only: bundle_tools_v7 chest; rainbow lantern; wind-row teal propeller; bomb flower bud; glider; hammer. Recreate those recognizable ORIGINAL object designs within a new scene, without copying any other game's artwork.\nScene/backdrop: a charming busy garden workshop with warm amber timber beams, coral tool racks, a curved sky-blue window revealing a garden, and a warmly lit wooden workbench. The workshop architecture creates depth and distinctive silhouettes. Illustrated ribbons curve along the lower left and top left edges.\nSubject: LEFT 48% of poster dominated by an open dark emerald and copper toolbox/chest with gold latches and small leaf motifs. A large honey-wood mallet with glossy coral end caps, small cream flower and green leaves flies upward out of the chest; beside it a teal circular two-bladed cream propeller with coral hub, a coral red flower-bud bomb wrapped in three cream petals with two green leaves, and a glossy golden oval rainbow lantern with teal lid, top handle, red yellow green blue colored glass panels and small cream flowers. Confident large readable toy silhouettes, several sparkling power arcs, collectible excitement, physical contact shadows, and foreground depth.\nComposition/framing: exactly one wide horizontal 2:1 poster. Leftmost 48% is hero action. RIGHTMOST 48% is one integrated broad dark navy-blue enamel workshop wall/sign surface with gentle brushed paint and rich blue reflected lighting, visually quiet and mostly empty. It is a genuine painted part of the workshop environment, without frames inside it, text or button silhouettes. Keep all right-side interior unobstructed so live Korean title, quantities and price controls can later be overlaid legibly. The two halves join naturally through scene perspective and illumination. Complete clean polished gold rim INSIDE all four canvas edges, fully visible, no cropping; each corner intact. Let a few subtle gold and coral decorative accents sit at the far perimeter only.\nStyle/medium: polished premium 3D casual game illustration, plush rounded volumes, hand-painted material detailing, crisp silhouettes and attractive bevel highlights, saturated yet balanced, image-rich promotional artwork.\nLighting/mood: upbeat heroic, warm amber left highlights, sky-blue fill and coral glints, deep cobalt/navy right side; clear focus without glaring white patches. \nConstraints: fully opaque full bleed PNG. No text, Korean, English, letters, numerals, quantities, prices, currencies, logos, watermark, ownership status, premium labels, UI controls, button placeholders, generic flat card, inset mockup or split panel layout. Original visual identity only; do not use Royal Match graphics.",
+          "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f94-c742-7f12-ae14-d6483f527a24/exec-66d701cc-eb7e-4c07-8c10-5998467ea360.png",
+          "preservedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v11/generated/poster_tools_v11_wide_original.png",
+          "aspectRatio": "2:1"
+        },
+        {
+          "method": "built-in image_gen.imagegen",
+          "intent": "edit / vertical composition expansion",
+          "prompt": "Use case: precise-object-edit / poster outpaint.\nEdit target image: the supplied existing original garden workshop toolkit poster. Make exactly ONE 3:2 aspect horizontal poster intended for 1200x800 runtime, by expanding the composition vertically. This is the same artwork extended, NOT a new theme, NOT a grid.\nKeep unchanged: the premium glossy 3D casual garden workshop style, honey wood and coral flower mallet, coral flower bud bomb, teal cream propeller, rainbow glass lantern, open dark emerald copper treasure toolbox, warm workshop window lighting and coral ribbons; their illustrated identities and left-side arrangement should remain visually faithful. Do not flatten or stretch objects.\nChange only composition/aspect: add taller natural workshop space above/below to achieve exactly 3:2 width to height. Keep every hero/tool/chest entirely within the LEFT 48% of canvas; simplify any objects encroaching across center. The full RIGHT 48% must be a large uninterrupted, visually quiet, deep navy and cobalt blue enamel/painted workshop wall zone, from near top rim to near bottom rim, suitable for live white outlined Korean title, eight product reward lines and a price button to be placed later by code. No text or button shape or inset border on that zone. Very subtle blue brushed paint and reflected light only. This area must NOT be occupied by ribbons, shelves, flowers, furniture or bright glows.\nA clean polished complete gold perimeter rim must be fully visible INSIDE all four edges and all corners. Retain ribbon/flower accents only along the far LEFT perimeter. Expand wall and workshop environment coherently, preserving visual depth. Do not crop the chest, rim, tools, or window silhouettes. Right half is darker than left.\nFully opaque PNG; no letters, numerals, language, text, logos, currencies, UI controls or placeholders, watermarks. Original artwork only. One final complete 3:2 poster.",
+          "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f94-c742-7f12-ae14-d6483f527a24/exec-cd770694-b51a-407f-865b-b389fcfd1f5e.png",
+          "inputImageRole": "edit target: preserved first generated wide original"
+        }
+      ],
+      "sourceSha256": "13973d8162ff83c2cc1bde175ee77f1c72ac0e712b9ab58171ee3aebdaad3434",
+      "originalBytesPreserved": true
+    }
+  ]
+}

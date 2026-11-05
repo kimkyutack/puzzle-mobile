@@ -1,0 +1,65 @@
+[
+  {
+    "id": "rose-arch",
+    "prompt": "ONE original production sprite for a premium casual mobile garden-building game. Match a polished charming hand-painted3D cartoon toy aesthetic: warm ivory sandstone, honey-gold trim, warm light wood, fresh leaf green, coral and yellow floral accents. TRUE ISOMETRIC ORTHOGRAPHIC camera, ground axes26.565degrees,2:1diamond projection, upper-leftsoft sunlight. One complete object on genuinely TRANSPARENT background. No text, UI, logos, characters, sets, grids, extra terrain, cast shadow outside the object's compact base. Full object visible, tightly framed. A beautiful rose-covered garden arch on a2x1tile footprint, rounded ivory/gold arch frame, lush climbing leaf green roses with soft coral/pink blossoms, a small low sandstone footing under each post. A clear walk-through opening; front-right and side faces visible, camera looks down slightly. Decorative graceful compact garden gateway.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-a1d2ef08-7f65-4131-99a9-38acb1eae985.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/rose-arch.png"
+  },
+  {
+    "id": "gazebo",
+    "prompt": "ONE original production sprite for a premium casual mobile garden-building game. Match a polished charming hand-painted3D cartoon toy aesthetic: warm ivory sandstone, honey-gold trim, warm light wood, fresh leaf green, coral and yellow floral accents. TRUE ISOMETRIC ORTHOGRAPHIC camera, ground axes26.565degrees,2:1diamond projection, upper-leftsoft sunlight. One complete object on genuinely TRANSPARENT background. No text, UI, logos, characters, sets, grids, extra terrain, cast shadow outside the object's compact base. Full object visible, tightly framed. One open-sided garden gazebo on a3x3tile square footprint. Honey-gold/ivory columns, light warm-wood roof with delicate rounded pale-blue roof accents (not teal/purple), comfortable built-in bench inside and a little flower basket. Low sandstone diamond platform; elegant roof and two sides visible, inviting premium garden pavilion.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-cbe5110f-cd16-4f82-a336-64b6f4b7a106.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/gazebo.png"
+  },
+  {
+    "id": "pond",
+    "prompt": "ONE original production sprite for a premium casual mobile garden-building game. Match a polished charming hand-painted3D cartoon toy aesthetic: warm ivory sandstone, honey-gold trim, warm light wood, fresh leaf green, coral and yellow floral accents. TRUE ISOMETRIC ORTHOGRAPHIC camera, ground axes26.565degrees,2:1diamond projection, upper-leftsoft sunlight. One complete object on genuinely TRANSPARENT background. No text, UI, logos, characters, sets, grids, extra terrain, cast shadow outside the object's compact base. Full object visible, tightly framed. A small ornamental garden pond on a3x2tile rectangular footprint, low smoothly rounded ivory sandstone edging, clear soft blue water, three lily pads and one coral lotus, small reeds clustered at one corner. Water surface and border stay inside footprint. NO fish/animals. Low broad pond as a placeable complete object with no external terrain.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-7e1bbe93-9e65-4026-8ce9-5b6d23bec558.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/pond.png"
+  },
+  {
+    "id": "picnic",
+    "prompt": "ONE original production sprite for a premium casual mobile garden-building game. Match a polished charming hand-painted3D cartoon toy aesthetic: warm ivory sandstone, honey-gold trim, warm light wood, fresh leaf green, coral and yellow floral accents. TRUE ISOMETRIC ORTHOGRAPHIC camera, ground axes26.565degrees,2:1diamond projection, upper-leftsoft sunlight. One complete object on genuinely TRANSPARENT background. No text, UI, logos, characters, sets, grids, extra terrain, cast shadow outside the object's compact base. Full object visible, tightly framed. One cozy picnic corner on a2x2tile footprint: small round warm-wood garden table with two short matching stools, a cheerful yellow-checkered cloth and a tiny coral flower vase. Low compact ivory stone footing as a diamond, all legs visible. No food text, no characters.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-31b07097-e8c7-423e-ba71-d10a9ec5b727.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/picnic.png"
+  },
+  {
+    "id": "hedge",
+    "prompt": "ONE original production sprite for a premium casual mobile garden-building game. Match a polished charming hand-painted3D cartoon toy aesthetic: warm ivory sandstone, honey-gold trim, warm light wood, fresh leaf green, coral and yellow floral accents. TRUE ISOMETRIC ORTHOGRAPHIC camera, ground axes26.565degrees,2:1diamond projection, upper-leftsoft sunlight. One complete object on genuinely TRANSPARENT background. No text, UI, logos, characters, sets, grids, extra terrain, cast shadow outside the object's compact base. Full object visible, tightly framed. One short richly sculpted low garden hedge on a1x2tile footprint, dense round fresh-green leaves, a few tiny yellow and white blossoms, ivory stone bottom planter strip. A long rectangular isometric hedge with both short and long sides visible. No other objects.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-d4f8841f-3a72-452e-a31f-dc335309ba4a.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/hedge.png"
+  },
+  {
+    "id": "mushroom",
+    "prompt": "ONE original production sprite for a premium casual mobile garden-building game. Match a polished charming hand-painted3D cartoon toy aesthetic: warm ivory sandstone, honey-gold trim, warm light wood, fresh leaf green, coral and yellow floral accents. TRUE ISOMETRIC ORTHOGRAPHIC camera, ground axes26.565degrees,2:1diamond projection, upper-leftsoft sunlight. One complete object on genuinely TRANSPARENT background. No text, UI, logos, characters, sets, grids, extra terrain, cast shadow outside the object's compact base. Full object visible, tightly framed. One small whimsical mushroom garden lantern on a1x1tile footprint. Rounded coral-red mushroom cap with a few large ivory dots, short ivory stem with tiny glowing amber window, tiny leaves and a white daisy at the low stone base. Friendly toy-like decorative garden light, no face or character.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-3a316bc2-d57e-4e86-bdd9-72e7750f5047.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/mushroom.png"
+  },
+  {
+    "id": "rabbit",
+    "prompt": "ONE original friendly animal friend sprite for a premium casual mobile garden-building game. Polished charming hand-painted3D cartoon character, rounded toy proportions, expressive warm eyes, soft clean sculpted fur, upper-left sunlight, true ISOMETRIC ORTHOGRAPHIC three-quarter top view matching a2:1ground plane (26.565degree ground axes). A small1x1tile footprint, all paws resting naturally on the ground; full body visible. Genuinely TRANSPARENT background, only an extremely soft small contact shadow directly under paws. No plinth, no cage, no leash, no clothing, no text/UI/logos/scenery, no sheets/grids/multiple animals. Friendly appealing mascot-quality original design. ONE adorable cream-white garden rabbit with warm caramel ear tips, long upright soft ears, chubby little body, tiny paws and a small round tail, sitting with front paws together looking toward the front-right. A tiny yellow daisy tucked by one ear. No accessories other than that small daisy.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-dbde873e-5009-4bc4-a486-04aca31bace4.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/rabbit.png"
+  },
+  {
+    "id": "cat",
+    "prompt": "ONE original friendly animal friend sprite for a premium casual mobile garden-building game. Polished charming hand-painted3D cartoon character, rounded toy proportions, expressive warm eyes, soft clean sculpted fur, upper-left sunlight, true ISOMETRIC ORTHOGRAPHIC three-quarter top view matching a2:1ground plane (26.565degree ground axes). A small1x1tile footprint, all paws resting naturally on the ground; full body visible. Genuinely TRANSPARENT background, only an extremely soft small contact shadow directly under paws. No plinth, no cage, no leash, no clothing, no text/UI/logos/scenery, no sheets/grids/multiple animals. Friendly appealing mascot-quality original design. ONE adorable warm ginger tabby kitten with cream muzzle/chest/paws, round cheeks and big amber eyes, soft curved fluffy tail wrapped beside its seated body, friendly curious expression, looking toward front-right. Visible paws and a few subtle tabby stripes. No accessories.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-dd1a75b7-4853-469f-87e1-563e77077a6c.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/cat.png"
+  },
+  {
+    "id": "dog",
+    "prompt": "ONE original friendly animal friend sprite for a premium casual mobile garden-building game. Polished charming hand-painted3D cartoon character, rounded toy proportions, expressive warm eyes, soft clean sculpted fur, upper-left sunlight, true ISOMETRIC ORTHOGRAPHIC three-quarter top view matching a2:1ground plane (26.565degree ground axes). A small1x1tile footprint, all paws resting naturally on the ground; full body visible. Genuinely TRANSPARENT background, only an extremely soft small contact shadow directly under paws. No plinth, no cage, no leash, no clothing, no text/UI/logos/scenery, no sheets/grids/multiple animals. Friendly appealing mascot-quality original design. ONE adorable small caramel-and-cream corgi puppy with short sturdy legs, fluffy cream chest and muzzle, upright ears and a cheerful face, standing looking toward the front-right with a small curved tail. Natural dog body and four paws visible; no accessories.",
+    "method": "Built-in image_gen.imagegen; original individual sprite generation; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-034784d3-7504-48f3-adf2-a2a842cc3897.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/dog.png"
+  }
+]

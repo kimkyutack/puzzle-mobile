@@ -19,15 +19,27 @@ export const sql=(db:D1Database,query:string,...args:unknown[])=>db.prepare(quer
 export async function one<T>(db:D1Database,query:string,...args:unknown[]){return sql(db,query,...args).first<T>();}
 export async function rows<T>(db:D1Database,query:string,...args:unknown[]){return (await sql(db,query,...args).all<T>()).results;}
 export async function digest(value:string){return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))),x=>x.toString(16).padStart(2,'0')).join('');}
-export async function readPlayer(db:D1Database,id:string,now=Date.now()):Promise<Player>{
-  const r=await one<{data:string}>(db,'SELECT data FROM players WHERE id=? AND deleted_at IS NULL',id);
+interface PlayerRow {data:string;pass_points:number;season_active:number;active_run?:string|null}
+function playerQuery(db:D1Database,id:string,now:number,withRun=false){
+  return sql(db,`WITH current_season AS (
+    SELECT starts_at,ends_at FROM seasons WHERE starts_at<=? AND ends_at>? ORDER BY starts_at DESC LIMIT 1
+  ) SELECT p.data,
+    (SELECT count(*)*10 FROM level_rewards r JOIN current_season s ON r.created_at>=s.starts_at AND r.created_at<s.ends_at WHERE r.user_id=p.id) pass_points,
+    EXISTS(SELECT 1 FROM current_season) season_active
+    ${withRun?",(SELECT data FROM runs WHERE user_id=p.id AND status='active') active_run":''}
+    FROM players p WHERE p.id=? AND p.deleted_at IS NULL`,now,now,id);
+}
+function playerFromRow(r:PlayerRow|undefined|null,now:number):Player{
   ensure(r,'ACCOUNT_NOT_FOUND','계정을 찾을 수 없습니다.',401);
   const player=recoverHearts(JSON.parse(r.data) as Player,now);
   for(const item of ITEMS)player.inventory[item]??={normal:0,bound:0};
-  const season=await one<{starts_at:number;ends_at:number}>(db,'SELECT starts_at,ends_at FROM seasons WHERE starts_at<=? AND ends_at>? ORDER BY starts_at DESC LIMIT 1',now,now);
-  const progress=season?await one<{n:number}>(db,'SELECT count(*) n FROM level_rewards WHERE user_id=? AND created_at>=? AND created_at<?',id,season.starts_at,season.ends_at):null;
-  player.passPoints=(progress?.n??0)*10;
+  player.passPoints=r.pass_points;
   return player;
+}
+export async function readPlayer(db:D1Database,id:string,now=Date.now()):Promise<Player>{return playerFromRow(await playerQuery(db,id,now).first<PlayerRow>(),now);}
+export async function readState(db:D1Database,id:string,now=Date.now()){
+  const row=await playerQuery(db,id,now,true).first<PlayerRow>();
+  return {player:playerFromRow(row,now),activeRun:row?.active_run?JSON.parse(row.active_run) as Run:null};
 }
 export function recoverHearts(player:Player,now:number):Player {
   const p=structuredClone(player);
@@ -65,24 +77,34 @@ export function assertSQL(db:D1Database,condition:string,...args:unknown[]){
   // INSERT always inserts exactly one row: false or NULL aborts the entire D1 batch.
   return sql(db,`INSERT INTO tx_assertions(id,ok) VALUES (?,CASE WHEN (${condition}) THEN 1 ELSE 0 END)`,uid(),...args);
 }
-export interface MutationContext {db:D1Database;now:number;player:Player;statements:D1PreparedStatement[];changed:Map<string,Player>;sourceId:string;touch:(p:Player)=>void;notify:(guildId:string,payload:unknown)=>void;}
+export interface MutationContext {db:D1Database;now:number;player:Player;seasonActive:boolean;statements:D1PreparedStatement[];changed:Map<string,Player>;sourceId:string;touch:(p:Player)=>void;notify:(guildId:string,payload:unknown)=>void;}
 export async function mutate<T>(env:ApiEnv,userId:string,key:string,fingerprint:string,fn:(tx:MutationContext)=>Promise<T>|T,options:{touchPlayer?:boolean}={}):Promise<T>{
   ensure(typeof key==='string'&&key.length>=8&&key.length<=100,'INVALID_IDEMPOTENCY_KEY','요청 식별자가 필요합니다.');
   for(let attempt=0;attempt<4;attempt++){
-    const prior=await one<{fingerprint:string;response:string}>(env.DB,'SELECT fingerprint,response FROM operations WHERE user_id=? AND key=?',userId,key);
+    // One round trip and one consistent D1 snapshot for replay detection and balances.
+    const now=Date.now(),snapshot=await env.DB.batch<PlayerRow|{fingerprint:string;response:string}>([
+      sql(env.DB,'SELECT fingerprint,response FROM operations WHERE user_id=? AND key=?',userId,key),
+      playerQuery(env.DB,userId,now)
+    ]);
+    const operation=snapshot[0]!.results[0],prior=operation&&'fingerprint' in operation?operation:undefined;
     if(prior){ensure(prior.fingerprint===fingerprint,'IDEMPOTENCY_CONFLICT','다른 요청에 사용한 식별자입니다.',409);return JSON.parse(prior.response) as T;}
-    const now=Date.now();const player=await readPlayer(env.DB,userId,now);const changed=new Map<string,Player>();const statements:D1PreparedStatement[]=[];
-    const tx:MutationContext={db:env.DB,now,player,statements,changed,sourceId:key,
+    const row=snapshot[1]!.results[0],playerRow=row&&'data' in row?row:undefined,player=playerFromRow(playerRow,now),originals=new Map<string,Player>([[userId,JSON.parse(playerRow!.data) as Player]]);
+    const changed=new Map<string,Player>();const statements:D1PreparedStatement[]=[];
+    const tx:MutationContext={db:env.DB,now,player,seasonActive:!!playerRow!.season_active,statements,changed,sourceId:key,
       touch(p){if(!changed.has(p.id)){const expected=p.version;changed.set(p.id,p);statements.push(assertSQL(env.DB,'SELECT version=? AND deleted_at IS NULL FROM players WHERE id=?',expected,p.id));p.version++;}},
       notify(guildId,payload){statements.push(sql(env.DB,'INSERT INTO outbox(id,topic,payload,created_at) VALUES(?,?,?,?)',uid(),guildId,JSON.stringify(payload),now));}
     };
     if(options.touchPlayer!==false)tx.touch(player);
     const result=await fn(tx);
+    // Secondary recipients are loaded together; the initiating player already
+    // has its exact persisted pre-write snapshot, before heart recovery.
+    const recipients=[...changed.keys()].filter(id=>!originals.has(id));
+    if(recipients.length){const old=await env.DB.batch<{data:string}>(recipients.map(id=>sql(env.DB,'SELECT data FROM players WHERE id=?',id)));old.forEach((row,index)=>{const data=row.results[0]?.data;if(typeof data==='string')originals.set(recipients[index]!,JSON.parse(data) as Player);});}
     for(const p of changed.values()){
       statements.push(sql(env.DB,'UPDATE players SET data=?,version=? WHERE id=?',JSON.stringify(p),p.version,p.id));
       // Every quantity-changing write receives an immutable, per-asset ledger entry.
-      const old=await one<{data:string}>(env.DB,'SELECT data FROM players WHERE id=?',p.id);
-      if(old){const before=JSON.parse(old.data) as Player;for(const asset of ['coins','boundCoins','stars','hearts'] as const){const delta=p[asset]-before[asset];if(delta)statements.push(sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),p.id,asset,delta,fingerprint,key,now));}
+      const before=originals.get(p.id);
+      if(before){for(const asset of ['coins','boundCoins','stars','hearts'] as const){const delta=p[asset]-before[asset];if(delta)statements.push(sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),p.id,asset,delta,fingerprint,key,now));}
         for(const item of Object.keys(p.inventory) as Item[])for(const bucket of ['normal','bound'] as const){const delta=p.inventory[item][bucket]-(before.inventory[item]?.[bucket]??0);if(delta)statements.push(sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),p.id,`item:${item}:${bucket}`,delta,fingerprint,key,now));}
         if(p.unlimitedUntil!==before.unlimitedUntil)statements.push(sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),p.id,'unlimitedMs',p.unlimitedUntil-Math.max(now,before.unlimitedUntil),fingerprint,key,now));
       }

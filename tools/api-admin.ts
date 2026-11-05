@@ -1,0 +1,10 @@
+export {};
+const base=process.env.GARDEN_API_URL;
+const session=process.env.GARDEN_ACCESS_TOKEN;
+const admin=process.env.GARDEN_ADMIN_TOKEN;
+if(!base||!session||!admin)throw new Error('Set GARDEN_API_URL, GARDEN_ACCESS_TOKEN and GARDEN_ADMIN_TOKEN in the environment; do not pass secrets as command arguments.');
+const url=new URL('/api/admin/overview',base);
+if(url.protocol!=='https:'&&!['localhost','127.0.0.1'].includes(url.hostname))throw new Error('Remote admin requires HTTPS.');
+const response=await fetch(url,{headers:{Authorization:`Bearer ${session}`,'X-Admin-Token':admin}});
+if(!response.ok)throw new Error(`Admin request failed: ${response.status}`);
+console.log(JSON.stringify(await response.json(),null,2));

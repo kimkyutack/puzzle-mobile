@@ -1,0 +1,41 @@
+{
+  "assetId": "poster_treasure_v14",
+  "revision": "treasure-lumi-20261105",
+  "method": "built-in image_gen edit",
+  "useCase": "identity-preserve",
+  "prompt": "Use case: identity-preserve.\nAsset type: existing mobile casual-game treasure-card minigame poster, opaque landscape 3:2, 1536x1024.\nInput images: Image 1 is the EDIT TARGET, the existing treasure-card poster. Image 2 is the authoritative ORIGINAL LUMI character identity reference. Image 3 is the same original Lumi in the shop poster and confirms the intended face and cute stylization.\nPrimary request: Correct ONLY the red-panda character in Image 1 so it is unmistakably the same adorable Lumi as Image 2 and 3, rather than a different adult animal. Keep the poster scene, camera, composition, six tabletop cards, small chest at bottom left, held glowing golden card, and upper-right quiet deep sapphire area for live Korean title.\nCharacter: match reference 2 precisely: big rounded baby-like head with broad plush white cheeks, very short small muzzle, small rounded dark nose, HUGE warm amber eyes with rounded pupils and kind brows, same white eyebrow spots and ear markings, little orange hair tuft, compact chubby body, short paws, fluffy ringed tail. Relaxed sweet joyful smile with a small open mouth, no long jaw or overly stretched expression. Big head with short body like the original mascot. Coral neckerchief, teal gardener overalls with cream pocket patch showing a green sprout and two gold buttons. NO hat, NO white shirt, NO costume changes. Do not turn into raccoon, bear, fox or human.\nPose/composition: occupy same left portion, chest up behind table, near paw naturally holding up the same golden treasure card at upper center left, other paw resting near chest/table. Keep all paws anatomically simple and natural, no duplicated paws. Hair tuft and both ears clearly visible. Character remains behind chest/cards, not obscuring them.\nStyle: exactly the soft plush rounded premium casual-game 3D illustration of Image 2 and 3; not photorealistic, not lanky, not a realistic animal head pasted on an adult torso. Gentle controlled warm light, rich original orange fur, crisp cream face, matching eye spacing and proportions.\nInvariants: Keep original greenhouse background, wood table, gold card, blue and coral gem/bell cards, chest, flowers and quiet navy upper-right quadrant visually unchanged. Keep upper-right x=63–95%, y=5–45% free of new objects. Preserve full 3:2 poster, no added rim or UI.\nNo text, letters, numerals, watermarks or logos. No buttons or labels. One finished poster, no collage, no mockup.",
+  "references": [
+    {
+      "path": "packages/assets/source/poster_treasure_v14.png",
+      "role": "Previous poster edit target. Original preserved in packages/assets/drafts/treasure-lumi-20261105/poster_treasure_v14.png"
+    },
+    {
+      "path": "packages/assets/source/lumi.png",
+      "role": "Authoritative original character identity"
+    },
+    {
+      "path": "packages/assets/source/poster_shop_v9.png",
+      "role": "Original character rendering style and facial proportions"
+    }
+  ],
+  "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1a9fe-9b6f-7503-9308-ea106befba81/exec-9b3e77ff-7eed-417d-aa6d-8ef4ebf625c5.png",
+  "sourcePath": "packages/assets/source/poster_treasure_v14.png",
+  "runtimeSize": [
+    1200,
+    800
+  ],
+  "constraints": [
+    "Existing table/cards/chest composition retained",
+    "Upper right quiet area retained for live UI text",
+    "No text or labels painted into the image"
+  ],
+  "scope": "Treasure poster asset only. No full asset build, app/native build, server deploy or gameplay changes.",
+  "runtimePath": "/assets/poster_treasure_v14.9d5b5ba67fc4.png",
+  "contentHash": "9d5b5ba67fc41c4814c078e24736597f25e5396195bf18a4090bbbc5e08b9c40",
+  "sourceHash": "ac61243c5c6d14463177d66597227d8a42d38271378afd14a98ce63768715fb6",
+  "previousSourceHash": "69675c9f041156a440db15f98d814e89b8f1d1e50905b1c2979442aac106bda9",
+  "originalSize": [
+    1536,
+    1024
+  ]
+}

@@ -1,0 +1,18 @@
+import type {Page} from '@playwright/test';
+export async function inspectGrouping(page:Page,required:boolean){return page.evaluate(required=>{
+ const scope=document.querySelector<HTMLElement>('.modal-layer:last-of-type .modal-content');if(!scope)return {groups:[],findings:[]};
+ const selector='[data-content-group],[role=group][aria-label],.menu-section,.content-section,.settings-section,.section-card';
+ const box=(r:DOMRect)=>({left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height});
+ const visible=(el:HTMLElement)=>{for(let details=el.closest('details');details;details=details.parentElement?.closest('details')??null)if(!details.open&&!details.querySelector(':scope > summary')?.contains(el))return false;const style=getComputedStyle(el);return style.display!=='none'&&style.visibility!=='hidden'&&el.getClientRects().length>0;};
+ const groups=[...scope.querySelectorAll<HTMLElement>(selector)].filter(visible).map(el=>{
+  const r=el.getBoundingClientRect(),style=getComputedStyle(el),heading=el.querySelector<HTMLElement>('h2,h3,h4,[role=heading]'),illustration=el.matches('figure')?el.querySelector<HTMLImageElement>('img[alt]'):null;
+  const title=el.getAttribute('aria-label')||heading?.innerText||el.closest('details')?.querySelector<HTMLElement>(':scope > summary')?.innerText||illustration?.alt||(el.matches('.empty')?el.querySelector('p')?.textContent:'')||(el.dataset.contentGroup==='true'?'':el.dataset.contentGroup)||'';
+  const controls=[...el.querySelectorAll<HTMLElement>('button,input,select,textarea')].filter(control=>visible(control)&&control.closest(selector)===el),text=el.innerText.trim();
+  return {title,rect:box(r),heading:heading?box(heading.getBoundingClientRect()):null,controls:controls.map(control=>({name:control.getAttribute('aria-label')||control.innerText||control.tagName,rect:box(control.getBoundingClientRect())})),textLength:text.length,relatedContent:text.length>title.length+2||controls.length>0||!!(illustration?.alt&&illustration.complete&&illustration.naturalWidth),painted:!!illustration||!!el.dataset.frame||style.backgroundImage!=='none'||!['rgba(0, 0, 0, 0)','transparent'].includes(style.backgroundColor)||parseFloat(style.borderTopWidth)>0,padding:{top:parseFloat(style.paddingTop),right:parseFloat(style.paddingRight),bottom:parseFloat(style.paddingBottom),left:parseFloat(style.paddingLeft)}};
+ });
+ const findings:Array<{kind:string;text:string;detail?:string}>=[];
+ if(required&&!groups.length&&[...scope.querySelectorAll<HTMLElement>('button,input,select,textarea')].filter(visible).length>1)findings.push({kind:'unstructured-menu-controls',text:'Multiple related controls have no named content group'});
+ for(const group of groups){if(!group.title.trim()||!group.relatedContent)findings.push({kind:'content-group-missing-purpose',text:group.title||'<untitled>',detail:'A group needs a heading/name and related content or controls'});for(const item of [...group.controls,...(group.heading?[{name:'heading',rect:group.heading}]:[])])if(item.rect.width&&item.rect.height&&(item.rect.left<group.rect.left-.85||item.rect.right>group.rect.right+.85||item.rect.top<group.rect.top-.85||item.rect.bottom>group.rect.bottom+.85))findings.push({kind:'content-group-child-outside',text:group.title,detail:item.name});}
+ const children=[...scope.children].filter((el):el is HTMLElement=>el instanceof HTMLElement&&el.matches(selector)&&visible(el));for(let i=1;i<children.length;i++){const before=children[i-1]!.getBoundingClientRect(),next=children[i]!.getBoundingClientRect();if(before.bottom>next.top+.85)findings.push({kind:'content-groups-overlap',text:children[i]!.innerText.slice(0,60)});}
+ return {groups,findings};
+},required);}

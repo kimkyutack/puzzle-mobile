@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">구름정원</string>
+    <string name="title_activity_main">구름정원: 루미의 초대장</string>
+    <string name="package_name">com.cloudgarden.match</string>
+    <string name="custom_url_scheme">com.cloudgarden.match</string>
+    <!-- Google official sample app ID. Replace before release. -->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+</resources>

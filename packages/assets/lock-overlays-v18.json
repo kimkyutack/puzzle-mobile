@@ -1,0 +1,30 @@
+{
+  "version": "garden-2026.11.04-covers-v18",
+  "purpose": "Frost covers the tile face; vines bind across the tile, retaining existing puzzle rules.",
+  "assets": [
+    {
+      "id": "frost_cover_v18",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent foreground frost overlay sprite for a mobile match-3 game, displayed at 32 to 40 pixels square ON TOP of existing colored jelly blocks. Input image is an edit target and a material/style reference. Replace the empty decorative ice FRAME with a solid-looking thin FROZEN FROST SHEET that visibly covers the ENTIRE rounded square face, including its middle. Stylized polished 2.5D casual puzzle game art with restrained sheen, a front-facing square with softly rounded corners. Translucent icy blue frosted glass, irregular fern-shaped frost blooms growing inward across most of the face, a few broad crystalline white veins across the CENTER and subtle diagonals, little irregular ice crust at the corners. Let some large CLEAR openings and translucent patches show the original colored tile beneath. This must read as frost coating over a tile, not a blue empty frame, not a gemstone. Strong coherent large frost shapes readable at 32px, no tiny noisy specks. True transparent background outside the square, partially transparent/clear interior patches. Centered square silhouette, no perspective, nearly fill canvas with consistent small transparent margin. No backing colored tile or checkerboard baked in, no badge, no circular snowflake icon, no text, no number, no UI button, no outer glow, no floating particles. Single isolated reusable overlay sprite.",
+      "editTarget": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/frost.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-b071d36d-9f8c-4a64-b805-af8a369f578c.png",
+      "sourcePath": "packages/assets/drafts/lock-overlays-v18/frost_cover_v18.png",
+      "method": "built-in image_gen edit, transparent background"
+    },
+    {
+      "id": "vine_cover_v18",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent foreground vine LOCK overlay sprite for a mobile match-3 game, displayed at 32 to 40px square ON TOP of existing colored jelly blocks. Input is the edit target and material/style reference. Redesign the decorative empty floral frame into a pair of thick braided living green vines that WRAP OVER AND ACROSS THE CENTER of the tile face in a clear X crossing, like two plant ropes tightly binding a block. Keep polished sculpted 2.5D casual game rendering with top-left lighting, dark forest green shaded sides and rich green lit upper faces, restrained highlights. Two distinct organic diagonal rope bands cross the tile center and curve around its four corners, small few pointed leaves hug their outside corners. No big daisies or flowers. Open transparent spaces between the vine ropes let the underlying colored tile be seen. Obvious binding/locked visual at tiny scale, chunky readable silhouette, not a hollow border. Centered front-facing square footprint, nearly fill square canvas leaving a small consistent transparent margin. True transparent background, including all openings. Do not render any colored tile, board floor, background, button, badge, text, numbers, shine rays or floating particles. Single isolated reusable overlay sprite.",
+      "editTarget": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/vine.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-98d1e34d-d206-452c-9eb5-b185f34a5818.png",
+      "sourcePath": "packages/assets/drafts/lock-overlays-v18/vine_cover_v18.png",
+      "method": "built-in image_gen edit, transparent background"
+    }
+  ],
+  "status": "Foreground draft excluded. Latest user request accepts a filled frost-cell background; frost artwork is reused ONLY behind the colored piece as frost_floor_v19. Original frost/vine foreground art is preserved.",
+  "runtimeReuse": {
+    "id": "frost_floor_v19",
+    "sourcePath": "packages/assets/source/frost_floor_v19.png",
+    "generatedAsset": "frost_cover_v18",
+    "role": "opaque full-cell background behind the tile; never the strong foreground coating",
+    "normalization": "existing pipeline alpha-island cleanup, trim and 256px normalization"
+  }
+}

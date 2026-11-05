@@ -1,0 +1,165 @@
+{
+  "method": "Original front art preserved; authored rear sources preserved; technical alpha cleanup, crop and uniform contain resize aligned at the ground edge. Front/rear each have a mirrored companion view.",
+  "assets": [
+    {
+      "id": "bench",
+      "path": "packages/garden-world/art/runtime/directions-v24/bench-rear.png",
+      "width": 640,
+      "height": 623,
+      "sha256": "de38f05a82945c615f2ff608a47817600fc58550a802920a5ac671b8cfcdef6c",
+      "bytes": 757015
+    },
+    {
+      "id": "planter",
+      "path": "packages/garden-world/art/runtime/directions-v24/planter-rear.png",
+      "width": 640,
+      "height": 503,
+      "sha256": "095bdd2172e953e87f14c7ae70328090a0bb8e3e03beb12bbd3c9ca708288733",
+      "bytes": 583177
+    },
+    {
+      "id": "lamp",
+      "path": "packages/garden-world/art/runtime/directions-v24/lamp-rear.png",
+      "width": 235,
+      "height": 640,
+      "sha256": "1957f0916a8f2b28011ea966fae916029d26a743b1ed07e78cccd04b1a066c7c",
+      "bytes": 180020
+    },
+    {
+      "id": "fountain",
+      "path": "packages/garden-world/art/runtime/directions-v24/fountain-rear.png",
+      "width": 640,
+      "height": 614,
+      "sha256": "9f2539d9c44b4b262ba85df6ed97906cbe51bf60f482c7d82041fab61d791458",
+      "bytes": 690275
+    },
+    {
+      "id": "greenhouse",
+      "path": "packages/garden-world/art/runtime/directions-v24/greenhouse-rear.png",
+      "width": 640,
+      "height": 551,
+      "sha256": "2ccb2035557b8ee79eb790b9f0538b58408c351d879a0d8a7cebbf2924971622",
+      "bytes": 725155
+    },
+    {
+      "id": "tree",
+      "path": "packages/garden-world/art/runtime/directions-v24/tree-rear.png",
+      "width": 542,
+      "height": 640,
+      "sha256": "3199fc4eb0d74d31c67d45afa0a7d77147da581e53069b680b9da73c4a6ef1b6",
+      "bytes": 693516
+    },
+    {
+      "id": "rose-arch",
+      "path": "packages/garden-world/art/runtime/directions-v24/rose-arch-rear.png",
+      "width": 536,
+      "height": 640,
+      "sha256": "87d363abd253e59dfe1bed5debcb6e414b1753225919c4551258976359431519",
+      "bytes": 539404
+    },
+    {
+      "id": "gazebo",
+      "path": "packages/garden-world/art/runtime/directions-v24/gazebo-rear.png",
+      "width": 622,
+      "height": 640,
+      "sha256": "66c4b59deb40e1724eb0dc043066faa18f895d7629f08851ae34f384fd8b3cd7",
+      "bytes": 768088
+    },
+    {
+      "id": "pond",
+      "path": "packages/garden-world/art/runtime/directions-v24/pond-rear.png",
+      "width": 640,
+      "height": 429,
+      "sha256": "0423efff9b5b1a9e147eca57d6d0122a4893406b579c9c57061fedfb423c1b05",
+      "bytes": 539608
+    },
+    {
+      "id": "picnic",
+      "path": "packages/garden-world/art/runtime/directions-v24/picnic-rear.png",
+      "width": 640,
+      "height": 473,
+      "sha256": "5049e5a6c50b89a54b76cf5d2a099b859e7a79cbe294eebb91237954721023cd",
+      "bytes": 505428
+    },
+    {
+      "id": "hedge",
+      "path": "packages/garden-world/art/runtime/directions-v24/hedge-rear.png",
+      "width": 640,
+      "height": 514,
+      "sha256": "9e0364145ad101fd64b437fde38eceb02d4e1b6df5cbaf9e2fc6bbf6220e061f",
+      "bytes": 583535
+    },
+    {
+      "id": "mushroom",
+      "path": "packages/garden-world/art/runtime/directions-v24/mushroom-rear.png",
+      "width": 458,
+      "height": 640,
+      "sha256": "b31062306867b84fa023e4001b71869634026043fd54972d1bdcb2f4734537dd",
+      "bytes": 552654
+    },
+    {
+      "id": "gate",
+      "path": "packages/garden-world/art/runtime/directions-v24/gate-rear.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "fbe2160d88671e77444c972339eca33afa68fe69c22eae3db23aaa7fefe8bf75",
+      "bytes": 138295
+    },
+    {
+      "id": "telescope",
+      "path": "packages/garden-world/art/runtime/directions-v24/telescope-rear.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "8ea3eea598e20330fc9ce6fec54761b6e182770ffeafd42f07232f8c68d54829",
+      "bytes": 93263
+    },
+    {
+      "id": "rabbit",
+      "path": "packages/garden-world/art/runtime/directions-v24/rabbit-rear.png",
+      "width": 413,
+      "height": 640,
+      "sha256": "1051f62fccf1068acca155ac007ff8c38085259ea6714bb099f0d91305dfeff8",
+      "bytes": 436694
+    },
+    {
+      "id": "cat",
+      "path": "packages/garden-world/art/runtime/directions-v24/cat-rear.png",
+      "width": 498,
+      "height": 640,
+      "sha256": "a7c710bbde180ed5911625f9e03ffc586271775ac0ffc12285726e0ec8e5fecd",
+      "bytes": 586360
+    },
+    {
+      "id": "dog",
+      "path": "packages/garden-world/art/runtime/directions-v24/dog-rear.png",
+      "width": 569,
+      "height": 640,
+      "sha256": "4ca4db401c2e95c8293ee2dd843d5a9863ceab286d042b0727d37e7838ed7d73",
+      "bytes": 617974
+    },
+    {
+      "id": "bench-festival",
+      "path": "packages/garden-world/art/runtime/directions-v24/bench-festival-rear.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "3098ceb707f329efa9740e66c20b15018bad6c83a1de54c93ec50cd23ca0bf4c",
+      "bytes": 121686
+    },
+    {
+      "id": "planter-festival",
+      "path": "packages/garden-world/art/runtime/directions-v24/planter-festival-rear.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "5af83bf04ec5d8699a1ea6096c5b42dce184ec476b669a596c017ded973c8f11",
+      "bytes": 127213
+    },
+    {
+      "id": "lamp-festival",
+      "path": "packages/garden-world/art/runtime/directions-v24/lamp-festival-rear.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "dc6ae7108670e28ba6d61dca7227ee169dff312c204b9ee74e1adeb85ddb424b",
+      "bytes": 96099
+    }
+  ]
+}

@@ -4,9 +4,20 @@ import { exchangeAppleAuthorizationCode, sealAppleRevocationToken, verifyAppleId
 import { boundedText } from './validation';
 import { activeRun, assertSQL, digest, ensure, mutate, newPlayer, one, operationKey, readPlayer, rows, sql, uid, type ApiEnv } from './db';
 
-export async function authenticate(request:Request,env:ApiEnv){
+export async function authenticate(request:Request,env:ApiEnv,limit?:{maximum:number;seconds:number}){
   const token=request.headers.get('authorization')?.replace(/^Bearer /,'');ensure(token && token.length<300,'UNAUTHORIZED','다시 연결해 주세요.',401);
-  const session=await one<{user_id:string;id:string}>(env.DB,'SELECT id,user_id FROM sessions WHERE access_hash=? AND access_expires>? AND revoked=0',await digest(token),Date.now());
+  const hash=await digest(token),now=Date.now(),query=sql(env.DB,'SELECT id,user_id FROM sessions WHERE access_hash=? AND access_expires>? AND revoked=0',hash,now);
+  if(limit){
+    const window=Math.floor(now/(limit.seconds*1000));
+    // Invalid or revoked tokens cannot increment a user's rate counter.
+    const [sessionResult,rateResult]=await env.DB.batch<{user_id:string;id:string}|{hits:number}>([query,sql(env.DB,`INSERT INTO rate_limits(key,window,hits,expires_at)
+      SELECT 'user:'||user_id,?,1,? FROM sessions WHERE access_hash=? AND access_expires>? AND revoked=0
+      ON CONFLICT(key,window) DO UPDATE SET hits=hits+1 RETURNING hits`,window,(window+1)*limit.seconds*1000,hash,now)]);
+    const session=sessionResult!.results[0],rate=rateResult!.results[0];
+    ensure(session&&'user_id' in session,'UNAUTHORIZED','세션이 만료되었습니다.',401);
+    ensure(rate&&'hits' in rate&&rate.hits<=limit.maximum,'RATE_LIMIT','요청이 많아요. 잠시 후 다시 시도해 주세요.',429);return session;
+  }
+  const session=await query.first<{user_id:string;id:string}>();
   ensure(session,'UNAUTHORIZED','세션이 만료되었습니다.',401);return session;
 }
 async function sessionStatement(env:ApiEnv,userId:string,now:number){

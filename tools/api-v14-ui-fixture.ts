@@ -1,0 +1,11 @@
+import {readFile,writeFile,unlink} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import deployment from '../config/deployment.json';
+import solutions from '../packages/content/src/solutions.json';
+import {ENGINE_VERSION,type AuthResponse,type Envelope,type Run} from '@garden/contracts';
+const file='/private/tmp/cloud-garden-v14-ui-session.json';let session:AuthResponse|undefined;
+async function api<T>(path:string,body?:unknown,method=body===undefined?'GET':'POST'){
+ let last:unknown;for(let attempt=0;attempt<3;attempt++)try{const response=await fetch(deployment.apiUrl+path,{method,headers:{'Content-Type':'application/json',Origin:'capacitor://localhost',...(session?{Authorization:'Bearer '+session.accessToken}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});const result=await response.json() as Envelope<T>&{error?:{code:string}};assert.equal(response.status,200,path+': '+JSON.stringify(result.error));return result.data;}catch(error){last=error;if(!(error instanceof TypeError))throw error;}throw last;
+}
+if(process.argv.includes('--delete')){session=JSON.parse(await readFile(file,'utf8'));await api('/account',{confirmation:'DELETE'},'DELETE');await unlink(file);console.log('Disposable UI verification account removed.');}
+else{const health=await api<{engineVersion:string}>('/health');assert.equal(health.engineVersion,ENGINE_VERSION,'Deployment not ready');session=await api<AuthResponse>('/auth/guest',{});await writeFile(file,JSON.stringify(session),{mode:0o600});await api('/me',{key:crypto.randomUUID(),nickname:'기능 확인 정원',tutorials:['swap','wind-row','wind-column','bomb','glider','rainbow','crate','vine','frost','seed','pot','moss','cabinet','combo','special'],settings:{sound:false,music:false}},'PATCH');for(let index=0;index<10;index++){const {run}=await api<{run:Run}>('/runs/start',{key:crypto.randomUUID(),engineVersion:ENGINE_VERSION,preBoosters:[]});await api(`/runs/${run.id}/actions`,{key:crypto.randomUUID(),sequence:run.sequence,actions:solutions[String(run.level.id) as keyof typeof solutions].actions});await api(`/runs/${run.id}/finish`,{key:crypto.randomUUID()});console.log('Verified UI fixture clear '+(index+1)+'/10');}console.log('Private disposable UI fixture ready; no real account or local progress read.');}

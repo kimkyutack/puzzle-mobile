@@ -1,0 +1,27 @@
+[
+  {
+    "type": "swap",
+    "from": 14,
+    "to": 21
+  },
+  {
+    "type": "swap",
+    "from": 23,
+    "to": 24
+  },
+  {
+    "type": "swap",
+    "from": 18,
+    "to": 19
+  },
+  {
+    "type": "swap",
+    "from": 39,
+    "to": 40
+  },
+  {
+    "type": "swap",
+    "from": 24,
+    "to": 31
+  }
+]

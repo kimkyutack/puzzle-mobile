@@ -1,0 +1,14 @@
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HP 숫자 렌더 검수</title>
+<script>
+window.__v14BeforeStorage=Object.fromEntries(Object.entries(localStorage));
+window.__v14Errors=[];window.__v14ApiAttempts=[];
+addEventListener('error',e=>window.__v14Errors.push(String(e.message)));
+addEventListener('unhandledrejection',e=>window.__v14Errors.push(String(e.reason)));
+const realFetch=window.fetch.bind(window);window.fetch=(input,init)=>{const url=typeof input==='string'?input:input.url;if(new URL(url,location.href).pathname.startsWith('/api/')){window.__v14ApiAttempts.push(url);return Promise.reject(new Error('Renderer fixture blocks API'));}return realFetch(input,init);};
+const RealWebSocket=window.WebSocket;window.WebSocket=class extends RealWebSocket{constructor(url,protocols){super(url,protocols);if(protocols==='vite-hmr')this.addEventListener('message',event=>{try{if(['update','full-reload','prune'].includes(JSON.parse(event.data).type))event.stopImmediatePropagation();}catch{}},true);}};
+</script>
+<style>*{box-sizing:border-box}body{margin:0;background:#ded0b5;color:#20334e;font-family:'Jua',sans-serif}header{padding:14px 12px 8px}h1{font-size:20px;margin:0 0 5px}p{font-size:13px;margin:0}main{padding:8px 12px}.board{width:100%;touch-action:none}.board canvas{display:block}.sr-only{display:none}nav{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px}button{min-height:42px;font-family:inherit;font-size:14px}output{display:block;padding:8px 12px;font-size:13px}</style>
+</head><body><header><h1>HP 숫자 렌더 검수</h1><p>격리된 화면 fixture · 서버 요청/실제 플레이 없음</p></header><div id="root"></div><script type="module">
+import RefreshRuntime from '/@react-refresh';RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>type=>type;window.__vite_plugin_react_preamble_installed__=true;
+await import('/@fs/Users/kimkyutack/Desktop/puzzle-mobile/tools/native-v14-harness.tsx');
+</script></body></html>

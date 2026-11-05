@@ -1,0 +1,15 @@
+{
+  "method": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "wind_row_v25",
+      "prompt": "Edit this SAME original blue gold coral double-ended firework icon. Change ONLY proportions to make it much more COMPACT AND THICK for a mobile match-3 tile. The existing result is far too long and skinny. Make the total object bounding box 1.5 times as wide as it is tall, NOT 2.7. The blue barrel is short and very thick, almost square, with two chunky gold collars and SHORT broad coral-red arrowhead caps pointing left and right. Gold collar diameter must be at least 65 percent of total object width. Nose caps are short rounded triangular wedges, not long cones. Front straight-on view, horizontal axis exactly left/right. Preserve the leaf on the blue body, saturated cobalt/coral/warm gold materials, premium sculpted 3D casual-game toy shading and upper left lighting. Square canvas, centered sprite filling 82 percent canvas width and about 55 percent canvas height, truly transparent background. No text, no frame, no glow or external effects. The important request is the thick chunky 1.5:1 silhouette.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-946bd7b0-cc3e-40f6-82c3-29a11009129e.png"
+    },
+    {
+      "id": "wind_column_v25",
+      "prompt": "Edit this SAME original blue gold coral double-ended firework icon. Change ONLY proportions to make it much more COMPACT AND THICK for a mobile match-3 tile. The existing result is far too tall and skinny. Make the total object bounding box 1.5 times as tall as it is wide, NOT 2.8. The blue barrel is short and very thick, almost square, with two chunky gold collars and SHORT broad coral-red arrowhead caps pointing up and down. Gold collar diameter must be at least 65 percent of total object height. Nose caps are short rounded triangular wedges, not long cones. Front straight-on view, vertical axis exactly up/down. Preserve the leaf on the blue body, saturated cobalt/coral/warm gold materials, premium sculpted 3D casual-game toy shading and upper left lighting. Square canvas, centered sprite filling 82 percent canvas height and about 55 percent canvas width, truly transparent background. No text, no frame, no glow or external effects. The important request is the thick chunky 1:1.5 silhouette.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-51b9b552-b8c4-426a-91c2-e50b668831a9.png"
+    }
+  ]
+}

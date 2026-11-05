@@ -1,0 +1,36 @@
+{
+  "assets": [
+    {
+      "id": "mechanic_pipe_v20",
+      "source": "packages/assets/source/mechanic_pipe_v20.png",
+      "generatedOriginal": "/Users/kimkyutack/.codex/generated_images/01a1a517-deda-7782-90ea-39cc1998aa10/exec-0f1f8cba-7b57-4de6-b727-82450b3b6555.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: production transparent PNG sprite for a polished mobile match-3 game, original garden theme. Primary request: A vertical retractable garden irrigation pipe segment, one chunky square modular section, warm copper bronze with rich blue water visible through a small glass center, brass connector collars on top and bottom. Clearly reads as water plumbing at 32px. No leaves or flowers obscuring the plumbing. Straight front-facing orthographic camera. Style: premium hand-painted 3D cartoon game object, rounded sculpted silhouette, saturated substantial colors, warm highlights and dark lower edge giving depth, restrained specular highlights, not washed out or glowing. One object centered filling 84 percent of a square canvas with safe transparent padding. Lighting upper-left. Actual transparent background, no floor shadow outside object, no background, no text, numbers, logo, watermark, no UI frame, no extra objects. Crisp clean silhouette suitable for tiny game cells."
+    },
+    {
+      "id": "mechanic_carousel_v20",
+      "source": "packages/assets/source/mechanic_carousel_v20.png",
+      "generatedOriginal": "/Users/kimkyutack/.codex/generated_images/01a1a517-deda-7782-90ea-39cc1998aa10/exec-d56de6f5-4a68-4440-b672-ef521332ebee.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: production transparent PNG sprite for a polished mobile match-3 game, original garden theme. Primary request: One chunky terracotta garden planter with a blue enamel band, containing a compact cheerful yellow blossom and two leaves. A small visible brass wheel/caster under the pot suggests it travels on a garden carousel. Clear object at 32px. Straight front-facing orthographic camera. Style: premium hand-painted 3D cartoon game object, rounded sculpted silhouette, saturated substantial colors, warm highlights and dark lower edge giving depth, restrained specular highlights, not washed out or glowing. One object centered filling 84 percent of a square canvas with safe transparent padding. Lighting upper-left. Actual transparent background, no floor shadow outside object, no background, no text, numbers, logo, watermark, no UI frame, no extra objects. Crisp clean silhouette suitable for tiny game cells."
+    },
+    {
+      "id": "mechanic_bud_v20",
+      "source": "packages/assets/source/mechanic_bud_v20.png",
+      "generatedOriginal": "/Users/kimkyutack/.codex/generated_images/01a1a517-deda-7782-90ea-39cc1998aa10/exec-7e3d6f9b-0124-4637-a551-5dac33c25e31.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Transparent PNG sprite for a premium mobile match-3 garden game. One closed plump pink flower bud on a short stem, two broad emerald leaves and a golden pollen center barely peeking through folded petals. Clear single pink bud silhouette. Front-facing orthographic view, hand-painted 3D cartoon object, rounded chunky sculpted form, saturated substantial color, warm upper-left lighting, restrained gloss and dark lower edge. Crisp readable at 32px. Single object centered filling 84 percent of square canvas. Real transparent background, no floor shadow, text, numbers, watermark, UI border or scenery."
+    },
+    {
+      "id": "mechanic_curtain_v20",
+      "source": "packages/assets/source/mechanic_curtain_v20.png",
+      "generatedOriginal": "/Users/kimkyutack/.codex/generated_images/01a1a517-deda-7782-90ea-39cc1998aa10/exec-a76aa55e-5d4f-4525-86e8-2c60c584865a.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Transparent PNG sprite for a premium mobile match-3 garden game. One closed greenhouse roller shade panel, rich azure fabric with three broad horizontal folds and warm golden top and bottom rails and a small brass pull. No window or building. Front-facing orthographic view, hand-painted 3D cartoon object, rounded chunky sculpted form, saturated substantial color, warm upper-left lighting, restrained gloss and dark lower edge. Crisp readable at 32px. Single object centered filling 84 percent of square canvas. Real transparent background, no floor shadow, text, numbers, watermark, UI border or scenery."
+    }
+  ]
+}

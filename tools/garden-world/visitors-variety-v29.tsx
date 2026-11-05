@@ -1,0 +1,32 @@
+import React,{useEffect,useRef,useState} from 'react';
+import {createRoot} from 'react-dom/client';
+import {createGame,applyAction} from '@garden/core';
+import {getLevel,RESTORATIONS} from '@garden/content';
+import type {Action,Player,GameEvent} from '@garden/contracts';
+import {applyTrustedRegionUnlock} from '../../packages/garden-world/src';
+import {projectLiveGarden} from '../../packages/garden-world/src/live';
+import {WorldMap} from '../../apps/client/src/garden-world/WorldMap';
+import {loadWorldArt,type LoadedArt} from '../../apps/client/src/garden-world/assets';
+import {prepareAssets} from '../../apps/client/src/assets';
+import {applyPreferences} from '../../apps/client/src/play-preferences';
+import {setLocale} from '../../apps/client/src/i18n';
+import {configureSound} from '../../apps/client/src/sound';
+import {Modal} from '../../apps/client/src/ui';
+import Board from '../../apps/client/src/Board';
+import ArtSurface from '../../apps/client/src/ArtSurface';
+import Menus from '../../apps/client/src/Menus';
+const ITEMS=['hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass','wind-row','bomb','rainbow'];
+import '../../apps/client/src/style.css';import '../../apps/client/src/fonts.css';
+import '../../apps/client/src/ui-v3.css';import '../../apps/client/src/ui-v4.css';import '../../apps/client/src/ui-v5.css';import '../../apps/client/src/ui-v6.css';import '../../apps/client/src/ui-v7.css';import '../../apps/client/src/ui-v8.css';import '../../apps/client/src/ui-v9.css';import '../../apps/client/src/context-v9.css';
+const raw={id:'visitor-variety-review',nickname:'방문객 검수',level:39,coins:3380,boundCoins:0,stars:4,hearts:5,heartAt:0,unlimitedUntil:0,freeClaimAt:0,version:1,inventory:Object.fromEntries(ITEMS.map(id=>[id,{normal:5,bound:0}])),restored:RESTORATIONS.filter(t=>t.area==='sky').map(t=>t.id),tutorials:[],guildId:null,passPoints:0,settings:{sound:false,music:false,haptics:false,reducedMotion:true,language:'ko'}} as Player;
+const player=applyPreferences(raw),mode=new URLSearchParams(location.search).get('mode');
+let world=projectLiveGarden(player);for(const region of ['workshop','terrace'] as const)world=applyTrustedRegionUnlock(world,region);
+function Fixture(){
+ const [art,setArt]=useState<Record<string,LoadedArt>|null>(null),[state,setState]=useState(()=>createGame(getLevel(1))),[events,setEvents]=useState<GameEvent[]>([]),[action,setAction]=useState<Action>(),[locked,setLocked]=useState(false),[duration,setDuration]=useState(0),[won,setWon]=useState(false);const current=useRef(state);current.current=state;
+ useEffect(()=>{void loadWorldArt().then(setArt)},[]);
+ if(mode==='settings')return <main className="game-shell" data-art-root><ArtSurface/><Modal title="설정" onClose={()=>{}}><Menus page="settings" player={player} mutate={async()=>{}} refresh={async()=>{}} notify={()=>{}} onPage={()=>{}} onLogout={()=>{}}/></Modal></main>;
+ if(mode==='bomb')return <main className="game-shell" data-art-root data-reduced={String(player.settings.reducedMotion)} data-duration={duration} data-won={String(won)}><ArtSurface scene="play"/><div style={{position:'absolute',inset:'140px 12px auto'}}><Board state={state} events={events} action={action} reduced={player.settings.reducedMotion} tool={null} locked={locked} onAction={()=>{}} onVisualStart={ms=>{setDuration(ms);setLocked(true);}} onVisualSettled={()=>{setLocked(false);if(current.current.status==='won')setWon(true);}}/></div><button disabled={locked||state.status!=='playing'} style={{position:'absolute',bottom:100,left:100,background:'#fff',padding:14}} onClick={()=>{const input:Action={type:'booster',item:'world-bomb'},result=applyAction(state,input);setAction(input);setState(result.state);setEvents(result.events);}}>대폭탄 사용</button>{won&&<strong style={{position:'absolute',bottom:50,left:150,color:'white'}}>클리어</strong>}</main>;
+ return <main style={{height:'100dvh',position:'relative',background:'#a1b774'}}>{art&&<WorldMap world={world} images={art} editable={false} preview={null} previewValid onSelect={()=>{}} onPreview={()=>{}}/>}<aside style={{position:'absolute',bottom:0,left:0,right:0,display:'flex',justifyContent:'space-evenly',background:'rgba(20,50,25,.78)',padding:8,color:'white'}}>{art&&['visitor_a','visitor_b','visitor_c','visitor_d'].map((id,i)=><div key={id} style={{textAlign:'center'}}><img style={{height:100,width:70,display:'block'}} src={art['resident:'+id+':0']!.image.src}/><small>{i%2?'남성':'여성'} {i<2?'1':'2'}</small></div>)}</aside></main>;
+}
+setLocale('ko');configureSound(false,false,false);await prepareAssets(()=>{});await document.fonts.load('18px Jua');await document.fonts.load('18px "Lilita One"');
+const mount=document.getElementById('root')! as HTMLElement&{visitorRoot?:ReturnType<typeof createRoot>};mount.visitorRoot??=createRoot(mount);mount.visitorRoot.render(<Fixture/>);

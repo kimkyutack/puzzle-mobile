@@ -1,0 +1,12 @@
+.language-gate{position:relative;isolation:isolate;width:100%;max-width:520px;height:100dvh;margin:0 auto;overflow:hidden;color:#fff;font-family:var(--font-game-ui)}
+.language-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.language-choice{height:100%;padding:calc(var(--safe-top) + 30px) 26px calc(var(--safe-bottom) + 30px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.language-choice section{display:grid;gap:12px;margin:0 auto;width:100%;max-width:340px;padding:18px 0 0}
+.language-choice h2,.language-choice p{text-align:center;color:#fff;text-shadow:0 1px 0 #17365b;-webkit-text-stroke:.7px #17365b;paint-order:stroke fill}
+.language-choice h2{font-size:25px;line-height:1.25;margin:0 0 8px}.language-choice p{font-size:14px;line-height:1.4;margin:4px 0 0}
+.language-choice button{width:100%;min-height:64px;border-style:solid;border-color:transparent;border-width:8px 13px 10px;border-image:url('/assets/loading-track.png') 80 128 100 128 fill stretch;font-size:27px;line-height:1.2;color:#fff;text-shadow:0 2px 0 #19385d;-webkit-text-stroke:1px #19385d;paint-order:stroke fill}
+html[lang="en"]{--font-game-ui:'Lilita One','Jua','Arial Rounded MT Bold',sans-serif}
+html[lang="en"] :is(.row-title,.fine,.row-meta,.story-dialogue-copy p,.story-chapter-summary,.commerce-store-note){overflow-wrap:anywhere}
+html[lang="en"] .game-button{font-size:18px}
+html[lang="en"] .story-dialogue-copy p{line-height:1.45}
+@media(max-height:660px){.language-choice{padding-top:calc(var(--safe-top) + 18px);padding-bottom:calc(var(--safe-bottom) + 18px)}.language-choice section{gap:8px}}

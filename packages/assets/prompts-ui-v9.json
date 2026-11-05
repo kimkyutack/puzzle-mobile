@@ -1,0 +1,654 @@
+[
+  {
+    "asset": "bg_pages_v9",
+    "prompt": "Use case: stylized-concept\nAsset type: ONE FULL-CANVAS OPAQUE production raster portrait page backdrop for a premium casual mobile game shop, guild, events and loading screens. Intended runtime 1080 x 2340 px, portrait aspect ratio approximately 9:19.5.\nPrimary request: A quiet understated premium blue page background, NOT a garden or world scene. Rich SAPPHIRE BLUE and ROYAL BLUE with smooth painted depth, a medium-blue readable center, and deep INDIGO edges. Polished friendly modern premium casual-game quality. The background will stay behind many mixed-color cards and gold frames: keep it calm, smooth and visually supportive.\nComposition and color: Edge-to-edge portrait background, every part of the canvas fully filled and fully opaque. A smooth broad central medium-sapphire area extending through most of the vertical center for readability, with gently deeper royal-blue and indigo edges. A few very large softly curved INDIGO light bands create gentle painted depth near the sides, broad enough to remain unobtrusive rather than making sharp stripes. Subtle smooth illumination, no bright focal point or glare.\nSurface detail: An EXTREMELY subtle low-contrast embossed diamond / stylized star pattern, barely perceptible within the blue paint. This is a quiet tone-on-tone surface embossing, not individual bright stars, not confetti, not dots or floating objects. Pattern contrast should stay much lower than any future cards or labels.\nStyle and mood: Clean softly painted high-quality casual-game UI background, calm rich blue color, restrained broad gradients and gentle dimensional polish. No neon glow, no dramatic burst, no grain, no gritty realism.\nBackground: The background itself fills the entire image. Absolutely OPAQUE with NO transparency, NO empty margins, NO cutout, NO outer frame.\nText: NONE.\nAvoid: NO text, letters, digits, labels, logos, watermark, buttons, panels, cards, borders, gold frames, characters, objects, scenery, buildings, gardens, plants, leaves, flowers, vines, wood, copper, teal, green, sage, bright star confetti, sparkles, flare, intense neon glare or center spotlight. ONLY the understated full-canvas sapphire/royal-blue/indigo portrait page backdrop.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Visual style reference previously inspected for polished premium casual-game color and page UI quality only. The new backdrop is an original quiet blue surface rather than the reference garden/world scene; not supplied as an image input or edit target."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-d1bcb3da-0215-4243-a3b8-a374ebf7d49f.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_pages_v9.png",
+    "method": "Built-in image_gen.imagegen; new image generation; transparent_background=false; original generated PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 1080,
+      "height": 2340
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "Full-canvas opaque portrait sapphire/royal-blue background with deep indigo edges, readable smooth medium-blue center, a few broad quiet curved indigo bands and extremely subtle embossed tone-on-tone diamond/star pattern. No bright star confetti, objects, cards, UI, text, scenery, foliage, wood, teal/green/sage/copper.",
+      "size": [
+        830,
+        1896
+      ],
+      "mode": "RGB",
+      "fullyOpaque": true,
+      "alphaChannelPresent": false,
+      "transparencyChunkPresent": false,
+      "fullCanvasFilled": true
+    },
+    "id": "bg_pages_v9"
+  },
+  {
+    "prompt": "Use case: precise-object-edit.\nAsset type: production transparent square raster board FRAME ONLY for a premium contemporary casual mobile puzzle game, intended runtime 512 x 512.\nInput image 1: EDIT TARGET and GEOMETRY REFERENCE, the existing hollow rounded-square frame. Preserve the basic continuous rounded-square hollow-frame construction, not its old palette.\nInput image 2: Royal Match home screen is a STYLE REFERENCE only for contemporary polished toy-plastic casual mobile game UI rendering. Do not copy brand imagery.\nPrimary request: transform the old teal frame into one clean continuous rounded-square outer housing in MEDIUM COBALT BLUE, with a substantial polished GOLD BEVEL INNER LIP and DARK INDIGO LOWER EXTRUSION. The whole image must be only a hollow frame ring with a large transparent square central opening.\nCRITICAL ALPHA: THE ENTIRE CENTRAL OPENING IS A GENUINELY TRANSPARENT HOLE, alpha zero. It is not black paint, not a dark-blue face, not a white center, not glass, not a colored panel. It is an empty cutout. Outside the frame is genuinely transparent too. Preserve the alpha-zero central hole and outside from the input.\nGeometry: square 1:1 canvas, whole frame visible with comfortable transparent outer corner margins, straight front view, generous but neat rounded corners. Continuous unbroken ring. At target 512 x 512, visible rim thickness should be about 16–22 pixels, leaving a very large open central aperture. Dimensional blue outer housing, broad clean gold inner bevel lip with toy-like volume, a restrained dark indigo extrusion primarily along lower edge.\nStyle: modern premium highly polished 3D casual mobile game UI, saturated medium cobalt blue, luminous yellow-gold bevel, crisp white upper edge specular and rich indigo lower depth. Friendly smooth toy plastic, clean and simple. Gold inner lip is substantial and clean, never a thin copper wire.\nConstraints: FRAME ONLY. No tiles, board surface, grid, embedded content, background panel, opaque center, text, letters, numbers, symbols, corner badges, icons, jewels, leaves, flowers, vines, plants, wood, teal, green, sage, antique ornament, logo, watermark, backdrop, checkerboard pixels, or floor. One connected hollow rounded-square frame ring only. Actual alpha transparency in both center and outside corners is essential.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/board_frame_v6.png",
+        "role": "Edit target and hollow rounded-square geometry reference; old teal and copper palette replaced"
+      },
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Style reference only for polished contemporary casual mobile game UI rendering"
+      }
+    ],
+    "initialGeneratedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-05bdb73c-229f-4bf9-97e5-afaba3df978d.png",
+    "refinement": {
+      "prompt": "Use case: precise-object-edit.\nInput image 1 is the EDIT TARGET: the finished hollow glossy cobalt-blue and gold rounded-square frame.\nChange ONE geometry feature: make the continuous frame ring HALF AS THICK by enlarging the central TRANSPARENT opening toward the outside. Keep the OUTER rounded-square silhouette exactly the same size and location, but move the INNER edge outward all around. At 512 x 512 runtime, the complete blue-plus-gold ring should be only 16–22 pixels thick per side, about 4% of the canvas width. The large square aperture should span about 90–92% of the total width and height through the center. Source canvas stays square, with full frame visible.\nThe narrower rim still has medium cobalt blue outer housing and a clean substantial golden inner bevel lip. Split the new thin ring into a cobalt outer portion and golden inner bevel portion, with subtle indigo lower extrusion. Preserve modern glossy toy-plastic shading, clean gold highlight and rounded-square corner style.\nCRITICAL: preserve REAL ALPHA ZERO in the whole central opening and outside corners. This is an isolated hollow frame ONLY, absolutely no filled center, no board panel, no opaque black, no glass, no background or floor. Do not add text, grid, tiles, icons, symbols, decorations, plants, leaves, wood or teal. Narrow the ring without altering any other visual design.",
+      "role": "Enlarge actual transparent aperture and thin the continuous frame ring while preserving outer shape and materials"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-dd05c0f9-ed9e-4158-8adb-cd6da1d5ac41.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/board_frame_v9.png",
+    "method": "Built-in image_gen.imagegen; transparent_background true; one geometry refinement; selected generated original copied unchanged",
+    "intendedRuntime": {
+      "width": 512,
+      "height": 512
+    },
+    "status": "Approved hollow frame geometry with medium cobalt outer housing, gold inner bevel lip and dark indigo lower extrusion. True center alpha zero and all outside corner alphas zero verified. Normal generated inner/outer fringe remains for runtime pipeline trim and aperture derivation.",
+    "id": "board_frame_v9"
+  },
+  {
+    "prompt": "Use case: precise-object-edit.\nAsset type: production transparent raster UI button for a premium contemporary casual mobile puzzle game, garden build and purchase CTA.\nInput image 1: EDIT TARGET, approved wide lime button asset. Edit this exact button rather than redesigning it.\nPrimary request: recolor the face and inner housing to vivid saturated amber/orange with a warm golden upper highlight and rich orange lower extrusion. Preserve the entire exact whole silhouette, generous rounded corners, original 3:1 canvas proportions, size and placement, dimensional gold frame, bevel-border thickness, extrusion thickness, upper specular shape, large empty face, and genuinely transparent outer background.\nColor: luminous golden amber at the top shading smoothly into vivid saturated orange face; rich deep orange lower housing and bottom extrusion. Keep a SINGLE clean thick dimensional golden-yellow frame and bevel border, no added nested rings or lines.\nStyle/medium: retain the polished glossy 3D toy-plastic casual mobile game material, strong friendly volume and clean smooth readable central face. Bright golden upper specular highlight with rich orange lower shading.\nComposition: single whole wide button, exact unchanged composition from target, wide 3:1 source for intended runtime 768 x 256. Do not crop, rotate, reshape, or add an environment.\nConstraints: preserve true alpha transparency around outside, no floor or backdrop. Keep central button face COMPLETELY EMPTY. No text, letters, numbers, symbols, icons, logos, watermark, ornaments, leaves, flowers, vines, wood, teal, pastel tones, thin copper outlines. Do not add objects. Change only the requested color areas, preserve all geometry and 3D material quality.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_lime_v9.png",
+      "role": "Edit target; preserve geometry, silhouette, dimensional gold rim/extrusion, glossy volume, empty face, alpha and wide 3:1 proportions"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-6c3440b4-886b-41ee-bc1a-8780ba02f2b6.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_amber_v9.png",
+    "method": "Built-in image_gen.imagegen color edit; transparent_background true; generated original copied unchanged",
+    "intendedRuntime": {
+      "width": 768,
+      "height": 256
+    },
+    "status": "Approved after visual inspection: vivid amber/orange empty face, golden upper highlight, single thick gold bevel border and rich orange lower extrusion. Actual RGBA alpha and transparent corners verified. Runtime pipeline handles normal outer fringe trim.",
+    "id": "button_amber_v9"
+  },
+  {
+    "prompt": "Use case: precise-object-edit.\nAsset type: production transparent raster UI button for a premium contemporary casual mobile puzzle game.\nInput image 1: EDIT TARGET, approved wide lime button asset. Edit this exact button rather than redesigning it.\nPrimary request: change ONLY the button face and inner housing from lime green to vivid saturated sky/azure blue. Make the bottom extrusion below the golden outer lip dark dimensional blue. Preserve the entire exact silhouette, generous rounded corners, 3:1 canvas proportions, size and placement, thick dimensional gold rim/chamfer, extrusion thickness, all empty-face proportions, and genuinely transparent outer background.\nStyle/medium: retain the polished glossy 3D toy-plastic casual game material, strong friendly mobile game volume, very bright upper specular highlight, clean smooth vivid blue central face with deep blue lower shading.\nColor: luminous vivid sky/azure blue face, white-blue upper specular, darker blue inner housing and bottom extrusion. Keep the golden-yellow outer rim and lip unchanged.\nComposition: single whole wide button, exact unchanged composition from target, source wide 3:1 for intended runtime 768 x 256. Do not crop, rotate, reshape, or add an environment.\nConstraints: Preserve alpha transparency around outside. The large central button face must stay COMPLETELY EMPTY. No text, letters, numbers, symbols, icons, logo, watermark. No teal, muted colors, pastel blue, sage, leaves, flowers, vines, wood, antique ornaments. Do not add objects. Do not change anything except the requested color areas.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_lime_v9.png",
+      "role": "Edit target; preserve silhouette, gold rim, dimensions, glossy volume, empty face and transparent background"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-ea19833a-4579-4406-bfb9-5afffcf32706.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_blue_v9.png",
+    "method": "Built-in image_gen.imagegen color edit; transparent_background true; selected original copied unchanged",
+    "intendedRuntime": {
+      "width": 768,
+      "height": 256
+    },
+    "status": "Shape and azure color approved; actual RGBA alpha verified; small detached gold specks remain in upper transparent margin and require runtime alpha component cleanup.",
+    "discardedCleanupAttempt": {
+      "prompt": "Use case: precise-object-edit.\nInput image 1 is the EDIT TARGET: a finished bright azure blue button with a thick glossy gold rim.\nChange exactly one thing: CLEAN THE TRANSPARENT OUTSIDE. Remove every floating gold/yellow speck, tiny fragment, loose pixel, and debris outside the single main continuous button silhouette, especially the scattered gold fragments in the top transparent margin. Outside the button must be perfectly empty actual alpha transparency. Clean and smooth the alpha edge.\nKeep the entire button itself pixel-faithful in appearance: same whole silhouette, position, source wide 3:1 canvas dimensions, generous rounded corners, vivid azure face, highlights, dark blue base thickness, thick gold rim, all shading and empty face unchanged. Do not redesign or recolor anything. Do not add any objects, text, icons, letters, numbers, logo, or decorations. The output is a single isolated completed raster UI button with a genuinely transparent outer background and no detached fragments.",
+      "referencePath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-ea19833a-4579-4406-bfb9-5afffcf32706.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-03e95c12-f2d9-40c7-ad2f-dfe45e367d7f.png",
+      "reason": "More detached fragments; first variant retained."
+    },
+    "id": "button_blue_v9"
+  },
+  {
+    "prompt": "Use case: stylized-concept.\nAsset type: production raster UI asset for a premium contemporary casual mobile puzzle game, primary play button.\nInput images: Image 1 is a STYLE REFERENCE only: the Royal Match home screen. Learn the bright glossy toy-plastic treatment from its large green primary play button near the bottom. Do not reproduce the screen, labels, artwork, logos, icons, or exact silhouette.\nPrimary request: create exactly ONE standalone wide bright apple/lime green primary button on a genuinely transparent outer background. The source canvas is a wide 3:1 aspect ratio, for intended runtime use at 768 x 256. Button fills about 94 percent of the canvas without clipping and is horizontally centered. Show the entire button and its dimensional base.\nSubject: an original near-rectangular silhouette with generous rounded corners, thick dimensional chamfer, clean golden-yellow outer rim, and a substantial dark amber bottom extrusion. Large, readable, completely EMPTY central face for UI text to be added by code.\nStyle/medium: highly polished 3D rendered casual game UI, rich toy-like plastic volume, contemporary glossy mobile game quality, crisp clean edges. Match the reference button's bright and friendly high-saturation material style.\nLighting: luminous vivid apple/lime green face, bright soft upper specular highlight, strong dimensional side shading and warm golden rim highlight. Controlled highlights around edges; the central face stays visually clear.\nColor palette: fresh saturated vivid apple and lime greens with luminous yellow-green upper glow; golden-yellow rim; dark amber bottom thickness.\nComposition: straight-on orthographic front view, very slight top surface visibility only to communicate thickness. Whole single button only. Transparent empty space around its outside.\nConstraints: true alpha transparency; no opaque backdrop, no checkerboard drawn into pixels, no floor or scene; no text, letters, numbers, icons, symbols, logo, watermark. No extra buttons or decorative objects. No muted teal, no sage, no leaves, flowers, vines, wood, wooden frame, thin copper line, antique ornaments. No overly thin outline or flat vector rendering.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+      "role": "Style reference only; bright glossy toy-plastic treatment of primary green play button, not a copy target"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-8c1c8436-22d8-4083-8b92-44f49ae3f85b.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_lime_v9.png",
+    "method": "Built-in image_gen.imagegen; transparent_background true; generated original copied unchanged",
+    "intendedRuntime": {
+      "width": 768,
+      "height": 256
+    },
+    "status": "Approved after visual inspection: bright lime empty glossy face, thick gold rim and amber bottom extrusion, true RGBA transparency.",
+    "id": "button_lime_v9"
+  },
+  {
+    "prompt": "Use case: stylized-concept.\nAsset type: production transparent raster empty inset content card/shelf for a premium contemporary casual mobile puzzle game, intended runtime 768 x 272.\nInput images: Image 1 is the Royal Match home-screen STYLE REFERENCE only for polished contemporary casual game UI reward cards. Image 2 is an approved glossy game button STYLE REFERENCE only for rendering quality and toy-plastic volume. Do not copy button colors, gold rim, or exact button construction.\nPrimary request: create exactly ONE empty wide rounded-rectangle inset content card/shelf, canvas aspect ratio about 2.82:1, with a broad large readable empty central face. The card fills about 94 percent of canvas, whole object visible, no clipping.\nCard design: pale cool ice-blue central face, color around #c2d8f2, thick medium cornflower-blue raised outer rim, clean rounded rectangular corners, a fine white upper inset highlight, subtle navy-lavender lower extrusion giving gentle 3D shelf volume. One simple clean frame. Large center stays almost flat and visually quiet for later content added by code.\nStyle/medium: modern highly polished 3D toy-plastic casual mobile game UI, bright soft material shading, clean precision edges, friendly and premium; volume and finish akin Royal reward cards. Keep the face distinctly cool light blue, avoid white or cream glare. Rim is rich cornflower blue, lower thickness subtle navy-lavender.\nLighting: soft upper-left highlight on the frame, thin fine white light along the upper inset edge, subtle lower shade. The broad central plane has extremely restrained subtle shading, no harsh shiny hotspot or reflection.\nComposition: straight-on front view with only enough top visibility for dimensional rim and lower extrusion. A single card isolated on a genuinely transparent outside background. Broad empty center. No attached icons, badges, tabs, ribbons or protrusions.\nConstraints: actual alpha transparency outside card; no backdrop, floor, checkerboard pixels, scene, shadow rectangle. No text, letters, numbers, symbols, logos, watermark, content, slots, dividers, decorative objects, gold ornament, leaves, flowers, vines, wood, teal, sage, or green. No antique decoration. No button-like bulging center. No opaque white background.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Style reference only for polished casual mobile game reward cards"
+      },
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_lime_v9.png",
+        "role": "Style reference only for glossy toy-plastic rendering quality and 3D volume"
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-d55c18e9-c994-48d4-b9ce-a358fb1859da.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/card_ice_v9.png",
+    "method": "Built-in image_gen.imagegen; transparent_background true; generated original copied unchanged",
+    "intendedRuntime": {
+      "width": 768,
+      "height": 272
+    },
+    "status": "Approved after visual inspection: broad pale ice-blue empty face, thick cornflower-blue raised rim, fine white upper inset edge highlight, navy-lavender lower extrusion. Actual RGBA alpha and transparent corners verified. Runtime pipeline handles normal outer fringe trim.",
+    "id": "card_ice_v9"
+  },
+  {
+    "asset": "card_lavender_v9.png",
+    "method": "built-in image_gen color edit of approved ice card; transparent background; inspected generated raster, then sips downscaled to exact runtime size. No manual masking, alpha transfer or additional fringe cleanup pass.",
+    "prompt": "Use case: precise-object-edit\nAsset type: production raster empty rounded content-card frame for a glossy contemporary casual mobile game, wide aspect approximately 2.8:1, runtime 768x272.\nInput image 1 role: EDIT TARGET, approved card_ice_v9.png. This is a COLOR VARIANT ONLY. Preserve its exact wide rounded rectangle geometry, canvas aspect ratio, central face bounds, bevel thickness, corner radius, straight long edges and dimensional lower extrusion.\nPrimary request: recolor the large empty center face to clear light LAVENDER approximately #d5c5ef, with a very subtle polished lavender surface gradient. Recolor the thick blue outer beveled edge to saturated VIOLET-BLUE. Keep the fine WHITE UPPER INSET HIGHLIGHT line and controlled glossy corner highlights. Recolor the lower extrusion/depth to PURPLE. Keep bold rounded glossy toy-plastic volume and the simple sculpted silhouette.\nInterior face must be opaque and COMPLETELY EMPTY with abundant usable center space. Outside the single card silhouette is transparent. Entire card visible centered, fills nearly full canvas width and height, same layout and geometry as input. Front orthographic view, no perspective distortion.\nNo text, numbers, letters, symbols, icons, images, characters, buttons, close X, logos, interior dividers or modules. No foliage, leaves, teal, wood, copper, gold filigree, ornamental motifs, scrolls, cream or beige. No background, ground plane or cast shadow outside silhouette. Do not crop or redesign.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/card_ice_v9.png",
+      "role": "edit target; preserve wide rounded geometry, bevel thickness, blank center, white upper inset highlight and lower depth; recolor only"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-acdcb787-b328-4cd0-92f8-e9dc123367a3.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/card_lavender_v9.png",
+    "generatedSize": {
+      "width": 2109,
+      "height": 745
+    },
+    "savedSize": {
+      "width": 768,
+      "height": 272
+    },
+    "inspection": "Approved clear light-lavender empty face, thick violet-blue glossy edge, white upper inset highlight and purple lower depth. Wide rounded source geometry visually preserved. Disconnected exterior fringe left for standard runtime packing cleanup by root as instructed.",
+    "status": "art-approved; runtime disconnected-fringe cleanup assigned to root",
+    "id": "card_lavender_v9"
+  },
+  {
+    "asset": "card_peach_v9.png",
+    "method": "built-in image_gen color edit of approved ice card; transparent background; inspected generated raster, then sips downscaled to exact runtime size. No manual masking, alpha transfer or extra cleanup passes.",
+    "prompt": "Use case: precise-object-edit\nAsset type: production raster EMPTY rounded content-card frame for a contemporary glossy casual mobile game, wide 2.8:1 aspect ratio, runtime canvas 768x272.\nInput image 1 role: EDIT TARGET, approved card_ice_v9.png. COLOR EDIT ONLY: preserve exact wide rounded rectangular silhouette, corner curvature, face bounds, thick raised bevel width, white upper inset highlight, straight long edges, lower extrusion, perspective and object placement.\nPrimary request: PEACH color variant. Recolor the large blank center face to clear soft PEACH #ffd39d, warm and visibly peach-orange, never pale cream, ivory or white. Recolor the thick raised outer beveled edge to glossy bright ORANGE-GOLD, with warm AMBER lower depth. Keep fine WHITE upper inset highlight and restrained white glossy corner highlights. Preserve the sculpted chunky toy-plastic 3D volume and clean smooth finish.\nEntire face remains opaque and COMPLETELY EMPTY for all future DOM text and art. Exterior background genuinely transparent outside this one silhouette. Single card centered and fully visible, fills nearly full canvas. No background rectangle, ground, external drop shadow or checkerboard.\nThis is modern casual mobile-game toy UI, original art. No vintage parchment, paper grain, age marks, wood, gold filigree, copper ornament, foliage, leaves, teal, scrolls or botanical detail. No text, letters, numbers, symbols, icons, logos, character art, buttons, X, interior dividers or modules. Do not add objects, redesign, crop, flatten depth or change geometry.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/card_ice_v9.png",
+      "role": "edit target; preserve approved wide rounded rectangular geometry, raised bevel, blank central face, white inset highlight and lower depth while recoloring"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-cf3ce2ef-516f-49b3-8ef7-0ff92730eeb3.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/card_peach_v9.png",
+    "generatedSize": {
+      "width": 2109,
+      "height": 745
+    },
+    "savedSize": {
+      "width": 768,
+      "height": 272
+    },
+    "inspection": "Approved clear soft-peach blank face, raised orange-gold glossy edge, fine white upper inset highlight and warm amber lower depth. Modern toy plastic; no parchment or ornament. Wide rounded source geometry visually preserved. Faint disconnected exterior fringe left for standard runtime packing cleanup by root.",
+    "status": "art-approved; runtime disconnected-fringe cleanup assigned to root",
+    "id": "card_peach_v9"
+  },
+  {
+    "asset": "event_sky_v9",
+    "prompt": "Use case: precise-object-edit\nAsset type: Production raster event-name plaque color variant, intended runtime 512 x 192 pixels.\nInput image 1 role: EDIT TARGET — the approved event_violet_v9.png plaque. This is a strictly constrained color-only edit of this exact image, not a redesign or a new asset.\nPrimary request: Change ONLY the purple central face and purple lower extrusion to a clear saturated deep SKY BLUE / AZURE color. Central face around #0877C6, a restrained slightly lighter blue upper highlight, darker clear blue lower extrusion. Preserve the entire original geometry, proportions, rounded rectangle, curved edges, rim thickness, two flared side tips, bevel shapes, shading placements, perspective, scale, position, canvas extent and transparent alpha silhouette EXACTLY.\nColor and legibility: The broad center face must remain rich medium/deep saturated azure, supporting WHITE Korean lettering at 11–15px. No pale white glare or washed-out bright cyan across the central reading area. Keep existing highlight shapes but reinterpret the purple surface in clean blue tones. The bottom depth becomes dark blue rather than purple.\nInvariants: The polished yellow-gold rim and gold tips must remain UNCHANGED in color, material, geometry, detail and highlight placement. Preserve the original alpha/transparency outside the object. Preserve all empty space and the completely EMPTY center. Do not change the gold, add content, move anything, crop, stretch, alter the silhouette or invent ornament. Every original purple surface becomes blue; all original gold surfaces stay gold.\nBackground: Preserve actual outer alpha transparency, no newly drawn background, shadow scene or checkerboard.\nText: NONE.\nAvoid: NO remaining purple, teal, green, sage, wood, copper, floral elements, foliage, text, numbers, icons, logos, watermark, new objects, redesigned rim or extra decoration. Exact same approved plaque, changing purple material to clear deep azure blue ONLY.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/event_violet_v9.png",
+        "role": "EDIT TARGET. Approved original plaque inspected locally before edit; exact same silhouette, geometry, gold rim/tips and outer alpha requested, only purple face/extrusion recolored to deep sky/azure blue."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-9701798d-264b-45d9-9204-7ed6ec69a31f.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/event_sky_v9.png",
+    "method": "Built-in image_gen.imagegen; precise-object-edit using referenced_image_paths=[event_violet_v9.png]; transparent_background=true; original generated edit PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 512,
+      "height": 192
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "Visually preserved approved plaque geometry and gold-rim/tip shape, clear saturated deep azure empty face, lighter upper blue highlight and dark blue lower extrusion; broad central reading area remains medium/deep blue for white labels. No purple, teal, foliage, text or icons. No other assets changed.",
+      "size": [
+        2048,
+        768
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "visibleBBox": [
+        0,
+        2,
+        2038,
+        768
+      ],
+      "opaqueBBox": [
+        15,
+        51,
+        2033,
+        717
+      ],
+      "fullyTransparentPixels": 357466,
+      "alphaAtEdges": {
+        "(0, 0)": 0,
+        "(1024, 0)": 0,
+        "(2047, 0)": 0,
+        "(0, 767)": 0,
+        "(1024, 767)": 0,
+        "(2047, 767)": 0
+      }
+    },
+    "id": "event_sky_v9"
+  },
+  {
+    "asset": "event_violet_v9",
+    "prompt": "Use case: stylized-concept\nAsset type: ONE standalone production raster event-name plaque for a premium colorful casual mobile game side-event badge. Intended runtime 512 x 192 pixels, wide approximately 2.7:1.\nPrimary request: A SHORT glossy ROYAL-VIOLET event-name plaque, original silhouette with premium Royal Match-like side-event UI dimensionality and cheerful readability. The center must be completely EMPTY for a white Korean label to be added later.\nShape and geometry: Clean modest rounded rectangle with clear straight horizontal segments and a gently curved, slightly convex face. Small subtly flared polished gold tips at the left and right ends, integrated into the rim. Bright thick continuous GOLD top and bottom rim. Darker purple lower extrusion creates friendly chunky depth. Front-facing orthographic and symmetric, full object visible. A robust modern game plaque, not an ornate decorative banner or oval capsule.\nMaterials and colors: Rich saturated royal violet / luminous purple central molded-toy-plastic face; smooth open center with enough purple contrast for white text. Thick bright polished warm yellow-gold rims, broad clean specular highlights, modest dark-purple underside. Glossy premium casual-game 3D render, clean simple volume and restrained detail.\nComposition: A single horizontal plaque filling around 94 percent of the width of a wide 2.7:1 transparent canvas, narrow margins, no cropping. Keep the central surfaces smooth and suitable for UI stretching.\nBackground: Genuine alpha transparency outside the silhouette, no opaque background, floor, cast ground shadow or drawn checkerboard.\nText: NONE.\nAvoid: NO text, characters, letters, digits, logos, watermark, labels, icons, stars, coins, hearts, decorations, wood, foliage, leaves, flowers, vines, filigree, copper, teal, sage, cream parchment, photoreal metal grit, multiple plaques or extra objects. ONLY one empty violet-and-gold event-name plaque.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Visual style reference previously inspected for small side-event-name plaques, glossy saturated face and gold rim; not supplied as a generation input or edit target."
+      },
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/footer_azure_v9.png",
+        "role": "Approved glossy material reference inspected for modern casual-game surface polish and warm gold highlight style; not supplied as a generation input or edit target."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-5c1285f3-1b6e-4b29-9665-9dc33c98ab41.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/event_violet_v9.png",
+    "method": "Built-in image_gen.imagegen; new image generation; transparent_background=true; original generated PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 512,
+      "height": 192
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "Single short glossy saturated royal-violet event-name plaque, chunky bright yellow-gold top/bottom rim, restrained flared side tips, dark purple lower depth, empty label center. No text/icons/foliage. Source alpha includes minor outer fringe for root runtime-packing normalization.",
+      "size": [
+        2048,
+        768
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        254
+      ],
+      "visibleBBox": [
+        0,
+        0,
+        2037,
+        768
+      ],
+      "opaqueBBox": [
+        15,
+        52,
+        2033,
+        719
+      ],
+      "fullyTransparentPixels": 346524,
+      "alphaAtEdges": {
+        "(0, 0)": 0,
+        "(1024, 0)": 0,
+        "(2047, 0)": 0,
+        "(0, 767)": 0,
+        "(1024, 767)": 0,
+        "(2047, 767)": 0
+      }
+    },
+    "id": "event_violet_v9"
+  },
+  {
+    "asset": "footer_azure_v9",
+    "prompt": "Use case: stylized-concept\nAsset type: a single production raster UI asset for the EMPTY bottom navigation tray of a premium colorful casual mobile game.\nPrimary request: Create ONE horizontal 4:1 tray, intended runtime size 1024 x 256 pixels, on a genuinely transparent canvas. Modern glossy toy-plastic 3D polish, the cheerful clarity and dimensional quality of Royal Match mobile-game navigation chrome, but an original simple silhouette.\nSubject and geometry: A broad low rectangular slab in deep clear vivid AZURE / COBALT BLUE. Gently rounded TOP corners, nearly straight bottom corners and straight lower edge. A thick smoothly polished GOLD upper rail that runs continuously across the full top and turns naturally around the upper corners. Beneath it a spacious smooth blue body, a modest darker-blue lower extrusion for dimensional depth, and a crisp curved specular light along the upper edge. Clean robust friendly 3D geometry, front view, orthographic, symmetric. Keep the center smooth, fairly uniform and uninterrupted so separate white labels and DOM icons remain clearly visible.\nComposition/framing: Very wide horizontal format exactly 4:1. The whole object is visible. Tray fills approximately 95 percent of the canvas width and 85 to 90 percent of height, with only narrow transparent margins. No perspective foreshortening. The long straight portions should be uniform enough for both horizontal and vertical nine-slice stretching.\nLighting/materials: Rich lacquered blue molded toy-plastic, polished warm yellow-gold rail, clean broad soft highlights rather than busy texture. Smooth studio-quality high-end casual-game render.\nScene/backdrop: True alpha transparency outside the tray silhouette, including corners. No opaque background, no checkerboard pattern drawn into image, no floor plane or cast shadow beyond the silhouette.\nText: NONE.\nAvoid: NO text, letters, digits, logos, watermarks, icons, symbols, navigation content, separators, dividers, central raised structure, button wells, decorative center plaques, leaves, flowers, foliage, wood, teal, sage, copper, filigree, vines, ornament, stones, gems, extra objects or frames. ONLY this one EMPTY blue-and-gold navigation tray.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Visual style reference inspected for glossy casual-game geometry, cobalt blue body and warm gold rail. Not passed as an image-edit target or direct generation input."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-26f5e206-e1ee-40e0-9e92-b5df37456f44.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/footer_azure_v9.png",
+    "method": "Built-in image_gen.imagegen; new image generation; transparent_background=true; original generated PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 1024,
+      "height": 256
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "Single empty glossy vivid cobalt-blue navigation slab with continuous thick polished yellow-gold upper rail. Rounded upper corners, dark lower extrusion, uniform central body, no icons/text/dividers/raised central structure/foliage. True alpha transparency verified.",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBBox": [
+        0,
+        31,
+        2172,
+        596
+      ],
+      "opaqueBBox": [
+        15,
+        133,
+        2157,
+        591
+      ],
+      "fullyTransparentPixels": 588166
+    },
+    "id": "footer_azure_v9"
+  },
+  {
+    "asset": "panel_sapphire_v9.png",
+    "method": "built-in image_gen; transparent background; generated raster inspected, then sips downscaled to exact runtime size",
+    "prompt": "Use case: stylized-concept\nAsset type: production raster UI asset, EMPTY portrait modal panel for a contemporary glossy casual mobile game, output canvas 640 by 800 pixels, exact 4:5 aspect ratio.\nReference image role: the supplied Royal Match home screenshot is a STYLE REFERENCE ONLY for polished, chunky toy-plastic casual-game materials, saturated blue and yellow-gold trims. Do not reproduce its scene, branding, text or objects.\nPrimary request: a SINGLE COMPLETE EMPTY rounded rectangular blue modal panel. Entire silhouette fully visible, centered, front orthographic view, approximately 95% of canvas width and height. Real transparent background outside the panel only, opaque blue interior. The panel has a thick beveled saturated sapphire/azure-blue outer housing with pronounced 3D corner volume, a thin double golden-yellow dimensional rim, and dark-blue bottom/right extrusion/drop geometry built into this one raster.\nHeader: broad DARK ROYAL BLUE top header cap INTEGRATED into the outer housing, not a disconnected or floating banner. Its centered title face at x100..540 y30..105 on the 640x800 canvas is COMPLETELY EMPTY and clean, with generous horizontal space for a future title.\nBody: medium rich royal/azure blue similar to #247acb, softly polished but not pale. Large COMPLETELY EMPTY clear central region from y150 to730, clean uniform fill with at most an extremely subtle blue surface gradient. Body is opaque. Straight flat consistent side edges suitable for nine-slice scaling, spacious round corners and chunky physical depth.\nStyle: premium original contemporary casual mobile puzzle-game dialog, sculpted glossy toy plastic, confident thick simple volumes, clear silhouette, clean rendering. Small controlled blue highlights on the bevel only and bright yellow-gold rounded trim. No harsh white or cream glare.\nText: NONE.\nConstraints: ONE panel only; no interface content, no inner modules or dividers, no buttons, no close X, no text, letters, numbers, symbols, logos, icons, characters, objects, illustrations, decorative motifs, stars, gems, crowns or sparkles. No teal, sage, foliage, wood, copper, leaves, vines, flowers, antique ornament, scrollwork, rococo styling or thin-line ornament. No scene, background rectangle, checkerboard pattern, ground plane or shadow outside silhouette. Do not crop any part.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+      "role": "style reference only: glossy chunky contemporary casual-game material, saturation and yellow-gold/blue trim; no scene or content copied"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-5884377a-2c20-4b93-a296-b9177e1dbbc8.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/panel_sapphire_v9.png",
+    "generatedSize": {
+      "width": 1122,
+      "height": 1402
+    },
+    "savedSize": {
+      "width": 640,
+      "height": 800
+    },
+    "transparentOutside": true,
+    "opaqueBlueBody": true,
+    "inspection": "Approved: empty blue opaque body, integrated dark blue header, chunky rounded corners, dimensional yellow-gold rim, complete silhouette, no text/icons/illustrations or decorative foliage.",
+    "id": "panel_sapphire_v9"
+  },
+  {
+    "asset": "panel_sunset_v9.png",
+    "method": "built-in image_gen edit of approved sapphire panel; transparent background; inspected generated raster, then sips downscaled to exact runtime size. No masking or alpha transfer.",
+    "prompt": "Use case: precise-object-edit\nAsset type: production raster EMPTY portrait casual-mobile-game modal panel recolor, exact 640x800 canvas.\nInput image 1 role: EDIT TARGET, approved panel_sapphire_v9.png. Edit ONLY the blue plastic colors. Preserve the complete geometry, shape, proportions, placement, transparent exterior and dimensional yellow-gold trim.\nPrimary request: make this exact panel a SUNSET variant. Recolor the integrated top title cap to vivid saturated SUNSET CORAL-ORANGE, approximately #ef7146 and #e45a38, with the same soft polished bevel lighting. Recolor the outer plastic housing to saturated ROYAL VIOLET, with dark violet 3D bottom/right extrusion. Recolor the large empty body to clear light PERIWINKLE / SKY BLUE approximately #8ab8ec, with only a subtle even blue gradient. Body should be distinctly blue, never white, cream, beige or pale grey. Keep yellow-gold dimensional bevel rim unchanged.\nStrict invariants: same exact 640x800 portrait canvas; same outer smooth rounded-rectangle silhouette; same 95% canvas filling; same integrated title cap bounds and one horizontal gold divider; same gold rim thickness, corners and sculpted toy-plastic volume; same empty large central body and straight edges suitable nine-slice scaling. Body opaque; outside silhouette transparent. No new sections, modules or decorations.\nStyle: original contemporary glossy casual-game dialog with chunky confident 3D bevels and toy-plastic depth.\nDo not add text, letters, numbers, icons, buttons, close X, characters, objects, illustrations, stars, gems or logos. No teal, foliage, leaves, flowers, vines, wood, copper, antique ornament, rococo scrolls, cream or white glare. No backdrop, ground plane or exterior shadow; no checkerboard. Do not crop or redesign.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/panel_sapphire_v9.png",
+      "role": "edit target; maintain approved geometry, cap/body bounds, chunky gold-rim proportions and glossy toy volume while recoloring"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-f73d3472-45fb-43bb-a0c7-a7634ed313c5.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/panel_sunset_v9.png",
+    "generatedSize": {
+      "width": 1122,
+      "height": 1402
+    },
+    "savedSize": {
+      "width": 640,
+      "height": 800
+    },
+    "inspection": "Approved interior and shape: vivid coral-orange integrated title cap, royal-violet housing, gold bevel rim and clear periwinkle/sky-blue empty body. Canvas dimensions exact. Only isolated disconnected exterior fringe remains for standard runtime packing cleanup by root; no additional imagegen pass requested.",
+    "status": "art-approved; runtime disconnected-fringe cleanup assigned to root",
+    "id": "panel_sunset_v9"
+  },
+  {
+    "asset": "panel_violet_v9.png",
+    "method": "built-in image_gen edit of approved sapphire panel; transparent background; inspected generated raster, then sips downscaled to exact runtime size",
+    "prompt": "Use case: precise-object-edit\nAsset type: production raster EMPTY portrait mobile-game modal panel recolor, exact 640x800 canvas.\nInput image 1 role: EDIT TARGET, the approved panel_sapphire_v9.png. Edit ONLY its BLUE COLORS; preserve its geometry, silhouette, proportions, alpha boundary, layout and gold parts.\nPrimary request: create the identical panel as a violet-purple color variant. Recolor the sapphire-blue outer plastic housing to rich saturated violet/purple with dark violet extrusion. Recolor the integrated top title cap to berry-magenta blending subtly into violet, approximately #872b94 to #663297. Recolor the large empty body to royal indigo approximately #5045ad with the same extremely subtle polished highlight.\nStrict invariants: exactly the same 640x800 canvas, exactly the same outer silhouette and transparent outside alpha, exactly the same round-corner geometry, body bounds, integrated header bounds, gold bevel/rim thickness, lighting direction, 3D depth, and nine-slice-compatible straight side edges. Keep the complete dimensional yellow-gold rim yellow-gold with unchanged thickness. Preserve the one horizontal gold header/body divider. Preserve identical clean glossy sculpted toy-plastic volume. Body remains opaque and empty.\nDo not redesign or shift any shape. No new graphics. No text, numbers, letters, icons, buttons or close X. No teal, wood, copper, cream, foliage, leaves, flowers, scrolls or ornate detail. Transparent background outside silhouette only. Do not crop.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/panel_sapphire_v9.png",
+      "role": "edit target; preserve geometry, proportions, integrated header, straight stretchable body edges, gold rim, opaque body and exterior transparency while recoloring blue regions only"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-487e4925-992e-4b29-9e78-69a8fe3f1334.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/panel_violet_v9.png",
+    "generatedSize": {
+      "width": 1122,
+      "height": 1402
+    },
+    "savedSize": {
+      "width": 640,
+      "height": 800
+    },
+    "inspection": "Palette and interior appearance approved: violet housing, integrated berry-magenta title cap, empty royal indigo body and yellow-gold trim. Layout visually matches source. Pending exterior alpha cleanup: built-in edit left stray colored fragments at extreme left. Generative edit is not a mathematical pixel-identical alpha guarantee.",
+    "status": "palette-approved; exterior-alpha-cleanup-pending",
+    "rejectedCleanupAttempt": {
+      "method": "built-in image_gen targeted exterior alpha cleanup; rejected because stray exterior pixels remained",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-b7cdb1fa-e08d-4d26-ad15-0397eba7102e.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: production raster UI modal panel, 640x800 canvas.\nInput image 1 role: EDIT TARGET, violet panel. One surgical correction only: CLEAN THE TRANSPARENT EXTERIOR EDGES. Remove every stray cyan, blue, violet or magenta pixel, speck, torn jagged sliver and color fragment outside the smooth rounded rectangular main panel silhouette, particularly along the extreme LEFT margin. The exterior must be truly empty transparent alpha with a single smooth antialiased panel outline.\nKeep absolutely everything inside the main panel unchanged: violet plastic outer housing, berry-magenta integrated title cap, royal-indigo empty body, dimensional yellow-gold frame, all round corners, 3D depth, highlights and header/body geometry. Same 640x800 portrait canvas and placement. Do not add or redesign anything. No text, icons, objects, white background, checkerboard or shadow outside the silhouette. Alpha outside only; all interior opaque."
+    },
+    "id": "panel_violet_v9"
+  },
+  {
+    "asset": "poster_shop_v9.png",
+    "method": "built-in image_gen new production illustration using Lumi identity and Royal-home polish references; opaque background; inspected generated raster, then sips downscaled to exact runtime size.",
+    "prompt": "Use case: stylized-concept\nAsset type: final production SHOP masthead illustration for a glossy modern casual mobile puzzle game. OPAQUE horizontal raster banner, EXACT 1440x600 pixels, 2.4:1 landscape.\nInput image 1 role: CHARACTER IDENTITY REFERENCE, Lumi the original smiling orange red-panda mascot. Preserve Lumi's recognizable orange fur, cream muzzle/cheeks/eyebrows and inner ears, big warm amber eyes, round friendly face, dark brown paws, coral neckerchief and blue-teal overalls. Render Lumi in a fresh storefront pose, not a copied cutout. No shovel, no tool; any overalls chest patch may be hidden behind the counter.\nInput image 2 role: STYLE REFERENCE ONLY, the Royal Match screenshot: polished, vivid, chunky dimensional casual-mobile-game toy rendering, sculpted glossy surfaces, saturated sapphire/coral/gold. Do not copy its UI, content, branding, characters or text.\nPrimary request: create one vivid, festive contemporary game SHOP masthead, horizontal split composition. LEFT 40% of the banner (x0..575): a compact bright blue and coral toy-plastic shop counter under a shiny BLUE AND CORAL STRIPED CANOPY. ONE Lumi stands behind this counter, smiling warmly toward the viewer. Lumi's complete face and both ears fully inside safe margins, large and readable at small scale. On the counter, a compact tidy group of several chunky shiny GOLD COINS with plain embossed circles, and ONE RUBY-VIOLET gift box with a bright ribbon. Keep the coins and gift box fully visible and within the left 40%, no clipping.\nRIGHT 55% of the banner (x648..1440): a broad uninterrupted COMPLETELY EMPTY DARK SAPPHIRE-BLUE SHOP-SIGN FACE for a later editable DOM Korean title. Gently glossy blue surface, approximately #1246a0 with darker lower shading, polished subtle rim if needed. No character, props, pattern, icon, decoration or baked text in this right title area. Transition between left shop stall and right sign is clean and integrated.\nComposition and crop safety: all principal character face/ears, canopy and coins lie within y50..550; preserve the full banner design and faces even when displayed as a short 116px-height masthead. Avoid tall vertical details and busy surroundings. Front/slight three-quarter toy shop view, crisp readable shapes, confident volume, warm friendly light.\nPalette/materials: vivid sapphire and azure blues, coral orange, bright yellow-gold coins, ruby-violet gift, glossy soft sculpted 3D plastic. Overall blue/coral palette; teal and sage must not dominate. Modern festive storefront without wooden architecture, leafy framing, vines, botanical decorations, parchment or antique ornaments.\nConstraints: fully OPAQUE entire rectangular banner, edge to edge background, no transparent areas. ONE Lumi only, no duplicated faces or characters. NO text, words, letters, numbers, logos, currency symbols, interface controls, buttons, close X, labels, UI counters, watermark or border captions. No floating unrelated objects. No gold filigree or rococo ornament. Keep the broad right sign empty and dark blue.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png",
+        "role": "character identity reference; original orange red panda face, cream markings, amber eyes, coral neckerchief, blue-teal overalls; new shop pose without shovel"
+      },
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "style reference only; glossy chunky contemporary casual-game material and saturated blue/coral/gold rendering; no UI, text, brand or content copied"
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-5be4-7103-b6e5-c4ff7716723b/exec-2e3dcb93-a9a5-46ad-bfaf-696f60963693.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_shop_v9.png",
+    "generatedSize": {
+      "width": 1942,
+      "height": 809
+    },
+    "savedSize": {
+      "width": 1440,
+      "height": 600
+    },
+    "opaque": true,
+    "inspection": "Approved: one smiling Lumi with full visible face and ears behind bright coral/blue counter on left, blue/coral striped canopy, complete gold coin group and one ruby-violet gift box. Broad right 55% dark sapphire sign is empty for DOM text. Fully opaque banner, no baked text, logos, controls or leafy/wooden framing.",
+    "status": "approved",
+    "id": "poster_shop_v9"
+  },
+  {
+    "asset": "resource_pearl_v9",
+    "prompt": "Use case: stylized-concept\nAsset type: ONE standalone production raster HUD currency-counter plate for a premium colorful casual mobile game, intended runtime 512 x 208 px, a wide approximately 2.5:1 shape.\nPrimary request: Create a single small horizontal empty counter plate with a pearly pale COOL IVORY / WHITE readable face, a chunky polished yellow-gold bevel rim, and a subtle lavender-blue underside extrusion. Match the modern, friendly, glossy molded-toy dimensional polish and broad clean highlights seen in premium Royal Match-like casual-game HUDs, using an original simple plate.\nGeometry: A broad rounded rectangle with modest corner radii and identifiable straight top, bottom and side segments, NOT an oval, capsule, scroll, banner or whole header. Chunky solid bevel. Uniform left and right edges. The entire empty center face is open, smooth and evenly pale enough for dark numeric text to be added separately. A separate coin/heart/star icon will overlap the LEFT side in code later: do not draw that icon or any icon recess, hole, ledge or circle. Keep the plate symmetric with clean uninterrupted edges.\nComposition: Front-facing orthographic view, centered, entire object visible, approximately 2.5:1 visible aspect ratio, fill about 94 percent of the wide canvas width with narrow true-transparent margins. Smooth central horizontal surfaces suitable for stretchable UI.\nMaterials and lighting: Glossy pearly pale cool white enamel-like toy plastic, bright thick polished warm yellow GOLD rim with dimensional golden bevel, subtle cool lavender-blue extrusion visible below the lower edge. Broad clean specular highlights, soft controlled lighting, high-quality 3D casual-game render. Keep the face cool white rather than yellow, cream, parchment or beige. No texture or pattern on the readable face.\nBackground: Genuine alpha transparency everywhere outside the silhouette, no opaque scene, no cast floor shadow, no drawn checkerboard.\nText: NONE.\nAvoid: NO text, letters, digits, symbols, logo, watermark, icons, coins, hearts, stars, plus signs, foliage, flowers, leaves, wood, teal, sage, copper, vines, filigree, ornate carving, parchment, decorations, extra objects, header assembly, sharp metal realism or thin oval capsule. ONLY one clean empty cool-white-and-gold counter plate.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Visual style reference inspected for premium casual-game resource-counter dimensionality and polish; not supplied as a generation input or edit target."
+      },
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/footer_azure_v9.png",
+        "role": "Approved glossy styling reference inspected for broad clean highlights and polished warm yellow-gold material only; not supplied as a generation input or edit target."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-90e99251-1d74-4527-9fad-1eb384d48b03.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/resource_pearl_v9.png",
+    "method": "Built-in image_gen.imagegen; new image generation; transparent_background=true; original generated PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 512,
+      "height": 208
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "One empty readable cool pearl-white face with chunky polished yellow-gold rounded-rectangle bevel and subtle lavender-blue lower extrusion. No icons/text/numbers/foliage; separate DOM resource icon can overlap the clean left edge.",
+      "size": [
+        1962,
+        801
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBBox": [
+        0,
+        0,
+        1924,
+        767
+      ],
+      "opaqueBBox": [
+        45,
+        79,
+        1917,
+        718
+      ],
+      "fullyTransparentPixels": 381636
+    },
+    "id": "resource_pearl_v9"
+  },
+  {
+    "asset": "ui_events_v9",
+    "prompt": "Use case: stylized-concept\nAsset type: ONE production raster event/promotions gift-box icon for the bottom navigation of a premium colorful casual mobile game. Intended runtime 256 x 256 pixels, readable at 44 px.\nPrimary request: A large glossy RUBY-RED and ROYAL-VIOLET GIFT BOX with a thick polished GOLD RIBBON and a generous GOLD BOW. Its lid is only slightly open, revealing a few warm golden stars and ONE small bright blue gem inside. Original premium Royal Match-like promotion-icon quality, strong chunky friendly toy volume.\nSubject and silhouette: A single substantial gift box, rich ruby-red main box with royal-violet lid/secondary panels, thick yellow-gold ribbon wrapping the box and bold simple gold bow. Lid raised just enough to see two or three simple warm gold stars and a small blue faceted gem between box and lid, all belonging to the same compact silhouette. Keep the gift visually dominant. No scattered confetti cloud or separate gift boxes.\nMaterials and style: Clean glossy lacquered molded toy surfaces, rich saturated red and violet, polished warm yellow-gold ribbon and bow, bright azure-blue small gem. Broad clean specular highlights, soft upper-left lighting, strong readable 3D depth, controlled soft shading, premium casual-game illustration/render. Use big simple shapes that stay clear at 44px.\nComposition: A slight three-quarter front view showing the front and one side of the box. One compact standalone icon centered in a square canvas, whole object including bow, raised lid, stars and gem fully visible, total silhouette fills about 85 percent of canvas width and height with clear transparent margins.\nBackground: Genuine alpha transparency outside every part of the silhouette. No opaque background, scenery, floor, pedestal, cast ground shadow or drawn checkerboard.\nText: NONE.\nAvoid: NO letters, numbers, symbols printed on the box, logos, brand, watermark, faces, characters, leaves, foliage, flowers, vines, wood, copper, teal, sage, filigree, ornate scenery, photoreal wrapping paper texture, extra boxes or loose unrelated objects. ONLY this one glossy ruby-red/violet gift-box event icon with gold ribbon/bow, a few revealed gold stars and one small blue gem.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Visual reference previously inspected for premium glossy casual-game promotion-icon quality and dimensional color blocking; not supplied as an image input or edit target."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-69c98744-d29a-42fe-a8fe-3e81fa40db87.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/ui_events_v9.png",
+    "method": "Built-in image_gen.imagegen; new image generation; transparent_background=true; original generated PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 256,
+      "height": 256
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "One compact glossy ruby-red gift box with royal-violet slightly opened lid, thick polished gold ribbon and large bow, two revealed golden stars and one small blue gem. Full object visible, strong chunky toy volume, no text/number/logo/foliage. Root normal runtime packing handles isolated alpha fringe.",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBBox": [
+        0,
+        0,
+        1176,
+        1254
+      ],
+      "opaqueBBox": [
+        105,
+        27,
+        1148,
+        1227
+      ],
+      "fullyTransparentPixels": 595319,
+      "alphaAtEdges": {
+        "(0, 0)": 0,
+        "(627, 0)": 0,
+        "(1253, 0)": 0,
+        "(0, 1253)": 0,
+        "(627, 1253)": 0,
+        "(1253, 1253)": 0
+      }
+    },
+    "id": "ui_events_v9"
+  },
+  {
+    "prompt": "Use case: stylized-concept.\nAsset type: production transparent square raster guild/community navigation icon for a premium contemporary casual mobile puzzle game, intended runtime 256 x 256.\nInput image 1: Royal Match home screen is a STYLE REFERENCE only for glossy mobile-game navigation icon rendering, especially its lower navigation shield. Create an original guild/community emblem, do not reproduce its brand symbol or exact shield shape.\nPrimary request: exactly ONE clean royal-violet shield with a thick gold rim and exactly THREE friendly gold human-bust figurines embossed prominently inside, representing a guild/community. A small bright sky-blue jewel sits at the bottom point of the shield. Strong large clear silhouette readable at footer icon size.\nSubject design: an original broad friendly rounded shield silhouette, royal-violet face, thick smoothly beveled golden rim, deep dimensional gold sides; one central gold head-and-shoulders bust and two slightly smaller friendly gold busts at its sides, grouped closely as one clear community symbol. Use simple smooth toy figurine heads and shoulders, no detailed faces. Busts are embossed out of the violet shield surface. Small polished sky-blue jewel at the bottom, simple gem shape.\nStyle/medium: premium polished 3D toy-plastic casual mobile game icon, vivid saturated colors, soft rounded forms, substantial beveled volume, warm golden highlights and gentle shadows. Front view with only minimal three-quarter perspective to show depth; keep community symbol unoccluded and symmetric enough to read small.\nComposition: square 1:1 canvas, single whole icon centered and filling about 88 percent, entire gold rim and bottom jewel visible, comfortable transparent margin and no clipping.\nLighting: bright soft upper-left specular highlights, rich violet surface, luminous golden figures and rim, subtle dark purple lower extrusion.\nConstraints: genuine alpha transparency outside the isolated shield, no backdrop/floor/scene/checkerboard. No text, letters, numbers, logos, watermark, crown, extra badges, additional objects, botanical plants, leaves, flowers, vines, teal, green, sage, wood, antique engraving. Exactly three gold busts, one violet shield, one small sky-blue bottom jewel. Keep forms clean, friendly, original, and readable.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+      "role": "Style reference only for lower-navigation glossy shield rendering; original shape and community emblem created"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-e673c458-6fee-4dbf-aeb3-93e5781fa77a.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/ui_guild_v9.png",
+    "method": "Built-in image_gen.imagegen; transparent_background true; generated original copied unchanged",
+    "intendedRuntime": {
+      "width": 256,
+      "height": 256
+    },
+    "status": "Approved after visual inspection: royal-violet shield, thick gold rim, exactly three gold friendly human busts, small sky-blue bottom jewel; readable broad silhouette, no text or foliage. Actual RGBA alpha and transparent corners verified. Runtime pipeline handles normal outer fringe trim.",
+    "id": "ui_guild_v9"
+  },
+  {
+    "asset": "ui_settings_v9",
+    "prompt": "Use case: stylized-concept\nAsset type: ONE production raster settings gear icon for a premium colorful casual mobile game, intended runtime 256 x 256 pixels and recognizable at 32 px.\nPrimary request: Create a chunky friendly 3D SETTINGS GEAR, saturated clear AZURE / COBALT BLUE, with a thick polished GOLD circular center bezel and a pale COOL IVORY inner socket. Original clean toy-like silhouette, premium Royal Match-like casual-game polish, no brand imitation.\nShape: A simple robust cogwheel with a small number of broad evenly spaced friendly rounded gear teeth. Thick molded-blue body with a visible darker-blue lower/right extrusion for strong dimensional volume. In the middle a thick glossy yellow-gold circular bezel around a single recessed pale cool ivory inner socket, no extra symbol inside. The center and teeth read clearly at tiny icon scale. Front-facing with only a gentle dimensional tilt, nearly circular symmetric silhouette.\nMaterials and lighting: Smooth vivid cobalt-blue molded toy plastic, thick polished warm yellow-gold bezel, pearly pale cool ivory socket, broad clean specular highlights from upper left, soft dimensional shading, crisp high-quality premium casual-game 3D render. Bold color blocking and simple forms.\nComposition: One complete standalone icon centered in a square canvas. Whole object visible, filling about 85 percent of width and height, clear transparent margins. No clipping.\nBackground: Genuine transparent alpha outside the entire object, no background scene, pedestal, floor, cast ground shadow or drawn checkerboard.\nText: NONE.\nAvoid: NO letters, numbers, labels, logo, watermark, brand, characters, faces, eyes, other symbols, decorative objects, leaves, flowers, vines, wood, copper, teal, sage, filigree, grime, photoreal industrial machinery, tiny complicated teeth or realistic thin metal. ONLY the one clean glossy blue gear with gold bezel and ivory inner socket.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/references/royal-home.png",
+        "role": "Visual reference inspected for premium casual-game settings-icon volume and gloss; not supplied as an image input or edit target."
+      }
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-e5a1244f-092a-40b8-be74-49496651f2fc.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/ui_settings_v9.png",
+    "method": "Built-in image_gen.imagegen; new image generation; transparent_background=true; original generated PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 256,
+      "height": 256
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "Single original glossy chunky azure/cobalt-blue six-tooth gear with thick polished yellow-gold center bezel, pale cool ivory recessed inner socket, broad readable volumes, darker blue lower extrusion. No text/numbers/brands/foliage; full object visible. Root normal runtime packing handles isolated alpha fringe.",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBBox": [
+        0,
+        17,
+        1236,
+        1254
+      ],
+      "opaqueBBox": [
+        55,
+        51,
+        1185,
+        1221
+      ],
+      "fullyTransparentPixels": 614541,
+      "alphaAtEdges": {
+        "(0, 0)": 0,
+        "(627, 0)": 0,
+        "(1253, 0)": 0,
+        "(0, 1253)": 0,
+        "(627, 1253)": 0,
+        "(1253, 1253)": 0
+      }
+    },
+    "id": "ui_settings_v9"
+  },
+  {
+    "prompt": "Use case: stylized-concept.\nAsset type: ONE original production raster board-cell background for a premium casual mobile match puzzle game, intended runtime 256 x 256.\nInput image 1: GEOMETRY REFERENCE ONLY for a simple recessed square cell. Do not keep its blue palette, transparency, empty outer margin, texture mottling, or bright outline.\nPrimary request: create exactly ONE SINGLE square recessed face of medium-light warm SLATE GRAY / neutral blue-gray stone enamel, opaque from edge to edge. The entire 1:1 square canvas is the cell. Straight perfectly square 90-degree corners, NO rounded corners, NO outside margin, NO separate object on a background.\nColor: restrained near-neutral warm slate-gray / neutral blue-gray. The main face should be close to RGB 135,142,152 (#878e98), stay broadly within RGB 125–145 red, 132–152 green, 145–160 blue through its broad central plane. A subtle warmer neutral stone impression with only a faint blue-gray cast. Absolutely no saturated blue, teal, purple, green, cream, whitewash, pale icy blue, or bright white glare.\nSurface and geometry: very broad quiet subtly recessed square inner face in matte to slight-satin enamel. Restrained narrow raised perimeter bevel, around 2 pixels at 256 runtime. Exactly one very thin low-contrast deeper-gray outer edge, not multiple rings. Soft minimal directional shading, slightly lighter upper/left bevel and slightly deeper lower/right bevel, all in the same neutral slate-gray range. No pronounced cast shadow or extruded visible sidewall. Nearly flat orthographic front-on view.\nIntended use: repeated beneath red cherry, blue drop, yellow and green game pieces, which must stand out clearly. When many copies are adjacent, the cell boundaries must remain soft and unobtrusive. Central face simple and smooth, no gritty stone pattern or visual noise.\nCRITICAL composition: ONE CELL ONLY. NOT a 9-cell grid, NOT a checkerboard, NOT a board containing tiles. Single square fills EVERY pixel of the canvas including all four corners, FULLY OPAQUE.\nConstraints: no alpha transparency, no transparent padding, no black backdrop, no scene or floor, no checkerboard pattern, no rounded margins, no plants, decorations, numbers, text, icons, game pieces, leaves, wood, highlights shaped like symbols, texture stains, scratches, embossed pattern, borders with strong contrast, or cast shadow. Produce one clean single square opaque slate-gray enamel board cell only.",
+    "reference": {
+      "path": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/board_cell.png",
+      "role": "Geometry reference only for simple recessed square face; original blue palette, transparent margin and bright outline deliberately replaced"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-1a86-7ed2-bc31-ea431f026797/exec-76096b36-9d4b-4fe0-80fa-415a3b41aefe.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/board_cell_v9.png",
+    "method": "Built-in image_gen.imagegen; transparent_background false; generated original copied unchanged",
+    "intendedRuntime": {
+      "width": 256,
+      "height": 256
+    },
+    "status": "Approved after visual inspection: one edge-to-edge opaque neutral warm slate/blue-gray satin-enamel recessed square, restrained narrow bevel and low-contrast deeper-gray edge, no grid or tile objects. Original preserved; source RGB/alpha inspected.",
+    "id": "board_cell_v9"
+  },
+  {
+    "asset": "bg_play_v9",
+    "revision": "warm-sandstone-edit",
+    "prompt": "Use case: precise-object-edit\nAsset type: An improved full-canvas opaque portrait PLAY-SCREEN garden-courtyard background for a premium casual mobile puzzle game, runtime 1080 x 2340 px.\nInput image 1 role: EDIT TARGET — bg_play_v9.png, the latest gray courtyard draft. Keep its quiet spacious composition, camera perspective, broad central stone floor, conservatory-edge placement, and planting confined to the edges. Improve its palette and hand-painted game-art finish; this is not a new composition.\nPrimary request: Remove the image's drained gray/cement feeling. Turn the courtyard into inviting warm HONEY-BROWN / SOFT WARM TAUPE SANDSTONE. Aim the broad central stone midtone around RGB 130,121,103 (#827967), with natural warmer honey-brown and gentle taupe variation. Warm, medium-bright and readable, not pale cream, not orange glare, not dark mud. Preserve a very quiet open central 70 percent board zone with subtle low-contrast irregular stone joints. The center remains completely empty.\nBring LIFE and COLOR to the garden edges: Change the dull desaturated leaves to fresh lively natural LEAF GREEN, yellow-green highlights and richer clean green shadows, explicitly NOT teal or turquoise foliage. Let the edge planting feel healthy and fresh. Add only a few tiny bright cheerful YELLOW and CORAL flowers among the existing edge flower clusters; keep these small and confined to corners/outer edges. Add restrained warm AMBER reflected-light accents along a few conservatory frame/stone-edge details, without glare or changing the structure.\nStyle correction: Premium colorful casual-game HAND-PAINTED 3D background with smooth softly dimensional painted surfaces and friendly stylized foliage. Full-color lively garden world, beautiful clear natural color relationships. No global desaturation, gray filter, dusty photographic concrete, somber grading, sepia wash or photoreal cement. Keep the center quieter than the fresh colored edges without draining color from the whole picture.\nLighting: Gentle soft natural warmth and believable depth, a pleasant garden conservatory courtyard. No bright sky, hard sunbeam, glowing patch, haze, bloom or specular glare. Stone should be softly warm rather than gray, blue or cream.\nComposition invariants: Keep the same portrait crop, floor perspective, spacious quiet central area, existing conservatory glazing/stone placement and edge-only garden composition. No new objects in the central 70 percent. Flowers and green plants may fill the outer edges, never intrude across the board space. No regular grid/checkerboard.\nBackground: Preserve FULL OPAQUE coverage to all four canvas edges. No transparency, margins, picture-frame border or cutout.\nText: NONE.\nAvoid: NO UI, HUD, game board, game tiles, puzzle pieces, frames, panels, cards, buttons, text, letters, numbers, logos, watermark, bubbles, particles, purple, flat teal field, teal foliage, gray filter, overall desaturation, bright sky, cream center, neon orange, glare, photoreal gray cement or central decorations. Only the same courtyard composition, now warm sandstone with fresh green garden edges and small yellow/coral/amber color accents.",
+    "references": [
+      {
+        "path": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/drafts/bg-play-gray-v9.png",
+        "suppliedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_play_v9.png",
+        "role": "EDIT TARGET. Latest gray bg_play_v9.png viewed locally and supplied to imagegen before replacement. Its exact pre-edit image is preserved at this draftPath; original quiet floor composition, perspective and edge placements retained while palette/materials improved."
+      }
+    ],
+    "previousDraft": {
+      "imagePath": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/drafts/bg-play-gray-v9.png",
+      "promptRecordPath": "/Users/kimkyutack/Desktop/puzzle-mobile/output/design-v9/drafts/bg-play-gray-v9.json"
+    },
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19ebc-8fed-7651-b773-ea08a69abf46/exec-ff0d18ae-87bd-4d96-af2c-a9ae0545411e.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_play_v9.png",
+    "method": "Built-in image_gen.imagegen; precise-object-edit using referenced_image_paths=[packages/assets/source/bg_play_v9.png] as it existed before replacement, now preserved in output/design-v9/drafts/bg-play-gray-v9.png; transparent_background=false; original generated edited PNG copied without raster modification.",
+    "intendedRuntimeSize": {
+      "width": 1080,
+      "height": 2340
+    },
+    "inspection": {
+      "status": "approved",
+      "notes": "Approved warm revision: quiet central 70% remains broad open medium-bright honey-brown/warm taupe sandstone with subtle irregular joins. Fresh lively leaf-green garden edges, small yellow/coral flowers and amber conservatory reflection accents restore premium colorful hand-painted 3D garden character. No gray/desaturation filter, flat teal field, purple, glare, UI, puzzle tiles or frames. Former gray image and exact original record preserved separately.",
+      "size": [
+        830,
+        1896
+      ],
+      "mode": "RGB",
+      "fullyOpaque": true,
+      "alphaChannelPresent": false,
+      "transparencyChunkPresent": false,
+      "fullCanvasFilled": true
+    },
+    "id": "bg_play_v9"
+  }
+]

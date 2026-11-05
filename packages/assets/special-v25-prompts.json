@@ -1,0 +1,46 @@
+{
+  "revision": "special-v25",
+  "method": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "wind_row_v25",
+      "prompt": "Edit this SAME original blue gold coral double-ended firework icon. Change ONLY proportions to make it much more COMPACT AND THICK for a mobile match-3 tile. The existing result is far too long and skinny. Make the total object bounding box 1.5 times as wide as it is tall, NOT 2.7. The blue barrel is short and very thick, almost square, with two chunky gold collars and SHORT broad coral-red arrowhead caps pointing left and right. Gold collar diameter must be at least 65 percent of total object width. Nose caps are short rounded triangular wedges, not long cones. Front straight-on view, horizontal axis exactly left/right. Preserve the leaf on the blue body, saturated cobalt/coral/warm gold materials, premium sculpted 3D casual-game toy shading and upper left lighting. Square canvas, centered sprite filling 82 percent canvas width and about 55 percent canvas height, truly transparent background. No text, no frame, no glow or external effects. The important request is the thick chunky 1.5:1 silhouette.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-946bd7b0-cc3e-40f6-82c3-29a11009129e.png",
+      "savedPath": "packages/assets/source/wind_row_v25.png",
+      "references": [
+        "packages/assets/drafts/special-v25/wind_row_v25-slim.png"
+      ],
+      "transparent_background": true,
+      "draft": {
+        "prompt": "Use case: stylized-concept. Asset type: single production-ready mobile match-3 HORIZONTAL line-blast power-up sprite on a genuinely transparent background. Primary request: An ORIGINAL compact two-ended toy garden firework rocket, pointing LEFT AND RIGHT, whose HORIZONTAL silhouette is obvious at 32 pixels. Subject: short saturated cobalt-blue cylindrical barrel lying exactly horizontally, two thick warm gold/copper collar bands, a glossy coral-red pointed rocket nose at EACH end aimed left/right. Wide stubby double-arrow silhouette, overall aspect width:height about 1.65:1. Gold highlights and deep blue lower extrusion, subtle engraved leaf on center body. Camera straight on, slight top view to reveal sculpted depth but axis exactly horizontal. Render premium casual mobile-game 3D toy icon, clean thick shapes, confident saturated color, restrained small highlights, strong legibility and believable soft material shading. Composition centered single object using 88 percent canvas width and 54 percent height, equal transparent padding, everything fully visible. Lighting from upper left. No orbit, sparkle, fire, glow, smoke, shadow outside the object, extra props, text, glyphs, lettering, arrows printed on surface, logo, frame, UI, watermark. No cream colored fan blades, no circular fan. Not a reproduction of an existing game's exact design. Transparent background.",
+        "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-73043c75-dd8e-4952-b5f2-7c52916216c1.png",
+        "savedPath": "packages/assets/drafts/special-v25/wind_row_v25-slim.png"
+      }
+    },
+    {
+      "id": "wind_column_v25",
+      "prompt": "Edit this SAME original blue gold coral double-ended firework icon. Change ONLY proportions to make it much more COMPACT AND THICK for a mobile match-3 tile. The existing result is far too tall and skinny. Make the total object bounding box 1.5 times as tall as it is wide, NOT 2.8. The blue barrel is short and very thick, almost square, with two chunky gold collars and SHORT broad coral-red arrowhead caps pointing up and down. Gold collar diameter must be at least 65 percent of total object height. Nose caps are short rounded triangular wedges, not long cones. Front straight-on view, vertical axis exactly up/down. Preserve the leaf on the blue body, saturated cobalt/coral/warm gold materials, premium sculpted 3D casual-game toy shading and upper left lighting. Square canvas, centered sprite filling 82 percent canvas height and about 55 percent canvas width, truly transparent background. No text, no frame, no glow or external effects. The important request is the thick chunky 1:1.5 silhouette.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-51b9b552-b8c4-426a-91c2-e50b668831a9.png",
+      "savedPath": "packages/assets/source/wind_column_v25.png",
+      "references": [
+        "packages/assets/drafts/special-v25/wind_column_v25-slim.png"
+      ],
+      "transparent_background": true,
+      "draft": {
+        "prompt": "Use case: stylized-concept. Asset type: single production-ready mobile match-3 VERTICAL line-blast power-up sprite on a genuinely transparent background. Primary request: An ORIGINAL compact two-ended toy garden firework rocket, pointing UP AND DOWN, whose VERTICAL silhouette is obvious at 32 pixels. Subject: short saturated cobalt-blue cylindrical barrel standing exactly vertically, two thick warm gold/copper collar bands at top/bottom, a glossy coral-red pointed rocket nose at EACH end aimed up/down. Tall stubby double-arrow silhouette, overall aspect width:height about 1:1.65. Gold highlights and deep blue right lower extrusion, subtle engraved leaf on center body. Camera straight on, slight top view to reveal sculpted depth but axis exactly vertical. Render premium casual mobile-game 3D toy icon, clean thick shapes, confident saturated color, restrained small highlights, strong legibility and believable soft material shading. Composition centered single object using 54 percent canvas width and 88 percent height, equal transparent padding, everything fully visible. Lighting from upper left. No orbit, sparkle, fire, glow, smoke, shadow outside the object, extra props, text, glyphs, lettering, arrows printed on surface, logo, frame, UI, watermark. No cream colored fan blades, no circular fan. Not a reproduction of an existing game's exact design. Transparent background.",
+        "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-66558721-766f-4ecd-9c73-9a9b8d1170a7.png",
+        "savedPath": "packages/assets/drafts/special-v25/wind_column_v25-slim.png"
+      }
+    },
+    {
+      "id": "rainbow_charge_v25",
+      "prompt": "Use case: precise-object-edit. Asset type: charged hero keyframe sprite for an original mobile match-3 rainbow lantern power-up. Input image 1 is the exact existing lantern identity. Preserve this SAME lantern: the full round cream/gold cage, teal round roof with circular cream loop handle, flowers/green leaves on rim, five saturated red yellow green blue purple gem panels and three feet. Improve only its CHARGED state: intense saturated colored light inside each gem window, brighter gold rim edge and crisp small glints on the object, vivid internal energy. The gem windows illuminate, with a few tiny white color-tinted light cores contained INSIDE the windows. All cage details, original exact handle shape, proportions and view remain identical. This is one standalone opaque object cutout on genuine transparent background, full object visible with 8 percent padding, square image. No external bloom, halo, rays, particles, surrounding rings, smoke or cast shadow; animation layers are added separately by the game. No text, no logos, no numbers, no background, no other props. Premium polished 3D casual mobile game toy render with clean non-blown highlights. Do not change the lantern to a disco ball, change its handle or add more ornaments.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-7f5afc3c-b7d9-4624-a4a1-87b339681d89.png",
+      "savedPath": "packages/assets/source/rainbow_charge_v25.png",
+      "references": [
+        "packages/assets/source/rainbow.png"
+      ],
+      "transparent_background": true
+    }
+  ]
+}

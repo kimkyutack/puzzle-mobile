@@ -1,0 +1,65 @@
+[
+  {
+    "id": "ground",
+    "prompt": "Edit ONLY this single transparent isometric grass tile to make it seamlessly repeatable. Preserve its exact sharp2:1rhombus diamond silhouette and transparent exterior. Replace the bright lime-green face and ALL broad lighting gradients with uniform medium VERDANT LAWN GREEN, approximately RGB112/158/55 across the whole top face. The center, every edge and all four corners must have essentially the SAME average brightness and color. NO lighter left half, NO darker right edge, NO alternating bands, NO bevel/highlight/rim, NO cast shadow, NO edge border, NO directional illumination. Very subtle small painted grass texture is allowed with variation below8percent. A quiet matte lawn for premium casual mobile garden-building gameplay. This tile repeats hundreds of times edge-to-edge, so any edge shading would form unwanted stripes. One tile only, no text, no grid lines, no scenery, no stones or plants. Genuine alpha transparency outside the diamond.",
+    "method": "Built-in image_gen.imagegen; edit grass tile to remove repeated brightness bands; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-8ad2b039-3acd-4a0c-8e2e-4e97496cab8e.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/ground.png",
+    "referenceRoles": [
+      {
+        "path": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-304b34aa-ce54-45c3-9f82-2276aabe78e2.png",
+        "role": "edit target, original banded grass tile"
+      }
+    ],
+    "draftRecord": "Production game sprite for an original premium casual mobile garden-building game. Polished colorful hand-painted 3D cartoon render, soft rounded forms, beautiful high-quality toy-like materials, gentle upper-left sunlight, consistent TRUE ISOMETRIC ORTHOGRAPHIC camera, ground diamond axes at 26.565 degrees (2:1 projection), no perspective vanishing, no text/letters/logos/UI, isolated on genuine transparent background, no scenery outside the stated object. ONE seamless grass ground tile, not a set or spritesheet. A flat rhombus diamond top face exactly twice as wide as tall, all four corners sharp and cropped to the grassy plane, vivid yet gentle fresh grass green with fine understated painted grass texture, no flowers or stones, no thick extrusion, no individual grass blades outside edges, no outer shadow. This ONE diamond tile repeats edge-to-edge across a large lawn. Intended tightly trimmed sprite256x128."
+  },
+  {
+    "id": "fountain",
+    "prompt": "Production game sprite for an original premium casual mobile garden-building game. Polished colorful hand-painted 3D cartoon render, soft rounded forms, beautiful high-quality toy-like materials, gentle upper-left sunlight, consistent TRUE ISOMETRIC ORTHOGRAPHIC camera, ground diamond axes at 26.565 degrees (2:1 projection), no perspective vanishing, no text/letters/logos/UI, isolated on genuine transparent background, no scenery outside the stated object. ONE beautiful garden fountain centered on a 3x3 tile square diamond footprint. Broad circular pale sandstone basin edged in ivory and honey gold, turquoise water, two elegant shallow tiers, three delicate flowing water jets, small floral accents in fresh green/yellow/coral. A stately garden centerpiece, friendly and richly sculpted. Entire fountain and its low diamond-shaped stone plinth visible, base fits a 2:1 isometric diamond. Three-quarter isometric top view, no tall opaque rear wall, no surrounding floor beyond the base, no characters. Tight square-ish canvas around full object, no clipping, transparent outer margins.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-4fe7a8e0-c84e-4a82-bca6-6fbb5cc91d4c.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/fountain.png"
+  },
+  {
+    "id": "bench",
+    "prompt": "One production sprite for an original premium casual mobile garden-building game, polished colorful hand-painted 3D cartoon render, rounded toy-like materials, ivory sandstone and honey-gold metal, fresh leaf green and small coral/yellow flowers. TRUE ISOMETRIC ORTHOGRAPHIC camera with 2:1 ground diamond, ground axes26.565deg, upper-left sunlight. Entire one object visible, genuinely TRANSPARENT background, no text/UI/logo/character/background landscape, no sheet/grid/set. Full low base fits its stated tile footprint, no clipping. ONE cozy garden bench, warm light-wood seat and backrest, ornate ivory/gold legs, small green climbing leaves at ends. Long rectangular2x1isometric ground footprint oriented from rear-left to front-right along one grid axis. A thin subtle sandstone footing and small contact shadow directly under legs only. Three-quarter top view, pleasant seat visible, not a front elevation. Footing not larger than bench. Tight canvas.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-d30da728-323a-4205-966b-4097c5e0f167.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/bench.png"
+  },
+  {
+    "id": "greenhouse",
+    "prompt": "One production sprite for an original premium casual mobile garden-building game, polished colorful hand-painted 3D cartoon render, rounded toy-like materials, ivory sandstone and honey-gold metal, fresh leaf green and small coral/yellow flowers. TRUE ISOMETRIC ORTHOGRAPHIC camera with 2:1 ground diamond, ground axes26.565deg, upper-left sunlight. Entire one object visible, genuinely TRANSPARENT background, no text/UI/logo/character/background landscape, no sheet/grid/set. Full low base fits its stated tile footprint, no clipping. ONE beautiful small glass conservatory/greenhouse on a4x3isometric ground footprint. Light turquoise transparent glass panes, honey-gold and ivory curved frames, rounded domed roof, inviting arched door on the front-right facade, lush plants visible inside, coral flower baskets at doorway, low warm sandstone plinth. Strong clearly isometric two facades and rooftop visible. Building looks charming and richly crafted without castle towers. No surrounding terrain/paths/trees outside its own platform. Tight canvas.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-1c12fbc4-c753-4b0e-b50e-47f588ed6560.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/greenhouse.png"
+  },
+  {
+    "id": "planter",
+    "prompt": "One production sprite for an original premium casual mobile garden-building game, polished colorful hand-painted 3D cartoon render, rounded toy-like materials, ivory sandstone and honey-gold metal, fresh leaf green and small coral/yellow flowers. TRUE ISOMETRIC ORTHOGRAPHIC camera with 2:1 ground diamond, ground axes26.565deg, upper-left sunlight. Entire one object visible, genuinely TRANSPARENT background, no text/UI/logo/character/background landscape, no sheet/grid/set. Full low base fits its stated tile footprint, no clipping. ONE compact1x1isometric raised flowerbed, low square ivory sandstone planter with small gold details, abundant fresh green foliage with cheerful coral, yellow and white flowers. The base is a 2:1 rhombus in screen projection, two short side walls visible. Flowerbed foliage fits close to its base. Small contact shadow only, tight canvas.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-d575e720-c7b6-4785-9946-be58b8a774f6.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/planter.png"
+  },
+  {
+    "id": "path",
+    "prompt": "One production sprite for an original premium casual mobile garden-building game, polished colorful hand-painted 3D cartoon render, rounded toy-like materials, ivory sandstone and honey-gold metal, fresh leaf green and small coral/yellow flowers. TRUE ISOMETRIC ORTHOGRAPHIC camera with 2:1 ground diamond, ground axes26.565deg, upper-left sunlight. Entire one object visible, genuinely TRANSPARENT background, no text/UI/logo/character/background landscape, no sheet/grid/set. Full low base fits its stated tile footprint, no clipping. ONE flat1x1isometric paving ground tile only: rhombus diamond exactly twice as wide as tall, sharp four corners, full top face warm honey-taupe sandstone with four to six very subtle irregular smooth stone joints. Low contrast and no cracks, no moss/flowers, no cast shadow, no vertical extrusion. Transparent outside the diamond, edge-to-edge repeatable. Intended tighttrim256x128.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-1276211d-8672-4f0c-ab53-83d13d5422dc.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/path.png"
+  },
+  {
+    "id": "lamp",
+    "prompt": "ONE original production sprite for a polished premium casual mobile garden-building game, charming hand-painted 3D cartoon, rounded rich toy materials, upper-left soft sunlight, TRUE ISOMETRIC ORTHOGRAPHIC camera with2:1ground diamond /26.565degree ground axes. Fully visible object on genuinely transparent background. No text/UI/logos/characters, no sheet or grid, no environment. ONE small elegant garden lamppost, slim ivory and honey-gold metal post, a warm amber glass lantern with teal-free gold cap, tiny green vine and coral flowers at its short base. A compact1x1tile diamond sandstone footing. Camera sees the top and two sides. Not extremely tall; fits with small garden benches. Tight vertical canvas.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-85704497-93bd-48ac-8b96-b52d874056a6.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/lamp.png"
+  },
+  {
+    "id": "tree",
+    "prompt": "ONE original production sprite for a polished premium casual mobile garden-building game, charming hand-painted 3D cartoon, rounded rich toy materials, upper-left soft sunlight, TRUE ISOMETRIC ORTHOGRAPHIC camera with2:1ground diamond /26.565degree ground axes. Fully visible object on genuinely transparent background. No text/UI/logos/characters, no sheet or grid, no environment. ONE lush rounded garden tree, fresh green dense layered canopy with a few tiny ivory/yellow blossoms, friendly curved warm-brown trunk, a low circular sandstone edging around its2x2tile ground footprint. Dense charming stylized tree, top and two sides visible. Small contact shadow only inside footprint, no grass terrain beyond base. Tight canvas.",
+    "method": "Built-in image_gen.imagegen; new image; transparent_background=true",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f06-4f8b-7301-9593-4a7b2fe923bb/exec-4d335ecf-2265-4143-803a-668126681d2d.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/source/tree.png"
+  }
+]

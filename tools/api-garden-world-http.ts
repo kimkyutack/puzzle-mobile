@@ -1,0 +1,88 @@
+import assert from 'node:assert/strict';
+import {mkdtemp,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
+import {unstable_splitSqlQuery} from 'wrangler';
+import type {AuthResponse,Player} from '@garden/contracts';
+import {RESTORATIONS} from '@garden/content';
+import type {GardenWorldState} from '../packages/garden-world/src';
+await mkdir('.wrangler',{recursive:true});await mkdir('output/verification',{recursive:true});
+const statePath=resolve(await mkdtemp('.wrangler/garden-live-http-'));
+const build=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','deploy','--dry-run','--config',process.env.GARDEN_QA_CONFIG||'apps/api/wrangler.jsonc','--outdir',join(statePath,'bundle')],{encoding:'utf8',env:{...process.env,WRANGLER_LOG_PATH:join(statePath,'build.log'),WRANGLER_SEND_METRICS:'false'}});
+assert.equal(build.status,0,build.stderr||build.stdout);
+const mf=new Miniflare(convertV4MiniflareOptions({modules:true,scriptPath:join(statePath,'bundle/index.js'),compatibilityDate:'2026-11-02',compatibilityFlags:['nodejs_compat'],port:0,d1Databases:{DB:'garden-live-private'},r2Buckets:['ASSETS'],durableObjects:{GUILD_ROOMS:{className:'GuildRoom',useSQLite:true}},bindings:{ENVIRONMENT:'development',LOCAL_DEV_TOOLS:'disabled',CLIENT_ORIGINS:'http://localhost:5193',ASSET_VERSION:'test',ASSET_PUBLIC_ORIGIN:'',GOOGLE_CLIENT_IDS:'',APPLE_CLIENT_IDS:'',GOOGLE_PACKAGE_NAME:'com.cloudgarden.match',GOOGLE_IAP_ENVIRONMENT:'Sandbox',APPLE_BUNDLE_ID:'com.cloudgarden.match',ADMOB_HEART_AD_UNIT:'',ADMOB_COIN_AD_UNIT:'',ADMOB_AD_UNITS:'',ADMOB_REWARD_ITEMS:'reward'}}));
+const checks:string[]=[],key=()=>crypto.randomUUID(),record=(name:string)=>{checks.push(name);console.log('PASS '+name)};
+try{
+ const db=await mf.getD1Database('DB');
+ for(const file of (await readdir('apps/api/migrations')).filter(n=>n.endsWith('.sql')).sort())await db.batch(unstable_splitSqlQuery(await readFile('apps/api/migrations/'+file,'utf8')).map(q=>db.prepare(q)));
+ const origin=await mf.ready;
+ async function req(user:AuthResponse|null,path:string,body?:unknown){const res=await fetch(new URL('/api'+path,origin),{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(user?{Authorization:'Bearer '+user.accessToken}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});return {status:res.status,...await res.json() as {data:any;error?:{code:string}}};}
+ async function ok(user:AuthResponse|null,path:string,body?:unknown){const r=await req(user,path,body);assert.equal(r.status,200,path+JSON.stringify(r.error));return r.data;}
+ const a=await ok(null,'/auth/guest',{}) as AuthResponse,b=await ok(null,'/auth/guest',{}) as AuthResponse;
+ const seeded={...a.player,level:33,coins:2150,stars:6,restored:RESTORATIONS.slice(0,15).map(t=>t.id)};
+ await db.prepare('UPDATE players SET data=? WHERE id=?').bind(JSON.stringify(seeded),a.player.id).run();
+ const before=(await ok(a,'/me')).player as Player;
+ let world=(await ok(a,'/garden/world')).world as GardenWorldState;
+ assert.equal(Object.keys(world.placements).length,64);assert.deepEqual((await ok(a,'/me')).player,before);record('GET migrates earned legacy garden without writes to Player');
+ assert.equal((await req(null,'/garden/world')).status,401);
+ const empty=(await ok(b,'/garden/world')).world as GardenWorldState;assert.deepEqual(empty.owned,{});
+ const foreign={key:key(),type:'store',instanceId:'restored-sky-bench',expectedRevision:empty.revision};assert.equal((await req(b,'/garden/world/commands',foreign)).error?.code,'NOT_OWNED');record('authentication and ownership enforce account isolation');
+ const move={key:key(),type:'move',instanceId:'restored-sky-bench',expectedRevision:world.revision,x:20,y:20,rotation:0};
+ const moved=await ok(a,'/garden/world/commands',move);world=moved.world;
+ assert.deepEqual((await ok(a,'/garden/world/commands',move)).world,world);assert.equal((await ok(a,'/garden/world')).world.placements[move.instanceId].x,20);assert.deepEqual((await ok(a,'/me')).player,before);record('move and replay persist exactly once without balance or version changes');
+ assert.equal((await req(a,'/garden/world/commands',{...move,key:key()})).error?.code,'STALE_REVISION');
+ assert.equal((await req(a,'/garden/world/commands',{...move,key:key(),expectedRevision:world.revision,x:0,y:0})).error?.code,'REGION_LOCKED');
+ assert.equal((await req(a,'/garden/world/commands',{...move,key:key(),expectedRevision:world.revision,x:15,y:15})).error?.code,'OCCUPIED');record('stale writes, locked plots and overlapping footprints are rejected');
+ for(const rotation of [90,180,270,0]){world=(await ok(a,'/garden/world/commands',{...move,key:key(),rotation,expectedRevision:world.revision})).world;assert.equal((await ok(a,'/garden/world')).world.placements[move.instanceId].rotation,rotation);}
+ assert.equal((await req(a,'/garden/world/commands',{...move,key:key(),rotation:45,expectedRevision:world.revision})).status,400);assert.deepEqual((await ok(a,'/me')).player,before);record('all four directions persist after reload without changing balance; non-quarter turns are rejected');
+ world=(await ok(a,'/garden/world/commands',{key:key(),type:'store',instanceId:move.instanceId,expectedRevision:world.revision})).world;
+ assert(!(await ok(a,'/garden/world')).world.placements[move.instanceId]);record('stored legacy item stays in bag after reload');
+ const purchase={key:key(),itemId:'animal-rabbit'};const results=await Promise.all([ok(a,'/garden/shop/buy',purchase),ok(a,'/garden/shop/buy',purchase)]);world=results[0].world;
+ const afterBuy=(await ok(a,'/me')).player;assert.equal(afterBuy.coins,before.coins-300);assert.equal(Object.values(world.owned).filter((v:any)=>v.itemId==='animal-rabbit').length,1);assert.equal(results[0].instanceId,results[1].instanceId);record('concurrent purchase replay charges once and grants one animal');
+ const id=results[0].instanceId;world=(await ok(a,'/garden/world/commands',{key:key(),type:'place',instanceId:id,x:20,y:20,rotation:0,expectedRevision:world.revision})).world;
+ assert.equal((await ok(a,'/garden/world')).world.placements[id].x,20);record('purchased animal places on a legal tile and survives server reload');
+ assert.equal((await req(a,'/garden/shop/buy',{key:key(),itemId:'garden-fountain'})).status,400);
+ assert.equal((await req(a,'/garden/shop/buy',{key:key(),itemId:'animal-cat',cost:0})).status,400);
+ assert.equal((await req(b,'/garden/shop/buy',{key:key(),itemId:'animal-cat'})).error?.code,'LOCKED');record('unlisted products, client prices and locked shops cannot grant inventory');
+ const raw=JSON.parse((await db.prepare('SELECT data FROM players WHERE id=?').bind(a.player.id).first<{data:string}>())!.data);
+ raw.coins=0;await db.prepare('UPDATE players SET data=? WHERE id=?').bind(JSON.stringify(raw),a.player.id).run();
+ const snapshot=JSON.stringify((await ok(a,'/garden/world')).world);
+ assert.equal((await req(a,'/garden/shop/buy',{key:key(),itemId:'animal-dog'})).error?.code,'COINS_EMPTY');assert.equal(JSON.stringify((await ok(a,'/garden/world')).world),snapshot);record('insufficient funds rolls back world and balance together');
+ const ledger=await db.prepare("SELECT asset,delta FROM ledger WHERE user_id=? AND reason LIKE 'garden:%'").bind(a.player.id).all();assert.deepEqual(ledger.results,[{asset:'coins',delta:-300}]);record('one immutable coin ledger entry, no layout or migration charges');
+ raw.coins=3000;raw.boundCoins=0;await db.prepare('UPDATE players SET data=? WHERE id=?').bind(JSON.stringify(raw),a.player.id).run();
+ const bulk={key:key(),itemId:'garden-path-stone',quantity:10},bought=await ok(a,'/garden/shop/buy',bulk);world=bought.world;
+ assert.equal(bought.instanceIds.length,10);assert.equal(bought.player.coins,2800);assert.equal(bought.cost,200);
+ const replay=await ok(a,'/garden/shop/buy',bulk);assert.deepEqual(replay.instanceIds,bought.instanceIds);assert.equal((await ok(a,'/me')).player.coins,2800);
+ assert.equal((await req(a,'/garden/shop/buy',{...bulk,quantity:11})).status,409);record('bulk purchase grants ten owned copies and a retry charges exactly once');
+ for(const quantity of [0,-1,101,1.5])assert.equal((await req(a,'/garden/shop/buy',{key:key(),itemId:'garden-path-stone',quantity})).status,400);
+ assert.equal((await req(a,'/garden/shop/buy',{key:key(),itemId:'animal-dog',quantity:10})).error?.code,'COINS_EMPTY');assert.equal((await ok(a,'/me')).player.coins,2800);record('invalid quantities and insufficient bulk funds cannot partially grant or charge');
+ const placements=bought.instanceIds.map((instanceId:string,index:number)=>({instanceId,x:10+index,y:21,rotation:0})),paint={key:key(),type:'paint',expectedRevision:world.revision,placements};
+ const painted=await ok(a,'/garden/world/commands',paint);world=painted.world;assert.equal(world.revision,paint.expectedRevision+1);
+ assert.deepEqual((await ok(a,'/garden/world/commands',paint)).world,world);
+ const reloaded=(await ok(a,'/garden/world')).world;for(const placed of placements)assert.deepEqual(reloaded.placements[placed.instanceId],placed);
+ assert.equal((await ok(a,'/me')).player.coins,2800);record('ten-cell brush layout persists at one revision and a replay never spends coins');
+ assert.equal((await req(a,'/garden/world/commands',{...paint,key:key()})).error?.code,'STALE_REVISION');
+ const more=await ok(a,'/garden/shop/buy',{key:key(),itemId:'garden-path-stone',quantity:2});world=more.world;
+ const beforeInvalid=JSON.stringify(world),conflicting=[{instanceId:more.instanceIds[0],x:20,y:21,rotation:0},{instanceId:more.instanceIds[1],x:20,y:21,rotation:0}];
+ assert.equal((await req(a,'/garden/world/commands',{key:key(),type:'paint',expectedRevision:world.revision,placements:conflicting})).error?.code,'OCCUPIED');
+ assert.equal(JSON.stringify((await ok(a,'/garden/world')).world),beforeInvalid);record('conflicting brush batch rolls back every placement and keeps both copies in the bag');
+ const reversedBatch={key:key(),type:'paint',expectedRevision:world.revision,placements:more.instanceIds.map((instanceId:string,i:number)=>({instanceId,x:20,y:20+i,rotation:i?270:180}))};
+ world=(await ok(a,'/garden/world/commands',reversedBatch)).world;
+ const reverseReload=(await ok(a,'/garden/world')).world;for(const placed of reversedBatch.placements)assert.deepEqual(reverseReload.placements[placed.instanceId],placed);record('brush batch accepts and reloads both reverse directions');
+ const maximum=await ok(a,'/garden/shop/buy',{key:key(),itemId:'garden-path-stone',quantity:100});assert.equal(maximum.instanceIds.length,100);assert.equal(maximum.player.coins,760);
+ const longKey={key:'maximum-length-key-'+('x'.repeat(77)),itemId:'garden-path-stone',quantity:2},longPurchase=await ok(a,'/garden/shop/buy',longKey);
+ assert.equal(longKey.key.length,96);assert(longPurchase.instanceIds.every((id:string)=>id.length<=96));assert.equal((await ok(a,'/garden/shop/buy',longKey)).player.coins,720);record('maximum quantity and maximum-length request keys retain valid unique retry-safe copies');
+ const deleted=await fetch(new URL('/api/account',origin),{method:'DELETE',headers:{'Content-Type':'application/json',Authorization:'Bearer '+a.accessToken},body:JSON.stringify({key:key(),confirmation:'DELETE'})});assert.equal(deleted.status,200);assert.equal(await db.prepare('SELECT count(*) n FROM garden_worlds WHERE user_id=?').bind(a.player.id).first<number>('n'),0);record('soft account deletion removes private garden state');
+ await writeFile('output/verification/garden-world/live-home/http.json',JSON.stringify({passed:true,checks,scope:'Isolated real Worker HTTP + D1; existing player database untouched'},null,2));
+ if(process.argv.includes('--ui')){
+  const ui=await ok(null,'/auth/guest',{}) as AuthResponse;
+  await db.prepare('UPDATE players SET data=? WHERE id=?').bind(JSON.stringify({...seeded,id:ui.player.id,nickname:'정원 검수',tutorials:['glider','bomb','rainbow']}),ui.player.id).run();
+  process.env.VITE_API_URL=origin.origin+'/api';
+  const {createServer}=await import('vite');const vite=await createServer({configFile:resolve('apps/client/vite.config.ts'),server:{port:5193,strictPort:true,host:'127.0.0.1'}});await vite.listen();
+  const setup=`<script>localStorage.setItem('cloud-garden-language-v1',JSON.stringify({language:'ko',pending:false}));localStorage.setItem('cloud-garden-session-v1',${JSON.stringify(JSON.stringify({accessToken:ui.accessToken,refreshToken:ui.refreshToken}))});</script><script type="module">import RefreshRuntime from '/@react-refresh';RefreshRuntime.injectIntoGlobalHook(window);window.$RefreshReg$=()=>{};window.$RefreshSig$=()=>type=>type;window.__vite_plugin_react_preamble_installed__=true;</script>`;
+  const file=join(statePath,'ui.html');await writeFile(file,(await readFile('apps/client/index.html','utf8')).replace('<script type="module" src="/src/main.tsx">',setup+'<script type="module" src="/src/main.tsx">'));
+  console.log(JSON.stringify({uiUrl:'http://localhost:5193/@fs'+file+'#/home',scope:'Isolated live Home UI, seeded QA account only'}));
+  await new Promise<void>(resolve=>{process.once('SIGINT',resolve);process.once('SIGTERM',resolve)});await vite.close();
+ }
+}finally{await mf.dispose();}

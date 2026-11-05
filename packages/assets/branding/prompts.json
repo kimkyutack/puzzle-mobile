@@ -1,0 +1,35 @@
+{
+  "method": "built-in image_gen",
+  "createdAt": "2026-11-03",
+  "assets": [
+    {
+      "locale": "ko",
+      "file": "title-ko.png",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a19f1b-12ff-7143-abd2-f16696cb7191/exec-fc4c3303-de36-4642-b793-8ec3fe6a0c09.png",
+      "prompt": "Use case: logo-brand.\nAsset type: final transparent game-title logo PNG for a mobile casual garden puzzle game, Korean edition.\nPrimary request: Create a polished original game logo, beautifully sculpted rounded 3D lettering, with the title dominating the art. It will be displayed over a richly illustrated sunny garden and a red panda holding an invitation. Deliver only the isolated logo, no scene, no mockup.\nText (verbatim): main title \"구름정원\"; subtitle \"루미의 초대장\". Spell every Korean syllable exactly, no other words. Main title on a single line. Subtitle on a small elegant warm golden ribbon under the main title, legible and prominent.\nStyle: premium charming modern casual mobile game branding, soft glossy enamel, dimensional warm gold bevels and clean deep blue outlines, high quality hand-crafted rendered game typography. Main letters luminous ivory and soft sky blue with warm gold rim. Gentle sculpted small clouds at the base and two fresh green leaves, a small sealed envelope with coral wax seal integrated as a tasteful accent. Rich defined contrast, cheerful, not garish.\nComposition: landscape, compact logo, visual bounding box approximately 2.4:1, centered, fills almost the entire width; minimal transparent padding, enough margin for full contour. All letters and subtitle must remain very readable at 320px display width.\nConstraints: genuine transparent alpha background. No background rectangle, no checkerboard painted into image, no purple, no dark teal antique ornament, no crown, no castle, no additional slogan, no English, no word 매치, no watermark. Do not imitate another game's exact logo. Prioritize impeccable Korean text and consistent dimensional treatment.",
+      "runtime": {
+        "file": "title-ko.webp",
+        "width": 1200,
+        "encoder": "sharp WebP",
+        "quality": 94,
+        "alphaQuality": 100,
+        "effort": 6
+      }
+    },
+    {
+      "locale": "en",
+      "file": "title-en.png",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a19f1b-12ff-7143-abd2-f16696cb7191/exec-6fca0b98-12ca-4ab0-a31d-ec9efaccceab.png",
+      "reference": "title-ko.png",
+      "prompt": "Use case: text-localization.\nAsset type: final English edition transparent game-title logo for the same mobile casual garden game.\nInput image 1 is the finalized Korean brand logo. Make its corresponding English logo, preserving the charming red-panda mascot with straw hat and sealed invitation at left, the soft white-and-sky-blue dimensional main lettering, warm gold bevels, deep blue outlines, leafy white flowers and small sculpted clouds. Same polished rendered materials and playful friendly identity.\nReplace all Korean typography with exactly these English words:\nMain title: \"Cloud Garden\"\nSubtitle on the gold ribbon: \"Lumi's Invitation\"\nUse large rounded sculpted letters, Cloud Garden on one line, make sure every letter is spelled correctly and the apostrophe is present. Adapt letter spacing and ribbon width for English text, retaining a compact approximately 2.4:1 landscape silhouette and clear readability at 320px display width. Main title should dominate and subtitle should remain readable. Keep all contour and shadow within canvas with minimal transparent padding.\nBackground must be genuine transparent alpha. Only the logo, no background scene or rectangle, no mockup, no watermark, no Korean remaining, no word Match, no additional wording.",
+      "runtime": {
+        "file": "title-en.webp",
+        "width": 1200,
+        "encoder": "sharp WebP",
+        "quality": 94,
+        "alphaQuality": 100,
+        "effort": 6
+      }
+    }
+  ]
+}

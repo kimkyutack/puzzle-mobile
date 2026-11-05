@@ -1,0 +1,4 @@
+.brand-logo{display:block;width:100%;height:auto;object-fit:contain}
+.language-choice .brand-heading{width:min(100%,360px);margin:0 auto;line-height:0}
+.story-loading .brand-heading{position:absolute;top:calc(var(--safe-top) + 22px);left:18px;right:18px;max-width:360px;margin:0 auto;line-height:0}
+@media(max-height:600px){.language-choice .brand-heading,.story-loading .brand-heading{max-width:280px}}

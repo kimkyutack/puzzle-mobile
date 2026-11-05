@@ -1,0 +1,685 @@
+{
+  "method": "Original 4x2 sheets, technical alpha island cleanup, same scale across eight frames, aligned feet at y=250. Front/rear authored separately, each mirrored at runtime for four isometric directions.",
+  "frames": [
+    {
+      "id": "visitor_a",
+      "frame": 0,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-front-0.png",
+      "width": 116,
+      "height": 234,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a.png",
+      "sourceBox": {
+        "left": 135,
+        "top": 22,
+        "width": 201,
+        "height": 404
+      },
+      "sha256": "892b60927a388a574a42b0895f295580dc647a1b2918c03abb5f44002205978e"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 1,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-front-1.png",
+      "width": 83,
+      "height": 226,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a-passing-back.png",
+      "sourceBox": {
+        "left": 146,
+        "top": 23,
+        "width": 144,
+        "height": 391
+      },
+      "sha256": "c0918f83ec3681499fab356cfb758b0baa1a2e2482c90da1679e055f4b362504"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 2,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-front-2.png",
+      "width": 124,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a.png",
+      "sourceBox": {
+        "left": 126,
+        "top": 22,
+        "width": 215,
+        "height": 406
+      },
+      "sha256": "114b323391f84bec1a7974d605dc500da393b0abede1b5908665e1a12ddbd3fb"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 3,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-front-3.png",
+      "width": 87,
+      "height": 231,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a.png",
+      "sourceBox": {
+        "left": 163,
+        "top": 21,
+        "width": 151,
+        "height": 399
+      },
+      "sha256": "58aeee0f51b211c80c5b415efee62d13ca7284b9a7b7c59c0856fd4c98fa00a5"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 0,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-rear-0.png",
+      "width": 135,
+      "height": 236,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a.png",
+      "sourceBox": {
+        "left": 105,
+        "top": 21,
+        "width": 234,
+        "height": 408
+      },
+      "sha256": "51189c1e54b745e16817a4354ad092f833dd40d2307d1d5a962da2d802c5fcb3"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 1,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-rear-1.png",
+      "width": 108,
+      "height": 227,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a-passing-back.png",
+      "sourceBox": {
+        "left": 126,
+        "top": 21,
+        "width": 187,
+        "height": 393
+      },
+      "sha256": "40b91bd42425596dfd4116675d0d0eb8770d4f639403f7b483349519a7e767c4"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 2,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-rear-2.png",
+      "width": 145,
+      "height": 234,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a.png",
+      "sourceBox": {
+        "left": 96,
+        "top": 20,
+        "width": 250,
+        "height": 404
+      },
+      "sha256": "f2a93c553e7e7ff649d74dd0ce826d74d567dd17b6a3a3e9bdf28b88b8c53897"
+    },
+    {
+      "id": "visitor_a",
+      "frame": 3,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_a-rear-3.png",
+      "width": 101,
+      "height": 231,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_a.png",
+      "sourceBox": {
+        "left": 147,
+        "top": 20,
+        "width": 175,
+        "height": 400
+      },
+      "sha256": "f9779f73885e2f274d0b42466e5303825cfe1885a7ccfcac7efe9ebe69a53eeb"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 0,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-front-0.png",
+      "width": 128,
+      "height": 234,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b.png",
+      "sourceBox": {
+        "left": 105,
+        "top": 12,
+        "width": 221,
+        "height": 405
+      },
+      "sha256": "2a00d91514807c9e43f2b9f27acfb4d12d3e6fab9753ece345f76ec8dca78f41"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 1,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-front-1.png",
+      "width": 118,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b-passing-back.png",
+      "sourceBox": {
+        "left": 114,
+        "top": 13,
+        "width": 204,
+        "height": 406
+      },
+      "sha256": "3f21ecabc23a950b386f65a1a1713244c2905ca6a4cda4467e99e88679d23572"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 2,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-front-2.png",
+      "width": 141,
+      "height": 233,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b.png",
+      "sourceBox": {
+        "left": 102,
+        "top": 15,
+        "width": 243,
+        "height": 402
+      },
+      "sha256": "9d311c3c45c183989261f8514fa6f3b2525da247ff37132ded909c47001c9a4b"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 3,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-front-3.png",
+      "width": 79,
+      "height": 233,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b.png",
+      "sourceBox": {
+        "left": 163,
+        "top": 14,
+        "width": 137,
+        "height": 403
+      },
+      "sha256": "24ff509904f272ed673ad5779d21139069955bccced2b644a618939d823b548c"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 0,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-rear-0.png",
+      "width": 129,
+      "height": 236,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b.png",
+      "sourceBox": {
+        "left": 97,
+        "top": 16,
+        "width": 223,
+        "height": 408
+      },
+      "sha256": "5acb0d75d7034dc433824eed7582bc1cef9a53d0d6ae46d915fc4da5e77680c8"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 1,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-rear-1.png",
+      "width": 118,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b-passing-back.png",
+      "sourceBox": {
+        "left": 115,
+        "top": 16,
+        "width": 204,
+        "height": 407
+      },
+      "sha256": "f3000364617fd0bfb134a929fb6135f0136a3e800bd3781ead963a64d11cda22"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 2,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-rear-2.png",
+      "width": 133,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b.png",
+      "sourceBox": {
+        "left": 91,
+        "top": 17,
+        "width": 230,
+        "height": 407
+      },
+      "sha256": "41cd91c18e18328c516a75dc3f03fd20859c3e262957342272237ff4416edd2f"
+    },
+    {
+      "id": "visitor_b",
+      "frame": 3,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/visitor_b-rear-3.png",
+      "width": 119,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/visitor_b.png",
+      "sourceBox": {
+        "left": 117,
+        "top": 16,
+        "width": 206,
+        "height": 407
+      },
+      "sha256": "c395131e2e6f652693075d8efa686bd3acade4e0ad585bae8e8a0be63bdc8e68"
+    },
+    {
+      "id": "rabbit",
+      "frame": 0,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-front-0.png",
+      "width": 195,
+      "height": 236,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 67,
+        "top": 11,
+        "width": 337,
+        "height": 408
+      },
+      "sha256": "253fe393b28e4653efcd2193aea926c6cb99bb7a8c682095470e189431e92a61"
+    },
+    {
+      "id": "rabbit",
+      "frame": 1,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-front-1.png",
+      "width": 178,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 95,
+        "top": 11,
+        "width": 308,
+        "height": 407
+      },
+      "sha256": "9b3ded6a6bf7f47483bd4c82a00441b0ae08e8263a55354d08797af17ad17efc"
+    },
+    {
+      "id": "rabbit",
+      "frame": 2,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-front-2.png",
+      "width": 201,
+      "height": 234,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 62,
+        "top": 18,
+        "width": 347,
+        "height": 404
+      },
+      "sha256": "e1bca989d60f3449dd5d3e6a3978fb3ed177a4a467eef7d118f8b304e2199234"
+    },
+    {
+      "id": "rabbit",
+      "frame": 3,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-front-3.png",
+      "width": 178,
+      "height": 234,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 106,
+        "top": 11,
+        "width": 308,
+        "height": 404
+      },
+      "sha256": "82829eb577b7eee3cf40591837e2d6e6e33e20ab3a6c4b3de25f1c72c29d32c3"
+    },
+    {
+      "id": "rabbit",
+      "frame": 0,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-rear-0.png",
+      "width": 174,
+      "height": 228,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 94,
+        "top": 18,
+        "width": 300,
+        "height": 394
+      },
+      "sha256": "dace1821f7cb7d8a4094256661c98a14312f37d45f697ec70eb4ca85b5140a63"
+    },
+    {
+      "id": "rabbit",
+      "frame": 1,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-rear-1.png",
+      "width": 158,
+      "height": 211,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 121,
+        "top": 17,
+        "width": 273,
+        "height": 364
+      },
+      "sha256": "7caa833bf63c7e5601e899faf5dc53e0211f6ac8cdf4e8f2e6641de7424a622a"
+    },
+    {
+      "id": "rabbit",
+      "frame": 2,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-rear-2.png",
+      "width": 182,
+      "height": 224,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 84,
+        "top": 22,
+        "width": 315,
+        "height": 388
+      },
+      "sha256": "42853ecbfacdb848343c847e78e2092818ab17ac34cf380c469e63713332fd5d"
+    },
+    {
+      "id": "rabbit",
+      "frame": 3,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/rabbit-rear-3.png",
+      "width": 160,
+      "height": 205,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/rabbit.png",
+      "sourceBox": {
+        "left": 121,
+        "top": 13,
+        "width": 277,
+        "height": 355
+      },
+      "sha256": "bcd0c4626fed56d2356c7eb4f42b2a95235876e95ea2207fb16e0725d921175d"
+    },
+    {
+      "id": "cat",
+      "frame": 0,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-front-0.png",
+      "width": 225,
+      "height": 218,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 47,
+        "top": 26,
+        "width": 380,
+        "height": 368
+      },
+      "sha256": "38bd3fe1dffc3d7aad64773fcbda1c6b339d258ca05f9b88deda1d7323590725"
+    },
+    {
+      "id": "cat",
+      "frame": 1,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-front-1.png",
+      "width": 216,
+      "height": 217,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 61,
+        "top": 26,
+        "width": 366,
+        "height": 367
+      },
+      "sha256": "bbe6b61d06911fd361c786e811d7854a4feb988bbb3fcbfb4c3268a911335b38"
+    },
+    {
+      "id": "cat",
+      "frame": 2,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-front-2.png",
+      "width": 228,
+      "height": 219,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 43,
+        "top": 30,
+        "width": 385,
+        "height": 371
+      },
+      "sha256": "6fc172c2aa0a3ceec238fdccefce171c7e6f90052cd6602b0e8821478f5209fa"
+    },
+    {
+      "id": "cat",
+      "frame": 3,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-front-3.png",
+      "width": 217,
+      "height": 215,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 63,
+        "top": 30,
+        "width": 367,
+        "height": 363
+      },
+      "sha256": "71e7078f276c522180b8a2882e1cc045a27f38ba7ac7e13483436f066a87e552"
+    },
+    {
+      "id": "cat",
+      "frame": 0,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-rear-0.png",
+      "width": 211,
+      "height": 232,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 47,
+        "top": 11,
+        "width": 357,
+        "height": 393
+      },
+      "sha256": "f0c213941f1788cd586dacfbcbdb5b5a5a3f60e6538ec44b9a71bc6e33953ebe"
+    },
+    {
+      "id": "cat",
+      "frame": 1,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-rear-1.png",
+      "width": 205,
+      "height": 222,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 61,
+        "top": 11,
+        "width": 346,
+        "height": 376
+      },
+      "sha256": "687b0277760f1a2d18c8c659644dd990bfb975df2fc3870bee4cae563cf25d2d"
+    },
+    {
+      "id": "cat",
+      "frame": 2,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-rear-2.png",
+      "width": 211,
+      "height": 236,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 52,
+        "top": 11,
+        "width": 356,
+        "height": 399
+      },
+      "sha256": "dbe85853be5970708952008012a1be94f18afd2851aa423a3cbd6c1b88237bed"
+    },
+    {
+      "id": "cat",
+      "frame": 3,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/cat-rear-3.png",
+      "width": 203,
+      "height": 218,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/cat.png",
+      "sourceBox": {
+        "left": 66,
+        "top": 12,
+        "width": 343,
+        "height": 369
+      },
+      "sha256": "f57f13c81a7eae890d7eb202d08b2ca6106476eb9febd74d615fd957f59e9252"
+    },
+    {
+      "id": "dog",
+      "frame": 0,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-front-0.png",
+      "width": 231,
+      "height": 229,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 36,
+        "top": 20,
+        "width": 378,
+        "height": 376
+      },
+      "sha256": "7476f518574205fbc2d5d70eee3793ee701e968f277ab6528eea62786ed47a2f"
+    },
+    {
+      "id": "dog",
+      "frame": 1,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-front-1.png",
+      "width": 202,
+      "height": 223,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 84,
+        "top": 23,
+        "width": 332,
+        "height": 365
+      },
+      "sha256": "36c608b12d2eec2254ef5839fccaa492ea44878a3dae78122f0816958c02c338"
+    },
+    {
+      "id": "dog",
+      "frame": 2,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-front-2.png",
+      "width": 232,
+      "height": 225,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 36,
+        "top": 31,
+        "width": 380,
+        "height": 369
+      },
+      "sha256": "caa74f00df7d66b3a0727c7d57b988144ae3fafa054eb3b6b94601b8541076da"
+    },
+    {
+      "id": "dog",
+      "frame": 3,
+      "view": "front",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-front-3.png",
+      "width": 198,
+      "height": 216,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 92,
+        "top": 32,
+        "width": 324,
+        "height": 355
+      },
+      "sha256": "bd6c26ccb36ad86af51296dfe6165ab1a0bc8fe13c1457c78d45b1aca1782779"
+    },
+    {
+      "id": "dog",
+      "frame": 0,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-rear-0.png",
+      "width": 188,
+      "height": 235,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 75,
+        "top": 15,
+        "width": 308,
+        "height": 386
+      },
+      "sha256": "5fa8924bca1337a449be94ec69147a9764ae3fac7cb31d9775a4ebe1491c4f12"
+    },
+    {
+      "id": "dog",
+      "frame": 1,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-rear-1.png",
+      "width": 177,
+      "height": 225,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 92,
+        "top": 14,
+        "width": 291,
+        "height": 369
+      },
+      "sha256": "7f34bd03914aa12f3e4d39f9f89c97824aa741cb10167fa3e8a86b2590ef3498"
+    },
+    {
+      "id": "dog",
+      "frame": 2,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-rear-2.png",
+      "width": 187,
+      "height": 236,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 78,
+        "top": 15,
+        "width": 306,
+        "height": 387
+      },
+      "sha256": "d160792dbc242522b01191d034ece3e99acd272cd6b4e6298043cf0ab2f3b411"
+    },
+    {
+      "id": "dog",
+      "frame": 3,
+      "view": "rear",
+      "path": "packages/garden-world/art/runtime/residents-walk-v26/dog-rear-3.png",
+      "width": 176,
+      "height": 207,
+      "footY": 250,
+      "sourcePath": "packages/garden-world/art/source/residents-walk-v26/dog.png",
+      "sourceBox": {
+        "left": 97,
+        "top": 14,
+        "width": 288,
+        "height": 339
+      },
+      "sha256": "91e7248a9766be163a7c519b1f2aa8c41b5c8013ac897cc69acb359e3746c899"
+    }
+  ]
+}

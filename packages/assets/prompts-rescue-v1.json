@@ -1,0 +1,20 @@
+[
+  {
+    "id": "rescue_bridge_scene_v1",
+    "prompt": "Create ONE original polished 3D-painted casual mobile game landscape environment, 1200x700 intended. A gentle sky-garden rescue episode set on floating islands. Two grassy sandstone cliff platforms on LEFT 0-28% and RIGHT 72-100%, a large soft cloud gap in the central 44%, bright friendly blue sky and distant floating gardens. Platform walk surfaces align along a horizontal route at 68% image height, so separate wooden bridge segments can later span from x28% to x72%. Small wooden rope-bridge anchor posts on the two banks, but NO bridge planks across the gap. Attractive warm sandstone, fresh leaf-green foliage, coral and yellow flowers at outer corners, soft dimensional shadows, premium glossy family-friendly casual-game world, clean readable composition. No characters, no UI, text, letters, logos, tiles, border, progress bar or watermark. The left bank must have space for a separate little bird character. Do not draw danger or injury. Central gap stays clean for three separately composited bridge pieces. Full image opaque, no transparent margins.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f0f-d72a-7332-a09e-ddfe65d6b259/exec-e1b32581-feb3-4135-9d95-b066312d00b0.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/rescue_bridge_scene_v1.png",
+    "method": "Built-in image_gen.imagegen; original generation, no reference inputs; original PNG copied unchanged.",
+    "transparentBackground": false,
+    "references": []
+  },
+  {
+    "id": "rescue_bridge_plank_v1",
+    "prompt": "ONE isolated modular wooden footbridge segment for an original premium 3D-painted casual mobile garden game. A short horizontal strip made of three honey-gold wooden boards, viewed from a slightly elevated frontal perspective, with a short rope rail running along its upper and lower edges. A SINGLE repeatable central segment, not an entire bridge; no bank, posts, pillars, background or scenery. Its left and right ends should align horizontally so three copies can meet to form a continuous tiny bridge across a cloud gap. Wide 3:1 overall silhouette, plump polished rounded wood, clear painted thickness, warm golden amber boards, friendly sculpted dimensional game art, subtle soft contact shadow contained within the object. Real transparent background and clean alpha edges. No text, icons, UI, border, checkerboard, logo or watermark. Center the single object with modest transparent padding.",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19f0f-d72a-7332-a09e-ddfe65d6b259/exec-36d82ec7-56fc-41b4-8453-5defc7898f9f.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/rescue_bridge_plank_v1.png",
+    "method": "Built-in image_gen.imagegen; original generation, no reference inputs; original PNG copied unchanged.",
+    "transparentBackground": true,
+    "references": []
+  }
+]

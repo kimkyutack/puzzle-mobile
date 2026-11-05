@@ -1,0 +1,24 @@
+/* Persistent full-screen hub destinations. The footer never opens a dialog. */
+.hub-navigation{position:absolute!important;inset:auto 0 0;z-index:12;height:calc(72px + var(--safe-bottom));isolation:isolate}
+.hub-navigation>.hub-footer{position:relative;z-index:1;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(0,1fr);margin:0}
+.home-hub>.hub-bottom{bottom:calc(72px + var(--safe-bottom))}
+.game-page{position:absolute!important;inset:0 0 calc(72px + var(--safe-bottom));display:flex;flex-direction:column;isolation:isolate;z-index:1}
+.game-page>.art-surface{z-index:0}
+.game-page>.page-header,.game-page>.page-content{position:relative;z-index:1}
+.page-header{height:68px;flex:none;margin:calc(var(--safe-top) + 4px) 5px 7px;padding:8px 12px 12px;display:grid;grid-template-columns:43px minmax(0,1fr) auto;gap:8px;align-items:center;color:#edf3e5}
+.page-header>h1{margin:0;font-size:22px;line-height:28px;white-space:nowrap}
+.page-header>.resource-amount{font-size:18px;gap:3px;white-space:nowrap}
+.page-header>.resource-amount>.icon{width:25px;height:27px}
+.page-player-level{font-size:12px;white-space:nowrap;color:#d5e6d7}
+.game-page>.page-content{margin:0 9px;flex:1;min-height:0;overflow-y:auto;padding:0 0 18px;overscroll-behavior:contain}
+.game-page .modal-content :is(p,small,h3,.fine,.intro,.row-meta){color:var(--surface-ink)}
+.game-page .modal-content .game-button>.button-label{color:inherit}
+.game-page .modal-content .content-card h3{color:#143a31}
+.game-page .page-content>.intro,.game-page .page-content>.fine,.game-page .page-content>h3{color:#edf3e5}
+.game-page .page-content>.content-card{margin-left:0;margin-right:0}
+.game-page .page-content .tabs{margin:10px 0}
+.game-page .page-content .tabs>.game-button{min-height:48px}
+.event-pass-shortcut{position:relative;padding:4px 12px 8px;margin-top:12px;min-height:52px;--surface-ink:#143a31}
+.event-pass-shortcut .link-action{color:#143a31;margin:0;min-height:40px;text-decoration:none}
+@media(max-width:370px){.page-header{gap:5px;padding-left:10px;padding-right:10px;grid-template-columns:37px minmax(0,1fr) auto}.page-header>.icon{width:37px;height:39px}.page-header>h1{font-size:21px}.page-header>.resource-amount{font-size:16px}.game-page>.page-content{margin-left:7px;margin-right:7px}}
+@media(max-height:760px){.hub-navigation{height:calc(67px + var(--safe-bottom))}.home-hub>.hub-bottom{bottom:calc(67px + var(--safe-bottom))}.game-page{bottom:calc(67px + var(--safe-bottom))}.page-header{height:62px;margin-bottom:5px}}

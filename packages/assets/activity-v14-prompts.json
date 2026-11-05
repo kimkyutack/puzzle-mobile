@@ -1,0 +1,42 @@
+{
+  "tool": "built-in image_gen",
+  "icons": [
+    {
+      "id": "world_bomb_v14",
+      "sourcePath": "packages/assets/source/world_bomb_v14.png",
+      "transparentBackground": true,
+      "prompt": "Use case: stylized-concept. Asset type: production premium mobile match-3 booster sprite. Original toy-like polished 3D casual game art, chunky rounded bevels, vivid saturated colors, broad clean highlights, upper-left studio light, clean bold silhouette readable at 40 pixels. One centered object filling 84% of square canvas, truly transparent background and any interior holes transparent. No text, no logos, no watermark, no floor, no background, no detached glitter or glow haze. A magnificent spherical cobalt blue and golden star bomb. A round deep royal-blue enamel globe with thick golden equatorial band, a large warm golden five-point star inset in the front, rounded golden top cap and one short red coiled fuse. Compact dominant round silhouette. This is a powerful whole-board bomb, luxurious and friendly, not realistic weaponry."
+    },
+    {
+      "id": "cross_firework_v14",
+      "sourcePath": "packages/assets/source/cross_firework_v14.png",
+      "transparentBackground": true,
+      "prompt": "Use case: stylized-concept. Asset type: production premium mobile match-3 booster sprite. Original toy-like polished 3D casual game art, chunky rounded bevels, vivid saturated colors, broad clean highlights, upper-left studio light, clean bold silhouette readable at 40 pixels. One centered object filling 84% of square canvas, truly transparent background and any interior holes transparent. No text, no logos, no watermark, no floor, no background, no detached glitter or glow haze. A cross-shaped golden firework device with four plump coral-red rocket tips pointing up, down, left and right, rounded golden central hub with a small bright sky-blue jewel. Strong plus-shaped silhouette, four broad equal arms. This clears a row and column."
+    },
+    {
+      "id": "color_magnet_v14",
+      "sourcePath": "packages/assets/source/color_magnet_v14.png",
+      "transparentBackground": true,
+      "prompt": "Use case: stylized-concept. Asset type: production premium mobile match-3 booster sprite. Original toy-like polished 3D casual game art, chunky rounded bevels, vivid saturated colors, broad clean highlights, upper-left studio light, clean bold silhouette readable at 40 pixels. One centered object filling 84% of square canvas, truly transparent background and any interior holes transparent. No text, no logos, no watermark, no floor, no background, no detached glitter or glow haze. A thick chunky horseshoe magnet with glossy vivid violet curved body, two large polished golden tips and a small cyan star jewel centered on its curve. One simple powerful U-shaped silhouette, purple and gold dominate. No floating gems or other objects."
+    },
+    {
+      "id": "move_hourglass_v14",
+      "sourcePath": "packages/assets/source/move_hourglass_v14.png",
+      "transparentBackground": true,
+      "prompt": "Use case: stylized-concept. Asset type: production premium mobile match-3 booster sprite. Original toy-like polished 3D casual game art, chunky rounded bevels, vivid saturated colors, broad clean highlights, upper-left studio light, clean bold silhouette readable at 40 pixels. One centered object filling 84% of square canvas, truly transparent background and any interior holes transparent. No text, no logos, no watermark, no floor, no background, no detached glitter or glow haze. A small plump magical hourglass with glossy deep turquoise-blue glass bulbs, sunny golden sand in both bulbs, ornate but chunky coral-orange base and top, two simple golden side supports, a small golden star inset in the top cap. Clear compact hourglass silhouette, polished friendly 3D toy."
+    }
+  ],
+  "poster": {
+    "sourcePath": "packages/assets/source/poster_treasure_v14.png",
+    "transparentBackground": false,
+    "prompt": "Use case: illustration-story. Asset type: premium mobile casual puzzle minigame banner, landscape 3:2 composition. An original cheerful red panda gardener in teal overalls with a small gold leaf badge, at a magical conservatory tabletop, joyfully revealing a golden treasure card. Around the tabletop six large glossy blue and coral playing cards with simple gem and bell emblems, a small open gold-and-blue treasure chest with ruby, shield and golden bell toys inside. Polished rounded 3D animated movie style, warm amber lighting, saturated sapphire blue and coral accents, soft lush garden visible through greenhouse windows. Character and cards concentrated left and center, upper-right quadrant quieter deep sapphire blue for live UI title. Clear attractive composition, tactile toys, no tiny clutter. No text, no letters, no numbers, no logos, no watermark, no UI buttons or outer border. Rich colors without a white or cream background.",
+    "revisions": [
+      {
+        "revision": "treasure-lumi-20261105",
+        "record": "packages/assets/treasure-lumi-20261105.json",
+        "method": "built-in image_gen edit",
+        "sourceHash": "ac61243c5c6d14463177d66597227d8a42d38271378afd14a98ce63768715fb6"
+      }
+    ]
+  }
+}

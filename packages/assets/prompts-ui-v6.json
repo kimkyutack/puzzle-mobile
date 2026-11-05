@@ -1,0 +1,88 @@
+[
+  {
+    "id": "bg_home_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. EDIT TARGET: the supplied existing tall garden background. Preserve the exact canvas aspect ratio, composition, greenhouse position, paths, and ALL SIX circular ground-pad centers and outlines pixel-for-pixel; they are interactive building anchors. Change only lighting, color and busy foliage detail. Give the distant sky soft muted turquoise and restrained warm morning light with much less white cloud glare. Greenhouse stays a tasteful midtone patinated teal, foliage olive/forest green, stone paths warm gray. Reduce tiny flowers and glitter on the outer edges by about half. Keep the central grassy clearing calm and visually simple, distinguish near ground from background. Lively and welcoming, NOT dark nighttime or gloomy gray, but medium luminance and low background contrast so bright game controls will read in front. No glowing white haze, bloom, lens flare or bright cream wash. Do not add/move/remove any six pads or buildings.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_home.png"
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-4cbbc4e5-06d1-4ae8-891c-19f6a6b5fb1b.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_home_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "bg_greenhouse_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. EDIT TARGET: supplied greenhouse interior background. Preserve exact tall aspect ratio, all architecture, door position, floor perspective and clear object-placement ground. Change ONLY lighting/material color/foliage detail. Shaded greenhouse in rich medium forest-teal and olive, restrained warm terracotta wood floor with gentle light, soft turquoise sky through glass without large bright white patches. Reduce tiny flower clutter and busy highlights. Calm medium luminance, readable game-control backdrop, still sunny and pleasant, not gloomy/dark/gray. No white fog, cream glare, glitter or lens flare. No text or UI.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_greenhouse.png"
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-a9e7d172-0d14-47ac-8f51-b9d9eb18196d.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_greenhouse_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "bg_terrace_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. EDIT TARGET: supplied terrace background. Preserve exact tall aspect ratio, architecture, central fountain basin position, railing, stairs, ground perspective and all object anchors. Change ONLY material color, daylight intensity and peripheral foliage detail. Medium-tone sage/olive greenery, patinated teal railings, warm soft gray terracotta stone, muted turquoise sky. Subdue white clouds/highlights and reduce tiny busy flowers around sides. Gentle shaded morning, welcoming saturated details but restrained background contrast; no glowing haze, bloom or overexposure. Do not turn it into nighttime or desaturated gray. No UI or text.",
+    "reference": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_terrace.png"
+    ],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-9465146a-c5b0-446a-b6a0-64ea759b5c22.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_terrace_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "bg_play_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One tall portrait 9:19.5 mobile puzzle gameplay backdrop, full bleed opaque artwork. A quiet shaded greenhouse garden, deep muted forest-teal and soft olive greenery at the extreme side edges, warm slate stone floor low in frame, a very subtle turquoise glass conservatory far behind. The large central 80% of width and 65% of height is calm and plain medium-dark teal, reserved for a colorful puzzle board. Keep decorative plants small and only along edges and corners. Soft daytime ambience, cheerful rich natural colors, no large white sky or cloud areas, no luminous fog, no sunlight beams, no cream or gold glare. No puzzle pieces, characters, text, UI borders or frames.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-941886ed-0c34-4361-b780-dc30cfafe0ef.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bg_play_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "chrome_teal_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One empty wide 6:1 horizontal game UI tray. A smooth fully opaque deep forest-teal enamel face (#174c49), thick sculpted teal ceramic edges, a slim brushed copper/brass top lip and realistic painted dark teal lower extrusion. Rounded upper corners, modest depth, precise symmetrical silhouette. Do NOT use royal blue, neon green, bright gold decorations, gems or sparkles. Blank uninterrupted face for labels. Transparent only OUTSIDE the tray. No icons, text, buttons or subdivisions. Entire frame must fit with 3% transparent margin.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-74ef7f1a-cc00-42eb-9e4c-5dfcb46d876c.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/chrome_teal_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "button_coral_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One empty wide 3:1 pill-shaped mobile game push button, coral/salmon enamel face (#ed8872) with a soft lighter upper bevel and thick deep terracotta lower extrusion. Slim brushed-brass inner rim, gently rounded chunky sculpted toy form, painterly 3D depth. OPAQUE central face for dark umber text. The front face occupies most of the height, with a clear physical lower edge. No royal blue, neon green, glossy yellow gold, sparkles or gems. No text, symbols or icons. Transparent only OUTSIDE the silhouette.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-4dc1f33b-dbf2-4643-913b-48707be891b9.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_coral_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "button_mint_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One empty wide 3:1 pill-shaped mobile game push button, clear seafoam/mint enamel face (#a6cfc0), sculpted darker patinated-teal lower extrusion and modest pale mint upper bevel. A slim muted copper/brass inner rim, chunky polished toy form with tactile dimensional depth. OPAQUE central face for deep teal text. Central face occupies most of the height, clear physical lower edge. No royal blue, neon green, yellow gold, sparkles or gems. No lettering, symbols or icons. Transparent only OUTSIDE silhouette.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-c46ce3af-d7fe-48e2-8f04-e9cbe4d6a68e.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/button_mint_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "panel_teal_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One empty portrait 4:5 mobile game modal panel. Fully opaque matte deep forest-teal central body (#235653), dimensional sculpted teal ceramic outer frame with restrained thin brushed copper/brass edging and rounded corners. Integrated blank dark-teal header cap across the top 12%, a little higher curved at center, with generous uninterrupted blank space for a real title. Distinct raised top cap and inset body, strong tactile depth, soft controlled highlights. Central body is deep teal, NOT white/cream. No royal blue, purple, neon green or glitter. No text, buttons, symbols, decorations or illustrations. Transparent only outside the complete silhouette; frame is opaque and fully inside the canvas with a narrow margin.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-f96c895c-4773-4302-b9d6-88fb59c0c123.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/panel_teal_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "card_sage_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One empty wide 3:1 game inset card. Fully opaque calm sage/seafoam face (#b4cbbb), a chunky sculpted deep-teal ceramic rim with a slim copper inner groove, visible painted teal lower extrusion, rounded corners. Tactile molded 3D game surface with restrained top light and clear depth, not a thin flat line. Entire face blank for dark forest text, no white/cream glare. No header band, text, icons, ornaments, sparkles or royal blue/gold. Transparent only OUTSIDE silhouette.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-d3fcc084-f152-43c9-ba76-8e1f6aab8eff.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/card_sage_v6.png",
+    "method": "built-in image_gen"
+  },
+  {
+    "id": "board_frame_v6",
+    "prompt": "Original premium mobile garden puzzle game art. Dimensional polished 3D animated toy-like rendering, crisp sculpted depth, coherent forest-teal/coral/seafoam/brushed-brass palette. No lettering, no characters copied from any existing game, no logos, no screen UI screenshot. One square game board frame ONLY. Perfectly square rounded-rectangle OUTLINE, sculpted deep forest-teal enamel with a thin muted copper/brass inner line, chunky tactile lower bevel. The border is uniformly about 4% of total canvas width, with rounded inner corners about 5% radius. The LARGE CENTER MUST BE COMPLETELY TRANSPARENT, as must the narrow OUTSIDE margin. Opaque closed continuous rim with no gaps or floating decoration. No background, checkerboard, floor fill, grid, text, tiles, icons, sparkles or objects. Symmetric all four sides; complete outline fits inside square canvas.",
+    "reference": [],
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-d001879a-2c50-4a89-a161-c2e1e35d457a.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/board_frame_v6.png",
+    "method": "built-in image_gen"
+  }
+]

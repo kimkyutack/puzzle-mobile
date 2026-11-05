@@ -1,0 +1,44 @@
+[
+  {
+    "id": "poster_shop_v7",
+    "transparent": false,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+    ],
+    "prompt": "Original premium 3D casual mobile garden puzzle game art. Polished toy-like materials, rounded thick forms, dimensional bevels, rich controlled color, broad soft highlights, no blinding white glare. Forest teal, coral, mint and copper-gold color language. No text, numbers, logos, UI controls or watermark. Wide 2.4:1 landscape illustration to be used as a full-width game shop masthead. The reference red panda Lumi in teal gardener overalls and coral neckerchief is the exact original mascot. Lumi smiles behind an inviting compact wooden garden trading stall on the LEFT third. Small glass jars, a copper watering can and shiny garden tools neatly displayed. The RIGHT half has a large quiet, dark teal awning area and uncluttered counter where live Korean shop title will be overlaid by code. Eye level view, one coherent poster, dark mint greenhouse windows behind, not a busy garden landscape. The illustration fills all edges with opaque painted backdrop. No written signs.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-950ae728-946f-48de-b5ce-13b864ec703f.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/poster_shop_v7.png"
+  },
+  {
+    "id": "bundle_starter_v7",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/coin.png"
+    ],
+    "prompt": "Original premium 3D casual mobile garden puzzle game art. Polished toy-like materials, rounded thick forms, dimensional bevels, rich controlled color, broad soft highlights, no blinding white glare. Forest teal, coral, mint and copper-gold color language. No text, numbers, logos, UI controls or watermark. One isolated product vignette on genuinely transparent background, roughly square. An open teal and coral gift chest with golden thick corners, several big coins embossed with the same green two-leaf sprout as reference, a glossy red heart balloon tied to the chest, and a red-and-gold playful garden mallet peeking out. A small teal fan propeller tool and a strawberry-shaped flower bomb sit at the front. Compact triangular composition, all objects fully visible and large, inviting treasure bundle, front three-quarter camera. Strong readable silhouette at 120px; no tiny debris, no floating sparkles beyond the main silhouette, no ground plane.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-f96c6635-4e99-4926-a587-d46c8b3c3177.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bundle_starter_v7.png"
+  },
+  {
+    "id": "bundle_tools_v7",
+    "transparent": true,
+    "refs": [],
+    "prompt": "Original premium 3D casual mobile garden puzzle game art. Polished toy-like materials, rounded thick forms, dimensional bevels, rich controlled color, broad soft highlights, no blinding white glare. Forest teal, coral, mint and copper-gold color language. No text, numbers, logos, UI controls or watermark. One isolated product vignette on genuinely transparent background, roughly square. A substantial open copper and teal gardener's tool case overflowing with oversized glossy puzzle power-ups. Clearly visible coral-gold mallet, two mint curved rake tools, teal fan propeller, strawberry flower bomb, and a jewel-like rainbow lantern with colored panels. Hero garden tool kit. Tight organized triangular group with large readable forms, front three-quarter camera, entirely visible with margins, strong silhouette at 120px. No ground plane and no scattered tiny items. No hearts or currency.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-4cc4f0b8-d49e-45cd-b05c-5059f2d715c8.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bundle_tools_v7.png"
+  },
+  {
+    "id": "bundle_coins_v7",
+    "transparent": true,
+    "refs": [
+      "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/coin.png"
+    ],
+    "prompt": "Original premium 3D casual mobile garden puzzle game art. Polished toy-like materials, rounded thick forms, dimensional bevels, rich controlled color, broad soft highlights, no blinding white glare. Forest teal, coral, mint and copper-gold color language. No text, numbers, logos, UI controls or watermark. One isolated shop product vignette on genuinely transparent background, roughly square. A generous compact pile of thick, glossy golden coins in three ascending stacks, with a large upright foreground coin carrying exactly the green two-leaf sprout emblem shown in the reference. Several coins rest against a folded teal coin pouch with copper clasp. The coins are the clear hero. Premium mobile game currency pack, front three-quarter camera, clear rounded edges, warm gold against teal cloth. All objects fully visible with margins, no ground plane, no floating sparkle clutter.",
+    "method": "built-in image_gen",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-38a041e2-402c-4b34-b44f-658d9867b0b9.png",
+    "savedPath": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/bundle_coins_v7.png"
+  }
+]

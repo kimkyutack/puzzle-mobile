@@ -1,0 +1,102 @@
+{
+  "method": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "post-office",
+      "prompt": "Use case: stylized-concept. Asset type: ONE original production game decoration sprite for a polished mobile isometric garden. Reference image 1 shows the established camera, miniature proportions, soft warm gold materials and planted base style only. Create a distinct new object: A charming compact garden post office building, footprint 4 by 3 tiles, coral terracotta roof with brass wind-vane envelope, pale warm stone walls, navy arched front door, round blue postal window and small brass letter slot, potted flowers, neat front doorstep. A building with a real postal purpose, no writing. Camera exact elevated isometric view from the front corner, straight verticals, floor diamond axes with 2:1 horizontal to vertical pitch. Show front and right side. Fully isolated on genuinely transparent background, no exterior cast shadow, no sky, ground plane or backdrop. The whole object including its footprint base and roof is fully inside a square canvas with 6 percent transparent padding, feet/base aligned near bottom. Crisp premium 3D casual-game rendering, rounded sculpted details, saturated but balanced coral, navy, warm gold and leaf green, light from upper left, readable at 100px. Match the reference's friendly handcrafted quality without copying the reference object. No text, numbers, words, labels, logos, UI, frames, watermarks, characters or humans.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-b26e04c8-d6fe-4189-b89a-a6f35cb74fbe.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/post-office.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/post-office.png"
+    },
+    {
+      "id": "mailbox",
+      "prompt": "Use case: stylized-concept. Asset type: ONE original production game decoration sprite for a polished mobile isometric garden. Reference image 1 shows the established camera, miniature proportions, soft warm gold materials and planted base style only. Create a distinct new object: A single chunky scarlet-red and warm brass garden mailbox on a short cream stone pedestal, carved envelope emblem, small hinged front flap, a few flowers at the foot, footprint one tile. Clear toy-like silhouette. Camera exact elevated isometric view from the front corner, straight verticals, floor diamond axes with 2:1 horizontal to vertical pitch. Show front and right side. Fully isolated on genuinely transparent background, no exterior cast shadow, no sky, ground plane or backdrop. The whole object including its footprint base and roof is fully inside a square canvas with 6 percent transparent padding, feet/base aligned near bottom. Crisp premium 3D casual-game rendering, rounded sculpted details, saturated but balanced coral, navy, warm gold and leaf green, light from upper left, readable at 100px. Match the reference's friendly handcrafted quality without copying the reference object. No text, numbers, words, labels, logos, UI, frames, watermarks, characters or humans.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-af5559e4-b795-4418-9d72-f6e6a5eae540.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/mailbox.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/mailbox.png"
+    },
+    {
+      "id": "willow",
+      "prompt": "Use case: stylized-concept. Asset type: ONE original production game decoration sprite for a polished mobile isometric garden. Reference image 1 shows the established camera, miniature proportions, soft warm gold materials and planted base style only. Create a distinct new object: A single enchanted firefly willow tree growing on a compact oval moss garden base, softly draping jade leaves, several warm amber firefly lantern buds nestled in branches, one hollow with gentle golden light, footprint 3 by 3 tiles. Daytime legibility with a magical evening glow, no surrounding scene. Camera exact elevated isometric view from the front corner, straight verticals, floor diamond axes with 2:1 horizontal to vertical pitch. Show front and right side. Fully isolated on genuinely transparent background, no exterior cast shadow, no sky, ground plane or backdrop. The whole object including its footprint base and roof is fully inside a square canvas with 6 percent transparent padding, feet/base aligned near bottom. Crisp premium 3D casual-game rendering, rounded sculpted details, saturated but balanced coral, navy, warm gold and leaf green, light from upper left, readable at 100px. Match the reference's friendly handcrafted quality without copying the reference object. No text, numbers, words, labels, logos, UI, frames, watermarks, characters or humans.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-937fb1a5-c037-4931-91be-9451617720b3.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/willow.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/willow.png"
+    },
+    {
+      "id": "jetty",
+      "prompt": "Use case: stylized-concept. Asset type: ONE original production game decoration sprite for a polished mobile isometric garden. Reference image 1 shows the established camera, miniature proportions, soft warm gold materials and planted base style only. Create a distinct new object: A small elegant wooden pond jetty with three broad steps, two brass lantern posts, a compact crescent of blue water and reeds integrated under the planks; a cozy seating spot for watching fireflies, footprint 3 by 2 tiles. Self-contained miniature prop. Camera exact elevated isometric view from the front corner, straight verticals, floor diamond axes with 2:1 horizontal to vertical pitch. Show front and right side. Fully isolated on genuinely transparent background, no exterior cast shadow, no sky, ground plane or backdrop. The whole object including its footprint base and roof is fully inside a square canvas with 6 percent transparent padding, feet/base aligned near bottom. Crisp premium 3D casual-game rendering, rounded sculpted details, saturated but balanced coral, navy, warm gold and leaf green, light from upper left, readable at 100px. Match the reference's friendly handcrafted quality without copying the reference object. No text, numbers, words, labels, logos, UI, frames, watermarks, characters or humans.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-b32ab2c0-4cf6-4be8-a9ac-38f23fe0382d.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/jetty.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/jetty.png"
+    },
+    {
+      "id": "forest-station",
+      "prompt": "Use case: stylized-concept. Asset type: ONE original production game decoration sprite for a polished mobile isometric garden. Reference image 1 shows the established camera, miniature proportions, soft warm gold materials and planted base style only. Create a distinct new object: A compact woodland railway station building, footprint 4 by 3 tiles, warm apricot timber and pale stone walls, rich indigo/slate roof, brass clock with no numerals, canopy over a small platform, a front ticket window, creeping flowers and short wooden steps. Friendly whimsical garden railway architecture. Camera exact elevated isometric view from the front corner, straight verticals, floor diamond axes with 2:1 horizontal to vertical pitch. Show front and right side. Fully isolated on genuinely transparent background, no exterior cast shadow, no sky, ground plane or backdrop. The whole object including its footprint base and roof is fully inside a square canvas with 6 percent transparent padding, feet/base aligned near bottom. Crisp premium 3D casual-game rendering, rounded sculpted details, saturated but balanced coral, navy, warm gold and leaf green, light from upper left, readable at 100px. Match the reference's friendly handcrafted quality without copying the reference object. No text, numbers, words, labels, logos, UI, frames, watermarks, characters or humans.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-f7d4deb8-8257-46cf-9ea9-05a87a58e634.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/forest-station.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/forest-station.png"
+    },
+    {
+      "id": "carriage",
+      "prompt": "Use case: stylized-concept. Asset type: ONE original production game decoration sprite for a polished mobile isometric garden. Reference image 1 shows the established camera, miniature proportions, soft warm gold materials and planted base style only. Create a distinct new object: A single small charming garden railway passenger carriage, footprint 3 by 2 tiles, chestnut wood sides, cobalt blue curved roof, warm gold wheel hubs and trims, open doorway and visible bench seat inside, flower pots on its tiny platform. No engine, no extra cars. Camera exact elevated isometric view from the front corner, straight verticals, floor diamond axes with 2:1 horizontal to vertical pitch. Show front and right side. Fully isolated on genuinely transparent background, no exterior cast shadow, no sky, ground plane or backdrop. The whole object including its footprint base and roof is fully inside a square canvas with 6 percent transparent padding, feet/base aligned near bottom. Crisp premium 3D casual-game rendering, rounded sculpted details, saturated but balanced coral, navy, warm gold and leaf green, light from upper left, readable at 100px. Match the reference's friendly handcrafted quality without copying the reference object. No text, numbers, words, labels, logos, UI, frames, watermarks, characters or humans.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-0c18d13a-e793-4c8b-9d54-27c070542a5b.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/carriage.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/carriage.png"
+    },
+    {
+      "id": "post-office-rear",
+      "reference": "packages/garden-world/art/source/story-v30/post-office.png",
+      "prompt": "Use case: stylized-concept. Create the REAR-CORNER VIEW of the exact isometric mobile game decoration in reference image 1. Rotate this exact object 180 degrees around its upright vertical axis; keep the same elevated isometric camera, the same miniature proportions, footprint base, construction, colors, material finishes, flower details and upper-left lighting. Now show the back and left side, including a believable rear wall or rear of the tree/bench/carriage. Do not merely horizontally mirror the front. Do not expose the front door or front face when hidden on the opposite side. The whole isolated single object stays completely visible with 6 percent transparent padding, bottom base near the bottom of a square canvas. Genuine transparent alpha background, no backdrop, no ground plane beyond this object's base, no added objects. Premium rounded sculpted 3D casual game rendering, crisp readable at small size. No text, UI, labels, watermarks or people.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-c64dacb8-f827-41aa-aff2-492f8ae2f8e7.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/post-office-rear.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/post-office-rear.png"
+    },
+    {
+      "id": "mailbox-rear",
+      "reference": "packages/garden-world/art/source/story-v30/mailbox.png",
+      "prompt": "Use case: stylized-concept. Create the REAR-CORNER VIEW of the exact isometric mobile game decoration in reference image 1. Rotate this exact object 180 degrees around its upright vertical axis; keep the same elevated isometric camera, the same miniature proportions, footprint base, construction, colors, material finishes, flower details and upper-left lighting. Now show the back and left side, including a believable rear wall or rear of the tree/bench/carriage. Do not merely horizontally mirror the front. Do not expose the front door or front face when hidden on the opposite side. The whole isolated single object stays completely visible with 6 percent transparent padding, bottom base near the bottom of a square canvas. Genuine transparent alpha background, no backdrop, no ground plane beyond this object's base, no added objects. Premium rounded sculpted 3D casual game rendering, crisp readable at small size. No text, UI, labels, watermarks or people.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-e60ee20d-de5f-4f00-886e-20bff290344c.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/mailbox-rear.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/mailbox-rear.png"
+    },
+    {
+      "id": "willow-rear",
+      "reference": "packages/garden-world/art/source/story-v30/willow.png",
+      "prompt": "Use case: stylized-concept. Create the REAR-CORNER VIEW of the exact isometric mobile game decoration in reference image 1. Rotate this exact object 180 degrees around its upright vertical axis; keep the same elevated isometric camera, the same miniature proportions, footprint base, construction, colors, material finishes, flower details and upper-left lighting. Now show the back and left side, including a believable rear wall or rear of the tree/bench/carriage. Do not merely horizontally mirror the front. Do not expose the front door or front face when hidden on the opposite side. The whole isolated single object stays completely visible with 6 percent transparent padding, bottom base near the bottom of a square canvas. Genuine transparent alpha background, no backdrop, no ground plane beyond this object's base, no added objects. Premium rounded sculpted 3D casual game rendering, crisp readable at small size. No text, UI, labels, watermarks or people.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-ec0b14a0-3758-4e1a-95d1-4da4689aa6aa.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/willow-rear.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/willow-rear.png"
+    },
+    {
+      "id": "jetty-rear",
+      "reference": "packages/garden-world/art/source/story-v30/jetty.png",
+      "prompt": "Use case: stylized-concept. Create the REAR-CORNER VIEW of the exact isometric mobile game decoration in reference image 1. Rotate this exact object 180 degrees around its upright vertical axis; keep the same elevated isometric camera, the same miniature proportions, footprint base, construction, colors, material finishes, flower details and upper-left lighting. Now show the back and left side, including a believable rear wall or rear of the tree/bench/carriage. Do not merely horizontally mirror the front. Do not expose the front door or front face when hidden on the opposite side. The whole isolated single object stays completely visible with 6 percent transparent padding, bottom base near the bottom of a square canvas. Genuine transparent alpha background, no backdrop, no ground plane beyond this object's base, no added objects. Premium rounded sculpted 3D casual game rendering, crisp readable at small size. No text, UI, labels, watermarks or people.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-fb611303-fb93-4c71-8b69-25e9bb0ef41a.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/jetty-rear.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/jetty-rear.png"
+    },
+    {
+      "id": "forest-station-rear",
+      "reference": "packages/garden-world/art/source/story-v30/forest-station.png",
+      "prompt": "Use case: stylized-concept. Create the REAR-CORNER VIEW of the exact isometric mobile game decoration in reference image 1. Rotate this exact object 180 degrees around its upright vertical axis; keep the same elevated isometric camera, the same miniature proportions, footprint base, construction, colors, material finishes, flower details and upper-left lighting. Now show the back and left side, including a believable rear wall or rear of the tree/bench/carriage. Do not merely horizontally mirror the front. Do not expose the front door or front face when hidden on the opposite side. The whole isolated single object stays completely visible with 6 percent transparent padding, bottom base near the bottom of a square canvas. Genuine transparent alpha background, no backdrop, no ground plane beyond this object's base, no added objects. Premium rounded sculpted 3D casual game rendering, crisp readable at small size. No text, UI, labels, watermarks or people.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-1fd9e7fa-1b6d-4681-bf7b-cb28213fb711.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/forest-station-rear.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/forest-station-rear.png"
+    },
+    {
+      "id": "carriage-rear",
+      "reference": "packages/garden-world/art/source/story-v30/carriage.png",
+      "prompt": "Use case: stylized-concept. Create the REAR-CORNER VIEW of the exact isometric mobile game decoration in reference image 1. Rotate this exact object 180 degrees around its upright vertical axis; keep the same elevated isometric camera, the same miniature proportions, footprint base, construction, colors, material finishes, flower details and upper-left lighting. Now show the back and left side, including a believable rear wall or rear of the tree/bench/carriage. Do not merely horizontally mirror the front. Do not expose the front door or front face when hidden on the opposite side. The whole isolated single object stays completely visible with 6 percent transparent padding, bottom base near the bottom of a square canvas. Genuine transparent alpha background, no backdrop, no ground plane beyond this object's base, no added objects. Premium rounded sculpted 3D casual game rendering, crisp readable at small size. No text, UI, labels, watermarks or people.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-a7509882-86b8-41e3-a1e1-72f7f0188aa5.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/carriage-rear.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/carriage-rear.png"
+    },
+    {
+      "id": "rail",
+      "prompt": "Use case: stylized-concept. Asset type: one production isometric GROUND tile for a premium casual mobile garden game. A single straight garden railway track segment on a neat pale sandstone square tile. Two warm brass rails and three dark chestnut wooden sleepers run along one isometric grid axis. Diamond floor with a 2:1 width to height ratio, a perfectly seamless straight rail at the two opposite diagonal edges so adjacent identical tiles connect. No extra floor outside the diamond, no tree, train, signs or props. Camera elevated isometric, match a 2:1 game grid. Entire diamond fully visible with 2 percent transparent padding on a wide 2:1 canvas. Glossy miniature 3D casual-game render, clear simple robust detail, upper-left lighting, genuinely transparent background. No text, UI or watermarks.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aa25-c784-7613-a867-36bf739a4e7d/exec-75261a2a-4650-46bd-a4de-5ee9f104646e.png",
+      "sourcePath": "packages/garden-world/art/source/story-v30/rail.png",
+      "runtimePath": "packages/garden-world/art/runtime/story-v30/rail.png"
+    }
+  ]
+}

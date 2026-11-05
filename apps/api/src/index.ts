@@ -2,7 +2,7 @@ import { ZodError } from 'zod';
 import { timingSafeEqual } from 'node:crypto';
 import { CONTENT_VERSION, ENGINE_VERSION } from '@garden/contracts';
 import { getLevel } from '@garden/content';
-import { activeRun, assertSQL, digest, ensure, HttpError, one, readPlayer, rows, sql, type ApiEnv } from './db';
+import { activeRun, assertSQL, digest, ensure, HttpError, one, readPlayer, readState, rows, sql, type ApiEnv } from './db';
 import * as auth from './auth';
 import * as run from './runs';
 import * as economy from './economy';
@@ -20,6 +20,7 @@ import {localFeatures,refillLocalHearts} from './local-tools';
 import { bodyOf } from './validation';
 import { finishPurchase, revokeAppleAuthorization, ProviderError, type VerifiedPurchase } from './providers';
 import { GuildRoom } from './guild-room';
+import {requestTiming} from './request-timing';
 export { GuildRoom };
 
 function response(data:unknown,request:Request,env:ApiEnv,status=200){
@@ -50,7 +51,7 @@ async function socket(request:Request,env:ApiEnv,url:URL){
   const headers=new Headers(request.headers);headers.set('x-garden-user',ticket.user_id);headers.set('x-garden-guild',ticket.guild_id);
   return env.GUILD_ROOMS.getByName(ticket.guild_id).fetch(new Request('https://guild.internal/',{headers}));
 }
-async function route(request:Request,env:ApiEnv,ctx:ExecutionContext){
+async function route(request:Request,env:ApiEnv,ctx:ExecutionContext,backgroundEnv=env){
   const url=new URL(request.url);const path=url.pathname.replace(/^\/api(?=\/|$)/,'')||'/';const method=request.method;
   if(method==='OPTIONS'){const origin=request.headers.get('Origin')??'';ensure(env.CLIENT_ORIGINS.split(',').includes(origin),'CORS_DENIED','허용되지 않은 출처입니다.',403);return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET,POST,PATCH,DELETE,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization','Access-Control-Max-Age':'600','Vary':'Origin'}});}
   if(path==='/health')return response({ok:true,engineVersion:ENGINE_VERSION,contentVersion:CONTENT_VERSION},request,env);
@@ -68,9 +69,9 @@ async function route(request:Request,env:ApiEnv,ctx:ExecutionContext){
   if(path==='/purchases/google/webhook'&&method==='POST')return response(await money.purchaseWebhook(env,'google',request,body),request,env);
   if(path==='/auth/guest'&&method==='POST'){await rateLimit(env,`guest:${await digest(request.headers.get('CF-Connecting-IP')??'local')}`,30,3600);return response(await auth.guest(env),request,env);}
   if(path==='/auth/refresh'&&method==='POST'){await rateLimit(env,`refresh:${await digest(String(body.refreshToken??'').slice(0,300))}`,30);return response(await auth.refresh(env,body),request,env);}
-  const session=await auth.authenticate(request,env);const userId=session.user_id;await rateLimit(env,`user:${userId}`);
+  const session=await auth.authenticate(request,env,{maximum:240,seconds:60});const userId=session.user_id;
   let data:unknown;
-  if(path==='/me'&&method==='GET'){const player=await readPlayer(env.DB,userId);data={player,activeRun:await activeRun(env.DB,userId)};}
+  if(path==='/me'&&method==='GET')data=await readState(env.DB,userId);
   else if(path==='/me'&&method==='PATCH')data=await auth.profile(env,userId,body);
   else if(path==='/progression'&&method==='GET')data=await progression(env,userId);
   else if(path==='/missions/claim'&&method==='POST')data=await claimMissions(env,userId,body);
@@ -104,6 +105,7 @@ async function route(request:Request,env:ApiEnv,ctx:ExecutionContext){
   else if(path==='/garden/restore'&&method==='POST')data=await economy.restore(env,userId,body);
   else if(path==='/garden/world'&&method==='GET')data=await gardenWorld.gardenWorld(env,userId);
   else if(path==='/garden/world/commands'&&method==='POST')data=await gardenWorld.gardenCommand(env,userId,body);
+  else if(path==='/garden/world/expand'&&method==='POST')data=await gardenWorld.expandGarden(env,userId,body);
   else if(path==='/garden/shop/buy'&&method==='POST')data=await gardenWorld.buyDecoration(env,userId,body);
   else if(path==='/story/episodes/bridge-v1/complete'&&method==='POST')data=await completeBridge(env,userId,body);
   else if(path==='/story'&&method==='GET')data=await story.state(env,userId);
@@ -151,12 +153,13 @@ async function route(request:Request,env:ApiEnv,ctx:ExecutionContext){
     ensure(timingSafeEqual(Buffer.from(await digest(request.headers.get('x-admin-token')??'')),Buffer.from(await digest(env.ADMIN_TOKEN))),'ADMIN_REQUIRED','관리자 인증이 필요합니다.',403);
     data={economy:await economy.catalog(env),levels:[1,5,30,200,1000,10000].map(id=>getLevel(id)),pendingAds:await rows(env.DB,"SELECT id,user_id,placement,status,approved_at FROM reward_intents WHERE status IN ('review','pending') LIMIT 100"),recentLedger:await rows(env.DB,'SELECT * FROM ledger ORDER BY created_at DESC LIMIT 100'),outbox:await rows(env.DB,'SELECT id,topic,attempts FROM outbox WHERE delivered_at IS NULL LIMIT 100')};
   }else throw new HttpError('NOT_FOUND','요청한 기능을 찾을 수 없습니다.',404);
-  if(method!=='GET')ctx.waitUntil(flushOutbox(env));
+  if(method!=='GET')ctx.waitUntil(flushOutbox(backgroundEnv));
   return response(data,request,env);
 }
 export default {
   async fetch(request:Request,env:ApiEnv,ctx:ExecutionContext){
-    try{return await route(request,env,ctx);}
+    const timing=requestTiming(env.DB);let result:Response;
+    try{result=await route(request,{...env,DB:timing.db},ctx,env);}
     catch(e){
       let status=500,code='INTERNAL_ERROR',message='서버에 연결하지 못했어요. 잠시 후 다시 시도해 주세요.';
       if(e instanceof HttpError||e instanceof ProviderError){status=e.status;code=e.code;message=e.message;}
@@ -164,8 +167,18 @@ export default {
       else if(/UNIQUE constraint|guild_full|CHECK constraint/.test(String(e))){status=409;code='CONFLICT';message='이미 처리되었거나 다른 기기에서 변경된 요청입니다. 새로고침해 주세요.';}
       console.error(JSON.stringify({event:'api:error',code,status,...(env.ENVIRONMENT==='development'?{detail:String(e).slice(0,500)}:{})}));
       const origin=request.headers.get('origin');const headers:Record<string,string>={'Cache-Control':'no-store'};if(origin&&env.CLIENT_ORIGINS.split(',').includes(origin))headers['Access-Control-Allow-Origin']=origin;
-      return Response.json({error:{code,message},serverNow:Date.now()},{status,headers});
+      result=Response.json({error:{code,message},serverNow:Date.now()},{status,headers});
     }
+    if(result.status===101)return result;
+    const measured=timing.snapshot(),headers=new Headers(result.headers),placement=request.headers.get('cf-placement');
+    headers.set('Server-Timing',`app;dur=${measured.appMs}, db;dur=${measured.dbMs}, db_calls;desc="${measured.dbCalls}"`);
+    headers.set('X-D1-Calls',String(measured.dbCalls));
+    if(measured.region)headers.set('X-D1-Region',measured.region);
+    if(placement&&/^(local|remote)-[A-Z]{3}$/.test(placement))headers.set('X-Worker-Placement',placement);
+    if(request.cf?.colo)headers.set('X-Request-Colo',String(request.cf.colo));
+    if(headers.has('Access-Control-Allow-Origin'))headers.set('Access-Control-Expose-Headers','Server-Timing, X-D1-Calls, X-D1-Region, X-Worker-Placement, X-Request-Colo, cf-placement');
+    console.log(JSON.stringify({event:'api:timing',method:request.method,path:new URL(request.url).pathname.replace(/[0-9a-f]{8}-[0-9a-f-]{27}/gi,':id'),status:result.status,...measured,...(placement?{placement}:{})}));
+    return new Response(result.body,{status:result.status,statusText:result.statusText,headers});
   },
   async scheduled(_controller:ScheduledController,env:ApiEnv,ctx:ExecutionContext){
     ctx.waitUntil((async()=>{

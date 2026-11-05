@@ -1,0 +1,41 @@
+{
+  "tool": "built-in image_gen",
+  "version": "events-v17",
+  "assets": [
+    {
+      "id": "poster_attendance_v17",
+      "transparent": false,
+      "refs": [
+        "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/source/lumi.png"
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: landscape illustration for a mobile casual puzzle game's seven-day attendance reward event. Reference image is the game's original mascot Lumi: preserve the orange red-panda face, cream ears, expressive amber eyes, teal gardener overalls and coral scarf. Create a polished dimensional illustrated scene, landscape 3:2 composition. Lumi at the RIGHT third happily presents a chunky coral-and-gold desk calendar with seven blank round day stamps and a gift tied in a coral bow, on a sunlit greenhouse potting table. A small gold coin with a leaf emblem and a red gardening mallet beside the gift. At the LEFT third leave a quiet warm peach wall with subtle soft light for a short live UI title. Soft rounded game-prop materials, tactile depth, appealing light and shadow, restrained highlights, rich coral, apricot, warm gold and sky blue, lush foliage only at corners. NO letters, numbers, text, logos, typography or watermark. No UI buttons, no outer decorative frame. Entire image opaque. This is finished in-game artwork, not a mockup screenshot.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1a400-9763-7dd2-8ee4-164383e7cea7/exec-ed19607d-ca02-4f1e-a168-c995bee07c5b.png",
+      "sourcePath": "packages/assets/source/poster_attendance_v17.png",
+      "runtimePath": "packages/assets/events-v17/poster_attendance_v17.webp"
+    },
+    {
+      "id": "poster_season_v17",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Asset type: wide banner illustration for a mobile garden puzzle game's seasonal cooperative event. Polished dimensional casual-game art, landscape 3:2. An enchanting garden festival at blue hour, a glass gazebo and small flower-decorated stage on the RIGHT, strings of warm amber lanterns, coral and blue pennant flags, little gift parcels and flowering potted plants. Quiet deep-blue sky and softly blurred garden space on the LEFT for live UI title. Composition feels festive and special yet clear, rich twilight blue balanced by amber and coral, lush fresh flowers, tactile painted game prop materials, warm inviting light, restrained sparkles. No characters. NO text, letters, numbers, logos, UI buttons, outer frame or watermark. Entire image opaque, finished original game artwork.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1a400-9763-7dd2-8ee4-164383e7cea7/exec-eb96f7f2-7450-4627-bf71-5cf335222817.png",
+      "sourcePath": "packages/assets/source/poster_season_v17.png",
+      "runtimePath": "packages/assets/events-v17/poster_season_v17.webp"
+    },
+    {
+      "id": "icon_attendance_v17",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept. Asset type: isolated 3D icon for a mobile casual garden game's attendance menu chip. One chunky desk calendar made of coral enamel with warm gold binding rings and a soft ivory page showing a simple large embossed gold checkmark; a tiny teal gift box with coral bow rests at its lower right. Friendly rounded toy-like premium game icon, three-quarter front view, tactile volume, deep rich colors, soft controlled gloss and clear silhouette, small supporting contact shadow. Large centered icon filling 85% of square. Genuinely transparent background. NO text, letters, digits, logos, sparkle cloud, pedestal, surrounding circle, UI frame or watermark.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1a400-9763-7dd2-8ee4-164383e7cea7/exec-1267f913-c92d-4909-bd36-d3d8db8f1676.png",
+      "sourcePath": "packages/assets/source/icon_attendance_v17.png",
+      "runtimePath": "packages/assets/events-v17/icon_attendance_v17.webp"
+    },
+    {
+      "id": "bg_events_v17",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Asset type: portrait background for a mobile casual garden game's Events page. Portrait 2:3 composition, an evening garden festival with a deep denim blue and warm amber palette. Delicate strings of little glowing lanterns and coral-and-blue triangular pennants drape across the upper edges; lush flowers and leaves at the lower corners. Center 70% is quiet low-contrast midnight-blue atmosphere and subtle warm bokeh, providing a readable backdrop behind event posters and controls. Premium dimensional illustrated casual game style, gentle soft lighting, playful celebratory atmosphere, not neon, not overbright, no purple or dominant green panel, no sunburst, no characters. NO text, numbers, logos, buttons, cards, UI mockup or outer frame. Opaque finished background artwork.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1a400-9763-7dd2-8ee4-164383e7cea7/exec-2d4afecc-6c80-432a-b43c-703ed95f1970.png",
+      "sourcePath": "packages/assets/source/bg_events_v17.png",
+      "runtimePath": "packages/assets/events-v17/bg_events_v17.webp"
+    }
+  ]
+}

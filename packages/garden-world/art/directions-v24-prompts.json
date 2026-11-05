@@ -1,0 +1,182 @@
+[
+  {
+    "id": "bench",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/bench.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/bench-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/bench-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated wooden garden bench; show the outside of the rear backrest with its slats hiding most of the seat, with the original stone arms, gold trims and flowers. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-f2f5b8d4-d5cd-41ef-a699-e8ffbb478a52.png"
+  },
+  {
+    "id": "planter",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/planter.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/planter-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/planter-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated square stone flower planter; same flowers, leaves and rim, rotated so opposite wall and opposite arrangement of blossoms face the viewer. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-f55b88c3-a210-47c4-b473-4bfdb88eb902.png"
+  },
+  {
+    "id": "lamp",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/lamp.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/lamp-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/lamp-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated brass lantern on a cream column; show the opposite side and opposite side of the vine spiral and flowers. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-a041f13c-5db8-43f8-83aa-a91d9d721a01.png"
+  },
+  {
+    "id": "fountain",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/fountain.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/fountain-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/fountain-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated multi-tier round fountain; the raised flower urn, water and opposite floral railing must be seen from the reverse side. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-ce40f5e4-7538-420e-bdc4-9f3eaa89cc9d.png"
+  },
+  {
+    "id": "greenhouse",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/greenhouse.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/greenhouse-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/greenhouse-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated glass greenhouse building; show the BACK exterior wall, no front entrance door on the facing wall, same roof ribs, frame, plants and footprint. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-7280a55a-e25e-430a-8a2d-fd69b93a6437.png"
+  },
+  {
+    "id": "tree",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/tree.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/tree-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/tree-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated flowering garden tree; show the back of the trunk forks and foliage arrangement with the same canopy size. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-4928d1e0-abdd-4f08-bec5-96fe357a1cae.png"
+  },
+  {
+    "id": "rose-arch",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/rose-arch.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/rose-arch-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/rose-arch-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated rose arch; show the rear of the arch columns and trellis, the original roses wrapping around from the opposite side. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-0949c2fc-aa37-44f3-8d3c-614482f6fa0a.png"
+  },
+  {
+    "id": "gazebo",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/gazebo.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/gazebo-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/gazebo-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated gazebo; show the back of its built-in benches and roof from the reverse side, same four columns, roof and furnishings. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-73f30564-405c-4789-a848-22d47c8912ee.png"
+  },
+  {
+    "id": "pond",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/pond.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/pond-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/pond-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated rectangular lily pond; move the tall reeds and raised back crest to the near side as seen from behind the same pond. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-25b336e4-f83c-4b59-bf77-8a3bd1eb7a35.png"
+  },
+  {
+    "id": "picnic",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/picnic.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/picnic-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/picnic-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated round picnic table and two stools surrounded by low flower walls; show the outside rear of the low walls facing the viewer and the table partly beyond them. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-08c5feca-8a77-4205-b8f5-d4810c35a18e.png"
+  },
+  {
+    "id": "hedge",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/hedge.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/hedge-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/hedge-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated long narrow hedge planter; show the other side of its flowers and stone wall, maintain its long narrow footprint. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-4601e38e-8d3a-48ac-b663-0b104fa5bdcd.png"
+  },
+  {
+    "id": "mushroom",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/mushroom.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/mushroom-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/mushroom-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated mushroom garden lamp; show its rear wall WITHOUT the front window facing the viewer, same spotted coral cap and flowers. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-138c5696-4e45-4227-885d-37135ea0d3f9.png"
+  },
+  {
+    "id": "gate",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/gate.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/gate-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/gate-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated small domed garden entry pavilion; show its BACK wall without the front door or entrance steps facing the viewer, same dome and flowers. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-122b9d50-f20b-4808-adf0-9f2771e423e6.png"
+  },
+  {
+    "id": "telescope",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/telescope.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/telescope-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/telescope-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated garden telescope on a tripod; reverse the tube so the eyepiece points toward lower right and the large objective end points toward upper left, same tripod and decorations. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-dea485b4-37b4-444d-8407-b6d12412809c.png"
+  },
+  {
+    "id": "rabbit",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/rabbit.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/rabbit-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/rabbit-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated cream rabbit with a daisy at its ear; show its BACK and round tail with head facing away toward the upper left, same identity and sitting pose. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-a5eff725-8804-4b3a-ba59-f85b0be60d06.png"
+  },
+  {
+    "id": "cat",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/cat.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/cat-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/cat-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated orange tabby kitten; show its BACK with the same stripes and curled tail, head facing away toward upper left. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-65fdffee-f484-4087-9762-323a657d811c.png"
+  },
+  {
+    "id": "dog",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/dog.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/dog-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/dog-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated orange-white corgi puppy; show its BACK with head facing away toward upper left and the tail nearest viewer. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-91b55d17-3201-4060-976b-f0b5276405e0.png"
+  },
+  {
+    "id": "bench-festival",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/bench-festival.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/bench-festival-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/bench-festival-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated coral pink garden bench with green frame; show the outside of the REAR of its backrest, seat mostly beyond it, preserve the yellow flowers and decorations. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-13279c2d-1446-42b7-b75c-5c27a7098fbe.png"
+  },
+  {
+    "id": "planter-festival",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/planter-festival.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/planter-festival-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/planter-festival-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated round festive flower fountain planter; show the opposite side of the same arrangement and reverse floral arrangement on the bowl. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-c5ce5abd-0024-4a62-87fc-1ddc807ef66b.png"
+  },
+  {
+    "id": "lamp-festival",
+    "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/garden-world/art/runtime/lamp-festival.png",
+    "sourcePath": "packages/garden-world/art/source/directions-v24/lamp-festival-rear.png",
+    "runtimePath": "packages/garden-world/art/runtime/directions-v24/lamp-festival-rear.png",
+    "prompt": "Use case: precise-object-edit. Asset type: a new rear-view isometric game sprite. Reference image is the exact existing object and style. Create ONE isolated arched green garden lamp with a hanging coral flower lantern; show the opposite rear side of the curved stem and lantern, same flowers and base. Rotate the actual 3D object 180 degrees around its vertical axis relative to the reference, while the camera stays at the same elevated isometric angle. This must be a genuinely different rear view with rear surfaces visible, not a horizontal reflection of the reference and not a flat image rotation. Preserve its identity, proportions, colors, materials, accessories, base footprint, lighting direction, and polished illustrated mobile-game rendering. Keep the same approximate image aspect ratio and ground contact as the reference. Center the complete object with generous transparent margins; genuine alpha transparency, soft contact shadow only. No extra objects, no scenery, no labels, no words, no grid, no multiple views. Use a square 1024 by 1024 canvas.",
+    "method": "built-in image_gen; referenced original sprite; authored rear view, existing front preserved",
+    "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-33ead5f4-7b86-486a-8c1c-16f499e712cf.png"
+  }
+]

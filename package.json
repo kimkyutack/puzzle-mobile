@@ -25,7 +25,11 @@
     "native:sync": "npm run build && cap sync",
     "native:local": "node tools/native-build.mjs local",
     "native:release": "node tools/native-build.mjs release",
-    "native:ios-simulator": "sh tools/native-ios-simulator.sh"
+    "native:ios-simulator": "sh tools/native-ios-simulator.sh",
+    "levels:campaign:build": "node --import tsx tools/level-validation/campaign-build.ts",
+    "levels:campaign:verify": "node --import tsx tools/level-validation/campaign-build.ts --verify",
+    "levels:bulk:build": "node --import tsx tools/level-validation/bulk-build.ts",
+    "levels:bulk:verify": "node --import tsx tools/level-validation/bulk-build.ts --verify"
   },
   "dependencies": {
     "@apple/app-store-server-library": "3.1.0",

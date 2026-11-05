@@ -36,7 +36,17 @@ export function validateLevel(level:LevelDefinition):string[] {
  for(const [i,layers] of Object.entries(level.frost??{}))if(!level.shape[Number(i)]||!Number.isInteger(layers)||layers<1)errors.push('FROST_LAYER');
  if(new Set(level.obstacles.map(o=>o.id)).size!==level.obstacles.length)errors.push('OBSTACLE_ID');
  const occupied=new Set<number>();
- for(const o of level.obstacles){if(!Number.isInteger(o.hp)||!Number.isInteger(o.maxHp)||o.hp<1||o.hp>o.maxHp||!o.footprint.includes(o.anchor))errors.push('OBSTACLE_HP');for(const i of o.footprint){if(!level.shape[i]||occupied.has(i))errors.push('OBSTACLE_FOOTPRINT');occupied.add(i);}}
+ for(const o of level.obstacles){
+  if(['pipe','bud','carousel','curtain'].includes(o.kind)&&level.engineVersion!==ENGINE_VERSION)errors.push('MECHANIC_ENGINE');
+  if(o.kind==='pipe'&&(o.hp!==o.footprint.length||o.footprint.some((i,k)=>k>0&&Math.abs(i%level.width-o.footprint[k-1]!%level.width)+Math.abs(Math.floor(i/level.width)-Math.floor(o.footprint[k-1]!/level.width))!==1)))errors.push('PIPE_LENGTH');
+  if((o.kind==='bud'||o.kind==='curtain')&&(!o.color||!level.colors.includes(o.color)))errors.push('MECHANIC_COLOR');
+  if(o.kind==='carousel'){
+   const path=o.path??[];
+   if(path.length<4||new Set(path).size!==path.length||!path.includes(o.anchor)||o.footprint.length!==1||path.some((i,k)=>!level.shape[i]||Math.abs(i%level.width-path[(k+1)%path.length]!%level.width)+Math.abs(Math.floor(i/level.width)-Math.floor(path[(k+1)%path.length]!/level.width))!==1))errors.push('CAROUSEL_PATH');
+  }
+  if(!Number.isInteger(o.hp)||!Number.isInteger(o.maxHp)||o.hp<1||o.hp>o.maxHp||!o.footprint.includes(o.anchor))errors.push('OBSTACLE_HP');
+  for(const i of o.footprint){if(!level.shape[i]||occupied.has(i))errors.push('OBSTACLE_FOOTPRINT');occupied.add(i);}
+ }
  const lanes=lanesFor(level),seen=new Set<number>();
  for(const lane of lanes){if(!lane.length)errors.push('EMPTY_GRAVITY');if(level.inlets&&!level.inlets.includes(lane[0]!))errors.push('MISSING_INLET');for(const i of lane){if(!Number.isInteger(i)||!level.shape[i]||seen.has(i))errors.push('GRAVITY_GRAPH');seen.add(i);}}
  if(seen.size!==level.shape.filter(Boolean).length)errors.push('GRAVITY_COVERAGE');
@@ -85,7 +95,7 @@ function area(s:GameState,at:number,radius:number):number[]{const x=at%s.width,y
 function line(s:GameState,at:number,row:boolean,span=0):number[]{const axis=row?Math.floor(at/s.width):at%s.width;return s.cells.flatMap((c,i)=>c.exists&&Math.abs((row?Math.floor(i/s.width):i%s.width)-axis)<=span?[i]:[]);}
 export function targetCells(s:GameState,excluded:Set<number>=new Set()):number[]{
  const active=new Set(s.goals.filter(g=>g.remaining>0).map(g=>g.kind));
- const score=(i:number)=>{const c=s.cells[i]!,o=obstacleAt(s,i),t=c.tile;if(t?.kind==='seed'||(o&&(o.kind==='pot'||(o.kind==='cabinet'&&o.color))))return -1;if(o&&active.has(o.kind))return 500+o.hp;if(c.frost&&t&&active.has('frost'))return 400+c.frost;if(t?.kind==='normal'&&active.has(t.color))return 300;if(o)return 200;if(isSpecial(t))return 100;return t?50:0;};
+ const score=(i:number)=>{const c=s.cells[i]!,o=obstacleAt(s,i),t=c.tile;if(t?.kind==='seed'||(o&&(o.kind==='pot'||o.kind==='bud'||o.kind==='curtain'||(o.kind==='cabinet'&&o.color))))return -1;if(o&&active.has(o.kind))return 500+o.hp;if(c.frost&&t&&active.has('frost'))return 400+c.frost;if(t?.kind==='normal'&&active.has(t.color))return 300;if(o)return 200;if(isSpecial(t))return 100;return t?50:0;};
  return s.cells.flatMap((c,i)=>c.exists&&!excluded.has(i)&&score(i)>0?[i]:[]).sort((a,b)=>score(b)-score(a)||a-b);
 }
 interface Effect {id:number;cells:number[];kind:string;color?:Color;adjacent?:boolean;allowPot?:boolean}
@@ -119,12 +129,14 @@ function combine(ctx:Context,at:number,a:Special,b:Special,other:number):void {
 }
 function damageObstacle(ctx:Context,id:string,effect:Effect,touched:Set<string>):boolean {
  const s=ctx.s,o=s.obstacles[id];if(!o||touched.has(id))return false;
- if(o.kind==='pot'&&!effect.allowPot&&effect.color!==o.color)return false;
+ if((o.kind==='pot'||o.kind==='bud'||o.kind==='curtain')&&!effect.allowPot&&effect.color!==o.color)return false;
  if(o.kind==='cabinet'&&o.color&&!effect.allowPot&&effect.color!==o.color)return false;
- touched.add(id);o.hp--;if(o.kind==='moss')ctx.mossHit=true;
- ctx.events.push({type:'hit',cells:[...o.footprint],kind:o.kind,effectId:effect.id});
+ touched.add(id);const hitCells=[...o.footprint];o.hp=Math.max(0,o.hp-(o.kind==='curtain'&&effect.kind==='match'?effect.cells.length:1));if(o.kind==='moss')ctx.mossHit=true;
+ if(o.kind==='pipe'&&o.hp>0){const freed=o.footprint.shift()!;delete s.cells[freed]!.obstacleId;o.anchor=o.footprint[0]!;}
+ const authored=['pipe','bud','carousel','curtain'].includes(o.kind);
+ ctx.events.push({type:'hit',cells:hitCells,kind:o.kind,effectId:effect.id,...(authored?{obstacleId:id,obstacleAfter:o.hp>0?copy(o):null}:{})});
  if(o.hp<=0){goal(s,o.kind);for(const i of o.footprint)delete s.cells[i]!.obstacleId;delete s.obstacles[id];
-  if(o.kind==='cabinet'&&(o.seeds??0)>0){const positions=unique([...o.footprint,...o.footprint.flatMap(i=>neighbors(s,i))]).filter(i=>!blocked(s,i));const count=o.seeds??0;if(positions.length<count)throw new Error('SEED_EMISSION_BLOCKED');for(const i of positions.slice(0,count)){s.cells[i]!.tile={id:s.nextTileId++,kind:'seed'};ctx.events.push({type:'spawn',cells:[i],kind:'seed'});}}
+  if((o.kind==='cabinet'||o.kind==='bud')&&(o.seeds??0)>0){const positions=unique([...o.footprint,...o.footprint.flatMap(i=>neighbors(s,i))]).filter(i=>!blocked(s,i));const count=o.seeds??0;if(positions.length<count)throw new Error('SEED_EMISSION_BLOCKED');for(const i of positions.slice(0,count)){s.cells[i]!.tile={id:s.nextTileId++,kind:'seed'};ctx.events.push({type:'spawn',cells:[i],kind:'seed'});}}
  }
  return true;
 }
@@ -141,9 +153,9 @@ function processEffects(ctx:Context):void {
    else if(t.kind==='normal'){cell.tile=null;goal(s,t.color);ctx.events.push({type:'remove',cells:[i],kind:t.color,effectId:effect.id});}
    if(cell.frost){cell.frost--;goal(s,'frost');ctx.events.push({type:'hit',cells:[i],kind:'frost',effectId:effect.id});}
   }
-  for(const id of adjacentIds){const o=s.obstacles[id];if(o&&(o.kind==='crate'||o.kind==='pot'||o.kind==='cabinet'||o.kind==='moss'))damageObstacle(ctx,id,effect,touched);}
+  for(const id of adjacentIds){const o=s.obstacles[id];if(o&&(o.kind==='crate'||o.kind==='pot'||o.kind==='cabinet'||o.kind==='moss'||o.kind==='pipe'||o.kind==='bud'||o.kind==='carousel'))damageObstacle(ctx,id,effect,touched);}
   // Pots collect a color charge from each matching-color natural match anywhere on the board.
-  if(effect.kind==='match')for(const o of Object.values(s.obstacles).sort((a,b)=>a.anchor-b.anchor))if(o.kind==='pot'&&o.color===effect.color)damageObstacle(ctx,o.id,effect,touched);
+  if(effect.kind==='match')for(const o of Object.values(s.obstacles).sort((a,b)=>a.anchor-b.anchor))if((o.kind==='pot'||o.kind==='curtain')&&o.color===effect.color)damageObstacle(ctx,o.id,effect,touched);
  }
 }
 function resolveMatches(ctx:Context,matches:Match[]):void {
@@ -172,6 +184,17 @@ function cascades(ctx:Context,initial?:Match[]):void {
 function growMoss(ctx:Context):void {
  if(ctx.mossHit)return;const s=ctx.s,moss=Object.values(s.obstacles).filter(o=>o.kind==='moss').sort((a,b)=>a.anchor-b.anchor);
  for(const o of moss){const target=neighbors(s,o.anchor).find(i=>!obstacleAt(s,i)&&!s.cells[i]!.frost&&!s.cells[i]!.exit&&s.cells[i]!.tile?.kind==='normal');if(target===undefined)continue;const id=`moss-${s.turn}-${target}`;s.obstacles[id]={id,kind:'moss',hp:1,maxHp:1,anchor:target,footprint:[target]};s.cells[target]!.obstacleId=id;s.cells[target]!.tile=null;for(const g of s.goals)if(g.kind==='moss'){g.count++;g.remaining++;}ctx.events.push({type:'moss',cells:[target],kind:'moss'});return;}
+}
+/** One deterministic step per paid move; inventory tools do not advance the carousel. */
+function rotatePlanters(ctx:Context):void {
+ const s=ctx.s;
+ for(const o of Object.values(s.obstacles).filter(o=>o.kind==='carousel').sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)){
+  const path=o.path??[],from=o.anchor,to=path[(path.indexOf(from)+1)%path.length];
+  if(to===undefined||s.cells[to]!.obstacleId||s.cells[to]!.frost||s.cells[to]!.exit||s.cells[to]!.tile?.kind==='seed')continue;
+  const displaced=s.cells[to]!.tile;delete s.cells[from]!.obstacleId;s.cells[from]!.tile=displaced;s.cells[to]!.tile=null;s.cells[to]!.obstacleId=o.id;o.anchor=to;o.footprint=[to];
+  if(displaced)ctx.events.push({type:'fall',cells:[from],from:to,to:from});
+  ctx.events.push({type:'mechanic',kind:'carousel',cells:[from,to],from,to,obstacleId:o.id,obstacleAfter:copy(o)});
+ }
 }
 function canSwap(s:GameState,a:number,b:number):boolean {
  if(!movable(s,a)||!movable(s,b)||!neighbors(s,a).includes(b))return false;
@@ -235,12 +258,13 @@ export function applyAction(input:GameState,action:Action):ActionResult {
     enqueue(ctx,targets,action.item,undefined,false,true);
    }else{
    if(!['hammer','sweep-row','sweep-column'].includes(action.item)||action.at===undefined||!valid(s,action.at))return invalid('INVALID_BOOSTER_TARGET');
-   const at=action.at;if(!s.cells[at]!.tile&&!obstacleAt(s,at)&&!s.cells[at]!.frost)return invalid('EMPTY_BOOSTER_TARGET');if(s.cells[at]!.tile?.kind==='seed'&&action.item==='hammer')return invalid('SEED_NOT_REMOVABLE');const obstacle=obstacleAt(s,at);if(action.item==='hammer'&&obstacle&&(obstacle.kind==='pot'||(obstacle.kind==='cabinet'&&obstacle.color)))return invalid('COLOR_CHARGE_REQUIRED');
-   const targets=action.item==='hammer'?[at]:line(s,at,action.item==='sweep-row');const effective=targets.some(i=>{const o=obstacleAt(s,i),t=s.cells[i]!.tile;return o?o.kind!=='pot'&&!(o.kind==='cabinet'&&o.color):!!t&&t.kind!=='seed';});if(!effective)return invalid('NO_EFFECTIVE_TARGET');enqueue(ctx,targets,action.item);
+   const at=action.at;if(!s.cells[at]!.tile&&!obstacleAt(s,at)&&!s.cells[at]!.frost)return invalid('EMPTY_BOOSTER_TARGET');if(s.cells[at]!.tile?.kind==='seed'&&action.item==='hammer')return invalid('SEED_NOT_REMOVABLE');const obstacle=obstacleAt(s,at);if(action.item==='hammer'&&obstacle&&(obstacle.kind==='pot'||obstacle.kind==='bud'||obstacle.kind==='curtain'||(obstacle.kind==='cabinet'&&obstacle.color)))return invalid('COLOR_CHARGE_REQUIRED');
+   const targets=action.item==='hammer'?[at]:line(s,at,action.item==='sweep-row');const effective=targets.some(i=>{const o=obstacleAt(s,i),t=s.cells[i]!.tile;return o?o.kind!=='pot'&&o.kind!=='bud'&&o.kind!=='curtain'&&!(o.kind==='cabinet'&&o.color):!!t&&t.kind!=='seed';});if(!effective)return invalid('NO_EFFECTIVE_TARGET');enqueue(ctx,targets,action.item);
    }
   }else return invalid('UNKNOWN_ACTION');
   if(usesMove){s.moves--;s.turn++;}
   cascades(ctx,initial);
+  if(usesMove&&Object.values(s.obstacles).some(o=>o.kind==='carousel')&&!s.goals.every(g=>g.remaining===0)){rotatePlanters(ctx);cascades(ctx);}
   if(s.goals.every(g=>g.remaining===0)){s.status='won';events.push({type:'win',cells:[]});}
   else {if(usesMove)growMoss(ctx);if(s.goals.every(g=>g.remaining===0)){s.status='won';events.push({type:'win',cells:[]});}else if(s.moves===0){s.status='lost';events.push({type:'lose',cells:[]});}else if(!legalActions(s).length&&!reshuffle(s,events))throw new Error('UNRECOVERABLE_DEADLOCK');}
   return {state:s,events,accepted:true};

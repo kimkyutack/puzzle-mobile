@@ -1,0 +1,28 @@
+.hub-navigation>.hub-footer[data-hub-tabs="5"]{grid-template-columns:repeat(5,minmax(0,1fr))}
+.friends-menu{min-width:0;color:#fff}
+.game-shell>.toast.friend-toast{position:absolute;top:auto;bottom:calc(85px + var(--safe-bottom));isolation:isolate;min-height:52px;padding:14px 20px;display:flex;align-items:center;justify-content:center}
+.friend-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:0 0 14px}
+.friend-tabs>button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;min-height:64px;padding:6px 4px 11px;color:#fff;font-size:13px;line-height:18px;-webkit-text-stroke:1px #1b396d;paint-order:stroke fill}
+.friend-tabs>button>span{display:flex;align-items:center;gap:3px}.friend-tabs b{font-family:var(--font-game-number);font-size:13px;color:#fff2b1}
+.friends-menu section[role="tabpanel"]>h3{color:#fff!important;font-size:18px;line-height:25px;margin:16px 3px 9px!important}.friends-menu h3>span{color:#ffdf85}
+.friend-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin:0;padding:0}
+.friend-person{position:relative;display:flex;align-items:center;gap:7px;min-width:0;min-height:82px;padding:11px 12px 15px;color:#20335d}
+.friend-person-profile{display:flex;align-items:center;gap:7px;min-width:0;flex:1;min-height:48px;padding:0;text-align:left;color:#20335d}
+.friend-person-profile>span,.friend-gift-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.friend-person-profile strong,.friend-gift-copy strong{font-size:15px;line-height:21px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.friend-person-profile small,.friend-gift-copy small{font-size:11px;line-height:16px;color:#2c4165;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.friend-person-profile>.icon{flex:none;width:44px;height:48px;object-fit:contain}
+.friend-person-actions{flex:none;display:flex;flex-direction:column;gap:4px;min-width:62px;max-width:86px}
+.friends-menu .friend-person-actions .game-button{width:100%;min-width:0;min-height:44px;height:44px;margin:0;padding:6px 8px 12px;gap:2px;font-size:13px;line-height:20px;white-space:nowrap}
+.friend-person-actions .game-button>.icon{width:21px;height:24px}.friend-connected{display:flex;align-items:center;justify-content:center;gap:3px;font-size:12px;color:#28466d}
+.friends-menu .friend-note{font-size:12px;line-height:19px;color:#fff;margin:0 3px 12px}
+.friend-empty{text-align:center}.friend-empty h3{font-size:20px!important;line-height:27px}.friend-empty p{font-size:13px;line-height:20px}
+.friends-menu .friend-heart-hero{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:center;gap:10px;padding:19px 17px 23px!important}
+.friend-heart-hero>.icon{width:64px;height:72px;object-fit:contain}.friends-menu .friend-heart-hero h3{font-size:18px!important;line-height:25px;margin:0 0 6px!important}.friend-heart-hero p{font-size:12px;line-height:19px;margin:0}
+.friend-heart-hero>.game-button,.friend-heart-hero>small,.friend-heart-hero>p{grid-column:1/-1;text-align:center}.friend-heart-hero>.game-button{margin:0;min-height:48px;font-size:17px}.friend-heart-hero>small{font-size:11px;line-height:18px;color:#263a61}
+.friend-profile{text-align:center}.friend-profile .content-card{padding:20px 18px!important}.friend-profile h3{font-size:24px!important;line-height:30px!important;overflow-wrap:anywhere}.friend-profile p{font-size:15px;line-height:23px}
+.friend-profile-guild{display:flex;align-items:center;justify-content:center;gap:7px}.friend-profile-record{display:flex;align-items:center;justify-content:center;gap:10px}.friend-profile-record>span{display:flex;flex-direction:column;gap:7px;font-size:14px}.friend-profile-record strong{font-family:var(--font-game-number);font-size:32px;line-height:36px}
+.ranking-menu .ranking-tabs:has(>button:nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))}.ranking-entry button.ranking-avatar{display:flex;align-items:center;justify-content:center;min-width:36px;min-height:44px;padding:0}.ranking-avatar>.icon{width:36px;height:39px;object-fit:contain}.ranking-name button{min-width:0;min-height:44px;padding:0;text-align:left;color:inherit;font-size:inherit;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.guild-profile-link{padding:0;min-height:44px;max-width:100%;text-align:left;overflow:hidden;text-overflow:ellipsis;color:inherit;font:inherit}.guild-member-profile{display:flex;align-items:center;gap:8px;min-width:0;flex:1}.guild-member-profile>span{min-width:0;display:flex;flex-direction:column;gap:3px}.guild-member-profile small{font-size:11px;line-height:17px}.guild-member-profile>.icon{flex:none}
+.row-profile-icon{display:flex;align-items:center;justify-content:center;min-width:42px;min-height:48px;padding:0;flex:none}.row-profile-icon>.icon{width:42px;height:42px;object-fit:contain}
+@media(max-width:370px){.friend-person{padding-left:9px;padding-right:9px;gap:5px}.friend-person-profile{gap:4px}.friend-person-profile>.icon{width:37px;height:43px}.friend-person-profile strong{font-size:13px}.friend-person-profile small{font-size:10px}.friends-menu .friend-person-actions .game-button{font-size:12px;padding-left:5px;padding-right:5px}.friend-person-actions{max-width:76px}.hub-navigation>.hub-footer .hub-nav-item>span{font-size:12px}.hub-navigation>.hub-footer .hub-nav-home>span{font-size:14px}}

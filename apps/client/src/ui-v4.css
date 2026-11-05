@@ -1,0 +1,76 @@
+/* Semantic content groups and readable ink on the existing lively game palette. */
+:root{--ink:#173b53;--muted-ink:#314f65}
+.game-button[data-button-tone="green"],.game-button[data-button-tone="green"]:disabled{color:#173713;text-shadow:0 1px 0 #d3f4a1;-webkit-text-stroke:0}
+.game-button[data-button-tone="gold"],.game-button[data-button-tone="gold"]:disabled{color:#502807;text-shadow:0 1px 0 #ffdf9a;-webkit-text-stroke:0}
+.game-button[data-button-tone="blue"],.game-button[data-button-tone="blue"]:disabled{color:#092c4f;text-shadow:0 1px 0 #afe8ff;-webkit-text-stroke:0}
+button:disabled{opacity:1}.game-button:disabled{cursor:default}.icon-button:disabled>.icon{opacity:.65}
+.game-button>.button-label{font-size:inherit;font-weight:400}.game-button small{color:inherit}
+.modal-content{color:var(--ink)}.modal-content .fine,.row-meta,.row-meta small,.chat-message small,.guild-title p{color:var(--muted-ink);opacity:1}
+.theme-pass .modal-content{color:#f2f6ff}.theme-pass .modal-content>.fine,.theme-pass .modal-content>.intro,.theme-pass .pass-labels{color:#f2f6ff}.theme-pass .pass-row>strong{color:#f3f7ff}
+.theme-shop .modal-heading,.theme-shop .modal-heading h2{color:#4b2407;text-shadow:0 1px 0 #ffcf83}
+input,textarea,select{color:#173b53}input::placeholder,textarea::placeholder{color:#415b6e;opacity:1}
+.content-card{position:relative;min-width:0;padding:17px 15px 19px;margin:0 0 14px;color:var(--ink);text-align:left}
+.content-card>h3{font-size:18px;line-height:1.3;text-align:left;margin:0 0 13px;color:var(--ink);word-break:keep-all}
+.content-card .fine,.content-card .intro,.content-card p,.content-card small,.theme-pass .content-card .fine{color:var(--muted-ink)}
+.content-card .intro{font-size:15px;line-height:1.5;text-align:center;word-break:keep-all;margin:8px 0 13px}
+.content-card>.game-button:last-child{margin-bottom:0}.content-card>.game-button:first-child{margin-top:0}
+.content-card .wallet-caption{margin:3px 0 5px;color:var(--ink)}.content-card .hero-reward{margin:3px 0 12px;color:var(--ink)}
+.content-card .profile-hero{margin:0}.content-card .profile-hero>.icon{width:82px;height:82px}.content-card .profile-hero h3{font-size:20px;margin:7px 0}
+.content-card .input-frame{margin:8px 0 11px}.content-card label{display:block;font-size:14px;line-height:1.4;margin-top:10px;color:var(--ink)}
+.content-card>.fine:last-child{margin-bottom:0}.content-card .row-meta{color:var(--muted-ink)}
+.list-row,.modal-content .list-row{position:relative;margin:0 0 10px;padding:13px 12px 15px;min-height:83px;column-gap:8px;color:var(--ink)}
+.list-row.grouped-row,.modal-content .list-row.grouped-row{margin:0;padding:9px 0;min-height:66px}
+.row-title,.modal-content .row-title{font-size:15px;color:var(--ink)}.row-body{min-width:0}.row-meta{line-height:1.45;margin-top:4px}.row-meta small{font-size:12px;line-height:1.4}
+.row-actions{min-width:0;max-width:108px}.row-actions>.game-button,.modal-content .row-actions>.game-button{min-width:76px;max-width:108px;font-size:14px}
+.row-body .product-detail{gap:6px}.row-meta .product-detail small{color:var(--muted-ink)}
+.section-title,.modal-content>section>h3{font-size:19px;line-height:1.3;margin:17px 4px 12px;color:var(--ink)}
+.theme-pass .reward-card.free,.theme-pass .reward-card.premium{color:var(--ink)}.reward-card .reward-amount{color:var(--ink)}.reward-card>small{color:#23465d}
+.pass-row .claim-button{font-size:13px;min-height:38px}.pass-labels{font-size:14px}.reward-card{padding:13px 8px 10px}
+.guild-title{margin:0;gap:10px;align-items:center}.guild-title h3{font-size:19px;line-height:1.3;color:var(--ink)}.guild-title p,.guild-title small{font-size:12px;line-height:1.45;color:var(--muted-ink)}
+.chat-list{padding:0;min-height:100px;max-height:260px}.chat-message{padding:10px 2px}.chat-message strong{color:#153e66;font-size:14px}.chat-message p{color:var(--ink);font-size:15px}
+.result-summary{text-align:center}.result-summary .result-lumi{width:118px;height:128px}.result-summary .result-rewards{gap:22px;margin:4px 0 10px;color:var(--ink)}.result-summary .intro{font-size:16px;margin:4px 0 0;color:var(--ink)}
+.modal-content .ad-button{font-size:14px;line-height:1.4;color:#173b53;text-decoration:underline;text-underline-offset:3px;padding:8px}
+.extra-moves{font-size:62px;color:#173b53}.discovery-card .discovery-reward{height:185px;margin:-4px -6px 3px}.discovery-card .intro{margin-bottom:0;font-size:15px}
+/* Text over scenery is backed by a real dark raster plate instead of a pale thin shadow. */
+.play-status:not(:empty){min-height:28px;padding:5px 10px;color:#fff9df;-webkit-text-stroke:0;text-shadow:0 1px 0 #15345c;font-size:13px;line-height:18px}
+.level-ribbon{font-size:14px;line-height:19px;color:#173b53;-webkit-text-stroke:0;text-shadow:0 1px 0 #e5f0dc}
+.garden-caption{font-size:12px;line-height:18px;color:#fff8dc;text-shadow:0 1px 1px #173a2a}.garden-caption button{font-size:12px;line-height:18px}
+.bottom-nav .icon-button small,.bottom-nav .icon-button:nth-child(2) small{color:#fff9df;font-size:14px;line-height:17px;text-shadow:0 1px 0 #15345c}
+.bottom-nav .icon-button{height:57px;min-height:57px}.bottom-nav .icon-button img,.bottom-nav .icon-button:nth-child(2) img{height:36px;width:39px}
+.booster-toolbar>button>small,.play-footer-controls small{font-size:11px;color:#fff9df;text-shadow:0 1px 0 #102d69}
+.currency strong{color:#173b53;text-shadow:none;-webkit-text-stroke:0}.currency.hearts strong,.currency.stars strong{color:#fff9df;-webkit-text-stroke:1px #592344;paint-order:stroke fill}
+.target-panel .hud-label{color:#173b53;text-shadow:none;-webkit-text-stroke:0;top:10px}.targets strong{color:#173b53}.lumi-hud span{font-size:12px}
+@media(max-width:370px){.content-card{padding:15px 11px 17px}.list-row,.modal-content .list-row{padding:12px 9px 14px;gap:6px}.list-row.grouped-row,.modal-content .list-row.grouped-row{padding:9px 0}.row-title,.modal-content .row-title{font-size:14px}.row-actions>.game-button,.modal-content .row-actions>.game-button{min-width:70px;max-width:98px;font-size:13px}.content-card>h3{font-size:17px}.pass-row{grid-template-columns:19px minmax(0,1fr) minmax(0,1fr)}.reward-card{padding-left:6px;padding-right:6px}.reward-amount span{font-size:11px}.pass-row .claim-button{font-size:12px}}
+.garden-caption{margin:0 14px 8px;padding:6px 12px;min-height:34px;color:#fff9df;text-shadow:0 1px 0 #351b62}.garden-caption button{min-height:22px;color:#fff9df}.home-lumi{bottom:calc(var(--safe-bottom) + 204px)}
+.level-ribbon{max-width:160px;min-height:28px;margin:0 auto 9px;padding:5px 9px;color:#fff9df;font-size:13px;line-height:18px;text-shadow:0 1px 0 #351b62}
+.booster-count b{-webkit-text-stroke:1px #6d1430;paint-order:stroke fill}
+/* Readability fixes from the complete raster contrast audit. */
+.game-button[data-button-tone="blue"],.game-button[data-button-tone="blue"]:disabled{color:#00182f}
+.content-card .game-button small,.game-button small{color:inherit}
+.modal-heading h2{color:#fff8dd;-webkit-text-stroke:2px #123653;paint-order:stroke fill;text-shadow:none}
+.theme-shop .modal-heading h2{color:#301605;-webkit-text-stroke:0;text-shadow:0 1px 0 #ffd58d}
+.theme-result .modal-heading{margin:0 -8px 13px;padding:4px 26px 8px;min-height:55px}
+.theme-result .modal-heading .icon-button{top:-8px;right:-27px}
+.home-events span{-webkit-text-stroke:1px #51206c;paint-order:stroke fill}
+.moves-panel .hud-label{-webkit-text-stroke:1.2px #76162c;paint-order:stroke fill;text-shadow:none}
+.preboosters{align-items:stretch;gap:8px;margin:12px 0 8px}.preboosters button{height:140px;min-height:140px;padding:23px 6px 15px;gap:3px;justify-content:center;color:#173b53;overflow:visible}
+.preboosters button>.icon{width:52px;height:52px}.preboosters button>span{font-size:18px;line-height:22px;color:#173b53}.preboosters button>small{font-size:12px;line-height:16px;color:#173b53;white-space:nowrap}
+.preboosters button.selected{transform:none}.preboosters button>b{top:8px;left:50%;right:auto;transform:translateX(-50%);width:44px;height:18px;padding:2px 4px;margin:0;color:#fff9df;font-size:11px;line-height:14px}
+.emblem-picker{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:14px 0}.emblem-choice{position:relative;min-width:0;height:82px;padding:13px 5px 12px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;color:#173b53}
+.emblem-choice small{font-size:12px;line-height:15px;color:#173b53!important;white-space:nowrap}.emblem-choice b{position:absolute;right:7px;top:8px;font-family:system-ui;font-size:13px;line-height:14px;color:#124a2a}
+.pass-row,.pass-labels{grid-template-columns:28px minmax(0,1fr) minmax(0,1fr)}.pass-row>.tier-index{align-self:center;width:26px;height:28px;min-height:28px;flex:none;padding:4px 2px;color:#fff9df;font-size:17px;line-height:20px}
+.reward-card{padding-top:13px}.reward-card .reward-amount{color:#173b53}
+.tutorial-bubble{padding:15px 17px 14px;min-height:84px;color:#173b53}.tutorial-bubble p{font-size:14px;line-height:1.45;color:#173b53}.tutorial-bubble button{color:#173b53}
+.level-ribbon.is-tool-hint{width:250px;max-width:100%}.hud-tool{position:relative;width:83px;height:89px;min-width:44px;min-height:44px}.hud-tool>.icon:first-child{position:absolute;left:3px;top:0;width:78px;height:78px}.hud-tool>.icon:nth-child(2){position:absolute;left:16px;top:10px;width:52px;height:52px}
+.hud-tool>span{position:absolute;left:15px;right:14px;bottom:1px;height:22px;padding:4px 3px;font-size:12px;line-height:14px;color:#fff9df;-webkit-text-stroke:0;text-shadow:none}
+.row-meta .product-detail small{word-break:keep-all;overflow-wrap:normal}
+@media(max-width:370px){.preboosters{gap:6px}.preboosters button{padding-left:4px;padding-right:4px}.emblem-picker{gap:5px}.emblem-choice{padding-left:3px;padding-right:3px}.emblem-choice small{font-size:11px}.pass-row,.pass-labels{grid-template-columns:26px minmax(0,1fr) minmax(0,1fr)}}
+.theme-result .modal{padding-top:14px}
+/* Chromium 113 accepts paint-order but still erodes HTML text fills. Shadows
+   outline only the outside, preserving the full Jua glyph on older WebViews. */
+.legacy-text .modal-heading h2{-webkit-text-stroke:0;text-shadow:-2px 0 0 #123653,2px 0 0 #123653,0 -2px 0 #123653,0 2px 0 #123653,-1.5px -1.5px 0 #123653,1.5px -1.5px 0 #123653,-1.5px 1.5px 0 #123653,1.5px 1.5px 0 #123653}
+.legacy-text .theme-shop .modal-heading h2{text-shadow:0 1px 0 #ffd58d}
+.legacy-text .garden-title h1{--legacy-outline:#92362f}.legacy-text .home-events span{--legacy-outline:#51206c}
+.legacy-text .currency.hearts strong,.legacy-text .currency.stars strong{--legacy-outline:#592344}
+.legacy-text .lumi-hud span{--legacy-outline:#17377f}.legacy-text .moves-panel .hud-label,.legacy-text .moves-panel strong{--legacy-outline:#76162c}.legacy-text .booster-count b{--legacy-outline:#6d1430}
+.legacy-text :is(.garden-title h1,.home-events span,.currency.hearts strong,.currency.stars strong,.lumi-hud span,.moves-panel .hud-label,.moves-panel strong,.booster-count b){-webkit-text-stroke:0;text-shadow:-1px -1px 0 var(--legacy-outline),0 -1px 0 var(--legacy-outline),1px -1px 0 var(--legacy-outline),-1px 0 0 var(--legacy-outline),1px 0 0 var(--legacy-outline),-1px 1px 0 var(--legacy-outline),0 1px 0 var(--legacy-outline),1px 1px 0 var(--legacy-outline)}

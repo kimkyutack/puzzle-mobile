@@ -1,0 +1,14 @@
+import React,{useEffect,useRef,useState} from 'react';
+import {createRoot} from 'react-dom/client';
+import {createGardenWorld,applyTrustedDecorationGrant,applyGardenCommand,GARDEN_ROTATIONS} from '../../packages/garden-world/src';
+import {WorldMap,type MapHandle} from '../../apps/client/src/garden-world/WorldMap';
+import {loadWorldArt,type LoadedArt} from '../../apps/client/src/garden-world/assets';
+import '../../apps/client/src/garden-world/fonts.css';
+let world=applyTrustedDecorationGrant(createGardenWorld('directions-qa'),{ownerId:'directions-qa',grantId:'four-benches',itemId:'garden-bench',variant:'classic',source:'shop',instanceIds:['bench-0','bench-90','bench-180','bench-270']});
+const sites=[[12,19],[15,16],[16,15],[19,12]];
+for(const [i,rotation]of GARDEN_ROTATIONS.entries())world=applyGardenCommand(world,{type:'place',instanceId:'bench-'+rotation,x:sites[i]![0]!,y:sites[i]![1]!,rotation,operationId:'place-'+rotation,expectedRevision:world.revision},world.ownerId);
+function Fixture(){const [art,setArt]=useState<Record<string,LoadedArt>|null>(null),map=useRef<MapHandle>(null);
+ useEffect(()=>{void loadWorldArt().then(setArt)},[]);
+ useEffect(()=>{if(!art)return;let second=0;const first=requestAnimationFrame(()=>{map.current?.focus({x:16,y:16});second=requestAnimationFrame(()=>map.current?.zoom(.45/.68));});return()=>{cancelAnimationFrame(first);cancelAnimationFrame(second)}},[art]);
+ return <><main>{art&&<WorldMap ref={map} world={world} images={art} preview={null} previewValid editable reducedMotion onSelect={()=>{}} onPreview={()=>{}}/>}</main><nav>{GARDEN_ROTATIONS.map(rotation=><strong key={rotation}>{rotation}°</strong>)}</nav><footer>앞면과 뒷면 원화를 함께 사용합니다.</footer></>;
+}createRoot(document.getElementById('root')!).render(<Fixture/>);

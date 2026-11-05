@@ -1,0 +1,158 @@
+{
+  "method": "Technical alpha normalization, trim, resize; originals preserved. Existing approved UI PNGs copied independently of the main asset pack.",
+  "assets": [
+    {
+      "id": "ground",
+      "width": 256,
+      "height": 128,
+      "alpha": true,
+      "bytes": 31080,
+      "removedPixels": 1997,
+      "sha256": "4b7a5dd5b8309f7f117f3fa555152d8e58bb6aabb50a02370cbe4ea57eba7ae7"
+    },
+    {
+      "id": "fountain",
+      "width": 640,
+      "height": 614,
+      "alpha": true,
+      "bytes": 680580,
+      "removedPixels": 10089,
+      "sha256": "fb4257a2bf8ba9a686fa5038715e4f0d29989bd7b356a5f48656eaea46a0ff81"
+    },
+    {
+      "id": "bench",
+      "width": 640,
+      "height": 623,
+      "alpha": true,
+      "bytes": 835147,
+      "removedPixels": 144476,
+      "sha256": "a92ea74b0c7334ddacfe85c8486e6919fef804a958aad94ff14a4c6d8015a1eb"
+    },
+    {
+      "id": "greenhouse",
+      "width": 640,
+      "height": 551,
+      "alpha": true,
+      "bytes": 777157,
+      "removedPixels": 9762,
+      "sha256": "e02756185f77936a850fcf121067a6499c3d90b610f6159cfac1b42f751d65d9"
+    },
+    {
+      "id": "planter",
+      "width": 640,
+      "height": 503,
+      "alpha": true,
+      "bytes": 653987,
+      "removedPixels": 42142,
+      "sha256": "1b8150f569d5e47bad84a9c2309945b1ae7826ccf9901e7482cac5d709536021"
+    },
+    {
+      "id": "path",
+      "width": 256,
+      "height": 128,
+      "alpha": true,
+      "bytes": 39585,
+      "removedPixels": 1999,
+      "sha256": "1b7fdcf67d704333b2beed6d86d859e4b9470e38757b4eb8a005040d7d2b463c"
+    },
+    {
+      "id": "lamp",
+      "width": 235,
+      "height": 640,
+      "alpha": true,
+      "bytes": 192580,
+      "removedPixels": 8908,
+      "sha256": "fbf8e7969478da19bb1e9865f318c5d17825a0de5dd20b9edec51e6a1f92ecf0"
+    },
+    {
+      "id": "tree",
+      "width": 542,
+      "height": 640,
+      "alpha": true,
+      "bytes": 716178,
+      "removedPixels": 6579,
+      "sha256": "6c5afcb73abad4307df519d49ea28db85b38ba6e4d6b052e222aa090674de229"
+    },
+    {
+      "id": "rose-arch",
+      "width": 536,
+      "height": 640,
+      "alpha": true,
+      "bytes": 758773,
+      "removedPixels": 264624,
+      "sha256": "499790389fdb541af41fe6a9ff83cb6e9af44f531aee483e53b718fcf8cafdf3"
+    },
+    {
+      "id": "gazebo",
+      "width": 622,
+      "height": 640,
+      "alpha": true,
+      "bytes": 797344,
+      "removedPixels": 11709,
+      "sha256": "c883de13193d6a5c676e907098dc9b98b6722f82f8e704f307a353cffbc8691a"
+    },
+    {
+      "id": "pond",
+      "width": 640,
+      "height": 429,
+      "alpha": true,
+      "bytes": 536558,
+      "removedPixels": 9392,
+      "sha256": "31f8baa2068f926e2636fc342c7c1a70dddfe47ff65295bf5d2c5c9a2a72fc36"
+    },
+    {
+      "id": "picnic",
+      "width": 640,
+      "height": 473,
+      "alpha": true,
+      "bytes": 636085,
+      "removedPixels": 7753,
+      "sha256": "99e25db140430ec1c35f938d2f30f183cbf50f7fdbedb4e5bde36042fea50edf"
+    },
+    {
+      "id": "hedge",
+      "width": 640,
+      "height": 514,
+      "alpha": true,
+      "bytes": 642775,
+      "removedPixels": 7356,
+      "sha256": "cf0f200c147ee4bc7aef3c4e9e609a2ff02f09cc4a886a5fe4683bf7bd23cd56"
+    },
+    {
+      "id": "mushroom",
+      "width": 458,
+      "height": 640,
+      "alpha": true,
+      "bytes": 567566,
+      "removedPixels": 9060,
+      "sha256": "6402355c3b6f7a4ae4fed5f545dd69e0edaaf4047cbd3aa64242107f378e006f"
+    },
+    {
+      "id": "rabbit",
+      "width": 413,
+      "height": 640,
+      "alpha": true,
+      "bytes": 507297,
+      "removedPixels": 71451,
+      "sha256": "cf4c859e9136e8375ca4761d4a356c4a35b6da2fc73c5818e540987e4f22dc54"
+    },
+    {
+      "id": "cat",
+      "width": 498,
+      "height": 640,
+      "alpha": true,
+      "bytes": 627747,
+      "removedPixels": 14508,
+      "sha256": "d6206b1fb01e059e63daf289082dcd89397b16bd3ce1917ecc0c07540bfa9eb3"
+    },
+    {
+      "id": "dog",
+      "width": 569,
+      "height": 640,
+      "alpha": true,
+      "bytes": 755297,
+      "removedPixels": 124999,
+      "sha256": "dea0511d14ef3b40a6dd9b5a0f41dfcfd066ad1c1ebaf6f20b3365221db73f29"
+    }
+  ]
+}

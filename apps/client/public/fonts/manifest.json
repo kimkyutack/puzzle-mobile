@@ -1,0 +1,49 @@
+{
+  "retrievedAt": "2026-11-02",
+  "license": "SIL Open Font License 1.1",
+  "modified": false,
+  "files": [
+    {
+      "file": "Jua-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jua/Jua-Regular.ttf",
+      "bytes": 2119352,
+      "sha256": "769677aef240bfc3b9965f2b50748075bff885e6c6992fc591a3fb268279f898"
+    },
+    {
+      "file": "jua-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jua/OFL.txt",
+      "bytes": 4342,
+      "sha256": "44a7c6e4c5572392ae122d3b1d8c6ba6fd640a7797e675384585d947f2773e3c"
+    },
+    {
+      "file": "jua-METADATA.pb",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jua/METADATA.pb",
+      "bytes": 763,
+      "sha256": "a5b859cf6fbdc1870e9e298b8aefd5fc2d0fa24fd43a0ee0392a440442585bb5"
+    },
+    {
+      "file": "LilitaOne-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lilitaone/LilitaOne-Regular.ttf",
+      "bytes": 28092,
+      "sha256": "f5b641c45c69d772ee4eda687bc9fda411d5cad6b0b45371491da4580cbc8d59"
+    },
+    {
+      "file": "lilitaone-OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lilitaone/OFL.txt",
+      "bytes": 4392,
+      "sha256": "255d5debbb80eb2ea762644311f266a279e8778f00156655a516e2b7781a63e1"
+    },
+    {
+      "file": "lilitaone-FONTLOG.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lilitaone/FONTLOG.txt",
+      "bytes": 939,
+      "sha256": "5e324e1bb38125eaeeea4678ec10d8ab4da0b7fa037608ec78d9096221dbae50"
+    },
+    {
+      "file": "lilitaone-METADATA.pb",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lilitaone/METADATA.pb",
+      "bytes": 616,
+      "sha256": "e580e1c3c344299b94e7ac05dc578b5f7d3253b37a0bae7ff3e91c9f7a8c47bd"
+    }
+  ]
+}

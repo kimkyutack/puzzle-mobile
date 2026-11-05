@@ -1,0 +1,30 @@
+.commerce-dialog-host{position:fixed;inset:0;width:100%;max-width:520px;height:100dvh;margin:0 auto;z-index:1000;isolation:isolate;font-family:var(--font-game-ui)}
+.commerce-dialog-host>.modal-layer{position:absolute;inset:0;z-index:0}
+.commerce-dialog-host .modal-content{padding-bottom:13px}
+.tool-purchase-summary{padding:23px 24px 27px;text-align:center}.tool-purchase-summary>.icon{width:112px;height:112px;display:block;margin:0 auto 5px}.tool-purchase-summary h3{margin:0 0 4px;font-size:25px;line-height:31px}.tool-purchase-quantity{font-size:17px;line-height:23px}.tool-purchase-price{display:flex;flex-direction:column;gap:8px;margin:16px 0 0}.tool-purchase-price>div{display:flex;justify-content:space-between;gap:9px;align-items:center}.tool-purchase-price dt{font-size:13px;line-height:18px}.tool-purchase-price dd{margin:0}.tool-purchase-price .resource-amount{font-size:24px}.tool-purchase-price .resource-amount>.icon{width:28px;height:29px}.tool-purchase-price .purchase-owned .resource-amount{font-size:18px}.tool-purchase-price .purchase-owned .icon{width:23px;height:24px}
+.commerce-dialog-host .purchase-feedback{color:var(--surface-ink);font-size:13px;line-height:20px;text-align:center;margin:10px 0 14px}.commerce-dialog-host .purchase-actions{display:flex;flex-direction:column;gap:7px}.commerce-dialog-host .purchase-actions>.game-button{margin:0}.commerce-dialog-host .purchase-actions .resource-amount{font-size:22px}
+.pass-claim-tools,.pass-premium-entry{padding:22px 22px 25px;margin-bottom:14px}.pass-claim-copy,.pass-premium-copy{display:flex;align-items:center;gap:10px}.pass-claim-copy>div,.pass-premium-copy>div{min-width:0}.pass-claim-copy h3,.pass-premium-copy h3{margin:0 0 4px;font-size:18px;line-height:23px}.pass-claim-copy p,.pass-premium-copy p{margin:0;font-size:12px;line-height:18px}.pass-claim-copy>.icon{width:46px;height:49px}.pass-premium-copy>.icon{width:60px;height:65px}.pass-claim-tools .pass-claim-all,.pass-premium-entry .pass-premium-open{margin:12px 0 0;min-height:50px;font-size:19px}.pass-claim-tools .pass-claim-all .icon{width:28px;height:30px}.pass-premium-entry .pass-store-state{font-size:11px;line-height:17px;margin:10px 0 0;text-align:center;color:var(--surface-muted)}.pass-owned{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:12px;font-size:17px;line-height:24px}
+.premium-purchase-summary{padding:23px 23px 27px;text-align:center}.premium-purchase-summary>.icon{width:104px;height:104px;display:block;margin:0 auto 7px}.premium-purchase-summary h3{font-size:22px;line-height:28px;margin:0 0 9px}.premium-purchase-summary p{font-size:14px;line-height:21px;margin:10px 0}.premium-purchase-summary>small{font-size:12px;line-height:18px}.premium-total{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 17px}.premium-total .resource-amount{font-size:23px}.premium-total .resource-amount .icon{width:31px;height:33px}
+@media(max-width:370px){.pass-claim-tools,.pass-premium-entry{padding-left:19px;padding-right:19px}.pass-claim-copy,.pass-premium-copy{gap:8px}.pass-claim-copy h3,.pass-premium-copy h3{font-size:17px}.pass-premium-copy>.icon{width:51px;height:58px}.tool-purchase-summary{padding-left:21px;padding-right:21px}.tool-purchase-summary h3{font-size:23px}.tool-purchase-price .resource-amount{font-size:22px}}
+.pass-claim-tools,.pass-premium-entry,.tool-purchase-summary,.premium-purchase-summary{padding-left:32px;padding-right:32px}
+@media(max-width:370px){.pass-claim-tools,.pass-premium-entry,.tool-purchase-summary,.premium-purchase-summary{padding-left:28px;padding-right:28px}}
+/* These component rules must also win when the app's base cards load later. */
+.commerce-dialog-host .tool-purchase-summary,.commerce-dialog-host .premium-purchase-summary{padding:23px 32px 27px;text-align:center}
+.commerce-dialog-host .tool-purchase-summary>.icon{width:112px;height:112px;display:block;margin:0 auto 5px}
+.commerce-dialog-host .tool-purchase-summary>h3{margin:0 0 4px;font-size:25px;line-height:31px;text-align:center}
+.commerce-dialog-host .tool-purchase-summary>.tool-purchase-quantity{font-size:17px;line-height:23px;text-align:center}
+.commerce-dialog-host .premium-purchase-summary>.icon{width:104px;height:104px;display:block;margin:0 auto 7px}
+.commerce-dialog-host .premium-purchase-summary>h3{font-size:22px;line-height:28px;margin:0 0 9px;text-align:center}
+.commerce-dialog-host .premium-purchase-summary>p{font-size:14px;line-height:21px;margin:10px 0;text-align:center}
+.commerce-dialog-host .premium-purchase-summary>small{font-size:12px;line-height:18px;text-align:center}
+.commerce-dialog-host .catalog-purchase-summary{padding:23px 30px 27px;text-align:center}
+.commerce-dialog-host .catalog-purchase-summary>.icon{display:block;width:108px;height:108px;object-fit:contain;margin:0 auto 8px}
+.commerce-dialog-host .catalog-purchase-summary>h3{margin:0 0 10px;font-size:23px;line-height:29px;text-align:center}
+.commerce-dialog-host .catalog-purchase-summary>.commerce-loot{justify-content:center;color:#20335d;gap:7px 12px}
+.commerce-dialog-host .catalog-purchase-summary>.commerce-loot>.resource-amount{width:100%;justify-content:center}
+.commerce-dialog-host .catalog-purchase-summary>.commerce-loot .icon{width:30px;height:30px}
+.commerce-dialog-host .catalog-purchase-summary>p{font-size:14px;line-height:21px;text-align:center}
+.commerce-dialog-host .modal-content .catalog-price-retry{color:#20335d;--surface-ink:#20335d;--surface-muted:#20335d;-webkit-text-stroke:0;text-shadow:none;font-size:14px}
+.commerce-dialog-host .modal-content .catalog-price-retry:disabled{color:#20335d;opacity:.8}
+.theme-pass .pass-claim-tools,.theme-pass .pass-premium-entry{padding:22px 32px 25px;margin-bottom:14px}
+@media(max-width:370px){.commerce-dialog-host .tool-purchase-summary,.commerce-dialog-host .premium-purchase-summary,.theme-pass .pass-claim-tools,.theme-pass .pass-premium-entry{padding-left:28px;padding-right:28px}.commerce-dialog-host .tool-purchase-summary>h3{font-size:23px}}

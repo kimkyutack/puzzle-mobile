@@ -1,20 +1,24 @@
 import {DECORATIONS,GARDEN_WORLD,type DecorationDefinition,type GardenDefinition,type GardenRegionId,type GardenRotation,type GridRect} from './catalog';
+import {canExpandGarden,gardenBounds,gardenExpansionPlot,isGardenCellUnlocked} from './land';
 
 export type DecorationSource='restoration'|'shop'|'event';
 export interface OwnedDecoration {id:string;itemId:string;variant:string;source:DecorationSource}
 export interface GardenPlacement {instanceId:string;x:number;y:number;rotation:GardenRotation}
 export interface GardenWorldState {
  ownerId:string;mapId:string;revision:number;unlockedRegions:GardenRegionId[];
+ /** Optional for worlds saved before paid land was introduced. Each ID owns a 5x4 plot. */
+ expansions?:string[];
  owned:Record<string,OwnedDecoration>;placements:Record<string,GardenPlacement>;
  /** These receipts belong in authoritative DB tables when the module is integrated. */
  grants:Record<string,string>;operations:Record<string,string>;
 }
 interface CommandBase {operationId:string;expectedRevision:number;instanceId:string}
 export type GardenCommand=(CommandBase & {type:'place'|'move';x:number;y:number;rotation:GardenRotation}) | (CommandBase & {type:'store'});
+export interface GardenPlacementBatch {operationId:string;expectedRevision:number;placements:GardenPlacement[]}
 export interface TrustedDecorationGrant {
  ownerId:string;grantId:string;itemId:string;variant:string;source:DecorationSource;instanceIds:string[];
 }
-export type GardenErrorCode='INVALID_INPUT'|'FORBIDDEN'|'UNKNOWN_ITEM'|'UNKNOWN_REGION'|'ITEM_NOT_FOR_SALE'|'GRANT_CONFLICT'|'INSTANCE_CONFLICT'|'OPERATION_CONFLICT'|'STALE_REVISION'|'NOT_OWNED'|'ALREADY_PLACED'|'NOT_PLACED'|'OUT_OF_BOUNDS'|'REGION_LOCKED'|'WRONG_REGION'|'UNSUPPORTED_ROTATION'|'OCCUPIED';
+export type GardenErrorCode='INVALID_INPUT'|'FORBIDDEN'|'UNKNOWN_ITEM'|'UNKNOWN_REGION'|'ITEM_NOT_FOR_SALE'|'GRANT_CONFLICT'|'INSTANCE_CONFLICT'|'OPERATION_CONFLICT'|'STALE_REVISION'|'NOT_OWNED'|'ALREADY_PLACED'|'NOT_PLACED'|'OUT_OF_BOUNDS'|'REGION_LOCKED'|'WRONG_REGION'|'UNSUPPORTED_ROTATION'|'OCCUPIED'|'LAND_UNAVAILABLE';
 export class GardenWorldError extends Error {
  constructor(public readonly code:GardenErrorCode){super(code);this.name='GardenWorldError';}
 }
@@ -64,8 +68,9 @@ export function validateGardenPlacement(state:GardenWorldState,placement:GardenP
  const instance=own(state.owned,placement.instanceId)??fail('NOT_OWNED'),item=itemDefinition(instance.itemId,catalog);
  if(!Number.isSafeInteger(placement.x)||!Number.isSafeInteger(placement.y))fail('INVALID_INPUT');
  const cells=placementCells(item,placement);
- if(cells.some(c=>c.x<0||c.y<0||c.x>=map.width||c.y>=map.height))fail('OUT_OF_BOUNDS');
- if(cells.some(c=>!map.regions.some(region=>state.unlockedRegions.includes(region.id)&&contains(region,c.x,c.y))))fail('REGION_LOCKED');
+ const bounds=gardenBounds(state,map);
+ if(cells.some(c=>c.x<0||c.y<0||c.x>=bounds.width||c.y>=bounds.height))fail('OUT_OF_BOUNDS');
+ if(cells.some(c=>!isGardenCellUnlocked(state,c.x,c.y,map)))fail('REGION_LOCKED');
  if(item.regions&&cells.some(c=>!map.regions.some(region=>item.regions!.includes(region.id)&&contains(region,c.x,c.y))))fail('WRONG_REGION');
  const occupied=new Set<string>();
  for(const existing of Object.values(state.placements)){
@@ -100,6 +105,25 @@ export function applyGardenCommand(state:GardenWorldState,command:GardenCommand,
  return {...state,revision:state.revision+1,placements,operations:{...state.operations,[command.operationId]:fingerprint}};
 }
 
+/** A brush stroke consumes owned copies only. All placements validate before one revision commits. */
+export function applyGardenPlacementBatch(state:GardenWorldState,batch:GardenPlacementBatch,actorId:string,map:GardenDefinition=GARDEN_WORLD,catalog:readonly DecorationDefinition[]=DECORATIONS):GardenWorldState {
+ if(actorId!==state.ownerId)fail('FORBIDDEN');
+ requireMap(state,map);requireId(batch.operationId);
+ if(!Number.isSafeInteger(batch.expectedRevision)||batch.expectedRevision<0||!Array.isArray(batch.placements)||batch.placements.length<1||batch.placements.length>100)fail('INVALID_INPUT');
+ const fingerprint=JSON.stringify(['paint',batch.expectedRevision,batch.placements.map(p=>[p.instanceId,p.x,p.y,p.rotation])]);
+ const previous=own(state.operations,batch.operationId);
+ if(previous!==undefined){if(previous!==fingerprint)fail('OPERATION_CONFLICT');return state;}
+ if(batch.expectedRevision!==state.revision)fail('STALE_REVISION');
+ const placements={...state.placements};
+ for(const placement of batch.placements){
+  requireId(placement.instanceId);
+  if(own(placements,placement.instanceId))fail('ALREADY_PLACED');
+  validateGardenPlacement({...state,placements},placement,map,catalog);
+  placements[placement.instanceId]={...placement};
+ }
+ return {...state,revision:state.revision+1,placements,operations:{...state.operations,[batch.operationId]:fingerprint}};
+}
+
 /** Region availability is a trusted story/economy result, not a normal client placement command. */
 export function applyTrustedRegionUnlock(state:GardenWorldState,regionId:GardenRegionId,map:GardenDefinition=GARDEN_WORLD):GardenWorldState {
  requireMap(state,map);
@@ -108,13 +132,24 @@ export function applyTrustedRegionUnlock(state:GardenWorldState,regionId:GardenR
  return {...state,revision:state.revision+1,unlockedRegions:[...state.unlockedRegions,regionId]};
 }
 
+export function applyGardenExpansion(state:GardenWorldState,command:{operationId:string;expectedRevision:number;plotId:string},actorId:string,map:GardenDefinition=GARDEN_WORLD):GardenWorldState{
+ if(actorId!==state.ownerId)fail('FORBIDDEN');requireMap(state,map);requireId(command.operationId);
+ if(!Number.isSafeInteger(command.expectedRevision)||command.expectedRevision<0)fail('INVALID_INPUT');
+ const fingerprint=JSON.stringify(['expand',command.expectedRevision,command.plotId]),previous=own(state.operations,command.operationId);
+ if(previous!==undefined){if(previous!==fingerprint)fail('OPERATION_CONFLICT');return state;}
+ if(command.expectedRevision!==state.revision)fail('STALE_REVISION');
+ const plot=gardenExpansionPlot(command.plotId,map)??fail('LAND_UNAVAILABLE');if(!canExpandGarden(state,plot,map))fail('LAND_UNAVAILABLE');
+ return {...state,revision:state.revision+1,expansions:[...(state.expansions??[]),plot.id],operations:{...state.operations,[command.operationId]:fingerprint}};
+}
+
 export interface PublicGardenSnapshot {
  ownerId:string;mapId:string;revision:number;unlockedRegions:GardenRegionId[];
+ expansions?:string[];
  objects:Array<GardenPlacement & {itemId:string;variant:string}>;
 }
 /** Only placed appearance is public. No unplaced inventory, receipts, operations or economy. */
 export function publicGardenSnapshot(state:GardenWorldState):PublicGardenSnapshot {
- return {ownerId:state.ownerId,mapId:state.mapId,revision:state.revision,unlockedRegions:[...state.unlockedRegions],objects:Object.values(state.placements).map(placement=>{
+ return {ownerId:state.ownerId,mapId:state.mapId,revision:state.revision,unlockedRegions:[...state.unlockedRegions],...(state.expansions?.length?{expansions:[...state.expansions]}:{}),objects:Object.values(state.placements).map(placement=>{
   const item=own(state.owned,placement.instanceId)??fail('NOT_OWNED');
   return {...placement,itemId:item.itemId,variant:item.variant};
  })};

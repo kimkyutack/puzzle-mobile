@@ -1,0 +1,75 @@
+/* Original full-scene PNGs, kept at their authored ratios. Text and checkout
+   controls remain live DOM; local PNG faces sit above the poster painting. */
+.commerce-shop .sale-poster,.offers-menu-v7 .sale-poster{
+ position:relative;isolation:isolate;display:grid;grid-template-columns:47% minmax(0,1fr);align-items:center;
+ aspect-ratio:3/2;min-height:0;margin:0 0 12px;padding:15px 17px 18px;overflow:hidden;
+ color:#fff!important;--surface-ink:#fff;--surface-muted:#e2edff;
+}
+.sale-poster>.sale-poster-art{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+.sale-poster>.sale-poster-copy{position:relative;z-index:1;grid-column:2;display:flex;flex-direction:column;align-items:stretch;justify-content:center;min-width:0;min-height:0;gap:5px;text-align:center}
+.commerce-shop .package-feature.sale-poster{width:100%;aspect-ratio:2/1;margin-bottom:16px;padding:15px 18px 20px}
+.commerce-shop .package-feature.sale-poster .package-feature-copy>strong{font-size:21px;line-height:27px;color:#fff!important}
+.commerce-shop .package-feature.sale-poster .package-feature-copy>span:not(.package-feature-action){color:#e2edff;font-size:12px;line-height:17px}
+.commerce-shop .package-feature.sale-poster .package-feature-action{align-self:center;isolation:isolate;min-height:36px;width:132px;max-width:100%;margin-top:3px;padding:6px 7px 10px;font-size:14px;line-height:20px}
+.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head{min-height:0;gap:4px}
+.commerce-shop .catalog-bundle.sale-poster{grid-template-columns:54% minmax(0,1fr)}
+.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,
+.modal-layer .modal-content .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,
+.game-page .modal-content .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,
+.offers-menu-v7 .deal-banner.sale-poster .deal-heading h3,
+.modal-layer .modal-content .offers-menu-v7 .deal-banner.sale-poster .deal-heading h3{
+ color:#fff!important;font-size:18px;line-height:23px;margin:0!important;word-break:keep-all;overflow-wrap:anywhere;
+}
+.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head :is(p,small),
+.modal-layer .modal-content .offers-menu-v7 .sale-poster :is(.deal-deadline,.deal-theme-label,.deal-state),
+.offers-menu-v7 .sale-poster :is(.deal-deadline,.deal-theme-label,.deal-state){color:#e2edff!important;font-size:11px;line-height:16px;margin:0}
+.sale-poster .sale-poster-copy h3,.sale-poster .sale-poster-copy>strong{ text-shadow:0 2px 1px #102b60 }
+.commerce-shop .sale-poster .commerce-loot,.offers-menu-v7 .sale-poster .commerce-loot{
+ display:flex;justify-content:center;align-items:center;gap:4px 7px;margin:3px 0;padding:0;color:#fff;
+}
+.sale-poster .sale-poster-copy .commerce-loot>span{gap:1px;line-height:22px}
+.sale-poster .sale-poster-copy .commerce-loot>.resource-amount{width:100%;justify-content:center}
+.sale-poster .sale-poster-copy .commerce-loot .icon{width:24px;height:24px}
+.sale-poster .sale-poster-copy .commerce-loot strong{font-size:14px;line-height:22px;color:#fff}
+.sale-poster .sale-poster-copy .commerce-loot strong small{font-size:9px;line-height:12px;color:#fff}
+.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy,
+.offers-menu-v7 .sale-poster .deal-buy{position:relative;isolation:isolate;width:100%;min-width:0;min-height:36px;height:36px;margin:3px 0 0;padding:4px 7px 9px;font-size:16px;line-height:22px}
+.sale-poster .game-button>.button-label{position:static;transform:none;white-space:normal}
+.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy>.button-label{flex-wrap:nowrap;font-size:16px;white-space:nowrap}
+.commerce-shop .catalog-bundle.sale-poster .catalog-purchase-state{font-size:10px;line-height:14px;color:#e2edff!important}
+.commerce-shop .catalog-bundle.sale-poster .link-action{position:relative;isolation:isolate;justify-content:center;min-height:38px;margin:7px 0 0;padding:5px 7px 10px;color:#fff;font-size:13px;line-height:19px}
+.commerce-shop .catalog-bundle.sale-poster .link-action>.icon{width:24px;height:25px}
+.commerce-shop .catalog-bundle.sale-poster .link-action{color:#fffdf0;-webkit-text-stroke:1px #243f77;paint-order:stroke fill;text-shadow:0 1px 0 #243f77}
+.legacy-text .commerce-shop .catalog-bundle.sale-poster .link-action{-webkit-text-stroke:0;text-shadow:-1px 0 #243f77,1px 0 #243f77,0 -1px #243f77,0 1px #243f77}
+.modal-layer .modal:has(.offers-menu-v7){padding-left:18px;padding-right:18px}
+.offers-menu-v7 .deal-products{margin-inline:-3px}
+.offers-menu-v7 .deal-banner.sale-poster{margin:0;padding:13px 17px 16px;grid-template-columns:54% minmax(0,1fr)}
+.offers-menu-v7 .deal-banner.sale-poster .sale-poster-copy{gap:3px}
+.offers-menu-v7 .deal-banner.sale-poster .deal-heading{display:flex;flex-direction:column;gap:2px}
+.offers-menu-v7 .sale-poster .deal-heading h3{font-size:17px;line-height:22px}
+.modal-layer .modal-content .offers-menu-v7 .deal-banner.sale-poster .deal-heading h3{font-size:16px;line-height:21px}
+.offers-menu-v7 .sale-poster .deal-theme-label{margin-top:0;font-size:10px}
+.offers-menu-v7 .sale-poster .deal-footer{min-height:36px;margin:2px 0 0}
+.offers-menu-v7 .sale-poster .deal-price{isolation:isolate;min-width:0;width:100%;min-height:38px;padding:3px 6px 6px}
+.offers-menu-v7 .sale-poster .deal-price>strong{font-size:18px;line-height:19px;color:#fff}
+.offers-menu-v7 .sale-poster .deal-price>small,.modal-layer .modal-content .offers-menu-v7 .sale-poster .deal-price>small{font-size:9px;line-height:10px;color:#fff}
+.offers-menu-v7 .sale-poster .deal-state{min-height:36px;flex-wrap:wrap;gap:2px;font-size:11px;line-height:16px}
+.offers-menu-v7 .sale-poster>.deal-step{left:18px;top:15px;bottom:auto;z-index:1;isolation:isolate;min-height:28px;min-width:58px;padding:4px 8px 8px;color:#20335d;font-size:12px;line-height:16px}
+.legacy-text .sale-poster .sale-poster-copy h3,.legacy-text .sale-poster .sale-poster-copy>strong{ text-shadow:0 2px 1px #102b60 }
+@media(max-width:370px){
+ .commerce-shop .sale-poster{padding:12px 14px 15px;grid-template-columns:46% minmax(0,1fr)}
+ .offers-menu-v7 .deal-banner.sale-poster{padding:12px 14px 15px;grid-template-columns:54% minmax(0,1fr)}
+ .commerce-shop .package-feature.sale-poster{padding:12px 15px 16px}
+ .commerce-shop .package-feature.sale-poster .package-feature-copy>strong{font-size:19px;line-height:24px}
+ .commerce-shop .package-feature.sale-poster .package-feature-copy>span:not(.package-feature-action){font-size:11px;line-height:15px}
+ .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,.offers-menu-v7 .deal-banner.sale-poster .deal-heading h3{font-size:16px;line-height:21px}
+ .sale-poster>.sale-poster-copy{gap:3px}
+ .sale-poster .sale-poster-copy .commerce-loot{gap:2px 5px}
+ .sale-poster .sale-poster-copy .commerce-loot .icon{width:22px;height:22px}
+ .sale-poster .sale-poster-copy .commerce-loot strong{font-size:13px;line-height:21px}
+ .modal-layer .modal-content .offers-menu-v7 .deal-banner.sale-poster .deal-heading h3{font-size:14px;line-height:18px}
+ .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot{gap:2px 4px;margin:2px 0}
+ .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot>span{line-height:20px}
+ .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot .icon{width:20px;height:20px}
+ .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot strong{font-size:12px;line-height:20px}
+}

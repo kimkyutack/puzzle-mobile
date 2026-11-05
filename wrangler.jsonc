@@ -8,7 +8,8 @@
   "workers_dev": true,
   "preview_urls": false,
   "upload_source_maps": true,
-  "observability": {"enabled": true, "head_sampling_rate": 1, "redact_query_string": true},
+  "placement": {"mode": "smart"},
+  "observability": {"enabled": true, "head_sampling_rate": 1, "redact_query_string": true, "traces": {"enabled": true, "head_sampling_rate": 0.1}},
   "vars": {
     "ENVIRONMENT": "production",
     "LOCAL_DEV_TOOLS": "disabled",

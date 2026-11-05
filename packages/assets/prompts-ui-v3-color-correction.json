@@ -1,0 +1,47 @@
+[
+  {
+    "id": "panel_garden_v3",
+    "reference": "panel_garden_v3",
+    "prompt": "Edit the supplied original game UI asset. Restore a lively premium casual puzzle-game palette, cheerful saturated emerald-green frame with a slender bright gold inner bevel; polished 2.5D enamel rather than weathered wood. Interior must be clear medium pastel leaf-green (#b6dca3), not pale cream or white and not muddy gray. Top header richly emerald. Preserve the exact silhouette, thickness, integrated header, transparent outer margin and huge blank center. Keep dimensional shading and broad restrained highlights; no dazzling white bloom. No words.",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-7deaaf89-ad70-438a-844b-8a3274c55049.png",
+    "status": "active-vibrant-palette"
+  },
+  {
+    "id": "panel_guild_v3",
+    "reference": "panel_guild_v3",
+    "prompt": "Edit the supplied original game UI asset. Restore a lively premium casual puzzle-game palette: saturated royal/cobalt-blue frame with a slender gold inner bevel; polished 2.5D enamel rather than weathered wood. Interior is clear soft cornflower/sky blue (#a8ccec), not gray, cream or white. Top header rich royal blue. Preserve exact silhouette, thickness, integrated header, transparent outer margin and huge blank center. Keep strong dimensional volume and cheerful color, broad controlled highlights without white bloom. No words.",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-2318f289-16d5-4cf8-8cbc-28eea515434b.png",
+    "status": "active-vibrant-palette"
+  },
+  {
+    "id": "panel_pass_v3",
+    "reference": "panel_pass_v3",
+    "prompt": "Edit the supplied original game UI asset. Restore lively premium casual puzzle-game color: saturated royal purple outer frame, rich warm gold thin inner bevel, vibrant cobalt-indigo interior (#304e94). Polished 2.5D enamel rather than weathered wood, cheerful and jewel-like rather than dusty or melancholy. Preserve exact silhouette, thickness, integrated header, transparent outer margin and huge blank center. Controlled glossy upper highlights, no bright cream or white interior. No text.",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-181ec065-933c-451a-83b9-527b295d40a7.png",
+    "status": "active-vibrant-palette"
+  },
+  {
+    "id": "panel_shop_v3",
+    "reference": "panel_guild_v3",
+    "prompt": "Edit the supplied original game UI asset. Recolor this game popup into a cheerful orange and royal-blue shop panel. Saturated warm orange-gold outer sculpted frame with slim royal-blue inner bevel; clear soft apricot interior (#e6b47c), no pale cream or white, no gray, no murky brown. Integrated header vivid orange. Polished 2.5D enamel volume in a premium casual puzzle game, broad controlled highlights. Preserve exact silhouette, frame thickness and blank empty center with real transparency outside. No words.",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-a7ec22d6-9f51-452b-86e5-ca293182d040.png",
+    "status": "active-vibrant-palette"
+  },
+  {
+    "id": "dock_v3",
+    "reference": "dock_v3",
+    "prompt": "Edit the supplied original game UI asset. Restore a cheerful saturated royal-blue/cobalt mobile game navigation tray, smooth polished 2.5D enamel with a slender gold upper bevel and darker blue lower depth. Change all dull gray/wood tones to lively clear blue; keep the exact wide shallow silhouette and complete solid face extending to the bottom, exactly the same outer alpha and proportions. Broad controlled highlight at top, no bright white bloom, no symbols/text. This is a game UI, not a weathered wooden object.",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-d44989dd-8417-4474-8bea-cb1ce6e4f8e7.png",
+    "status": "active-vibrant-palette"
+  },
+  {
+    "id": "panel_garden_v3",
+    "correction": "opaque green interior; no alpha hole",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-7161933b-4cae-4013-919f-cff75f79272c.png"
+  },
+  {
+    "id": "dock_v3",
+    "correction": "remove external glow; fully opaque face",
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-b8301725-9568-46cd-a8a3-b9ed606a376c.png"
+  }
+]
