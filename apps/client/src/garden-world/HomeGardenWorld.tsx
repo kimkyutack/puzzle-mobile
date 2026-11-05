@@ -21,6 +21,7 @@ export default function HomeGardenWorld(p:Props){
  const [quantities,setQuantities]=useState<Record<string,number>>({}),[purchase,setPurchase]=useState<{itemId:string;quantity:number}|null>(null),[paintItem,setPaintItem]=useState<string|null>(null),[staged,setStaged]=useState<GardenPlacement[]>([]),[paintPan,setPaintPan]=useState(false);
  const [landConfig,setLandConfig]=useState<{cost:number;tiles:number}|null>(null),[landSelection,setLandSelection]=useState<string|null>(null),[landConfirm,setLandConfirm]=useState(false),[expandedLand,setExpandedLand]=useState<GardenExpansionPlot|null>(null);
  const preferredPlacement=useRef<{x:number;y:number}|null>(null);
+ const previousEditing=useRef(p.editing);
  const [paintRotation,setPaintRotation]=useState<GardenRotation>(0);
  const stagedRef=useRef(staged);stagedRef.current=staged;
  const map=useRef<MapHandle>(null),pending=useRef<{signature:string;key:string}|null>(null),guard=useRef(false),alive=useRef(true),worldRef=useRef(world);worldRef.current=world;
@@ -33,8 +34,14 @@ export default function HomeGardenWorld(p:Props){
  // Updated servers include the saved world with a restoration. Older cached receipts still need one refresh.
  useEffect(()=>{if(!world||world.ownerId!==p.player.id||!p.player.restored.some(id=>!world.owned['restored-'+id])||p.confirmedWorld?.ownerId===p.player.id&&p.player.restored.every(id=>p.confirmedWorld!.owned['restored-'+id]))return;let live=true;void request<{world:GardenWorldState}>('/garden/world').then(result=>{if(live)acceptWorld(result.world);},()=>{});return()=>{live=false};},[p.player.id,restored,p.confirmedWorld,!!world]);
  useEffect(()=>{if(!p.editing){setSelected(null);setPreview(null);setPaintItem(null);setStaged([]);setPurchase(null);setLandConfirm(false);setExpandedLand(null)}},[p.editing]);
- useEffect(()=>{const task=p.visual?RESTORATIONS.find(t=>t.id===p.visual!.taskId):p.editing?RESTORATIONS.find(t=>!p.player.restored.includes(t.id)):undefined;
-  if(task){const site=restorationSite(task,RESTORATIONS.indexOf(task)),item=DECORATIONS.find(d=>d.id===(task.itemId??(task.asset==='door'?(task.area==='workshop'?'garden-greenhouse':'garden-gate'):'garden-'+task.asset)));map.current?.focus({x:site.x+(item?.width??1)/2,y:site.y+(item?.height??1)/2});return;}
+ function focusRestoration(task:(typeof RESTORATIONS)[number]){const site=restorationSite(task,RESTORATIONS.indexOf(task)),item=DECORATIONS.find(d=>d.id===(task.itemId??(task.asset==='door'?(task.area==='workshop'?'garden-greenhouse':'garden-gate'):'garden-'+task.asset)));map.current?.focus({x:site.x+(item?.width??1)/2,y:site.y+(item?.height??1)/2});}
+ useEffect(()=>{
+  const leavingEditor=previousEditing.current&&!p.editing;previousEditing.current=p.editing;
+  // Selecting an existing object opens its tools in the current view. The next
+  // restoration may be in a completely different, still empty part of the map.
+  if(!p.visual&&(selected||leavingEditor))return;
+  const task=p.visual?RESTORATIONS.find(t=>t.id===p.visual!.taskId):p.editing?RESTORATIONS.find(t=>!p.player.restored.includes(t.id)):undefined;
+  if(task){focusRestoration(task);return;}
   const region=GARDEN_WORLD.regions.find(r=>r.id===AREAS[p.area]?.id);if(region)map.current?.focus({x:region.x+region.width/2,y:region.y+region.height/2});
  },[p.area,p.editing,p.visual?.taskId,!!images]);
  useEffect(()=>{if(!notice)return;const timer=setTimeout(()=>setNotice(''),3000);return()=>clearTimeout(timer)},[notice]);
@@ -42,7 +49,7 @@ export default function HomeGardenWorld(p:Props){
  const landPlot=expandedLand??landOptions.find(plot=>plot.id===landSelection)??landOptions[0]??null;
  const landArea=useMemo(()=>world?gardenLandCells(world).size:0,[world]);
  useEffect(()=>{if(p.editing&&tab==='expand'&&landPlot)map.current?.framePlot(landPlot)},[p.editing,tab,landPlot?.id,!!images]);
- const select=useCallback((id:string)=>{setSelected(id);setPreview(null);setPaintItem(null);setStaged([]);p.onEdit()},[p.onEdit]);
+ const select=useCallback((id:string)=>{setSelected(id);setPreview(null);setPaintItem(null);setStaged([]);setTab('restore');p.onEdit()},[p.onEdit]);
  const movePreview=useCallback((point:{x:number;y:number})=>setPreview(old=>old?{...old,...point}:old),[]);
  const item=world&&selected?world.owned[selected]:null,definition=item?DECORATIONS.find(d=>d.id===item.itemId):null;
  const styleTask=selected?.startsWith('restored-')?RESTORATIONS.find(t=>t.id===selected.slice(9)&&['bench','planter','lamp'].includes(t.asset)):null;
@@ -66,7 +73,7 @@ export default function HomeGardenWorld(p:Props){
  function paint(cells:Array<{x:number;y:number}>){if(!worldRef.current||!paintItem||busy)return;const next=extendGardenPaint(worldRef.current,paintItem,stagedRef.current,cells,paintRotation);stagedRef.current=next;setStaged(next);}
  function clearPaint(){setStaged([]);stagedRef.current=[];setPaintItem(null);setPaintPan(false);setPaintRotation(0);}
  function savePaint(){if(!world||!staged.length)return;const count=staged.length;void perform('/garden/world/commands',{type:'paint',placements:staged,expectedRevision:world.revision},()=>{clearPaint();setTab('bag');setNotice(tr('정원에 놓았어요!')+' '+count+tr('개'))})}
- function switchTab(next:'restore'|'bag'|'shop'|'expand'){if(busy)return;setSelected(null);setPreview(null);clearPaint();setPurchase(null);setLandConfirm(false);setExpandedLand(null);setTab(next);}
+ function switchTab(next:'restore'|'bag'|'shop'|'expand'){if(busy)return;setSelected(null);setPreview(null);clearPaint();setPurchase(null);setLandConfirm(false);setExpandedLand(null);setTab(next);if(next==='restore'){const task=RESTORATIONS.find(t=>!p.player.restored.includes(t.id));if(task)focusRestoration(task);}}
  const paintStock=world&&paintItem?storedDecorations(world).filter(i=>i.itemId===paintItem).length:0;
  const paintingGround=DECORATIONS.find(d=>d.id===paintItem)?.layer==='ground';
  const paintArt=paintItem?(paintingGround?{art:WORLD_ART[paintItem]!,flipped:false}:gardenDirectionArt(WORLD_ART,paintItem,'classic',paintRotation)):null;
@@ -76,7 +83,7 @@ export default function HomeGardenWorld(p:Props){
  const catalog=(tab==='shop'?liveShopItems():DECORATIONS.filter(d=>world&&storedDecorations(world).some(i=>i.itemId===d.id))).filter(d=>category==='all'||d.category===category);
  const style={'--live-plate':`url(${UI_ART.plate})`,'--live-dock':`url(${UI_ART.dock})`,'--live-card':`url(${UI_ART.ice})`,'--live-green':`url(${UI_ART.play})`,'--live-blue':`url(${UI_ART.secondary})`,'--live-amber':`url(${UI_ART.amber})`} as CSSProperties;
  return <div className={'live-garden'+(p.editing?' is-editing':'')} style={style} data-live-garden="true">
-  {world&&world.ownerId===p.player.id&&images?<WorldMap ref={map} world={painted!} images={images} restoration={p.visual} preview={preview} previewValid={!invalid} editable={p.editing} expansionPreview={p.editing&&tab==='expand'?landPlot:null} paint={!!paintItem&&!paintPan&&!busy} onPaint={paint} onSelect={id=>{if(!busy&&!p.restoring&&!paintItem&&tab!=='expand')select(id)}} onPreview={point=>{if(!busy)movePreview(point)}}/>:<div className="live-load" role="status"><img src={UI_ART.lumi} alt=""/><p>{error||tr('나의 정원을 펼치는 중…')}</p>{error&&<Button onClick={()=>setRetry(n=>n+1)}>{tr('다시 불러오기')}</Button>}</div>}
+  {world&&world.ownerId===p.player.id&&images?<WorldMap ref={map} world={painted!} images={images} restoration={p.visual} preview={preview} previewValid={!invalid} editable={p.editing} expansionPreview={p.editing&&tab==='expand'?landPlot:null} paint={!!paintItem&&!paintPan&&!busy} onPaint={paint} onSelect={id=>{if(!busy&&!p.restoring&&!paintItem&&(!p.editing||tab!=='expand'))select(id)}} onPreview={point=>{if(!busy)movePreview(point)}}/>:<div className="live-load" role="status"><img src={UI_ART.lumi} alt=""/><p>{error||tr('나의 정원을 펼치는 중…')}</p>{error&&<Button onClick={()=>setRetry(n=>n+1)}>{tr('다시 불러오기')}</Button>}</div>}
   {!p.editing&&world&&<p className="live-map-hint">{tr('끌어서 둘러보기 · 두 손가락으로 확대')}</p>}
   {p.editing&&<>
    <div className="live-edit-tabs has-expansion" data-art-root><Button secondary icon="hammer" disabled={busy} onClick={()=>switchTab('restore')}>{tr('복원')}</Button><Button secondary icon="chest" disabled={busy} onClick={()=>switchTab('bag')}>{tr('보관함')}</Button><Button tone="gold" icon="shop" disabled={busy} onClick={()=>switchTab('shop')}>{tr('상점')}</Button><Button tone="gold" icon="home" disabled={busy||!landConfig} onClick={()=>switchTab('expand')}>{tr('확장')}</Button><button className="live-close" aria-label={tr('정원 꾸미기 닫기')} disabled={busy} onClick={p.onClose}><img src={UI_ART.close} alt=""/></button></div>
