@@ -18,3 +18,4 @@ output/native-test/
 android/app/build/
 playwright-report/
 test-results/
+hiddenstage-studio/
