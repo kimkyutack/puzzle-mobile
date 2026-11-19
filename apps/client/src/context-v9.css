@@ -40,10 +40,8 @@
 .offers-menu-v7 .deal-heading h3,.modal-layer .modal-content .offers-menu-v7 .deal-heading h3{color:var(--context-lavender-title)!important}
 .offers-menu-v7 .deal-banner[data-frame="card_gold_v4"] .deal-heading h3{color:var(--context-peach-title)!important}
 .modal-layer .modal-content .offers-menu-v7 :is(.deal-deadline,.deal-theme-label,.deal-state){color:#263a61}
-.offers-menu-v7 .deal-step{color:var(--context-ink)}
 .offers-menu-v7 .commerce-loot{color:var(--context-ink)}
-.offers-menu-v7 .deal-chain-note,.offers-menu-v7 .deal-message,.modal-layer .modal-content .offers-menu-v7 .deal-chain-note,.modal-layer .modal-content .offers-menu-v7 .deal-message{color:var(--context-light)!important}
-.modal-layer .modal-content .offers-menu-v7 .deal-chain-note small{color:#fff}
+.offers-menu-v7 .deal-message,.modal-layer .modal-content .offers-menu-v7 .deal-message{color:var(--context-light)!important}
 
 /* Rankings keep a compact, consistent row; the personal record uses lavender. */
 .ranking-menu :is(.ranking-table-heading,.ranking-list-note,.ranking-own-record>h3,.ranking-own-record>p){color:var(--context-light-muted)}
@@ -128,6 +126,10 @@
 .modal-layer .modal-content .start-objectives strong{color:var(--context-ink)}
 .modal-layer .modal-content .start-tool-well h3{color:var(--context-light)}
 .modal-layer .modal-content .start-tool-well p{color:var(--context-light-muted);line-height:18px}
+.modal-layer .modal-content .start-tool-well .start-booster-guide{display:flex;align-items:center;gap:7px;text-align:left;margin:0 0 10px;color:var(--context-light);font-size:12px}
+.start-booster-guide>.icon{flex:none}
+.start-booster-guide>span{word-break:keep-all;overflow-wrap:anywhere}
+.modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock.is-free-trial{max-width:none;padding-inline:6px;white-space:nowrap;font-size:11px}
 .modal-layer .modal-content .start-tool-well .preboosters>button>small{color:var(--context-light)}
 .modal-layer .modal-content .start-play-action .heart-cost{color:var(--context-light);line-height:20px}
 .start-level-layout{gap:13px}
@@ -156,7 +158,7 @@
 .story-journal .story-journal-progress>span:last-child{text-align:right}
 
 /* Labels on real lime / blue / amber button art remain white on every context. */
-.modal-layer .modal-content :is(.deal-tabs>button,.ranking-scope-tab,.story-chapter-tabs>button,.deal-price),
+.modal-layer .modal-content :is(.ranking-scope-tab,.story-chapter-tabs>button,.deal-price),
 .modal-layer .modal-content .story-journal .story-entry .story-entry-action,
 .modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock,
 .commerce-shop .package-feature-action{
@@ -169,7 +171,7 @@
 }
 .modal-layer .modal-content .deal-price>small{color:#fffdf0}
 .modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock{font-size:14px;line-height:18px}
-.legacy-text .modal-layer .modal-content :is(.deal-tabs>button,.ranking-scope-tab,.story-chapter-tabs>button,.deal-price),
+.legacy-text .modal-layer .modal-content :is(.ranking-scope-tab,.story-chapter-tabs>button,.deal-price),
 .legacy-text .modal-layer .modal-content .story-journal .story-entry .story-entry-action,
 .legacy-text .modal-layer .modal-content .start-tool-well .preboosters>button>.prebooster-stock,
 .legacy-text .commerce-shop .package-feature-action{

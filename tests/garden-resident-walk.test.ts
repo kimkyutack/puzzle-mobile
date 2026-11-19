@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
-import {createGardenWorld} from '../packages/garden-world/src';
+import {applyGardenCommand,applyTrustedDecorationGrant,createGardenWorld,DECORATIONS,GARDEN_ROTATIONS} from '../packages/garden-world/src';
 import {GardenResidents,residentHeading,residentWalkFrame} from '../apps/client/src/garden-world/residents';
-import {residentDirectionArt} from '../apps/client/src/garden-world/resident-art';
+import {placedAnimalArt,residentArtBounds,residentDirectionArt} from '../apps/client/src/garden-world/resident-art';
+import {WORLD_ART} from '../apps/client/src/garden-world/assets';
 
 describe('four diagonal resident walks',()=>{
  it('faces the actual projected direction for humans and animals, including both uphill paths',()=>{
@@ -29,6 +30,30 @@ describe('four diagonal resident walks',()=>{
   expect(residentDirectionArt({'resident:animal-cat:4':'sleep'},{...actor,pose:'sleep',frame:4}).art).toBe('sleep');
   expect(residentDirectionArt({'resident:visitor_a:0':'standing'},{...actor,art:'visitor_a',pose:'idle',frame:0,rear:false}).art).toBe('standing');
   expect(residentDirectionArt({'animal-cat:rear':'resting-rear'},{...actor,pose:'idle',frame:0}).art).toBe('resting-rear');
+ });
+ it('uses the live resting view when placing each animal in any direction',()=>{
+  for(const item of DECORATIONS.filter(d=>d.category==='animal')){
+   const ownerId='placement-test',instanceId=item.id;
+   const world=applyTrustedDecorationGrant(createGardenWorld(ownerId),{
+    ownerId,grantId:item.id,itemId:item.id,variant:'classic',source:'event',instanceIds:[instanceId]
+   });
+   for(const rotation of GARDEN_ROTATIONS){
+    const simulation=new GardenResidents();
+    simulation.sync(applyGardenCommand(world,{
+     type:'place',operationId:'place-'+rotation,expectedRevision:world.revision,instanceId,x:12,y:12,rotation
+    },ownerId));
+    const actor=simulation.actors.find(resident=>resident.id===instanceId)!;
+    expect(placedAnimalArt(WORLD_ART,item.id,rotation)).toEqual(residentDirectionArt(WORLD_ART,actor));
+   }
+  }
+ });
+ it('keeps tall animal artwork at resident scale and anchored at its feet',()=>{
+  const bottom={x:140,y:200},tileWidth=64;
+  const bounds=residentArtBounds({width:413,height:640},bottom,tileWidth,true);
+  expect(bounds.height).toBeCloseTo(tileWidth*1.02);
+  expect(bounds.width/bounds.height).toBeCloseTo(413/640);
+  expect(bounds.x+bounds.width/2).toBeCloseTo(bottom.x);
+  expect(bounds.y+bounds.height*.98).toBeCloseTo(bottom.y);
  });
  it('keeps the uphill walking view between adjacent route segments instead of flashing the front idle view',()=>{
   const simulation=new GardenResidents();simulation.sync(createGardenWorld('walk-test'));const actor=simulation.actors[0]!;

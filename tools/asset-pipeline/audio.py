@@ -1,7 +1,7 @@
 """Original additive-synthesis score/effects for this project. No sampled recordings.
 PCM WAV output is deterministic. The composition and samples are project-authored.
 """
-import math, os, struct, wave
+import math, os, struct, wave, random
 ROOT='apps/client/public/audio'; os.makedirs(ROOT,exist_ok=True)
 RATE=24000
 def render(name,notes,length):
@@ -28,6 +28,24 @@ effects={
  'restore':[(0,523.25,.5,.2),(.12,783.99,.5,.2),(.24,1046.5,.7,.18)],
  'break':[(0,261.6,.12,.25),(.04,392,.2,.18)]}
 for name,notes in effects.items():render(name,notes,max(s+d for s,_,d,_ in notes)+.1)
+# A short transient and descending resonant body, rather than a second melody.
+# Fixed seeds make all project-authored impact samples reproducible.
+def percussion(name, length, frequency, weight, seed):
+    rng=random.Random(seed); samples=[]; phase=0.0; low=0.0
+    for i in range(int(length*RATE)):
+        t=i/RATE; noise=rng.uniform(-1,1); low=low*.72+noise*.28
+        phase+=2*math.pi*(frequency*math.exp(-t*22)+70)/RATE
+        attack=min(1,t/.0015)
+        body=math.sin(phase)*math.exp(-t*26)*weight
+        crack=(noise-low)*math.exp(-t*85)*.55+low*math.exp(-t*19)*.24
+        chime=math.sin(2*math.pi*1180*t)*math.exp(-t*45)*.1
+        samples.append(math.tanh((body+crack+chime)*1.4)*attack*.85)
+    with wave.open(ROOT+'/'+name+'.wav','wb') as f:
+        f.setnchannels(1);f.setsampwidth(2);f.setframerate(RATE)
+        f.writeframes(b''.join(struct.pack('<h',int(v*32767)) for v in samples))
+percussion('match',.16,440,.36,35)
+percussion('impact',.25,185,.64,36)
+percussion('crack',.22,280,.45,37)
 # An original gentle sixteen-bar pentatonic phrase, with a loop-safe rest at its end.
 melody=[659.25,783.99,880,783.99,523.25,659.25,587.33,523.25,440,523.25,659.25,587.33,783.99,659.25,523.25,0]
 notes=[]
@@ -36,4 +54,4 @@ for bar in range(16):
     for beat,ratio in enumerate([1,1.5,2,1.5]):notes.append((bar*2+beat*.5,root*ratio,.95,.055))
     if melody[bar]:notes.append((bar*2+.1,melody[bar],1.5,.095))
 render('garden',notes,34)
-print('Generated 10 original effects and 34-second garden loop.')
+print('Generated original score and effects, including 3 percussive contacts.')

@@ -1,4 +1,14 @@
-import {gardenBounds,validateGardenPlacement,type GardenPlacement,type GardenPoint,type GardenWorldState} from '../../../../packages/garden-world/src';
+import {decorationFootprint,gardenBounds,nextGardenRotation,validateGardenPlacement,type DecorationDefinition,type GardenPlacement,type GardenPoint,type GardenWorldState} from '../../../../packages/garden-world/src';
+
+/** Hold the projected center horizontally. Mixed-parity footprints snap by half a cell in depth. */
+export function rotatePreviewPlacement(item:DecorationDefinition,placed:GardenPlacement):GardenPlacement {
+ const rotation=nextGardenRotation(placed.rotation);
+ const before=decorationFootprint(item,placed.rotation),after=decorationFootprint(item,rotation);
+ // Opposite rounding on alternating quarter turns returns to the same cell after two turns.
+ const snap=rotation===90||rotation===270?Math.floor:Math.ceil;
+ return {...placed,rotation,x:placed.x+snap((before.width-after.width)/2),y:placed.y+snap((before.height-after.height)/2)};
+}
+
 /** Choose the nearest legal starting spot; moving the preview never changes ownership. */
 export function findPreviewPlacement(world:GardenWorldState,instanceId:string,near:GardenPoint):GardenPlacement|null {
  const candidates=[],bounds=gardenBounds(world);

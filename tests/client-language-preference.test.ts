@@ -1,6 +1,7 @@
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
 import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
+import type {AppLocale} from '@garden/contracts';
 import LanguageGate from '../apps/client/src/LanguageGate';
 import {LANGUAGE_KEY,readLanguagePreference,saveLanguagePreference,syncLanguagePreference} from '../apps/client/src/locale-preference';
 import {applyPlayerLanguage,getLocale,setLocale,selectLanguage,t,tr,localizeApiError} from '../apps/client/src/i18n';
@@ -13,17 +14,17 @@ describe('first language selection and preference sync',()=>{
  it('does not mount the game before an explicit choice; remembers an accepted choice',()=>{
   let boots=0;function Game(){boots++;return createElement('p',null,'game boot');}
   const first=renderToStaticMarkup(createElement(LanguageGate,null,createElement(Game)));
-  expect(first).toContain('한국어');expect(first).toContain('English');expect(boots).toBe(0);
+  expect(first).toContain('한국어');expect(first).toContain('English');expect(first).toContain('日本語');expect(boots).toBe(0);
   expect(first).toContain('class="brand-logo"');expect(first).toContain('alt="구름정원: 루미의 초대장"');
   selectLanguage('en');expect(readLanguagePreference()).toEqual({language:'en',pending:true});
   expect(renderToStaticMarkup(createElement(LanguageGate,null,createElement(Game)))).toContain('game boot');expect(boots).toBe(1);
  });
  it('ignores invalid stored languages and corrupted JSON',()=>{const s=storage();s.setItem(LANGUAGE_KEY,'{oops');expect(readLanguagePreference(s)).toBeNull();s.setItem(LANGUAGE_KEY,JSON.stringify({language:'fr',pending:true}));expect(readLanguagePreference(s)).toBeNull();});
- it('keeps the first choice ahead of a default server language and syncs only that preference',async()=>{
-  const player={id:'locale-test',version:4,coins:1500,hearts:3,inventory:{hammer:2},settings:{language:'ko' as 'ko'|'en',sound:false}};const before=structuredClone(player);
-  selectLanguage('en');applyPlayerLanguage(player);expect(getLocale()).toBe('en');
-  const save=vi.fn(async(language:'ko'|'en')=>({...player,version:5,settings:{...player.settings,language}}));
-  const result=await syncLanguagePreference(player,save);expect(save).toHaveBeenCalledExactlyOnceWith('en');expect(player).toEqual(before);expect(result.coins).toBe(before.coins);expect(result.hearts).toBe(before.hearts);expect(result.inventory).toEqual(before.inventory);expect(result.settings.sound).toBe(false);expect(readLanguagePreference()).toEqual({language:'en',pending:false,userId:'locale-test'});
+ it.each(['en','ja'] as const)('keeps %s ahead of a default server language and syncs only that preference',async locale=>{
+  const player={id:'locale-test',version:4,coins:1500,hearts:3,inventory:{hammer:2},settings:{language:'ko' as AppLocale,sound:false}};const before=structuredClone(player);
+  selectLanguage(locale);applyPlayerLanguage(player);expect(getLocale()).toBe(locale);
+  const save=vi.fn(async(language:AppLocale)=>({...player,version:5,settings:{...player.settings,language}}));
+  const result=await syncLanguagePreference(player,save);expect(save).toHaveBeenCalledExactlyOnceWith(locale);expect(player).toEqual(before);expect(result.coins).toBe(before.coins);expect(result.hearts).toBe(before.hearts);expect(result.inventory).toEqual(before.inventory);expect(result.settings.sound).toBe(false);expect(readLanguagePreference()).toEqual({language:locale,pending:false,userId:'locale-test'});
   await syncLanguagePreference(result,save);expect(save).toHaveBeenCalledTimes(1);
  });
  it('keeps a failed sync pending and does not erase a newer choice during an older sync',async()=>{

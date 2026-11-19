@@ -37,8 +37,8 @@ export function canExpandGarden(world:LandState,plot:GardenExpansionPlot,map:Gar
  if(cells.some(c=>isGardenCellUnlocked(world,c.x,c.y,map)||reserved.some(r=>contains(r,c.x,c.y))))return false;
  return cells.some(c=>[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>isGardenCellUnlocked(world,c.x+dx!,c.y+dy!,map)));
 }
-/** A small, non-overlapping selection around the current boundary, recomputed after each purchase. */
-export function gardenExpansionOptions(world:LandState,map:GardenDefinition=GARDEN_WORLD):GardenExpansionPlot[]{
+/** Every legal origin around the owned boundary, including overlapping preview choices. */
+export function gardenExpansionCandidates(world:LandState,map:GardenDefinition=GARDEN_WORLD):GardenExpansionPlot[]{
  const open=gardenLandCells(world,map);if(!open.size)return [];
  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity,sumX=0,sumY=0;
  for(const c of open.values()){minX=Math.min(minX,c.x);minY=Math.min(minY,c.y);maxX=Math.max(maxX,c.x);maxY=Math.max(maxY,c.y);sumX+=c.x;sumY+=c.y;}
@@ -51,6 +51,11 @@ export function gardenExpansionOptions(world:LandState,map:GardenDefinition=GARD
  }
  const distance=(p:GardenExpansionPlot)=>(p.x+2-center.x)**2+(p.y+1.5-center.y)**2;
  candidates.sort((a,b)=>distance(a)-distance(b)||a.y-b.y||a.x-b.x);
+ return candidates;
+}
+/** A small, non-overlapping selection for suggested positions and legacy callers. */
+export function gardenExpansionOptions(world:LandState,map:GardenDefinition=GARDEN_WORLD):GardenExpansionPlot[]{
+ const candidates=gardenExpansionCandidates(world,map);
  const selected:GardenExpansionPlot[]=[];
  for(const plot of candidates)if(!selected.some(p=>plot.x<p.x+p.width&&plot.x+plot.width>p.x&&plot.y<p.y+p.height&&plot.y+plot.height>p.y)){selected.push(plot);if(selected.length===8)break;}
  return selected;

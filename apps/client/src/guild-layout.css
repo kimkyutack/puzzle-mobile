@@ -1,0 +1,104 @@
+.guild-entry-actions {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ align-content: center;
+ gap: 10px;
+ min-height: 100%;
+ padding: 10px 5px;
+}
+.guild-entry-actions > button {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 8px;
+ min-width: 0;
+ padding: 24px 5px 27px;
+ font-size: clamp(18px, 6vw, 23px);
+ line-height: 1.15;
+ text-wrap: balance;
+ overflow-wrap: anywhere;
+}
+.guild-entry-actions > button > .icon { object-fit: contain; }
+.guild-page-back {
+ min-height: 44px;
+ padding: 3px 2px 6px;
+ color: #fff8d9;
+ font-size: 14px;
+ text-shadow: 0 1px #16305b;
+}
+.guild-find { margin: 0 2px; }
+.guild-search-form { display: flex; align-items: center; gap: 6px; }
+.guild-find .guild-search-form > .input-frame { flex: 1; min-width: 0; margin: 0; }
+.guild-find .guild-search-form > .game-button {
+ flex: 0 0 76px;
+ width: 76px;
+ min-width: 0;
+ min-height: 44px;
+ margin: 0;
+ padding-inline: 10px;
+ font-size: 16px;
+}
+.guild-find .row-title { overflow-wrap: anywhere; }
+.guild-find .list-row .game-button {
+ min-width: 82px;
+ max-width: 132px;
+ margin: 0;
+ padding-inline: 5px;
+ font-size: 15px;
+}
+.guild-create-card .guild-create-form .input-frame { margin: 6px 0 7px; }
+.guild-create-form .input-frame :is(input, select, textarea) { width: 100%; min-width: 0; }
+.guild-create-form .input-frame textarea { min-height: 55px; height: 55px; resize: none; }
+.guild-create-settings { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 9px; }
+.guild-create-form .guild-customization-title { margin: 7px 1px 5px; font-size: 14px; line-height: 20px; }
+.guild-create-form .emblem-picker { margin: 0 0 9px; }
+.guild-create-form > .game-button { width: 100%; margin: 0; }
+
+.guild-banner { position: relative; padding: 14px 17px 18px; }
+.guild-banner .guild-title { margin: 0; }
+.guild-banner .guild-title > .icon { width: clamp(48px, 16vw, 68px); height: auto; object-fit: contain; }
+.guild-banner .guild-title small { display: block; margin-top: 5px; }
+.theme-guild .emblem-picker > .emblem-choice {
+ height: auto;
+ min-height: 83px;
+ padding: 8px 4px 13px;
+ gap: 3px;
+ justify-content: flex-start;
+}
+.theme-guild .emblem-picker > .emblem-choice > .icon {
+ width: min(100%, 46px);
+ height: 46px;
+ flex: none;
+ object-fit: contain;
+}
+.theme-guild .emblem-picker > .emblem-choice > small {
+ max-width: 100%;
+ line-height: 1.2;
+ white-space: normal;
+ overflow-wrap: anywhere;
+ text-wrap: balance;
+}
+.guild-section-tabs { display: flex; gap: 5px; margin-block: 11px 13px; }
+.guild-section-tabs > button {
+ position: relative;
+ display: flex;
+ flex: 1 1 0;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ gap: 2px;
+ min-width: 0;
+ min-height: 61px;
+ padding: 6px 3px 10px;
+ color: #25454d;
+ font-size: 14px;
+}
+.guild-section-tabs > button[aria-pressed="true"] { color: #fff; text-shadow: 0 1px 2px #234d5b; }
+.guild-section-tabs > button > .icon { object-fit: contain; }
+.guild-chat-empty { display: grid; justify-items: center; gap: 5px; text-align: center; }
+.guild-members .list-row { justify-content: flex-start; }
+.guild-members .list-row .row-body { flex: 1 1 120px; min-width: 0; text-align: left; }
+.guild-members .row-meta { justify-content: flex-start; }
+.guild-leave { min-height: 44px; margin-left: auto; }
+.guild-layout > .game-button { width: 100%; }

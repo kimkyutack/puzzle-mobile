@@ -10,7 +10,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Full-bleed art; Capacitor SystemBars supplies safe-area values to HTML.
+        // SystemBars + viewport-fit=contain reserve native space around the WebView.
         EdgeToEdge.enable(this);
         // Only debuggable builds may reach the loopback HTTP Worker through adb reverse.
         // The debug-only network policy still denies cleartext to all non-loopback hosts.

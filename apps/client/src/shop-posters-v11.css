@@ -7,12 +7,53 @@
 }
 .sale-poster>.sale-poster-art{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
 .sale-poster>.sale-poster-copy{position:relative;z-index:1;grid-column:2;display:flex;flex-direction:column;align-items:stretch;justify-content:center;min-width:0;min-height:0;gap:5px;text-align:center}
-.commerce-shop .package-feature.sale-poster{width:100%;aspect-ratio:2/1;margin-bottom:16px;padding:15px 18px 20px}
-.commerce-shop .package-feature.sale-poster .package-feature-copy>strong{font-size:21px;line-height:27px;color:#fff!important}
-.commerce-shop .package-feature.sale-poster .package-feature-copy>span:not(.package-feature-action){color:#e2edff;font-size:12px;line-height:17px}
-.commerce-shop .package-feature.sale-poster .package-feature-action{align-self:center;isolation:isolate;min-height:36px;width:132px;max-width:100%;margin-top:3px;padding:6px 7px 10px;font-size:14px;line-height:20px}
+.shop-bundles{margin:0 0 7px}
+.shop-bundle-track{
+ --bundle-gap:8px;
+ --bundle-width:min(100%,clamp(240px,44dvh,448px));
+ position:relative;
+ display:flex;
+ gap:var(--bundle-gap);
+ overflow:auto hidden;
+ overscroll-behavior-x:contain;
+ scroll-snap-type:x mandatory;
+ scrollbar-width:none;
+}
+.shop-bundle-track::-webkit-scrollbar{display:none}
+.shop-bundle-track[data-multiple="true"]{--bundle-width:min(calc(100% - 36px),clamp(240px,44dvh,448px))}
+.shop-bundle-track[data-multiple="true"]::after{
+ content:"";
+ flex:0 0 calc(100% - var(--bundle-width) - var(--bundle-gap));
+}
+.shop-bundle-pages{display:flex;justify-content:center;gap:3px;margin:1px 0 0}
+.shop-bundle-pages>button{
+ display:grid;
+ place-items:center;
+ width:26px;
+ height:25px;
+ padding:0;
+ border-radius:5px;
+ touch-action:manipulation;
+}
+.shop-bundle-pages>button::before{
+ content:"";
+ width:9px;
+ height:9px;
+ border-radius:50%;
+ border:1px solid #609de4;
+ background:#5389cc;
+}
+.shop-bundle-pages>button[aria-current]::before{border-color:#ffe28a;background:#ffc640}
 .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head{min-height:0;gap:4px}
-.commerce-shop .catalog-bundle.sale-poster{grid-template-columns:54% minmax(0,1fr)}
+.commerce-shop .shop-bundle-track .catalog-bundle.sale-poster{
+ flex:0 0 var(--bundle-width);
+ grid-template-columns:53% minmax(0,1fr);
+ min-width:0;
+ margin:0;
+ padding:10px clamp(9px,3vw,15px);
+ scroll-snap-align:start;
+ scroll-snap-stop:always;
+}
 .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,
 .modal-layer .modal-content .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,
 .game-page .modal-content .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,
@@ -35,8 +76,24 @@
 .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy,
 .offers-menu-v7 .sale-poster .deal-buy{position:relative;isolation:isolate;width:100%;min-width:0;min-height:36px;height:36px;margin:3px 0 0;padding:4px 7px 9px;font-size:16px;line-height:22px}
 .sale-poster .game-button>.button-label{position:static;transform:none;white-space:normal}
-.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy>.button-label{flex-wrap:nowrap;font-size:16px;white-space:nowrap}
-.commerce-shop .catalog-bundle.sale-poster .catalog-purchase-state{font-size:10px;line-height:14px;color:#e2edff!important}
+.commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy>.button-label{font-size:clamp(13px,4vw,16px);line-height:1.15;overflow-wrap:anywhere}
+.shop-bundle-track .sale-poster .sale-poster-copy .commerce-loot{gap:4px 3px;margin:0}
+.shop-bundle-track .commerce-loot>:is(.resource-amount,.commerce-loot-heart){flex:0 0 100%;justify-content:center;transform:none}
+.shop-bundle-track .commerce-loot>:is(.resource-amount,.commerce-loot-heart)>.icon{width:20px;height:20px}
+.shop-bundle-track .sale-poster-copy .commerce-loot>span:not(.resource-amount,.commerce-loot-heart){
+ flex:1 1 0;
+ flex-direction:column;
+ justify-content:center;
+ gap:0;
+ min-width:16px;
+ max-width:41px;
+ padding:2px 1px;
+ border:1px solid #72afea;
+ border-radius:7px;
+ background:#abd3fd;
+}
+.shop-bundle-track .sale-poster-copy .commerce-loot>span:not(.resource-amount,.commerce-loot-heart)>.icon{width:min(100%,27px);height:27px}
+.shop-bundle-track .sale-poster-copy .commerce-loot>span:not(.resource-amount,.commerce-loot-heart)>strong{color:#17385e;line-height:15px}
 .commerce-shop .catalog-bundle.sale-poster .link-action{position:relative;isolation:isolate;justify-content:center;min-height:38px;margin:7px 0 0;padding:5px 7px 10px;color:#fff;font-size:13px;line-height:19px}
 .commerce-shop .catalog-bundle.sale-poster .link-action>.icon{width:24px;height:25px}
 .commerce-shop .catalog-bundle.sale-poster .link-action{color:#fffdf0;-webkit-text-stroke:1px #243f77;paint-order:stroke fill;text-shadow:0 1px 0 #243f77}
@@ -54,14 +111,10 @@
 .offers-menu-v7 .sale-poster .deal-price>strong{font-size:18px;line-height:19px;color:#fff}
 .offers-menu-v7 .sale-poster .deal-price>small,.modal-layer .modal-content .offers-menu-v7 .sale-poster .deal-price>small{font-size:9px;line-height:10px;color:#fff}
 .offers-menu-v7 .sale-poster .deal-state{min-height:36px;flex-wrap:wrap;gap:2px;font-size:11px;line-height:16px}
-.offers-menu-v7 .sale-poster>.deal-step{left:18px;top:15px;bottom:auto;z-index:1;isolation:isolate;min-height:28px;min-width:58px;padding:4px 8px 8px;color:#20335d;font-size:12px;line-height:16px}
 .legacy-text .sale-poster .sale-poster-copy h3,.legacy-text .sale-poster .sale-poster-copy>strong{ text-shadow:0 2px 1px #102b60 }
 @media(max-width:370px){
  .commerce-shop .sale-poster{padding:12px 14px 15px;grid-template-columns:46% minmax(0,1fr)}
  .offers-menu-v7 .deal-banner.sale-poster{padding:12px 14px 15px;grid-template-columns:54% minmax(0,1fr)}
- .commerce-shop .package-feature.sale-poster{padding:12px 15px 16px}
- .commerce-shop .package-feature.sale-poster .package-feature-copy>strong{font-size:19px;line-height:24px}
- .commerce-shop .package-feature.sale-poster .package-feature-copy>span:not(.package-feature-action){font-size:11px;line-height:15px}
  .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head h3,.offers-menu-v7 .deal-banner.sale-poster .deal-heading h3{font-size:16px;line-height:21px}
  .sale-poster>.sale-poster-copy{gap:3px}
  .sale-poster .sale-poster-copy .commerce-loot{gap:2px 5px}
@@ -72,4 +125,24 @@
  .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot>span{line-height:20px}
  .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot .icon{width:20px;height:20px}
  .offers-menu-v7 .sale-poster .sale-poster-copy .commerce-loot strong{font-size:12px;line-height:20px}
+}
+@media(max-width:370px),(max-height:680px){
+ .commerce-shop .shop-bundle-track .catalog-bundle.sale-poster{grid-template-columns:50% minmax(0,1fr)}
+ .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-head{gap:3px}
+ .game-page .modal-content .commerce-shop .shop-bundle-track .catalog-bundle.sale-poster .catalog-bundle-head h3{
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+  font-size:15px;
+  line-height:17px;
+ }
+ .shop-bundle-track .sale-poster .sale-poster-copy .commerce-loot{row-gap:2px}
+ .shop-bundle-track .sale-poster-copy .commerce-loot>span:not(.resource-amount,.commerce-loot-heart){padding:1px}
+ .shop-bundle-track .sale-poster-copy .commerce-loot>span:not(.resource-amount,.commerce-loot-heart)>.icon{height:18px}
+ .shop-bundle-track .sale-poster-copy .commerce-loot>span:not(.resource-amount,.commerce-loot-heart)>strong{line-height:11px}
+ .shop-bundle-track .sale-poster-copy .commerce-loot>:is(.resource-amount,.commerce-loot-heart)>strong{line-height:16px}
+ .shop-bundle-track .sale-poster-copy .commerce-loot>:is(.resource-amount,.commerce-loot-heart)>.icon{height:17px;width:17px}
+ .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy{min-height:31px;height:31px;margin-top:1px;padding:3px 5px 6px}
+ .commerce-shop .catalog-bundle.sale-poster .catalog-bundle-buy:disabled>.button-label{font-size:11px}
 }

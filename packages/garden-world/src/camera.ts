@@ -2,7 +2,7 @@ export interface GardenPoint {x:number;y:number}
 export interface GardenCamera {x:number;y:number;zoom:number}
 export interface IsometricGrid {tileWidth:number;tileHeight:number}
 export const ISOMETRIC_GRID:IsometricGrid={tileWidth:128,tileHeight:64};
-export const GARDEN_ZOOM={min:.45,max:1.8} as const;
+export const GARDEN_ZOOM={min:.04,max:1.8} as const;
 function finite(...values:number[]){if(values.some(value=>!Number.isFinite(value)))throw new RangeError('Non-finite garden geometry');}
 function validateGrid(grid:IsometricGrid){finite(grid.tileWidth,grid.tileHeight);if(grid.tileWidth<=0||grid.tileHeight<=0)throw new RangeError('Invalid garden grid');}
 function validateCamera(camera:GardenCamera){finite(camera.x,camera.y,camera.zoom);if(camera.zoom<=0)throw new RangeError('Invalid garden zoom');}
@@ -28,6 +28,13 @@ export function zoomGardenAt(camera:GardenCamera,screenPoint:GardenPoint,request
 }
 export function panGarden(camera:GardenCamera,delta:GardenPoint):GardenCamera {
  validateCamera(camera);finite(delta.x,delta.y);return {...camera,x:camera.x+delta.x,y:camera.y+delta.y};
+}
+/** Fit actual owned land and object silhouettes, independently of the locked map bounds. */
+export function fitGardenView(bounds:{left:number;top:number;right:number;bottom:number},view:{left:number;top:number;width:number;height:number}):GardenCamera{
+ finite(bounds.left,bounds.top,bounds.right,bounds.bottom,view.left,view.top,view.width,view.height);
+ if(bounds.right<=bounds.left||bounds.bottom<=bounds.top||view.width<=0||view.height<=0)throw new RangeError('Invalid garden overview');
+ const zoom=Math.max(GARDEN_ZOOM.min,Math.min(.68,view.width/(bounds.right-bounds.left),view.height/(bounds.bottom-bounds.top)));
+ return {zoom,x:view.left+view.width/2-(bounds.left+bounds.right)/2*zoom,y:view.top+view.height/2-(bounds.top+bounds.bottom)/2*zoom};
 }
 /** Keep the map's projected bounding rectangle within reach, including when it is smaller than the viewport. */
 export function constrainGardenCamera(camera:GardenCamera,map:{width:number;height:number},viewport:{width:number;height:number},margin=48,grid:IsometricGrid=ISOMETRIC_GRID):GardenCamera {

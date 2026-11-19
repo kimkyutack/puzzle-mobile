@@ -1,0 +1,290 @@
+[
+  {
+    "kind": "water",
+    "variant": 0,
+    "seed": 714123,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 74,
+      "to": 75
+    },
+    "hash": "ff81ca96"
+  },
+  {
+    "kind": "water",
+    "variant": 1,
+    "seed": 826771,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 49,
+      "to": 58
+    },
+    "hash": "22675549"
+  },
+  {
+    "kind": "water",
+    "variant": 2,
+    "seed": 729961,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 65,
+      "to": 74
+    },
+    "hash": "0fa08db1"
+  },
+  {
+    "kind": "water",
+    "variant": 3,
+    "seed": 1366254,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 37,
+      "to": 38
+    },
+    "hash": "2b1612f3"
+  },
+  {
+    "kind": "water",
+    "variant": 4,
+    "seed": 745799,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 67,
+      "to": 68
+    },
+    "hash": "a1c24736"
+  },
+  {
+    "kind": "water",
+    "variant": 5,
+    "seed": 1172634,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 56,
+      "to": 65
+    },
+    "hash": "d50bef21"
+  },
+  {
+    "kind": "water",
+    "variant": 6,
+    "seed": 761637,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 36,
+      "to": 37
+    },
+    "hash": "6caccdfd"
+  },
+  {
+    "kind": "water",
+    "variant": 7,
+    "seed": 769556,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 32,
+      "to": 33
+    },
+    "hash": "9ab91cce"
+  },
+  {
+    "kind": "water",
+    "variant": 8,
+    "seed": 777475,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 22,
+      "to": 23
+    },
+    "hash": "b7bbf79a"
+  },
+  {
+    "kind": "water",
+    "variant": 9,
+    "seed": 1099581,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 45,
+      "to": 54
+    },
+    "hash": "441a7335"
+  },
+  {
+    "kind": "water",
+    "variant": 10,
+    "seed": 898042,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 56,
+      "to": 57
+    },
+    "hash": "4a066e01"
+  },
+  {
+    "kind": "water",
+    "variant": 11,
+    "seed": 1220148,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 65,
+      "to": 74
+    },
+    "hash": "0c37e043"
+  },
+  {
+    "kind": "animal",
+    "variant": 0,
+    "seed": 818852,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 49,
+      "to": 50
+    },
+    "hash": "b54a3ef0"
+  },
+  {
+    "kind": "animal",
+    "variant": 1,
+    "seed": 826771,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 49,
+      "to": 58
+    },
+    "hash": "b4b35652"
+  },
+  {
+    "kind": "animal",
+    "variant": 2,
+    "seed": 834690,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 48,
+      "to": 57
+    },
+    "hash": "a0f88e63"
+  },
+  {
+    "kind": "animal",
+    "variant": 3,
+    "seed": 1366254,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 37,
+      "to": 38
+    },
+    "hash": "ae3c9822"
+  },
+  {
+    "kind": "animal",
+    "variant": 4,
+    "seed": 850528,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 40,
+      "to": 49
+    },
+    "hash": "5c9af2ee"
+  },
+  {
+    "kind": "animal",
+    "variant": 5,
+    "seed": 1486821,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 31,
+      "to": 40
+    },
+    "hash": "3b912fb0"
+  },
+  {
+    "kind": "animal",
+    "variant": 6,
+    "seed": 866366,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 66,
+      "to": 67
+    },
+    "hash": "bd1e52c8"
+  },
+  {
+    "kind": "animal",
+    "variant": 7,
+    "seed": 874285,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 57,
+      "to": 58
+    },
+    "hash": "3861b0b8"
+  },
+  {
+    "kind": "animal",
+    "variant": 8,
+    "seed": 882204,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 55,
+      "to": 56
+    },
+    "hash": "73878593"
+  },
+  {
+    "kind": "animal",
+    "variant": 9,
+    "seed": 1099581,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 45,
+      "to": 54
+    },
+    "hash": "98995c9c"
+  },
+  {
+    "kind": "animal",
+    "variant": 10,
+    "seed": 898042,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 56,
+      "to": 57
+    },
+    "hash": "a05d7816"
+  },
+  {
+    "kind": "animal",
+    "variant": 11,
+    "seed": 1220148,
+    "moves": 14,
+    "opening": {
+      "type": "swap",
+      "from": 65,
+      "to": 74
+    },
+    "hash": "7b72ae21"
+  }
+]

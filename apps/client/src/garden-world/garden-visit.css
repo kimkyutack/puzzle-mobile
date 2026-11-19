@@ -1,0 +1,12 @@
+.garden-visit{position:fixed;inset:0;z-index:250;isolation:isolate;overflow:hidden;background:#9fbd75;color:#fff}
+.garden-visit-stage,.garden-visit-stage>.gw-map{position:absolute;inset:0;width:100%;height:100%}
+.garden-visit-stage>.gw-map{display:block;touch-action:none;outline-offset:-4px}
+.garden-visit-header{position:absolute;top:calc(var(--safe-top,env(safe-area-inset-top,0px)) + 10px);left:12px;right:12px;display:flex;align-items:center;gap:9px;min-height:76px;padding:10px 53px 15px 12px;pointer-events:none}
+.garden-visit-header>div{min-width:0;flex:1}.garden-visit-header h1{margin:0;font-size:20px;line-height:27px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;text-shadow:0 2px 2px #123a70}
+.garden-visit-header p{display:flex;align-items:center;gap:5px;margin:3px 0 0;font-size:12px;line-height:20px;color:#fff1b9}.garden-visit-header p>span:first-child{margin-right:7px}.garden-visit-header>.icon{flex:none}
+.garden-visit-header>.icon-button{position:absolute;right:5px;top:9px;pointer-events:auto;width:44px;height:44px;min-width:44px;min-height:44px;padding:0}.garden-visit-header>.icon-button>.icon{width:44px;height:44px}
+.garden-visit-controls{position:absolute;left:50%;width:min(230px,calc(100% - 24px));transform:translateX(-50%);bottom:calc(var(--safe-bottom,env(safe-area-inset-bottom,0px)) + 15px);display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:6px;align-items:center}
+.garden-visit-controls>.game-button,.garden-visit-zoom{width:100%;height:50px;min-height:50px;min-width:0;margin:0;padding:6px 4px 10px;display:flex;justify-content:center;align-items:center;gap:2px;color:#fff;font-size:14px;line-height:20px;white-space:nowrap}.garden-visit-controls .game-button>.icon{width:22px;height:26px}.garden-visit-controls .button-label{min-width:0}
+.garden-visit-zoom{font-family:var(--font-game-number);font-size:28px;line-height:32px}.garden-visit-zoom:disabled{opacity:.5}
+.garden-visit-status{position:absolute;inset:110px 20px 120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;color:#193e38}.garden-visit-status p{font-size:17px;line-height:25px;overflow-wrap:anywhere}.garden-visit-status>.game-button{width:180px}
+@media(max-width:350px){.garden-visit-header{left:8px;right:8px;gap:6px;padding-left:9px}.garden-visit-header h1{font-size:17px}}

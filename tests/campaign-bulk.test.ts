@@ -1,6 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {createHash} from 'node:crypto';
-import {getLevel,APPROVED_LEVEL_COUNT,BULK_BATCH_SIZE} from '@garden/content';
+import {getLevel as getContentLevel,APPROVED_LEVEL_COUNT,BULK_BATCH_SIZE} from '@garden/content';
+// These publication certificates retain the v1.3 board and action hashes.
+const getLevel=(id:number)=>getContentLevel(id,'1.3.0');
 import {createGame,findMatches,legalActions,replay,stateHash,validateLevel,isSpecial} from '@garden/core';
 import type {Action} from '@garden/contracts';
 import {BULK_START,BULK_CONTENT_VERSION,bulkProfile,bulkTier,levelFromBulkEntry,type BulkCatalogue} from '../packages/content/src/bulk';

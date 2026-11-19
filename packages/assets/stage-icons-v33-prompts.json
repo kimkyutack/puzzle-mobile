@@ -1,0 +1,91 @@
+{
+  "createdAt": "2026-11-06",
+  "method": "built-in image_gen",
+  "references": [
+    "output/verification/header-v32/six-390-final.png",
+    "packages/assets/source/planter_after.png",
+    "packages/garden-world/art/runtime/residents-v22/rabbit-0.png"
+  ],
+  "assets": [
+    {
+      "id": "stage_spring_v33",
+      "sourcePath": "packages/assets/source/stage_spring_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae8d-704a-78e0-914a-805efed1d559/exec-7c23d134-c811-43e1-80ca-dacdc70d017e.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent raster sprite for a polished 3D casual mobile match-three garden game. Reference 1 is the actual game screen; reference 2 is an existing in-game garden object for material and color matching. Create a SINGLE small friendly garden water source: a chunky warm GOLD brass faucet on a very short TURQUOISE rounded pipe and small pale-stone footing, with a clear short sparkling BLUE WATER STREAM flowing out toward the RIGHT. Slightly elevated front/top view, readable almost orthographic icon suited to a 35-pixel board cell. Match the reference's rounded toy-like 3D illustration, clean saturated colors, beveled forms, soft controlled highlights, convincing sculpted volume. Strong simple silhouette, minimal tiny details. The tap handle and right-facing spout must be instantly identifiable. Natural square about512x512, centered and nearly filling the canvas, complete object uncropped with modest transparent padding. TRUE TRANSPARENT background outside the object and water. No ground terrain, platform scene, floating UI panel, border frame, letters, numerals, labels, watermark, character or extra object. No isometric room, no flat vector/SVG appearance, no photorealism. Preserve alpha; blue water itself can be partially translucent.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": {
+        "min": 0,
+        "max": 255
+      },
+      "alphaBoundsAt32": {
+        "left": 157,
+        "top": 106,
+        "width": 987,
+        "height": 1038
+      },
+      "alphaComponentsAt32": 1,
+      "detachedPixelsAt32": 0
+    },
+    {
+      "id": "stage_flower_bud_v33",
+      "sourcePath": "packages/assets/source/stage_flower_bud_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae8d-704a-78e0-914a-805efed1d559/exec-0e72167a-405a-4fb4-a3fb-9ffaa5aebbd2.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent game-board goal sprite for a polished 3D casual mobile match-three garden game. Reference 1 is the real game screen and reference 2 is a supplied existing garden planter establishing the honey-gold, terracotta, turquoise, smooth sculpted material style. Create a SINGLE SMALL ROUND TERRACOTTA FLOWERPOT with a modest warm-gold rim, two or three chunky fresh green leaves, and EXACTLY ONE CLOSED DROOPING PINK FLOWER BUD on a short bent green stem. This is the UNWATERED goal state: the closed bud should clearly hang to one side and look thirsty but charming, not dead or ugly. No open flowers. Slightly elevated front/top view suited to a 35px orthographic puzzle board cell. Simple bold silhouette and very few details so pot, leaves, and closed pink bud remain recognizable tiny. Match the real game's toy-like 3D illustrated depth, rounded bevels, saturated but controlled color, soft highlights. Natural square about512x512, one object centered, nearly filling image with modest transparent padding, uncropped. TRUE TRANSPARENT background outside the complete object. No ground tile, garden scene, water puddle, surrounding props, UI card, frame, text, numbers, watermark or character. No isometric view, no flat vector/SVG style, no photorealism. The pot design must be easy to repeat unchanged in a later full-bloom variant.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": {
+        "min": 0,
+        "max": 255
+      },
+      "alphaBoundsAt32": {
+        "left": 250,
+        "top": 99,
+        "width": 809,
+        "height": 1085
+      },
+      "alphaComponentsAt32": 1,
+      "detachedPixelsAt32": 0
+    },
+    {
+      "id": "stage_flower_bloom_v33",
+      "sourcePath": "packages/assets/source/stage_flower_bloom_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae8d-704a-78e0-914a-805efed1d559/exec-cc996536-87aa-4790-a42d-1ea24c9e8848.png",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent goal-complete sprite for the same polished 3D casual mobile match-three game. Input image is the UNWATERED flowerpot goal. Produce its WATERED FULL-BLOOM counterpart. Keep the SAME small round terracotta/orange pot, warm-gold rim and foot, ivory daisy decoration with turquoise leaves, same camera angle, size, position, lighting and smooth toy-like materials. Change only the plant above the soil: it is now fresh, upright and lush with a LARGE cheerful OPEN PINK flower with a rich round YELLOW center, plus two smaller pink/yellow blossoms and the same chunky green leaves. The blooming silhouette should spread upward and outward and look unmistakably successful next to the drooping closed-bud state at 35px. No closed drooping bud, no sparkles or floating rewards. Natural square about512x512, centered full object with modest transparent padding, no clipping. TRUE TRANSPARENT background outside this single complete object. No scenery, terrain, water puddle, extra props, UI frame, text, numbers, watermark or character. Do not change the pot identity or create a different pot. Preserve saturated but controlled casual-game colors, sculpted 3D depth and clear simple readable silhouette, not flat vector/SVG or photorealism.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": {
+        "min": 0,
+        "max": 255
+      },
+      "alphaBoundsAt32": {
+        "left": 219,
+        "top": 17,
+        "width": 762,
+        "height": 1170
+      },
+      "alphaComponentsAt32": 1,
+      "detachedPixelsAt32": 0
+    },
+    {
+      "id": "stage_rabbit_home_v33",
+      "sourcePath": "packages/assets/source/stage_rabbit_home_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae8d-704a-78e0-914a-805efed1d559/exec-379cb7ff-67df-418f-9fa1-0d7335483516.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent goal sprite for a polished 3D casual mobile match-three garden game. Input1 is the real match3 game; input2 is the actual game's rabbit, input3 is an existing garden object showing the warm gold, terracotta and turquoise sculpted material style. Create ONE SMALL FRIENDLY WOODEN RABBIT HOME / HUTCH: warm honey-colored wood, a large ROUNDED ARCHED DARK DOORWAY at the front, chunky soft beveled construction, a short leafy green roof with just a few large simple leaves and a tiny ivory/yellow daisy accent. No rabbit inside or outside. It should look inviting and clearly read as the rabbit's destination at a tiny 35px board-cell size. Slightly elevated front/top view, not an isometric room or cutaway. Bold simple silhouette and minimal details: roof, warm wood body and dark doorway recognizable instantly. Match input1 and3's cheerful polished cartoon 3D game art, clean rounded forms, saturated but controlled colors, gentle sculpted shadows and highlights. Natural square about512x512, centered nearly filling image with modest transparent padding, complete object not cropped. TRUE TRANSPARENT background outside the hutch. No ground platform, terrain patch, scenery, water, carrots, animals, surrounding props, UI frame, letters, numbers, signs, watermark or photorealism. No flat vector/SVG style.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": {
+        "min": 0,
+        "max": 255
+      },
+      "alphaBoundsAt32": {
+        "left": 68,
+        "top": 93,
+        "width": 1119,
+        "height": 1094
+      },
+      "alphaComponentsAt32": 1,
+      "detachedPixelsAt32": 0
+    }
+  ]
+}

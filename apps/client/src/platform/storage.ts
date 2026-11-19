@@ -2,6 +2,7 @@ import { Capacitor } from '@capacitor/core';
 import {apiBase,sessionStorageKey} from '../api-endpoint';
 export interface Tokens {accessToken:string;refreshToken:string}
 const KEY=sessionStorageKey(apiBase);
+const AGE_KEY=KEY+':age-admission';
 let writes:Promise<unknown>=Promise.resolve();
 function write<T>(work:()=>Promise<T>){const result=writes.then(work,work);writes=result.catch(()=>{});return result;}
 function parse(value:string|null):Tokens|null {
@@ -31,4 +32,22 @@ export const tokenStorage = {
     const keys=await SecureStoragePlugin.keys();
     if(keys.value.includes(KEY)) await SecureStoragePlugin.remove({key:KEY});
   });},
+};
+
+export const ageAdmissionStorage = {
+  async get() {
+    if(!Capacitor.isNativePlatform())return localStorage.getItem(AGE_KEY);
+    const {SecureStoragePlugin}=await import('capacitor-secure-storage-plugin');
+    return (await SecureStoragePlugin.keys()).value.includes(AGE_KEY)?(await SecureStoragePlugin.get({key:AGE_KEY})).value:null;
+  },
+  set(value:string) {return write(async()=>{
+    if(!Capacitor.isNativePlatform()){localStorage.setItem(AGE_KEY,value);return;}
+    const {SecureStoragePlugin}=await import('capacitor-secure-storage-plugin');
+    await SecureStoragePlugin.set({key:AGE_KEY,value});
+  });},
+  clear() {return write(async()=>{
+    if(!Capacitor.isNativePlatform()){localStorage.removeItem(AGE_KEY);return;}
+    const {SecureStoragePlugin}=await import('capacitor-secure-storage-plugin');
+    if((await SecureStoragePlugin.keys()).value.includes(AGE_KEY))await SecureStoragePlugin.remove({key:AGE_KEY});
+  });}
 };

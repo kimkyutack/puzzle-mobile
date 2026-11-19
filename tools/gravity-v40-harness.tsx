@@ -1,0 +1,18 @@
+// Renderer-only reproduction. No network requests, user account or inventory writes.
+import React,{useRef,useState} from 'react';import {createRoot} from 'react-dom/client';
+import {COLORS,ENGINE_VERSION,ENDPOINT_PIPE_ENGINE_VERSION,type Action,type GameEvent,type GameState,type LevelDefinition} from '@garden/contracts';
+import {createGame,actionWithFrames,type CascadeFrame} from '@garden/core';
+import CascadeBoard from '../apps/client/src/CascadeBoard';import PlayHud from '../apps/client/src/PlayHud';import ArtSurface from '../apps/client/src/ArtSurface';
+import {prepareAssets} from '../apps/client/src/assets';import {configureSound} from '../apps/client/src/sound';import {setLocale} from '../apps/client/src/i18n';
+import '../apps/client/src/style.css';import '../apps/client/src/fonts.css';import '../apps/client/src/ui-v9.css';import '../apps/client/src/context-v9.css';
+const legacy=new URLSearchParams(location.search).has('legacy'),engineVersion=legacy?ENDPOINT_PIPE_ENGINE_VERSION:ENGINE_VERSION;
+const level:LevelDefinition={id:204,version:'flow-renderer-qa',engineVersion,width:9,height:9,shape:Array(81).fill(true),colors:[...COLORS],moves:35,seed:14121,obstacles:[],goals:[{kind:'berry',count:120,remaining:120}],difficulty:'normal'};
+function initial(){const state=createGame(level);for(const [i,cell]of state.cells.entries())cell.tile={id:i+1,kind:'normal',color:COLORS[(i%9+Math.floor(i/9)*2)%6]!};state.nextTileId=100;for(const at of [19,20,21,22,23,24,25]){const id='roof-'+at;state.obstacles[id]={id,kind:'vine',anchor:at,footprint:[at],hp:8,maxHp:8};state.cells[at]!.obstacleId=id;}return state;}
+function Fixture(){const [state,setState]=useState(initial),[shown,setShown]=useState(state),[events,setEvents]=useState<GameEvent[]>([]),[frames,setFrames]=useState<CascadeFrame[]>([]),[action,setAction]=useState<Action>(),[locked,setLocked]=useState(false),[side,setSide]=useState(0),guard=useRef(false);const act=(input:Action)=>{if(guard.current)return;const result=actionWithFrames(state,input);setState(result.state);setAction(input);setEvents(result.events);setFrames(result.frames);setSide(result.events.filter(e=>e.type==='fall'&&e.from!%9!==e.to!%9).length);guard.current=true;setLocked(true)};
+ return <main className="game-shell playing" style={{width:390,height:844,maxWidth:'100%',minHeight:844,margin:'0 auto'}} data-art-root data-engine={engineVersion} data-side-falls={side} data-empty-cells={state.cells.filter(c=>c.exists&&!c.obstacleId&&!c.tile).length} data-visual-settled={!locked}>
+  <ArtSurface scene="play"/><PlayHud state={shown} moves={state.moves} tool={null} locked={locked} onCancelTool={()=>{}}/>
+  <section className="board-area"><div className="level-ribbon" data-frame="event_sky_v9" data-frame-scale="0.1"><span>{legacy?'기존 낙하':'계단 낙하 검증'}</span></div><CascadeBoard state={state} events={events} action={action} frames={frames} locked={locked} tool={null} reduced={false} onAction={act} onStateShown={setShown} onVisualStart={()=>{guard.current=true;setLocked(true)}} onVisualSettled={()=>{guard.current=false;setLocked(false)}}/></section>
+  <footer className="play-footer" data-frame="dock_v3" style={{padding:18,display:'flex',alignItems:'center',justifyContent:'center',gap:10}}><button disabled={locked} onClick={()=>act({type:'booster',item:'sweep-row',at:45})}>잠금 아래 한 줄 지우기</button><span>빈칸 {state.cells.filter(c=>c.exists&&!c.obstacleId&&!c.tile).length} · 옆 이동 {side}</span></footer>
+ </main>;
+}
+setLocale('ko');configureSound(false,false,false);await prepareAssets(()=>{});await document.fonts.load('18px Jua');const root=import.meta.hot?.data.root??createRoot(document.getElementById('root')!);if(import.meta.hot)import.meta.hot.data.root=root;root.render(<Fixture/>);

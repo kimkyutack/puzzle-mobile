@@ -1,0 +1,21 @@
+{
+  "generator": "built-in image_gen",
+  "transparent": true,
+  "assets": [
+    {
+      "id": "magnet_rail_end_v39",
+      "path": "packages/assets/source/magnet_rail_end_v39.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent raster sprite for an original polished mobile match-3 garden game, readable at 38 pixels. Clean orthographic straight-on game-board view, rich cobalt blue enamel, warm gold trim, soft toy-like bevel and controlled highlights, crisp silhouette. No text, no numbers, no background, no glow cloud, no extra objects. True transparent background. This is a modular board obstacle, not UI or a poster. Primary request: exactly ONE rounded horseshoe magnet endpoint. The two short flat ivory steel pole tips point straight LEFT. The thick continuous curved back is on the RIGHT. Blue U-shaped enamel body with a thin warm-gold rim, bright ivory pole tips and two tiny gold rivets. Compact nearly square, 82% of the canvas, centered. A clear attackable end cap, strong recognisable U magnet silhouette, no lettering."
+    },
+    {
+      "id": "magnet_rail_segment_v39",
+      "path": "packages/assets/source/magnet_rail_segment_v39.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent raster sprite for an original polished mobile match-3 garden game, readable at 38 pixels. Clean orthographic straight-on game-board view, rich cobalt blue enamel, warm gold trim, soft toy-like bevel and controlled highlights, crisp silhouette. No text, no numbers, no background, no glow cloud, no extra objects. True transparent background. This is a modular board obstacle, not UI or a poster. Primary request: exactly ONE short, straight horizontal rail connector. A continuous thick cobalt blue rounded enamel beam extends horizontally from the LEFT canvas edge to RIGHT canvas edge at mid-height; width fully spans the canvas, height 52% of the canvas. Narrow gold rims along its top and bottom edges. Two subtle broad ribs. Square canvas, transparent above and below. Open straight edges at both sides for seamless joining to neighboring cells. No end caps, no horseshoes."
+    },
+    {
+      "id": "magnet_rail_corner_v39",
+      "path": "packages/assets/source/magnet_rail_corner_v39.png",
+      "prompt": "Use case: stylized-concept. Asset type: one transparent raster sprite for an original polished mobile match-3 garden game, readable at 38 pixels. Clean orthographic straight-on game-board view, rich cobalt blue enamel, warm gold trim, soft toy-like bevel and controlled highlights, crisp silhouette. No text, no numbers, no background, no glow cloud, no extra objects. True transparent background. This is a modular board obstacle, not UI or a poster. Primary request: exactly ONE rounded 90-degree elbow rail connector. A thick continuous cobalt blue enamel beam enters from the LEFT canvas edge at mid-height, smoothly turns DOWN at the canvas center, and exits the BOTTOM canvas edge at mid-width. Tube thickness 52% of canvas. Narrow gold rim outlines both edges of the bend. Transparent remaining canvas. Clean right-angle elbow silhouette, no end caps, no horseshoes, no perspective."
+    }
+  ]
+}

@@ -13,7 +13,9 @@ export class GuildRoom extends DurableObject<ApiEnv> {
   async broadcast(eventId:string,guildId:string){
     for(const socket of this.ctx.getWebSockets()){
       const a=socket.deserializeAttachment() as {userId:string;guildId:string};
-      if(!await one(this.env.DB,'SELECT 1 FROM guild_members WHERE user_id=? AND guild_id=?',a.userId,guildId)){socket.close(1008,'Membership changed');continue;}
+      if(!a||!await one(this.env.DB,'SELECT 1 FROM guild_members WHERE user_id=? AND guild_id=?',a.userId,guildId)){
+        socket.serializeAttachment(null);socket.close(1008,'Membership changed');continue;
+      }
       socket.send(JSON.stringify({type:'refresh',eventId}));
     }
     return true;

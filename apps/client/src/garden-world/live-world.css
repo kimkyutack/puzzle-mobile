@@ -15,10 +15,12 @@
 .live-garden .game-button[data-button-tone="blue"]{border-image-source:var(--live-blue)}
 .live-garden .game-button[data-button-tone="gold"]{border-image-source:var(--live-amber)}
 .live-garden .live-edit-tabs .game-button[data-button-tone],.live-garden .live-actions>.game-button[data-button-tone],.live-garden .live-product>.game-button[data-button-tone],.live-garden .live-sheet>.game-button[data-button-tone]{padding:0 3px 2px}
-.live-quantity{display:grid;grid-template-columns:32px minmax(0,1fr) 32px;align-items:center;width:100%;gap:2px;margin-top:5px}
+.live-quantity{display:grid;grid-template-columns:32px minmax(0,1fr) 32px;align-items:center;width:100%;gap:2px;margin-top:auto;padding-top:5px}
 .live-quantity>button{min-height:32px;color:#17385e;font-size:19px;border:solid transparent;border-width:4px 7px 5px;border-image:var(--live-plate) 40 64 48 64 fill}
 .live-quantity>input{min-width:0;width:100%;height:32px;padding:0;text-align:center;font-size:18px;color:#17385e;background:#edf6ff;border-radius:5px;font-family:var(--font-game-number);appearance:textfield}
 .live-quantity>input::-webkit-inner-spin-button{appearance:none}
+.live-garden .live-product .live-unlock{margin:4px 0 1px;font-size:13px;line-height:17px;font-weight:800;color:#3b3e68}
+.live-garden .live-product .live-unlock[data-locked=true]{color:#66315c}
 .live-paint-tools,.live-purchase-confirm{display:flex;flex-direction:column;gap:9px;min-width:0}
 .live-purchase-confirm>p{font-size:12px;line-height:18px}.live-purchase-confirm .resource-amount{font-size:20px}
 .live-product .live-quantity~.game-button{width:100%;height:43px;min-height:43px;margin:5px 0 0}
@@ -34,8 +36,10 @@
 .live-land-summary{display:flex;gap:9px;align-items:center;color:#17385a;padding:8px;border:solid transparent;border-width:6px 9px 8px;border-image:var(--live-card) 44 44 56 44 fill}
 .live-land-summary strong{font-family:var(--font-game-number);font-size:23px;line-height:29px}
 .live-land-summary p,.live-land-explain{font-size:12px;line-height:18px;overflow-wrap:anywhere}
-.live-land-picker{display:grid;grid-template-columns:minmax(0,1fr) 45px minmax(0,1fr);gap:4px;align-items:center;text-align:center}
-.live-garden .live-land-picker>.game-button{height:43px;min-height:43px;margin:0;padding:0 2px 3px;font-size:14px}
+.live-land-controls{display:flex;gap:8px;align-items:center;min-width:0}
+.live-land-controls>p{flex:1;font-size:12px;line-height:18px}
+.live-garden .live-land-controls>.game-button{flex:0 0 92px;height:40px;min-height:40px;margin:0;padding:0 2px 3px;font-size:13px}
+.live-land-explain.is-invalid{color:#9f2529;font-weight:700}
 .live-garden .live-land-tools .live-actions>.game-button{font-size:15px;padding:0 2px 2px}
 .live-land-tools .resource-amount{gap:3px;font-size:18px;white-space:nowrap}
 .live-land-tools .resource-amount>.icon{width:23px;height:23px}

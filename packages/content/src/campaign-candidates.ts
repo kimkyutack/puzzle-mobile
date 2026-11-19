@@ -1,4 +1,4 @@
-import {COLORS,CONTENT_VERSION,ENGINE_VERSION,type LevelDefinition,type Obstacle,type ObstacleKind,type Goal} from '@garden/contracts';
+import {COLORS,CONTENT_VERSION,GARDEN_ENGINE_VERSION,type LevelDefinition,type Obstacle,type ObstacleKind,type Goal} from '@garden/contracts';
 import {createGame} from '@garden/core';
 import {campaignPosition,campaignDifficulty} from './campaign';
 import {pack6Candidate} from './campaign-pack6';
@@ -42,7 +42,7 @@ export function campaignCandidate(id:number,attempt=0):LevelDefinition {
  {const count=learning?12:campaign.beat==='celebration'?18:strength?28:24;goals.push({kind:color,count,remaining:count});}
  const gravity:number[][]=[];for(let x=0;x<width;x++){let lane:number[]=[];for(let y=0;y<height;y++){const i=at(x,y);if(shape[i])lane.push(i);else if(lane.length){gravity.push(lane);lane=[];}}if(lane.length)gravity.push(lane);}
  const [name,hint]=descriptions[kind];
- const level:LevelDefinition={id,version:CONTENT_VERSION,engineVersion:ENGINE_VERSION,width,height,shape,colors,moves:50,seed:17_071+id*7919+attempt*104729,goals,obstacles,gravity,inlets:gravity.map(l=>l[0]!),...(exits.length?{exits}:{}),difficulty:campaignDifficulty(campaign.beat),campaign,strategy:{id:kind,name,hint},approved:false};
+ const level:LevelDefinition={id,version:CONTENT_VERSION,engineVersion:GARDEN_ENGINE_VERSION,width,height,shape,colors,moves:50,seed:17_071+id*7919+attempt*104729,goals,obstacles,gravity,inlets:gravity.map(l=>l[0]!),...(exits.length?{exits}:{}),difficulty:campaignDifficulty(campaign.beat),campaign,strategy:{id:kind,name,hint},approved:false};
  level.initial=createGame(level).cells.map(cell=>cell.tile);
  if(campaign.beat==='celebration'){
   // Visible starting power-ups are level content, not paid inventory consumption.

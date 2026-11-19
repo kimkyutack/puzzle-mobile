@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createGame,applyAction,stateHash,legalActions} from '@garden/core';
 import {getLevel} from '@garden/content';
-import {createIdleHintClock,IDLE_HINT_DELAY_MS,nextBoardHint,hintCells} from '../apps/client/src/idle-hint';
+import {createIdleHintClock,IDLE_HINT_DELAY_MS,HINT_ROTATE_MS,hintRotation,nextBoardHint,hintCells,rankedBoardHints} from '../apps/client/src/idle-hint';
 
 describe('idle hint delay and playable moves',()=>{
  it('waits five uninterrupted seconds and restarts after player input',()=>{
@@ -27,5 +27,34 @@ describe('idle hint delay and playable moves',()=>{
  });
  it('shows no move on completed, failed, exhausted or empty boards',()=>{
   const state=createGame(getLevel(1));for(const status of ['won','lost','error'] as const){state.status=status;expect(nextBoardHint(state)).toBeNull();}state.status='playing';state.moves=0;expect(nextBoardHint(state)).toBeNull();state.moves=5;for(const cell of state.cells)cell.tile=null;expect(nextBoardHint(state)).toBeNull();
+ });
+});
+
+describe('ranked, rotating hints',()=>{
+ it('puts item-forming matches first and outlines the whole match the move would clear',()=>{
+  let withItem=0;
+  for(let level=1;level<=120;level++){
+   const state=createGame(getLevel(level)),before=stateHash(state),ranked=rankedBoardHints(state);expect(stateHash(state)).toBe(before);
+   const firstItem=ranked.findIndex(plan=>plan.forms);
+   if(firstItem>=0){withItem++;expect(ranked[0]!.forms,`level ${level}`).toBeDefined();}
+   for(const plan of ranked.filter(plan=>plan.action.type==='swap'&&plan.group.length>2)){
+    if(plan.action.type!=='swap')continue;
+    expect(plan.group).toContain(plan.action.to);
+    const result=applyAction(state,plan.action),fall=result.events.findIndex(event=>event.type==='fall'||event.type==='spawn'),firstWave=result.events.slice(0,fall<0?undefined:fall).flatMap(event=>event.type==='remove'||event.type==='hit'||event.type==='special'?event.cells:[]);
+    expect(result.accepted).toBe(true);// The tile where an item is born is consumed into the item rather than removed.
+    const born=new Set(result.events.flatMap(event=>event.type==='spawn'&&event.kind!=='normal'?event.cells:[]));for(const at of plan.group)if(!born.has(at))expect(firstWave).toContain(at);
+    break;
+   }
+  }
+  expect(withItem).toBeGreaterThan(0);
+ });
+ it('rotates through different moves that never share a tile',()=>{
+  let rotating=0;
+  for(let level=1;level<=60;level++){
+   const plans=hintRotation(createGame(getLevel(level)));if(plans.length>1)rotating++;
+   const seen=new Set<number>();
+   for(const plan of plans)for(const at of new Set([...plan.group,...hintCells(plan.action)])){expect(seen.has(at),`level ${level}`).toBe(false);seen.add(at);}
+  }
+  expect(rotating).toBeGreaterThan(30);expect(HINT_ROTATE_MS).toBeGreaterThan(2000);
  });
 });

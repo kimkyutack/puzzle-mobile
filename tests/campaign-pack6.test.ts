@@ -1,6 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {createHash} from 'node:crypto';
-import {getLevel,APPROVED_LEVEL_COUNT,campaignPosition} from '@garden/content';
+import {getLevel as getContentLevel,APPROVED_LEVEL_COUNT,campaignPosition} from '@garden/content';
+// These publication certificates retain the v1.3 board and action hashes.
+const getLevel=(id:number)=>getContentLevel(id,'1.3.0');
 import {createGame,applyAction,replay,stateHash,isSpecial} from '@garden/core';
 import type {Action,ObstacleKind} from '@garden/contracts';
 import {PACK6_CONTENT_VERSION,PACK6_STRATEGIES} from '../packages/content/src/campaign-pack6';

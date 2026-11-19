@@ -1,0 +1,84 @@
+.age-access {
+  position: fixed;
+  inset: 0;
+  background: #163554;
+}
+.age-access .modal {
+  max-width: 430px;
+  min-height: 0;
+}
+.age-access-content,
+.age-access-content form,
+.age-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+.age-access-content .brand-heading {
+  width: min(100%, 164px);
+  margin: 0 auto;
+}
+.age-access-content p,
+.age-access-content label {
+  font-size: 15px;
+  line-height: 1.45;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.age-field {
+  gap: 4px;
+}
+.age-field .input-frame {
+  margin: 0;
+}
+.age-field input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 8px;
+  font-size: 16px;
+}
+.age-field input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.age-field input::-webkit-date-and-time-value {
+  min-height: 1em;
+  text-align: start;
+}
+.age-check {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 9px;
+}
+.age-check input {
+  width: 20px;
+  height: 20px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+.age-access-content .game-button {
+  min-width: 0;
+  margin: 0;
+}
+.age-access .age-access-content .age-error {
+  color: #ffcfcb;
+}
+.age-access-links {
+  display: flex;
+  justify-content: center;
+  gap: 6px 14px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.age-access-links a {
+  color: #e3eeff;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.hub-navigation>.hub-footer[data-hub-tabs="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}

@@ -1,80 +1,132 @@
-import {tr,t} from "./i18n";
-import {useEffect,useRef,useState} from 'react';
-import {Application,Container,NineSliceSprite,Sprite,Text,Texture} from 'pixi.js';
-import type {Action,GameState,GameEvent,Booster,Obstacle} from '@garden/contracts';
+import type {ExpeditionAnimal} from '@garden/contracts';
+import GardenStageOverlay from './GardenStageOverlay';
+import {gardenStageMotion} from './garden-stage-motion';
+import {gardenFloor} from './garden-stage-visual';
+import {stageFloorArt} from './garden-stage-texture';
+import {itemName,tr,t} from "./i18n";
+import {useEffect,useLayoutEffect,useRef,useState} from 'react';
+import {Application,Container,Graphics,NineSliceSprite,Sprite,Text,Texture} from 'pixi.js';
+import {supportsOpenGardenStages,supportsVisibleTargets,type Action,type GameState,type GameEvent,type Booster,type Obstacle} from '@garden/contracts';
 import {stateHash} from '@garden/core';
+import {isDeviceGate} from '../../../packages/game-core/src/campaign-devices';
+import {turntableCells} from '../../../packages/game-core/src/greenhouse-devices';
 import {texture,tileArt,hasArt,animationTextures,assetInfo} from './assets';
 import {tileVisualSize} from './tile-visuals';
+import {boardEffectTexture,boardSpriteSize,boardTexture} from './board-sprite-art';
+import {MATCH_RELEASE,MATCH_SQUEEZE,breakPose,matchBreakPose,obstacleRecoil,tileGathering,impactCues,type ImpactCue} from './tile-impact';
+import {fallMotion,fallPose} from './tile-fall';
 import {createBoardEffects,effectTiming} from './board-effects';
+import {playLumiIntro} from './lumi-intro';
+import {createBoardRipple,fxMaterial,prepareFxMaterials,tileShards,type FxMaterial} from './board-fx-art';
+import {createDebrisSurface} from './obstacle-debris';
 import {VISUAL_BEATS} from './visual-timing';
-import {impactOverlays,type ImpactOverlay} from './impact-overlays';
+import {impactOverlays,type ImpactOverlay,type ObstacleImpact} from './impact-overlays';
 import {drawMechanicArt} from './mechanic-art';
-import {tileOrigins,tileDepartures,pointOnPath,type TileOrigin} from './tile-origins';
-import {draggableCell,projectDrag,type DragAxis,type DragProjection} from './drag-preview';
+import {drawGardenPuzzleFloor,drawGardenPuzzleObstacle,gardenPuzzleObstacleArt} from './garden-puzzle-art';
+import {drawObstacleRule,obstacleRuleDetail,obstacleRuleLabel} from './obstacle-rule-art';
+import {chapterObstacleLabel,drawChapterObstacle} from './chapter-obstacle-art';
+import {harvestCartPushPath} from '../../../packages/game-core/src/garden-puzzles';
+import {tileOrigins,tileDepartures,tileFallPaths,pointOnPath,type TileDeparture,type TileOrigin} from './tile-origins';
+import {draggableCell,projectDrag,dragIntent,releaseDrag,sameCanvasBounds,type CanvasBounds,type DragAxis,type DragProjection} from './drag-preview';
+import {recordInputTrace,recordInputAction,addDragSample,type InputTrace} from './input-diagnostics';
 import {combinationAt,combinationParts} from './special-combination';
-import {createIdleHintClock,nextBoardHint,hintCells,type BoardHint} from './idle-hint';
-import {enclosedAperture,fittedBoardGeometry,cellPosition,cellIndex,boardClip,BOARD_FRAME_SCALE,type BoardGeometry,type FrameAperture,type Insets} from './board-geometry';
-import {sound,haptic,startMusic} from './sound';
-interface Props {state:GameState;events:GameEvent[];action?:Action;locked:boolean;tool:Booster|null;onAction:(action:Action)=>void;onVisualStart?:(durationMs:number)=>void;onVisualSettled?:()=>void;reduced:boolean;tutorial?:{from:number;to:number}}
+import {createIdleHintClock,hintRotation,hintCells,HINT_ROTATE_MS,type BoardHint,type HintPlan} from './idle-hint';
+import {enclosedAperture,boardGeometry,fittedBoardGeometry,cellPosition,cellIndex,boardClip,BOARD_FRAME_SCALE,type BoardGeometry,type FrameAperture,type Insets} from './board-geometry';
+import {sound,haptic,startMusic,prepareBoardSounds} from './sound';
+import {isBreakableObstacle,isGardenOpener} from '../../../packages/contracts/src/breakable-obstacles';
+export interface BoardProps {goldGarden?:boolean;animal?:'rabbit'|ExpeditionAnimal;state:GameState;events:GameEvent[];action?:Action;continuingCascade?:boolean;locked:boolean;tool:Booster|null;onAction:(action:Action)=>void;onVisualStart?:(durationMs:number)=>void;onVisualSettled?:()=>void;reduced:boolean;boosterIntro?:readonly number[];tutorial?:{from:number;to:number};fillWidth?:boolean}
 type Point={x:number;y:number};
-type Motion={sprite:Sprite;start:number;duration:number;from:Point;to:Point;alpha?:boolean;elastic?:boolean;pop?:boolean;fade?:boolean;fall?:boolean;form?:boolean;path?:Point[];scale:number;finish?:()=>void};
+type Motion={sprite:Container;start:number;duration:number;from:Point;to:Point;alpha?:boolean;elastic?:boolean;pop?:'match'|'impact';anticipation?:number;recoil?:boolean;gather?:boolean;fade?:boolean;fall?:boolean;travel?:number;form?:boolean;portal?:boolean;path?:Point[];scale:number;scaleY:number;finish?:()=>void};
 type Pair={from:number;to:number;stamp:string};
 const visualKeys=new WeakMap<GameState,string>();
+const windMarks=[['●',0xffd994],['◆',0x8ff1de],['▲',0xafdcff],['■',0xfcc5e9],['✦',0xc9ef93],['✚',0xd5c2ff]] as const;
 const stamp=(state:GameState)=>{let key=visualKeys.get(state);if(!key){key=stateHash(state);visualKeys.set(state,key);}return key;};
+function planterGroupNumber(obstacle:Obstacle|undefined){
+ const source=obstacle?.cover?.source??(obstacle&&isGardenOpener(obstacle.kind)?obstacle.id:undefined);
+ return source===undefined?undefined:Number(source.match(/\d+$/)?.[0])||1;
+}
 
-export default function Board(props:Props){
+export default function Board(props:BoardProps){
  const host=useRef<HTMLDivElement>(null),current=useRef(props);current.current=props;
  const controller=useRef<{render:(animate:boolean)=>void;tap:(index:number)=>void;cancel:()=>void;resetHint:()=>void}|null>(null);
  const [selected,setSelected]=useState<number|null>(null);
+ const [stageGeometry,setStageGeometry]=useState<BoardGeometry|null>(null);
  useEffect(()=>{
-  const element=host.current;if(!element)return;
+  const element=host.current;if(!element)return;prepareBoardSounds();
   const app=new Application();let disposed=false,cell=0,width=0,animationEnd=0,chosen:number|null=null;
   let camera={start:0,duration:0,strength:0};
-  let visualActive=false,pendingAction:Action|undefined,pendingFusion:Map<number,Point>|undefined,primaryImpact:{at:number;name:string}|undefined;
-  let last:GameState|undefined,lastEvents:GameEvent[]|undefined,lastStamp='',pointer:Sprite|null=null,fx:ReturnType<typeof createBoardEffects>|undefined;
-  let down:{id:number;from:number;x:number;y:number;axis:DragAxis|null;projection:DragProjection;stamp:string;tool:Booster|null}|null=null;
+  let visualActive=false,pendingAction:Action|undefined,pendingFusion:Map<number,Point>|undefined,contacts:Array<ImpactCue&{at:number}>=[];
+  let last:GameState|undefined,lastEvents:GameEvent[]|undefined,lastStamp='',pointer:Sprite|null=null,fx:ReturnType<typeof createBoardEffects>|undefined,ripple:ReturnType<typeof createBoardRipple>|undefined;
+  let down:{id:number;from:number;clientX:number;clientY:number;bounds:CanvasBounds;scaleX:number;scaleY:number;axis:DragAxis|null;projection:DragProjection;dragged:boolean;stamp:string;tool:Booster|null;trace:InputTrace}|null=null;
   let commit:Pair|null=null,awaitingSwap:Pair|null=null,commitTimer:ReturnType<typeof setTimeout>|undefined,settleTimer:ReturnType<typeof setTimeout>|undefined;
-  const floors=new Container(),tiles=new Container(),overlays=new Container(),departures=new Container(),frostCovers=new Container(),cellLayers=new Container(),effects=new Container(),highlights=new Container(),border=new Container(),counters=new Container(),clipSprite=new Sprite(Texture.WHITE);tiles.sortableChildren=true;counters.eventMode='none';counters.label='obstacle-counters';overlays.eventMode='none';overlays.label='obstacle-covers';departures.label='board-departures';frostCovers.eventMode='none';frostCovers.label='frost-covers';
+  let inputTraceAt:number|undefined;
+  const pieceLayers=new Container(),pieceClipSprite=new Sprite(Texture.WHITE);let pieceClipTexture:Texture|undefined,pieceClipKey='',pieceClipStep:{at:number;cells:number[]}|undefined;
+  const floors=new Container(),puzzleFloor=new Container(),tiles=new Container(),overlays=new Container(),departures=new Container(),frostCovers=new Container(),cellLayers=new Container(),effects=new Container(),highlights=new Container(),border=new Container(),counters=new Container(),clipSprite=new Sprite(Texture.WHITE);tiles.sortableChildren=true;counters.eventMode='none';counters.label='obstacle-counters';overlays.eventMode='none';overlays.label='obstacle-covers';departures.label='board-departures';frostCovers.eventMode='none';frostCovers.label='frost-covers';
+  const effectShade=new Sprite(Texture.WHITE);
+  effectShade.tint=0x060d26;effectShade.visible=false;effectShade.eventMode='none';
+  let puzzleFloorAt:number|undefined;
   // Even departing or enlarged pieces stay behind the images that cover them.
-  cellLayers.addChild(floors,tiles,departures,overlays,frostCovers);cellLayers.mask=clipSprite;clipSprite.eventMode='none';
+  pieceLayers.addChild(tiles,departures);pieceClipSprite.eventMode='none';cellLayers.addChild(floors,puzzleFloor,pieceLayers,overlays,frostCovers,effectShade);cellLayers.mask=clipSprite;clipSprite.eventMode='none';
   const apertures=new Map<string,FrameAperture>();let geometry:BoardGeometry|null=null,clipTexture:Texture|undefined,clipKey='';
   const overlayNodes=new Map<string,Container>(),counterNodes=new Map<string,Text>(),frostNodes=new Map<number,{base:Sprite;cover:Container}>(),displayedObstacles:Record<string,number>={},displayedFrost:Record<number,number>={};let overlaySteps:Array<ImpactOverlay&{start:number}>=[];
-  const requirementNodes=new Map<string,{icon:Sprite;color:string}>();
+  const pollenNodes=new Map<Graphics,Sprite>();
+ const requirementNodes=new Map<string,{icon:Sprite;color:string}>();
   const active=new Map<number,Sprite>(),tilePool:Sprite[]=[],motions:Motion[]=[],previewCells=new Set<number>();
-  const idleClock=createIdleHintClock(),hintSprites:Sprite[]=[];let idleHint:BoardHint|null=null,hintChecked=false,hintStarted=0;
+  const idleClock=createIdleHintClock(),hintSprites:Sprite[]=[];let idleHint:BoardHint|null=null,hintChecked=false,hintStarted=0,hintPlans:HintPlan[]=[],hintIndex=0;const groupSprites:Sprite[]=[];
   const position=(index:number):Point=>geometry?cellPosition(index,geometry):{x:0,y:0};
   function updateGeometry(w:number,s:GameState){
    const frameId=hasArt('board_frame_v6')?'board_frame_v6':hasArt('board_frame')?'board_frame':null,slices:Insets=frameId?assetInfo(frameId)?.sliceInsets??{left:128,right:128,top:128,bottom:128}:{left:0,right:0,top:0,bottom:0};let aperture:FrameAperture|null=null;
    if(frameId){aperture=apertures.get(frameId)??null;if(!aperture){const source=texture(frameId),canvas=document.createElement('canvas');canvas.width=source.width;canvas.height=source.height;const ctx=canvas.getContext('2d',{willReadFrequently:true})!;ctx.drawImage(source.source.resource as CanvasImageSource,0,0);aperture=enclosedAperture(ctx.getImageData(0,0,canvas.width,canvas.height).data,canvas.width,canvas.height);apertures.set(frameId,aperture);}}
-   geometry=fittedBoardGeometry(w,s.width,s.height,aperture?.insets??{left:0,right:0,top:0,bottom:0});cell=geometry.cell;
+   const measure=current.current.fillWidth?boardGeometry:fittedBoardGeometry;
+   geometry=measure(w,s.width,s.height,aperture?.insets??{left:0,right:0,top:0,bottom:0});cell=geometry.cell;
+   if(s.gardenStage){const next=geometry;setStageGeometry(old=>old?.width===next.width&&old?.height===next.height?old:next);}
    const key=frameId+':'+w+':'+s.width+':'+s.height+':'+s.cells.map(c=>c.exists?'1':'0').join('');
    if(key!==clipKey){const raster=boardClip(geometry,s.cells.map(c=>c.exists),aperture,slices),canvas=document.createElement('canvas');canvas.width=raster.width;canvas.height=raster.height;canvas.getContext('2d')!.putImageData(new ImageData(raster.pixels,raster.width,raster.height),0,0);const next=Texture.from(canvas);next.source.scaleMode='nearest';clipSprite.texture=next;clipTexture?.destroy(true);clipTexture=next;clipKey=key;}
    clipSprite.position.set(0,0);clipSprite.width=geometry.width;clipSprite.height=geometry.height;
+   effectShade.width=geometry.width;effectShade.height=geometry.height;
    if(host.current)host.current.dataset.boardGeometry=JSON.stringify({...geometry,frameId,clipResolution:2});
    return {frameId,slices};
   }
+  // Open floors remain visible, but ordinary falling/departing sprites cannot
+  // paint over them. The cutout changes after the old piece's contact beat.
+  function updatePieceClip(open:number[]){
+   if(!geometry)return;const state=current.current.state;
+   if(!supportsOpenGardenStages(state.engineVersion)||!open.length){pieceLayers.mask=null;pieceClipSprite.visible=false;if(host.current)host.current.dataset.openFloorClip='[]';return;}
+   const key=geometry.width+':'+geometry.height+':'+state.cells.map(c=>c.exists?'1':'0').join('')+':'+open.join(',');
+   if(key!==pieceClipKey){const excluded=new Set(open),raster=boardClip(geometry,state.cells.map((c,i)=>c.exists&&!excluded.has(i)),null,{left:0,right:0,top:0,bottom:0}),canvas=document.createElement('canvas');canvas.width=raster.width;canvas.height=raster.height;canvas.getContext('2d')!.putImageData(new ImageData(raster.pixels,raster.width,raster.height),0,0);const next=Texture.from(canvas);next.source.scaleMode='nearest';pieceClipSprite.texture=next;pieceClipTexture?.destroy(true);pieceClipTexture=next;pieceClipKey=key;}
+   pieceClipSprite.visible=true;pieceClipSprite.position.set(0,0);pieceClipSprite.width=geometry.width;pieceClipSprite.height=geometry.height;pieceLayers.mask=pieceClipSprite;
+   if(host.current)host.current.dataset.openFloorClip=JSON.stringify(open);
+  }
   const spriteAt=(index:number)=>{const tile=current.current.state.cells[index]?.tile;return tile?active.get(tile.id):undefined;};
   const phase=(value:string)=>{if(host.current&&host.current.dataset.inputPhase!==value)host.current.dataset.inputPhase=value;};
-  const busy=()=>disposed||current.current.locked||visualActive||performance.now()<animationEnd||!!commit||!!awaitingSwap||current.current.state.status!=='playing';
-  function visualSettled(){if(!visualActive)return;visualActive=false;animationEnd=0;resetIdleHint();phase('idle');if(host.current){host.current.dataset.visualSettledAt=String(performance.now());host.current.dataset.visualRemaining='0';}current.current.onVisualSettled?.();}
+  const busy=()=>disposed||current.current.locked||visualActive||performance.now()<animationEnd||motions.length>0||!!commit||!!awaitingSwap||current.current.state.status!=='playing';
+  function visualSettled(force=false){if(!visualActive&&!force)return;visualActive=false;animationEnd=0;resetIdleHint();phase('idle');if(host.current){host.current.dataset.visualSettledAt=String(performance.now());host.current.dataset.visualRemaining='0';}current.current.onVisualSettled?.();}
   function visualStart(duration:number){if(visualActive)visualSettled();resetIdleHint();visualActive=true;animationEnd=performance.now()+duration;phase('settling');if(host.current){host.current.dataset.visualStartedAt=String(performance.now());host.current.dataset.visualDuration=String(Math.round(duration));}current.current.onVisualStart?.(duration);}
-  function clearHighlights(){highlights.removeChildren().forEach(sprite=>sprite.destroy());hintSprites.length=0;pointer=null;}
+  function clearHighlights(){highlights.removeChildren().forEach(sprite=>sprite.destroy());hintSprites.length=0;groupSprites.length=0;pointer=null;}
   function halo(index:number){const sprite=new Sprite(texture('halo')),at=position(index);sprite.anchor.set(.5);sprite.position.set(at.x,at.y);sprite.width=cell*1.08;sprite.height=cell*1.08;highlights.addChild(sprite);return sprite;}
-  function highlight(){clearHighlights();const p=current.current;if(p.locked||visualActive||down?.axis||commit)return;if(idleHint){for(const index of hintCells(idleHint)){const sprite=halo(index);sprite.tint=0xffe6a1;sprite.alpha=.65;hintSprites.push(sprite);}}else if(chosen!==null)halo(chosen);else if(p.tutorial&&p.state.turn===0){halo(p.tutorial.from);halo(p.tutorial.to);pointer=new Sprite(texture('hand'));pointer.anchor.set(.25,.12);pointer.width=cell*1.1;pointer.height=cell*1.1;highlights.addChild(pointer);}}
-  function resetIdleHint(){idleClock.reset();hintChecked=false;idleHint=null;if(host.current)delete host.current.dataset.hintCells;highlight();}
+  function highlight(){clearHighlights();const p=current.current;if(p.locked||visualActive||down?.axis||commit)return;if(idleHint){const moving=hintCells(idleHint),plan=hintPlans[hintIndex];for(const index of plan?.group??[]){if(moving.includes(index))continue;const sprite=halo(index);sprite.tint=0xfff3cf;sprite.alpha=.45;groupSprites.push(sprite);}for(const index of moving){const sprite=halo(index);sprite.tint=0xffe6a1;sprite.alpha=.65;hintSprites.push(sprite);}}else if(chosen!==null)halo(chosen);else if(p.tutorial&&p.state.turn===0){halo(p.tutorial.from);halo(p.tutorial.to);pointer=new Sprite(texture('hand'));pointer.anchor.set(.25,.12);pointer.width=cell*1.1;pointer.height=cell*1.1;highlights.addChild(pointer);}}
+  function resetIdleHint(){idleClock.reset();hintChecked=false;idleHint=null;hintPlans=[];hintIndex=0;if(host.current)delete host.current.dataset.hintCells;highlight();}
   function updateIdleHint(now:number){const p=current.current,eligible=!busy()&&!down&&!motions.length&&!overlaySteps.length&&!fx?.activeCount&&!p.tool&&!(p.tutorial&&p.state.turn===0)&&!document.hidden&&document.hasFocus();
    if(!idleClock.due(now,eligible)){if(idleHint){idleHint=null;hintChecked=false;if(host.current)delete host.current.dataset.hintCells;highlight();}return;}
-   if(!hintChecked){hintChecked=true;idleHint=nextBoardHint(p.state,chosen);hintStarted=now;if(idleHint){if(chosen!==null&&!hintCells(idleHint).includes(chosen)){chosen=null;setSelected(null);}if(host.current)host.current.dataset.hintCells=hintCells(idleHint).join(',');highlight();}}
-   const pulse=p.reduced ? .5 : (1-Math.cos((now-hintStarted)/1400*Math.PI*2))/2;for(const sprite of hintSprites){sprite.alpha=.5+pulse*.3;sprite.width=cell*(1.04+pulse*.05);sprite.height=cell*(1.04+pulse*.05);}
+   // After each hint has had its turn, the next different move takes over; the whole set then repeats.
+   if(hintChecked&&hintPlans.length>1&&now-hintStarted>=HINT_ROTATE_MS){hintIndex=(hintIndex+1)%hintPlans.length;idleHint=hintPlans[hintIndex]!.action;hintStarted=now;if(host.current)host.current.dataset.hintCells=hintCells(idleHint).join(',');highlight();}
+   if(!hintChecked){hintChecked=true;hintPlans=hintRotation(p.state,chosen);hintIndex=0;idleHint=hintPlans[0]?.action??null;hintStarted=now;if(idleHint){if(chosen!==null&&!hintCells(idleHint).includes(chosen)){chosen=null;setSelected(null);}if(host.current)host.current.dataset.hintCells=hintCells(idleHint).join(',');highlight();}}
+   const pulse=p.reduced ? .5 : (1-Math.cos((now-hintStarted)/1400*Math.PI*2))/2;for(const sprite of hintSprites){sprite.alpha=.5+pulse*.3;sprite.width=cell*(1.04+pulse*.05);sprite.height=cell*(1.04+pulse*.05);}for(const sprite of groupSprites){sprite.alpha=.3+pulse*.3;sprite.width=sprite.height=cell*(1.02+pulse*.04);}
   }
   function recycle(sprite:Sprite){if(sprite.destroyed)return;sprite.visible=false;sprite.alpha=1;sprite.zIndex=0;if(tilePool.length>=96){sprite.destroy();return;}tiles.addChild(sprite);tilePool.push(sprite);}
-  function move(sprite:Sprite,to:Point,duration:number,delay=0,options:Partial<Motion>={}){for(let i=motions.length-1;i>=0;i--)if(motions[i]!.sprite===sprite)motions.splice(i,1);motions.push({sprite,from:{x:sprite.x,y:sprite.y},to,start:performance.now()+delay,duration,scale:sprite.scale.x,...options});}
-  function restorePreview(elastic=true){for(const index of previewCells){const sprite=spriteAt(index);if(!sprite)continue;sprite.zIndex=0;if(elastic)move(sprite,position(index),170,0,{elastic:true});else sprite.position.copyFrom(position(index));}previewCells.clear();if(host.current){delete host.current.dataset.dragFrom;delete host.current.dataset.dragTo;delete host.current.dataset.dragX;delete host.current.dataset.dragY;}}
-  function cancel(){if(!down&&!commit)return;down=null;commit=null;if(commitTimer)clearTimeout(commitTimer);commitTimer=undefined;restorePreview(true);animationEnd=performance.now()+170;phase('returning');highlight();}
+  function stopMotion(sprite:Container){for(let i=motions.length-1;i>=0;i--)if(motions[i]!.sprite===sprite)motions.splice(i,1);}
+  function move(sprite:Container,to:Point,duration:number,delay=0,options:Partial<Motion>={}){stopMotion(sprite);motions.push({sprite,from:{x:sprite.x,y:sprite.y},to,start:performance.now()+delay,duration,scale:sprite.scale.x,scaleY:sprite.scale.y,...options});}
+  function cartSpriteAt(index:number){
+   const state=current.current.state,id=state.cells[index]?.obstacleId;
+   return id&&state.obstacles[id]?.kind==='harvest-cart'?overlayNodes.get(id)?.children[0] as Sprite|undefined:undefined;
+  }
+  function restorePreview(elastic=true){for(const index of previewCells){const sprite=cartSpriteAt(index)??spriteAt(index);if(!sprite)continue;sprite.zIndex=0;if(elastic)move(sprite,position(index),170,0,{elastic:true});else{stopMotion(sprite);sprite.position.copyFrom(position(index));}}previewCells.clear();if(host.current){delete host.current.dataset.dragFrom;delete host.current.dataset.dragTo;delete host.current.dataset.dragX;delete host.current.dataset.dragY;}}
+  function cancel(reason='interrupted'){if(!down&&!commit)return;if(down)recordInputTrace({...down.trace,decision:'cancel',reason,to:null});inputTraceAt=undefined;down=null;commit=null;if(commitTimer)clearTimeout(commitTimer);commitTimer=undefined;restorePreview(true);animationEnd=performance.now()+170;phase('returning');highlight();}
   function select(index:number){chosen=index;setSelected(index);highlight();sound('button');}
-  function dispatch(action:Action){chosen=null;setSelected(null);clearHighlights();phase('settling');animationEnd=performance.now()+90;pendingAction=action;current.current.onAction(action);}
+  function dispatch(action:Action){if(inputTraceAt!==undefined&&action.type!=='continue')recordInputAction(inputTraceAt,action);inputTraceAt=undefined;chosen=null;setSelected(null);clearHighlights();phase('settling');animationEnd=performance.now()+90;pendingAction=action;current.current.onAction(action);}
   function swap(from:number,to:number){
    if(busy())return;const s=current.current.state;
+   if(cartSpriteAt(from)){restorePreview(false);dispatch({type:'swap',from,to});return;}
    if(!draggableCell(s,from)||!draggableCell(s,to)||Math.abs(from%s.width-to%s.width)+Math.abs(Math.floor(from/s.width)-Math.floor(to/s.width))!==1){restorePreview();dispatch({type:'swap',from,to});return;}
    if(combinationAt(s,from,to)){pendingFusion=new Map([from,to].map(index=>{const sprite=spriteAt(index);return [index,sprite?{x:sprite.x,y:sprite.y}:position(index)]}));previewCells.clear();dispatch({type:'swap',from,to});return;}
    chosen=null;setSelected(null);clearHighlights();const pair={from,to,stamp:stamp(s)};commit=pair;previewCells.add(from);previewCells.add(to);phase('swapping');
@@ -83,6 +135,9 @@ export default function Board(props:Props){
    commitTimer=setTimeout(()=>{
     commitTimer=undefined;if(disposed)return;
     if(current.current.locked||stamp(current.current.state)!==pair.stamp){cancel();return;}
+    // A timer can run before the last animation frame on a busy mobile WebView.
+    // Finish the actual swap before effects read the pieces' source positions.
+    for(const [a,b]of [[from,to],[to,from]]){const sprite=spriteAt(a!);if(sprite){stopMotion(sprite);sprite.position.copyFrom(position(b!));}}
     commit=null;awaitingSwap=pair;previewCells.clear();dispatch({type:'swap',from,to});
     // A parent that declines an input must not leave its visual preview swapped.
     settleTimer=setTimeout(()=>{if(awaitingSwap===pair){awaitingSwap=null;for(const index of [from,to]){const sprite=spriteAt(index);if(sprite)move(sprite,position(index),170,0,{elastic:true});}animationEnd=performance.now()+170;}},250);
@@ -91,86 +146,338 @@ export default function Board(props:Props){
   function tap(index:number){resetIdleHint();if(busy()||!current.current.state.cells[index]?.exists)return;const p=current.current;
    if(p.tool){dispatch({type:'booster',item:p.tool,at:index});return;}
    if(chosen!==null&&chosen!==index){const from=chosen;chosen=null;swap(from,index);return;}
-   const tile=p.state.cells[index]!.tile;if(tile&&tile.kind!=='normal'&&tile.kind!=='seed'){dispatch({type:'tap',at:index});return;}select(index);
+   const tile=p.state.cells[index]!.tile;if(tile&&tile.kind!=='seed'&&(tile.kind!=='normal'||turntableCells(p.state)?.includes(index))){dispatch({type:'tap',at:index});return;}select(index);inputTraceAt=undefined;
   }
-  function drawObstacle(obstacle:Obstacle){if(obstacle.hp<=0)return;const layer=new Container();overlays.addChild(layer);overlayNodes.set(obstacle.id,layer);displayedObstacles[obstacle.id]=obstacle.hp;
+  function drawObstacle(obstacle:Obstacle,state=current.current.state){if(obstacle.hp<=0)return;const layer=new Container();overlays.addChild(layer);overlayNodes.set(obstacle.id,layer);displayedObstacles[obstacle.id]=obstacle.hp;
    const authored=drawMechanicArt(layer,obstacle,cell,position);
-   const id=obstacle.kind==='crate'?`crate_${Math.min(obstacle.hp,3)}`:obstacle.kind,sprite=new Sprite(texture(hasArt(id)?id:'crate_1'));sprite.anchor.set(.5);
-   const points=obstacle.footprint.map(position),xs=points.map(p=>p.x),ys=points.map(p=>p.y),w=Math.max(...xs)-Math.min(...xs)+cell,h=Math.max(...ys)-Math.min(...ys)+cell;sprite.position.set((Math.min(...xs)+Math.max(...xs))/2,(Math.min(...ys)+Math.max(...ys))/2);sprite.scale.set(Math.min(w/sprite.texture.width,h/sprite.texture.height)*.98);if(!authored)layer.addChild(sprite);else sprite.destroy();
+   const isGate=isDeviceGate(current.current.state.devices?.steps,obstacle.anchor);
+   const damaged=isBreakableObstacle(obstacle.kind)&&obstacle.hp<obstacle.maxHp;
+   const lanternState=obstacle.kind==='starlight-lantern'?(obstacle.hp===1?'starlight-lantern-open':obstacle.hp===2?'starlight-lantern-cracked':undefined):undefined;
+   const coverArt=obstacle.cover&&({'greenhouse-sluice':'garden-planter-mud','vine-knot':'garden-planter-bound','rotating-shelf':'rotating-shelf'} as const)[obstacle.cover.kind];
+   const id=current.current.goldGarden&&obstacle.kind==='crate'?'coin':isGate?'stage_mud_gate_v33':coverArt??lanternState??gardenPuzzleObstacleArt(obstacle,state)??(damaged?`${obstacle.kind}-damaged`:obstacle.kind==='crate'?`crate_${Math.min(obstacle.hp,3)}`:obstacle.kind);
+   const artId=hasArt(id)?id:hasArt(obstacle.kind)?obstacle.kind:'crate_1';
+   const sprite=new Sprite(boardTexture(artId));sprite.anchor.set(.5);sprite.label=artId;
+   if(obstacle.kind==='wind-pod'&&damaged)sprite.tint=0xc6e8c9;
+   if(obstacle.rule==='shutter-closed')sprite.tint=0xa5a5bc;
+   const points=obstacle.footprint.map(position),xs=points.map(p=>p.x),ys=points.map(p=>p.y),w=Math.max(...xs)-Math.min(...xs)+cell,h=Math.max(...ys)-Math.min(...ys)+cell;
+   sprite.position.set((Math.min(...xs)+Math.max(...xs))/2,(Math.min(...ys)+Math.max(...ys))/2);
+   const size=boardSpriteSize(sprite.texture,w,h);
+   sprite.width=size.width;sprite.height=size.height;
+   if(!authored)layer.addChild(sprite);else sprite.destroy();
+   if(obstacle.kind==='statue'&&damaged&&hasArt('board-statue')){
+    const {x,y}=sprite,radius=Math.min(w,h);
+    sprite.tint=0xccc9be;
+    const crack=new Graphics().moveTo(x+.03*radius,y-.34*radius).lineTo(x-.055*radius,y-.13*radius)
+     .lineTo(x+.04*radius,y-.055*radius).lineTo(x-.08*radius,y+.18*radius)
+     .moveTo(x-.055*radius,y-.13*radius).lineTo(x-.22*radius,y-.06*radius);
+    crack.stroke({color:0x4d4a44,width:radius*.025,join:'round'});layer.addChild(crack);
+   }
    // Counts have their own foreground layer so later obstacles, moving pieces
    // and departure/effect sprites cannot paint over them. Keep them inside the cell.
    if(obstacle.kind==='pot'&&obstacle.color){
     const at=position(obstacle.anchor),icon=new Sprite(texture(tileArt('normal',obstacle.color)));icon.anchor.set(.5);icon.width=cell*.44;icon.height=cell*.44;icon.position.set(at.x-cell*.26,at.y+cell*.25);icon.label='pot-requires-'+obstacle.color;counters.addChild(icon);requirementNodes.set(obstacle.id,{icon,color:obstacle.color});
    }
-   if(obstacle.hp>1||obstacle.kind==='cabinet'){const hp=new Text({text:String(obstacle.hp),style:{fontFamily:'Lilita One',fontWeight:'normal',fontSize:15,fill:'#ffffff',stroke:{color:'#1f3a54',width:3}}});hp.anchor.set(1,1);hp.position.set(Math.max(...xs)+cell*.44,Math.max(...ys)+cell*.44);counters.addChild(hp);counterNodes.set(obstacle.id,hp);}
+   if(obstacle.kind==='cabinet'&&(obstacle.seeds??0)>0){const pouch=new Sprite(texture('seed'));pouch.anchor.set(.5);pouch.width=pouch.height=cell*.52;pouch.position.set(Math.min(...xs)-cell*.12,Math.min(...ys));pouch.label='cabinet-contained-seed';layer.addChild(pouch);}
+   if(obstacle.contents){
+    const previewArt=obstacle.contents.innerCrateHp===undefined?obstacle.contents.kind:'supply-crate';
+    const wide=obstacle.footprint.length>1;
+    const icon=new Sprite(texture(previewArt));icon.anchor.set(.5);icon.width=icon.height=cell*(wide?.58:.40);
+    icon.position.set(wide?Math.min(...xs)-cell*.17:sprite.x-cell*.27,wide?Math.max(...ys)+cell*.17:sprite.y+cell*.25);layer.addChild(icon);
+   }
+   const preview=obstacle.storedRocket??(obstacle.cover?.kind==='rotating-shelf'?'garden-planter':undefined);
+   if(preview){const icon=new Sprite(texture(tileArt(preview)));icon.anchor.set(.5);icon.width=icon.height=cell*.46;icon.position.set(sprite.x+cell*.18,sprite.y+cell*.15);layer.addChild(icon);}
+   const number=planterGroupNumber(obstacle);
+   if(number!==undefined){
+    const colors=[0x94e5ff,0xffdf91,0xb7ed84,0xf4b8ff,0xffb4a8,0xbbcdff,0x77e7d6];
+    const color=colors[(number-1)%colors.length]!;
+    const x=sprite.x-cell*.30,y=sprite.y-cell*.31;
+    const badge=new Graphics().circle(x,y,cell*.13).fill(0x173c48).stroke({color,width:Math.max(1,cell*.031)});
+    const label=new Text({text:String(number),style:{fontSize:Math.max(9,cell*.20),fontWeight:'bold',fill:color}});
+    label.anchor.set(.5);label.position.set(x,y);layer.addChild(badge,label);
+   }
+   if(obstacle.kind==='windmill'||obstacle.kind==='wind-pod'){
+    const windmill=obstacle.kind==='windmill'?obstacle:state.obstacles[obstacle.link!];
+    if(windmill){
+     const at=position(obstacle.anchor),dot=new Graphics(),x=at.x-cell*.30,y=at.y-cell*.30;
+     if(windmill.id.startsWith('layered-')){
+      const row=Math.floor(windmill.anchor/state.width),column=windmill.anchor%state.width;
+      const [mark,color]=windMarks[(Math.floor((row-3)/2)*2+Number(column%4>=2))%windMarks.length]!;
+      dot.circle(x,y,cell*.158).fill(0x173c48).stroke({color,width:Math.max(1,cell*.028)});
+      const label=new Text({text:mark,style:{fontFamily:'sans-serif',fontSize:cell*.21,fill:color}});
+      label.anchor.set(.5);label.position.set(x,y);layer.addChild(dot,label);
+     }else{
+      const color=windmill.anchor<state.width*Math.floor(state.height/2)?0xeaca7f:0x7af9d9;
+      dot.circle(x,y,cell*.088).fill(color).stroke({color:0x163c44,width:1.6});layer.addChild(dot);
+     }
+    }
+   }
+   if(state.gardenPuzzle)drawGardenPuzzleObstacle(layer,obstacle,state,cell,position);
+   if(obstacle.rule)drawObstacleRule(layer,obstacle,position(obstacle.anchor),cell,state.turn);
+   if(obstacle.chapter)drawChapterObstacle(layer,obstacle,state,position(obstacle.anchor),cell);
+   const showsDamageInArt=obstacle.kind==='starlight-lantern'||obstacle.kind==='urn'&&obstacle.maxHp===2||obstacle.kind==='crate'&&obstacle.maxHp<=3;
+   if(!showsDamageInArt&&!obstacle.cover&&obstacle.kind!=='wire-planter'&&((obstacle.hp>1&&!obstacle.endOnly)||obstacle.kind==='cabinet'||(isBreakableObstacle(obstacle.kind)&&obstacle.maxHp>1))){
+    const layered=obstacle.id.startsWith('layered-');
+    const hp=new Text({text:layered?'●'.repeat(obstacle.hp):String(obstacle.hp),style:{fontFamily:layered?'sans-serif':'Lilita One',fontWeight:'normal',fontSize:layered?cell*.17:15,fill:'#ffffff',stroke:{color:'#1f3a54',width:layered?2:3}}});
+    hp.anchor.set(1,1);hp.position.set(Math.max(...xs)+cell*.44,Math.max(...ys)+cell*.44);counters.addChild(hp);counterNodes.set(obstacle.id,hp);
+   }
   }
-  function drawFrost(index:number,value:number){if(!value||!hasArt('frost'))return;const at=position(index),fullFloor=hasArt('frost_floor_v19'),base=new Sprite(texture(fullFloor?'frost_floor_v19':'frost'));base.anchor.set(.5);base.position.set(at.x,at.y);base.width=cell*(fullFloor?1.005:1.22);base.height=cell*(fullFloor?1.005:1.22);floors.addChild(base);const cover=new Container();cover.position.set(at.x,at.y);cover.alpha=value>1?.48:.24;const ice=new Sprite(texture('frost'));ice.anchor.set(.5);ice.width=cell*1.04;ice.height=cell*1.04;cover.addChild(ice);frostCovers.addChild(cover);frostNodes.set(index,{base,cover});displayedFrost[index]=value;}
-  function overlayDebug(){if(host.current){host.current.dataset.obstacleRequirements=JSON.stringify([...requirementNodes].map(([id,{icon,color}])=>({id,color,art:tileArt('normal',color),x:icon.x,y:icon.y,width:icon.width,height:icon.height,foreground:icon.parent===counters})));host.current.dataset.obstacleVisual=JSON.stringify(displayedObstacles);host.current.dataset.frostVisual=JSON.stringify(displayedFrost);delete host.current.dataset.frostMarkers;host.current.dataset.coverOrder=JSON.stringify({departures:cellLayers.getChildIndex(departures),obstacles:cellLayers.getChildIndex(overlays),frost:cellLayers.getChildIndex(frostCovers)});host.current.dataset.frostCovers=JSON.stringify([...frostNodes].map(([at,{base,cover}])=>({at,layers:displayedFrost[at],x:cover.x,y:cover.y,alpha:cover.alpha,images:cover.children.length,foreground:cover.parent===frostCovers,base:{width:base.width,height:base.height,alpha:base.alpha}})));host.current.dataset.obstacleArtBounds=JSON.stringify([...overlayNodes].map(([id,layer])=>{const sprite=layer.children[0] as Sprite,hp=counterNodes.get(id);return {id,x:sprite.x-sprite.width/2,y:sprite.y-sprite.height/2,width:sprite.width,height:sprite.height,counter:hp?{x:hp.x,y:hp.y}:null};}));}}
-  function updateOverlay(step:ImpactOverlay){if(step.kind==='obstacle'){const old=overlayNodes.get(step.id);if(old){old.destroy({children:true});overlayNodes.delete(step.id);}counterNodes.get(step.id)?.destroy();counterNodes.delete(step.id);requirementNodes.get(step.id)?.icon.destroy();requirementNodes.delete(step.id);delete displayedObstacles[step.id];if(step.value){drawObstacle(step.value);if(step.value.kind==='carousel'){const event=current.current.events.find(e=>e.type==='mechanic'&&e.obstacleId===step.id);const icon=overlayNodes.get(step.id)?.children[0] as Sprite|undefined;if(icon&&event?.from!==undefined){const from=position(event.from),to=position(step.value.anchor);icon.position.set(from.x,from.y);motions.push({sprite:icon,from,to,start:performance.now(),duration:current.current.reduced?1:320,scale:icon.scale.x});}}}}else{const old=frostNodes.get(step.at);old?.base.destroy();old?.cover.destroy({children:true});frostNodes.delete(step.at);delete displayedFrost[step.at];drawFrost(step.at,step.value);}overlayDebug();}
+  function drawFrost(index:number,value:number){
+   if(!value||!hasArt('frost'))return;
+   const at=position(index),frame=value>1?'frost-thick':'frost-cracked';
+   const revised=supportsVisibleTargets(current.current.state.engineVersion)&&hasArt(frame);
+   const fullFloor=hasArt('frost_floor_v19');
+   const base=new Sprite(boardTexture(fullFloor?'frost_floor_v19':'frost'));
+   base.anchor.set(.5);base.position.set(at.x,at.y);base.width=cell*1.005;base.height=cell*1.005;
+   base.visible=!revised;floors.addChild(base);
+   const cover=new Container();
+   cover.position.set(at.x,at.y);cover.alpha=revised?1:value>1?.48:.24;
+   const ice=new Sprite(boardTexture(revised?frame:'frost'));
+   ice.anchor.set(.5);ice.width=cell*.99;ice.height=cell*.99;
+   cover.addChild(ice);frostCovers.addChild(cover);frostNodes.set(index,{base,cover});displayedFrost[index]=value;
+  }
+  function overlayDebug(){if(host.current){host.current.dataset.obstacleRequirements=JSON.stringify([...requirementNodes].map(([id,{icon,color}])=>({id,color,art:tileArt('normal',color),x:icon.x,y:icon.y,width:icon.width,height:icon.height,foreground:icon.parent===counters})));host.current.dataset.obstacleVisual=JSON.stringify(displayedObstacles);host.current.dataset.frostVisual=JSON.stringify(displayedFrost);delete host.current.dataset.frostMarkers;host.current.dataset.coverOrder=JSON.stringify({departures:cellLayers.getChildIndex(pieceLayers),obstacles:cellLayers.getChildIndex(overlays),frost:cellLayers.getChildIndex(frostCovers)});host.current.dataset.frostCovers=JSON.stringify([...frostNodes].map(([at,{base,cover}])=>({at,layers:displayedFrost[at],x:cover.x,y:cover.y,alpha:cover.alpha,images:cover.children.length,foreground:cover.parent===frostCovers,base:{width:base.width,height:base.height,alpha:base.alpha}})));host.current.dataset.obstacleArtBounds=JSON.stringify([...overlayNodes].map(([id,layer])=>{const sprite=layer.children[0] as Sprite,hp=counterNodes.get(id);return {id,art:sprite.label,x:sprite.x-sprite.width/2,y:sprite.y-sprite.height/2,width:sprite.width,height:sprite.height,counter:hp?{x:hp.x,y:hp.y}:null};}));}}
+  function updateOverlay(step:ImpactOverlay){
+   if(step.kind==='obstacle'){
+    const previousHp=displayedObstacles[step.id];
+    overlayNodes.get(step.id)?.destroy({children:true});overlayNodes.delete(step.id);
+    counterNodes.get(step.id)?.destroy();counterNodes.delete(step.id);
+    requirementNodes.get(step.id)?.icon.destroy();requirementNodes.delete(step.id);
+    delete displayedObstacles[step.id];
+    if(step.value){
+     drawObstacle(step.value);
+     const layer=overlayNodes.get(step.id),icon=layer?.children[0];
+     if(step.fallFrom!==undefined&&layer&&!current.current.reduced){
+      const fall=position(step.fallFrom).y-position(step.value.anchor).y;
+      layer.y=fall;
+      move(layer,{x:0,y:0},220);
+      const counter=counterNodes.get(step.id);
+      if(counter){const to={x:counter.x,y:counter.y};counter.y+=fall;move(counter,to,220);}
+     }
+     if(icon instanceof Sprite){
+      const kind=step.value.kind;
+      const travel=kind==='carousel'||kind==='harvest-cart';
+      const event=current.current.events.find(e=>e.obstacleId===step.id&&
+       (travel&&e.type==='mechanic'||step.value?.chapter?.kind==='slide'&&e.type==='hit'&&e.to===step.value.anchor));
+      if(event&&event.from!==undefined){
+       const {x,y}=position(event.from);
+       icon.position.set(x,y);
+       move(icon,position(step.value.anchor),current.current.reduced?1:kind==='harvest-cart'||step.value.chapter?.kind==='slide'?220:320);
+      }else if(!current.current.reduced&&previousHp!==undefined&&step.value.hp<previousHp){
+       move(icon,{x:icon.x,y:icon.y},144,0,{recoil:true});
+      }
+     }
+    }
+   }else{
+    const old=frostNodes.get(step.at);
+    old?.base.destroy();old?.cover.destroy({children:true});frostNodes.delete(step.at);
+    delete displayedFrost[step.at];drawFrost(step.at,step.value);
+   }
+   overlayDebug();
+  }
+  function paintPuzzleFloor(state:GameState){puzzleFloor.removeChildren().forEach(marker=>marker.destroy());drawGardenPuzzleFloor(puzzleFloor,state,cell,position);}
   function render(animate:boolean){
    if(!app.renderer||disposed||!host.current)return;const p=current.current,s=p.state,w=host.current.clientWidth;if(w<32)return;
    // Server acknowledgement and HUD re-renders must not snap an in-progress visual cascade to its final board.
    if(stamp(s)===lastStamp&&p.events===lastEvents&&w===width){highlight();return;}
    resetIdleHint();
-   if(down||commit)cancel();animate=animate&&p.events!==lastEvents&&p.events.length>0;if(!animate){for(const motion of motions)motion.finish?.();motions.length=0;primaryImpact=undefined;fx?.clear();animationEnd=0;phase('idle');visualSettled();}const invalid=animate&&p.events.some(event=>event.type==='invalid'),timing=effectTiming(p.events,s,p.action??pendingAction),prior=animate&&!p.reduced&&last&&last.width===s.width&&last.height===s.height?last:s;
-   const frameLayout=updateGeometry(w,s);width=w;app.renderer.resize(geometry!.width,geometry!.height);floors.removeChildren().forEach(sprite=>sprite.destroy());overlays.removeChildren().forEach(sprite=>sprite.destroy({children:true}));frostCovers.removeChildren().forEach(cover=>cover.destroy({children:true}));counters.removeChildren().forEach(label=>label.destroy());overlayNodes.clear();counterNodes.clear();requirementNodes.clear();frostNodes.clear();for(const key of Object.keys(displayedObstacles))delete displayedObstacles[key];for(const key of Object.keys(displayedFrost))delete displayedFrost[Number(key)];overlaySteps=[];border.removeChildren().forEach(sprite=>sprite.destroy());
-   s.cells.forEach((c,index)=>{if(!c.exists)return;const at=position(index),floor=new Sprite(texture(hasArt('board_cell')?'board_cell':'cell'));floor.anchor.set(.5);floor.position.set(at.x,at.y);floor.width=cell*1.005;floor.height=cell*1.005;floors.addChild(floor);drawFrost(index,prior.cells[index]?.frost??0);});
-   for(const obstacle of Object.values(prior.obstacles))drawObstacle(obstacle);if(prior!==s){const epoch=performance.now();overlaySteps=impactOverlays(prior,s,p.events,timing).map(step=>({...step,start:epoch+step.delay}));}overlayDebug();
+   if(down||commit)cancel();animate=animate&&p.events!==lastEvents&&p.events.length>0;if(!animate){for(const motion of motions)motion.finish?.();motions.length=0;contacts=[];fx?.clear();animationEnd=0;phase('idle');visualSettled();}const invalid=animate&&p.events.some(event=>event.type==='invalid'),timing=effectTiming(p.events,s,p.action??pendingAction),prior=animate&&!p.reduced&&last&&last.width===s.width&&last.height===s.height?last:s;
+   const frameLayout=updateGeometry(w,s);pieceClipStep=undefined;const open=s.gardenStage?.connected??[],oldOpen=animate&&!p.reduced?prior.gardenStage?.connected??[]:open;updatePieceClip(oldOpen);if(open.join(',')!==oldOpen.join(','))pieceClipStep={at:performance.now()+timing.settleAt,cells:open};width=w;app.renderer.resize(geometry!.width,geometry!.height);floors.removeChildren().forEach(sprite=>sprite.destroy());overlays.removeChildren().forEach(sprite=>sprite.destroy({children:true}));frostCovers.removeChildren().forEach(cover=>cover.destroy({children:true}));counters.removeChildren().forEach(label=>label.destroy());pollenNodes.clear();overlayNodes.clear();counterNodes.clear();requirementNodes.clear();frostNodes.clear();for(const key of Object.keys(displayedObstacles))delete displayedObstacles[key];for(const key of Object.keys(displayedFrost))delete displayedFrost[Number(key)];overlaySteps=[];border.removeChildren().forEach(sprite=>sprite.destroy());
+   const puzzle=s.devices,device=puzzle?.steps[puzzle.index];
+   const activeZone=device?.kind==='switchback'?(puzzle?.progress??0)%2:device?.kind==='relay'?Number(puzzle?.color!==undefined):
+    device?.kind==='branch'&&puzzle?.branch!==undefined?1-puzzle.branch:undefined;
+   const marked=new Map(device?.kind==='pollen'?[]:device?.zones.flatMap((zone,n)=>zone.map((index,i)=>[index,{n,i,next:zone[(i+1)%zone.length]!}] as const)));
+   const boardWide=device?.zones.length===1&&marked.size===s.cells.filter(cell=>cell.exists).length;
+   s.cells.forEach((c,index)=>{if(!c.exists)return;const at=position(index),floor=new Sprite(texture(hasArt('board_cell')?'board_cell':'cell'));floor.anchor.set(.5);floor.position.set(at.x,at.y);floor.width=cell*1.005;floor.height=cell*1.005;floors.addChild(floor);
+    const mark=marked.get(index);
+    if(mark&&!(device?.kind==='keys'&&puzzle?.openedLocks?.includes(mark.i))&&!(c.obstacleId&&s.obstacles[c.obstacleId]?.endOnly)){
+     const charged=device?.kind==='twin-plates'&&puzzle?.chargedPlates?.includes(mark.i)||puzzle?.echoAt===index;
+     const color=charged?0xa4fa82:device?.kind==='echo'?0xcbb0ff:device?.kind==='reflector'?0x9ef5ff:mark.n===0?0xffdc77:0x84e7ed;
+     const alpha=(activeZone===undefined||activeZone===mark.n)?0.95:0.26;
+     const marker=new Graphics();
+     if(device?.kind==='conveyor'){
+      const next=position(mark.next),angle=Math.atan2(next.y-at.y,next.x-at.x);
+      marker.circle(0,0,cell*.14).fill({color:0x173d65,alpha:.94});
+      marker.poly([-cell*.066,-cell*.072,cell*.083,0,-cell*.066,cell*.072]).fill({color,alpha});
+      marker.position.set(at.x+cell*.27,at.y-cell*.27);marker.rotation=angle;
+     }else if(!boardWide){
+      if(device?.kind==='echo'&&puzzle?.echoAt===index)marker.circle(at.x,at.y,cell*.46).stroke({color,alpha:.85,width:Math.max(2,cell*.09)});
+      if(device?.kind==='reflector'){
+       const x=at.x-cell*.27,y=at.y+cell*.27;
+       marker.moveTo(x-cell*.11,y+cell*.11).lineTo(x+cell*.11,y-cell*.11).stroke({color:0x173d65,width:cell*.17,cap:'round'});
+       marker.moveTo(x-cell*.11,y+cell*.11).lineTo(x+cell*.11,y-cell*.11).stroke({color,width:cell*.10,cap:'round'});
+      }
+      marker.roundRect(at.x-cell*.46,at.y-cell*.46,cell*.92,cell*.92,cell*.10).stroke({color,alpha,width:Math.max(1.3,cell*.042)});
+     }
+     counters.addChild(marker);
+     const badge=device?.kind==='twin-plates'||device?.kind==='keys'?String(mark.i+1):
+      device?.kind==='portal'?'↔':device?.kind==='updraft'?'↑':device?.kind==='turntable'?'↻':
+       device?.kind==='carrier'?'▲':device?.kind==='echo'&&charged?'✦':undefined;
+     if(badge){
+      const x=at.x+cell*.29,y=at.y-cell*.29;
+      marker.circle(x,y,cell*.155).fill(0x173d65).stroke({color,width:1.1});
+      const label=new Text({text:badge,style:{fontSize:Math.max(8,cell*.22),fontWeight:'bold',fill:color}});
+      label.anchor.set(.5);label.position.set(x,y);counters.addChild(label);
+     }
+    }
+    // Retained v1.6 runs still have pieces on open floors, so update their
+    // under-piece water here. New open-floor runs reveal above it on their beat.
+    if(s.gardenStage?.channels.includes(index)){
+     const shown=s.engineVersion==='1.6.0'?s:prior;
+     const floor=gardenFloor(s.gardenStage,index,s.width,!!shown.gardenStage?.connected.includes(index));
+     const path=new Sprite(stageFloorArt(floor.id).texture);
+     path.anchor.set(.5);
+     path.position.set(at.x,at.y);
+     path.width=path.height=cell*1.005;
+     path.rotation=floor.rotation*Math.PI/180;
+     floors.addChild(path);
+    }
+    if(c.exit){const r=cell*.16,y=at.y+cell*.47,arrow=new Graphics().poly([at.x-r,y-r,at.x+r,y-r,at.x,y]).fill({color:0xffd35b}).stroke({color:0x234b78,width:1.3});arrow.label='seed-exit-'+index;counters.addChild(arrow);}
+    drawFrost(index,prior.cells[index]?.frost??0);});
+   const obstacleImpacts:ObstacleImpact[]=[];
+   for(const obstacle of Object.values(prior.obstacles))drawObstacle(obstacle,prior);if(prior!==s){const epoch=performance.now();overlaySteps=impactOverlays(prior,s,p.events,timing,impact=>obstacleImpacts.push(impact)).map(step=>({...step,start:epoch+step.delay}));}overlayDebug();
+   if(s.gardenPuzzle){paintPuzzleFloor(prior);puzzleFloorAt=prior!==s?performance.now()+timing.settleAt:undefined;}
+   else if(puzzleFloor.children.length){paintPuzzleFloor(s);puzzleFloorAt=undefined;}
    if(frameLayout.frameId){const insets=frameLayout.slices,frame=new NineSliceSprite({texture:texture(frameLayout.frameId),leftWidth:insets.left,rightWidth:insets.right,topHeight:insets.top,bottomHeight:insets.bottom});frame.scale.set(BOARD_FRAME_SCALE);frame.width=geometry!.width/BOARD_FRAME_SCALE;frame.height=geometry!.height/BOARD_FRAME_SCALE;border.addChild(frame);}
    const settleAt=p.reduced?0:invalid?0:timing.settleAt,ids=new Set<number>();let finalMovement=0;
-   const births=animate&&last?tileOrigins(last,s,p.events):new Map<number,TileOrigin>(),removals=animate&&last?tileDepartures(last,p.events,timing):new Map<number,{delay:number;activation:boolean}>();if(host.current){host.current.dataset.refillOrigins=JSON.stringify([...births.values()]);host.current.dataset.tileDepartures=JSON.stringify([...removals].map(([id,plan])=>({id,...plan})));}
+   const gathering=animate&&last?tileGathering(last,p.events):new Map<number,{anchor:number;at:number}>();
+   const portal=p.events.find(event=>event.kind==='portal-transfer');
+   const turntableTurn=p.events.some(event=>event.kind==='turntable-spin');
+   const falls=animate&&last?tileFallPaths(last,s,p.events):new Map<number,Array<Point>>(),births=animate&&last?tileOrigins(last,s,p.events):new Map<number,TileOrigin>(),removals=animate&&last?tileDepartures(last,p.events,timing):new Map<number,TileDeparture>();if(host.current){host.current.dataset.refillOrigins=JSON.stringify([...births.values()]);host.current.dataset.tileDepartures=JSON.stringify([...removals].map(([id,plan])=>({id,...plan})));}
    s.cells.forEach((c,index)=>{const tile=c.tile;if(!c.exists||!tile)return;ids.add(tile.id);let sprite=active.get(tile.id),fresh=false;
-    if(!sprite){sprite=tilePool.pop()||new Sprite(texture(tileArt(tile.kind,tile.kind==='normal'?tile.color:undefined)));sprite.visible=true;sprite.anchor.set(.5);tiles.addChild(sprite);active.set(tile.id,sprite);fresh=true;}
-    sprite.texture=texture(tileArt(tile.kind,tile.kind==='normal'?tile.color:undefined));sprite.width=cell*tileVisualSize(tile.kind);sprite.height=cell*tileVisualSize(tile.kind);sprite.rotation=0;sprite.zIndex=0;
+    const artId=tileArt(tile.kind,tile.kind==='normal'?tile.color:undefined,s.powerRainbow);
+    const face=tile.kind==='normal'?texture(artId):boardTexture(artId);
+    if(!sprite){sprite=tilePool.pop()||new Sprite(face);sprite.visible=true;sprite.anchor.set(.5);tiles.addChild(sprite);active.set(tile.id,sprite);fresh=true;}
+    sprite.texture=face;
+    if(tile.kind==='normal'){
+     sprite.width=sprite.height=cell*tileVisualSize('normal');
+    }else{
+     const rocket=tile.kind==='wind-row'||tile.kind==='wind-column';
+     const size=boardSpriteSize(face,cell,cell,rocket?'rocket':'item');
+     sprite.width=size.width;sprite.height=size.height;
+    }
+    sprite.rotation=0;sprite.zIndex=0;
     const to=position(index);
-    if(animate&&!p.reduced){const birth=fresh?births.get(tile.id):undefined,path:Point[]|undefined=birth?.points.map(point=>({x:geometry!.face.x+point.x*cell,y:geometry!.face.y+point.y*cell}));if(fresh){const origin=birth?.origin??{x:index%s.width+.5,y:-.5};sprite.position.set(geometry!.face.x+origin.x*cell,geometry!.face.y+origin.y*cell);sprite.alpha=0;}const distance=path?path.slice(1).reduce((sum,point,i)=>sum+Math.hypot(point.x-path[i]!.x,point.y-path[i]!.y),0):Math.hypot(sprite.x-to.x,sprite.y-to.y);if(distance>.5||fresh){const duration=invalid?190:Math.min(timing.special?390:320,260+distance*.22),delay=invalid?0:settleAt+(index%s.width)*4;move(sprite,to,duration,delay,{alpha:fresh,elastic:invalid,fall:!invalid,form:birth?.mode==='formation',path});finalMovement=Math.max(finalMovement,delay+duration);}else sprite.alpha=1;}
+    if(animate&&!p.reduced){
+     const birth=fresh?births.get(tile.id):undefined;
+     const path=(birth?.points??falls.get(tile.id))?.map(point=>({x:geometry!.face.x+point.x*cell,y:geometry!.face.y+point.y*cell}));
+     const warping=!!portal&&p.events.every(event=>event.type==='swap'||event.kind==='portal-transfer')&&
+      !!path&&(index===portal.from||index===portal.to);
+     if(fresh){const origin=birth?.origin??{x:index%s.width+.5,y:-.5};sprite.position.set(geometry!.face.x+origin.x*cell,geometry!.face.y+origin.y*cell);sprite.alpha=birth?.mode==='formation'?0:1;}
+     const distance=path?path.slice(1).reduce((sum,point,i)=>sum+Math.hypot(point.x-path[i]!.x,point.y-path[i]!.y),0):Math.hypot(sprite.x-to.x,sprite.y-to.y);
+     if(distance>.5||fresh){
+      const falling=fallMotion(distance/cell,index%s.width),formation=birth?.mode==='formation';
+      const rotating=turntableTurn&&!!path&&p.events.every(event=>event.kind==='turntable-spin');
+      const duration=rotating?200:warping?280:invalid||formation?190:falling.duration,delay=invalid||warping||rotating?0:settleAt+falling.delay;
+      move(sprite,to,duration,delay,{alpha:fresh&&formation,elastic:invalid,fall:!invalid&&!warping&&!rotating,travel:formation?125:falling.travel,form:formation,path,portal:warping});
+      finalMovement=Math.max(finalMovement,delay+duration);
+     }else sprite.alpha=1;
+    }
     else{sprite.position.set(to.x,to.y);sprite.alpha=1;}
    });
+   const pollen=new Set([...(prior.devices?.pollenIds??[]),...(s.devices?.pollenIds??[])]);
+   for(const id of pollen){
+    const sprite=active.get(id);if(!sprite)continue;
+    const badge=new Graphics().circle(0,0,cell*.145).fill(0x57346f).stroke({color:0xffe28d,width:1.25});
+    for(const [x,y]of [[0,-.058],[-.051,.03],[.051,.03]])badge.circle(x!*cell,y!*cell,cell*.041).fill(0xffe28d);
+    badge.position.set(sprite.x+cell*.28,sprite.y-cell*.28);
+    badge.label='pollen-'+id;
+    counters.addChild(badge);
+    pollenNodes.set(badge,sprite);
+   }
    const fusedIds=new Set(animate?p.events.filter(event=>event.type==='special'&&event.cells.length===2&&combinationParts(event.kind??'')).flatMap(event=>event.cells.flatMap(index=>last?.cells[index]?.tile?[last.cells[index]!.tile!.id]:[])):[]);
    active.forEach((sprite,id)=>{if(ids.has(id))return;active.delete(id);
     if(fusedIds.has(id)){recycle(sprite);return;}
-    if(animate&&!p.reduced){departures.addChild(sprite);const departure=removals.get(id),delay=departure?.delay??Math.max(0,timing.settleAt-VISUAL_BEATS.pop),activation=departure?.activation??false;move(sprite,{x:sprite.x,y:sprite.y},activation?80:VISUAL_BEATS.pop,delay,{pop:!activation,fade:activation,finish:()=>recycle(sprite)});}
+    if(animate&&!p.reduced){
+     departures.addChild(sprite);
+     const departure=removals.get(id),delay=departure?.delay??Math.max(0,timing.settleAt-VISUAL_BEATS.pop);
+     const activation=departure?.activation??false,matched=departure?.matched,gather=gathering.get(id);
+     const anticipation=matched||!timing.special?Math.min(delay,MATCH_SQUEEZE):0;
+     const duration=activation?80:anticipation+(matched&&!gather?MATCH_RELEASE:110);
+     move(sprite,gather?position(gather.anchor):{x:sprite.x,y:sprite.y},duration,delay-anticipation,{
+      pop:activation||gather?undefined:matched?'match':'impact',anticipation,gather:!!gather,fade:activation,finish:()=>recycle(sprite),
+     });
+    }
     else recycle(sprite);
    });
-   if(animate){const duration=fx?.play(p.events,last,s,p.reduced,p.action??pendingAction,timing,pendingFusion)||0;visualStart(Math.max(p.reduced?110:invalid?190:0,duration,finalMovement));if(invalid)sound('invalid');else{const delay=p.reduced?0:timing.primaryImpactAt;primaryImpact={at:performance.now()+delay,name:timing.special?'special':'match'};if(delay>0)sound('button');if(host.current){host.current.dataset.impactPlannedMs=String(delay);delete host.current.dataset.impactPlayedAt;}}}
+   if(animate){const duration=fx?.play(p.events,last,s,p.reduced,p.action??pendingAction,timing,pendingFusion,p.continuingCascade,obstacleImpacts)||0;visualStart(p.reduced?110:Math.max(invalid?190:0,p.events.some(e=>e.type==='shuffle')?duration:0,p.events.some(e=>e.type==='win')?Math.min(duration,timing.settleAt+450):0,timing.settleAt+65,finalMovement,gardenStageMotion(p.events,timing.settleAt,false).end));if(invalid)sound('invalid');else{const epoch=performance.now();contacts=impactCues(p.events,timing,p.reduced).map(cue=>({...cue,at:epoch+cue.delay}));if(host.current){host.current.dataset.impactPlannedMs=String(contacts[0]?.delay??0);host.current.dataset.impactCues=JSON.stringify(contacts);delete host.current.dataset.impactPlayedAt;}}}
    else if(stamp(s)!==lastStamp){fx?.clear();animationEnd=0;phase('idle');}
    if(animate||stamp(s)!==lastStamp){pendingAction=undefined;pendingFusion=undefined;}awaitingSwap=null;if(settleTimer)clearTimeout(settleTimer);lastEvents=p.events;last=s;lastStamp=stamp(s);highlight();
+   // A resize/remount may present the settled state without an animation. The
+   // parent can already be holding input for that action and still needs an ACK.
+   if(!animate)visualSettled(true);
   }
   const point=(event:PointerEvent):Point=>{const rect=app.canvas.getBoundingClientRect();return {x:(event.clientX-rect.left)*(geometry?.width??app.screen.width)/rect.width,y:(event.clientY-rect.top)*(geometry?.height??app.screen.height)/rect.height};};
   function inside(p:Point){return !!geometry&&cellIndex(p,geometry)!==null;}
-  function pointerDown(event:PointerEvent){if(busy()||down||(event.pointerType==='mouse'&&event.button!==0))return;const at=point(event);if(!inside(at))return;const s=current.current.state,index=cellIndex(at,geometry!)!;if(!s.cells[index]?.exists)return;
-   event.preventDefault();startMusic();down={id:event.pointerId,from:index,x:at.x,y:at.y,axis:null,projection:projectDrag(s,index,0,0,cell),stamp:stamp(s),tool:current.current.tool};phase('holding');if(pointer)pointer.alpha=0;try{app.canvas.setPointerCapture(event.pointerId);}catch{/* Synthetic accessibility pointers may not have native capture. */}
+  function pointerDown(event:PointerEvent){
+   if(down&&event.pointerId!==down.id){cancel('second-pointer');return;}
+   if(busy()||down||!event.isPrimary||(event.pointerType==='mouse'&&event.button!==0))return;const at=point(event);if(!inside(at))return;const s=current.current.state,index=cellIndex(at,geometry!)!;if(!s.cells[index]?.exists)return;
+   const rect=app.canvas.getBoundingClientRect(),bounds={left:rect.left,top:rect.top,width:rect.width,height:rect.height};
+   event.preventDefault();startMusic();down={id:event.pointerId,from:index,clientX:event.clientX,clientY:event.clientY,bounds,scaleX:geometry!.width/rect.width,scaleY:geometry!.height/rect.height,axis:null,projection:projectDrag(s,index,0,0,cell),dragged:false,stamp:stamp(s),tool:current.current.tool,trace:{at:Date.now(),pointer:['touch','mouse','pen'].includes(event.pointerType)?event.pointerType:'unknown',turn:s.turn,state:stamp(s),from:index,tile:s.cells[index]?.tile?.kind??'empty',cell,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},samples:[],decision:'cancel',reason:'interrupted',to:null}};phase('holding');if(pointer)pointer.alpha=0;try{app.canvas.setPointerCapture(event.pointerId);}catch{/* Synthetic accessibility pointers may not have native capture. */}
   }
-  function pointerMove(event:PointerEvent){if(!down||event.pointerId!==down.id)return;if(current.current.locked||stamp(current.current.state)!==down.stamp||current.current.tool!==down.tool){cancel();return;}if(down.tool)return;
-   event.preventDefault();const at=point(event),projection=projectDrag(current.current.state,down.from,at.x-down.x,at.y-down.y,cell,down.axis);down.axis=projection.axis;down.projection=projection;if(!projection.axis)return;
-   restorePreview(false);chosen=null;setSelected(null);clearHighlights();const from=position(down.from),source=spriteAt(down.from),combining=projection.to!==null&&!!combinationAt(current.current.state,down.from,projection.to);if(source){source.position.set(from.x+projection.x*(combining ? .82 : 1),from.y+projection.y*(combining ? .82 : 1));source.zIndex=5;previewCells.add(down.from);}
-   if(projection.to!==null){const target=spriteAt(projection.to),to=position(projection.to);if(target){const travel=combining ? .07 : 1;target.position.set(to.x+(from.x-to.x)*projection.progress*travel,to.y+(from.y-to.y)*projection.progress*travel);target.zIndex=4;previewCells.add(projection.to);}}
-   phase('dragging');if(host.current){host.current.dataset.dragFrom=String(down.from);host.current.dataset.dragTo=String(projection.to??'');host.current.dataset.dragX=projection.x.toFixed(2);host.current.dataset.dragY=projection.y.toFixed(2);}
+  function previewDrag(index:number,projection:DragProjection){
+   restorePreview(false);chosen=null;setSelected(null);clearHighlights();
+   const state=current.current.state,from=position(index);
+   const cartPath=projection.to===null?undefined:harvestCartPushPath(state,index,projection.to);
+   const combining=projection.to!==null&&!!combinationAt(state,index,projection.to);
+   for(const at of cartPath?.slice(0,-1)??[index]){
+    const p=position(at),source=cartSpriteAt(at)??spriteAt(at);
+    if(source){source.position.set(p.x+projection.x*(combining ? .82 : 1),p.y+projection.y*(combining ? .82 : 1));source.zIndex=5;previewCells.add(at);}
+   }
+   if(projection.to!==null&&(!cartPath||cartPath.length===2)){const target=spriteAt(projection.to),to=position(projection.to);if(target){const travel=combining ? .07 : 1;target.position.set(to.x+(from.x-to.x)*projection.progress*travel,to.y+(from.y-to.y)*projection.progress*travel);target.zIndex=4;previewCells.add(projection.to);}}
+   phase('dragging');if(host.current){host.current.dataset.dragFrom=String(index);host.current.dataset.dragTo=String(projection.to??'');host.current.dataset.dragX=projection.x.toFixed(2);host.current.dataset.dragY=projection.y.toFixed(2);}
   }
-  function pointerUp(event:PointerEvent){if(!down||event.pointerId!==down.id)return;event.preventDefault();const d=down,at=point(event);down=null;try{app.canvas.releasePointerCapture(event.pointerId);}catch{/* Capture may already have been released by the OS. */}
-   if(current.current.locked||stamp(current.current.state)!==d.stamp||current.current.tool!==d.tool){restorePreview();animationEnd=performance.now()+170;phase('returning');highlight();return;}
+  function pointerMove(event:PointerEvent){if(!down||event.pointerId!==down.id)return;if(current.current.locked||stamp(current.current.state)!==down.stamp||current.current.tool!==down.tool){cancel('state-changed');return;}if(!sameCanvasBounds(down.bounds,app.canvas.getBoundingClientRect())){cancel('layout-changed');return;}if(down.tool)return;
+   event.preventDefault();const dx=(event.clientX-down.clientX)*down.scaleX,dy=(event.clientY-down.clientY)*down.scaleY,intent=dragIntent(current.current.state,down.from,dx,dy,cell,down.axis);down.axis=intent.axis;down.projection=intent.projection;addDragSample(down.trace,{dx:dx/cell,dy:dy/cell,axis:intent.projection.axis,to:intent.projection.to});if(intent.projection.axis){down.dragged=true;previewDrag(down.from,intent.projection);}else{restorePreview(false);phase('holding');}
+  }
+  function pointerUp(event:PointerEvent){if(!down||event.pointerId!==down.id)return;if(!sameCanvasBounds(down.bounds,app.canvas.getBoundingClientRect())){cancel('layout-changed');return;}event.preventDefault();const d=down,at=point(event),dx=(event.clientX-d.clientX)*d.scaleX,dy=(event.clientY-d.clientY)*d.scaleY;down=null;try{app.canvas.releasePointerCapture(event.pointerId);}catch{/* Capture may already have been released by the OS. */}
+   if(current.current.locked||stamp(current.current.state)!==d.stamp||current.current.tool!==d.tool){recordInputTrace({...d.trace,decision:'cancel',reason:'state-changed',to:null});restorePreview();animationEnd=performance.now()+170;phase('returning');highlight();return;}
    // Pointer capture can release beyond the frame after crossing a valid edge cell.
    // Decide swaps by the adjacent-cell projection; only taps require an inside release.
-   const projection=d.tool?d.projection:projectDrag(current.current.state,d.from,at.x-d.x,at.y-d.y,cell,d.axis);
-   if(projection.axis){if(projection.canRelease&&projection.to!==null)swap(d.from,projection.to);else{restorePreview();animationEnd=performance.now()+170;phase('returning');highlight();}}
-   else if(inside(at))tap(d.from);else{restorePreview();animationEnd=performance.now()+170;phase('returning');highlight();}
+   const release=d.tool?{projection:d.projection,observed:d.projection,cancelled:false,reason:'tool'}:releaseDrag(current.current.state,d.from,dx,dy,cell,d.axis,d.projection),projection=release.projection;
+   const swapping=!release.cancelled&&projection.canRelease&&projection.to!==null,tapping=!projection.axis&&inside(at)&&!d.dragged;
+   recordInputTrace({...d.trace,release:{dx:dx/cell,dy:dy/cell,axis:release.observed.axis,to:release.observed.to},decision:swapping?'swap':tapping?(current.current.state.cells[d.from]?.tile?.kind==='normal'&&!d.tool&&!turntableCells(current.current.state)?.includes(d.from)?'select':'tap'):'cancel',reason:release.reason,to:swapping?projection.to:null});
+   inputTraceAt=swapping||tapping?d.trace.at:undefined;
+   if(projection.axis){if(!release.cancelled)previewDrag(d.from,projection);if(swapping)swap(d.from,projection.to!);else{restorePreview();animationEnd=performance.now()+170;phase('returning');highlight();}}
+   else if(tapping)tap(d.from);else{restorePreview();animationEnd=performance.now()+170;phase('returning');highlight();}
   }
-  const pointerCancel=(event:PointerEvent)=>{if(down?.id===event.pointerId)cancel();};
+  const pointerCancel=(event:PointerEvent)=>{if(down?.id===event.pointerId)cancel('pointer-cancel');};
   const onBlur=()=>{resetIdleHint();cancel();},onVisibility=()=>{resetIdleHint();if(document.hidden)cancel();},onInput=()=>resetIdleHint();
   void app.init({width:360,height:360,backgroundAlpha:0,antialias:true,resolution:Math.min(devicePixelRatio,2),autoDensity:true}).then(()=>{
-   if(disposed||host.current!==element||!element.isConnected){app.destroy({removeView:true,releaseGlobalResources:false});return;}element.appendChild(app.canvas);app.stage.addChild(cellLayers,clipSprite,effects,highlights,border,counters);fx=createBoardEffects(app,effects,{cellSize:()=>cell,position,bounds:()=>geometry?.face??{x:0,y:0,width:0,height:0},frames:animationTextures,impulse:(strength,duration)=>{camera={start:performance.now(),duration,strength:current.current.reduced?0:Math.min(3.2,strength)};if(!strength||!duration)app.stage.position.set(0,0);}});
+   if(disposed||host.current!==element||!element.isConnected){app.destroy({removeView:true,releaseGlobalResources:false});return;}element.appendChild(app.canvas);app.stage.addChild(cellLayers,clipSprite,pieceClipSprite,effects,highlights,border,counters);ripple=createBoardRipple(app,effects);void prepareFxMaterials();fx=createBoardEffects(app,effects,{shards:tileShards,fxArt:id=>fxMaterial(id as FxMaterial),ripple:(origin,reach,duration,strength)=>{if(!current.current.reduced||duration<=0)ripple?.play(origin,reach,duration,strength);},cellSize:()=>cell,position,bounds:()=>geometry?.face??{x:0,y:0,width:0,height:0},frames:animationTextures,debris:createDebrisSurface(element,app.canvas,()=>app.screen),pieceTexture:boardEffectTexture,woodenCrates:()=>!current.current.goldGarden,shade:alpha=>{effectShade.alpha=alpha;effectShade.visible=alpha>0&&!current.current.reduced;},impulse:(strength,duration)=>{camera={start:performance.now(),duration,strength:current.current.reduced?0:Math.min(12,strength)};if(!strength||!duration)app.stage.position.set(0,0);}});
    app.canvas.style.touchAction='none';app.canvas.style.marginInline='auto';app.canvas.addEventListener('pointerdown',pointerDown);app.canvas.addEventListener('pointermove',pointerMove);app.canvas.addEventListener('pointerup',pointerUp);app.canvas.addEventListener('pointercancel',pointerCancel);app.canvas.addEventListener('lostpointercapture',pointerCancel);window.addEventListener('blur',onBlur);document.addEventListener('visibilitychange',onVisibility);document.addEventListener('pointerdown',onInput,true);document.addEventListener('keydown',onInput,true);
    controller.current={render,tap,cancel,resetHint:resetIdleHint};
-   app.ticker.add(()=>{const now=performance.now(),shake=camera.duration?Math.min(1,(now-camera.start)/camera.duration):1,energy=(1-shake)**2*camera.strength;app.stage.position.set(Math.sin(shake*Math.PI*6)*energy,Math.sin(shake*Math.PI*8)*energy*.55);if(host.current)host.current.dataset.cameraOffset=`${app.stage.x.toFixed(2)},${app.stage.y.toFixed(2)}`;if(primaryImpact&&now>=primaryImpact.at){sound(primaryImpact.name);haptic();if(host.current)host.current.dataset.impactPlayedAt=String(now);primaryImpact=undefined;}while(overlaySteps[0]&&now>=overlaySteps[0].start)updateOverlay(overlaySteps.shift()!);for(let i=motions.length-1;i>=0;i--){const motion=motions[i]!,sprite=motion.sprite;if(sprite.destroyed){motions.splice(i,1);continue;}if(now<motion.start)continue;const t=Math.min(1,(now-motion.start)/motion.duration),u=motion.elastic?1+(2.2*(t-1)**3+1.2*(t-1)**2):motion.fall?(t<.5?4*t*t*t:1-(-2*t+2)**3/2):t*t*(3-2*t);const at=motion.path?pointOnPath(motion.path,u):{x:motion.from.x+(motion.to.x-motion.from.x)*u,y:motion.from.y+(motion.to.y-motion.from.y)*u};sprite.position.set(at.x,at.y);if(motion.alpha)sprite.alpha=Math.min(1,t*5);if(motion.fade)sprite.alpha=1-t;if(motion.fall){const squash=t>.82?Math.sin((t-.82)/.18*Math.PI)*.035:0;const form=motion.form ? .72+.28*(1-(1-Math.min(1,t/.35))**3):1;sprite.scale.set(motion.scale*form*(1+squash),motion.scale*form*(1-squash));}if(motion.pop){const scale=t<.27?1+.35*t/.27:1.35*(1-(t-.27)/.73);sprite.scale.set(motion.scale*Math.max(.01,scale));sprite.alpha=t<.3?1:1-(t-.3)/.7;sprite.rotation+=.008;}if(t===1){motion.finish?.();motions.splice(i,1);}}
+   app.ticker.add(()=>{
+    if(puzzleFloorAt!==undefined&&performance.now()>=puzzleFloorAt){puzzleFloorAt=undefined;paintPuzzleFloor(current.current.state);}
+    for(const [badge,sprite]of pollenNodes){
+     badge.visible=sprite.visible&&(sprite.parent===tiles||sprite.parent===departures);
+     badge.alpha=sprite.alpha;
+     badge.position.set(sprite.x+cell*.28,sprite.y-cell*.28);
+    }
+    const now=performance.now(),shake=camera.duration?Math.min(1,(now-camera.start)/camera.duration):1,energy=(1-shake)**2*camera.strength;const heavy=camera.strength>4,swings=heavy?Math.max(3,camera.duration/65):1.5;app.stage.position.set(Math.sin(shake*Math.PI*2*swings)*energy,Math.sin(shake*Math.PI*2*swings*(heavy?1.33:4/3)+(heavy?1.3:0))*energy*(heavy?.75:.45));if(host.current)host.current.dataset.cameraOffset=`${app.stage.x.toFixed(2)},${app.stage.y.toFixed(2)}`;while(contacts[0]&&now>=contacts[0].at){const cue=contacts.shift()!;if(now-cue.at>120)continue;sound(cue.name,cue.accent);haptic(cue.strength);if(cue.shake)camera={start:now,duration:95,strength:cue.shake};if(host.current)host.current.dataset.impactPlayedAt=String(now);}if(pieceClipStep&&now>=pieceClipStep.at){updatePieceClip(pieceClipStep.cells);pieceClipStep=undefined;}while(overlaySteps[0]&&now>=overlaySteps[0].start)updateOverlay(overlaySteps.shift()!);for(let i=motions.length-1;i>=0;i--){const motion=motions[i]!,sprite=motion.sprite;if(sprite.destroyed){motions.splice(i,1);continue;}if(now<motion.start)continue;const elapsed=now-motion.start,t=Math.min(1,elapsed/motion.duration),pose=motion.fall?fallPose(elapsed,motion.travel??motion.duration-65):undefined,u=motion.elastic?1+(2.2*(t-1)**3+1.2*(t-1)**2):pose?pose.progress:t*t*(3-2*t);const at=motion.path?pointOnPath(motion.path,u):{x:motion.from.x+(motion.to.x-motion.from.x)*u,y:motion.from.y+(motion.to.y-motion.from.y)*u};sprite.position.set(at.x,at.y);if(motion.portal){const position=t<.5?motion.from:motion.to;sprite.position.set(position.x,position.y);sprite.alpha=Math.abs(2*t-1);}if(motion.alpha)sprite.alpha=Math.min(1,t*5);if(motion.fade)sprite.alpha=1-t;if(motion.fall){const form=motion.form ? .72+.28*(1-(1-Math.min(1,t/.35))**3):1;sprite.y+=(pose?.offset??0)*cell;sprite.scale.set(motion.scale*form*(pose?.scaleX??1),motion.scaleY*form*(pose?.scaleY??1));}if(motion.pop){const body=(motion.pop==='match'?matchBreakPose:breakPose)(elapsed,motion.anticipation);sprite.scale.set(motion.scale*body.scaleX,motion.scaleY*body.scaleY);sprite.alpha=body.alpha;}
+    if(motion.recoil){const pose=obstacleRecoil(t);sprite.scale.set(motion.scale*pose.x,motion.scaleY*pose.y);}
+    if(motion.gather){const u=t*t;sprite.position.set(motion.from.x+(motion.to.x-motion.from.x)*u,motion.from.y+(motion.to.y-motion.from.y)*u);sprite.scale.set(motion.scale*(1-.8*u),motion.scaleY*(1-.8*u));sprite.alpha=1-Math.max(0,(t-.7)/.3);sprite.rotation=Math.sin(Math.PI*t)*.16;}if(t===1){motion.finish?.();motions.splice(i,1);}}
     if(pointer&&!pointer.destroyed&&current.current.tutorial&&!down&&!commit){const path=current.current.tutorial,a=position(path.from),b=position(path.to),phase=(now%1600)/1600,u=Math.min(1,Math.max(0,(phase-.18)/.55));pointer.position.set(a.x+(b.x-a.x)*u,a.y+(b.y-a.y)*u);pointer.alpha=phase>.85?(1-phase)/.15:Math.min(1,phase/.12);}
-    if(host.current&&fx){const count=String(fx.activeCount);if(host.current.dataset.activeEffects!==count)host.current.dataset.activeEffects=count;}if(host.current&&width!==host.current.clientWidth)render(false);if(visualActive&&host.current)host.current.dataset.visualRemaining=String(Math.max(0,Math.round(animationEnd-now)));if(now>=animationEnd&&!motions.length&&!overlaySteps.length&&!fx?.activeCount&&!down&&!commit&&!awaitingSwap){if(visualActive)visualSettled();else phase('idle');}updateIdleHint(now);
+    if(host.current&&fx){const count=String(fx.activeCount);if(host.current.dataset.activeEffects!==count)host.current.dataset.activeEffects=count;}if(host.current&&width!==host.current.clientWidth)render(true);if(visualActive&&host.current)host.current.dataset.visualRemaining=String(Math.max(0,Math.round(animationEnd-now)));if(now>=animationEnd&&!motions.length&&!overlaySteps.length&&!down&&!commit&&!awaitingSwap){if(visualActive)visualSettled();else phase('idle');}updateIdleHint(now);
    });render(false);
+   // Lumi delivers the chosen start boosters once per run; the board takes no input until she is done.
+   const intro=current.current.boosterIntro;if(intro?.length&&!current.current.reduced)void prepareFxMaterials().then(()=>{if(disposed)return;const duration=playLumiIntro(app,effects,{cellSize:()=>cell,position,bounds:()=>geometry?.face??{x:0,y:0,width:0,height:0},tileAt:index=>{const id=current.current.state.cells[index]?.tile?.id;return id===undefined?undefined:active.get(id);}},intro);if(duration){animationEnd=Math.max(animationEnd,performance.now()+duration);resetIdleHint();}});
   });
-  return()=>{disposed=true;if(visualActive)visualSettled();else if(pendingAction)current.current.onVisualSettled?.();controller.current=null;if(commitTimer)clearTimeout(commitTimer);if(settleTimer)clearTimeout(settleTimer);window.removeEventListener('blur',onBlur);document.removeEventListener('visibilitychange',onVisibility);document.removeEventListener('pointerdown',onInput,true);document.removeEventListener('keydown',onInput,true);fx?.destroy();if(app.renderer)app.destroy({removeView:true,releaseGlobalResources:false},{children:true});clipTexture?.destroy(true);};
+  return()=>{disposed=true;if(visualActive)visualSettled();else if(pendingAction)current.current.onVisualSettled?.();controller.current=null;if(commitTimer)clearTimeout(commitTimer);if(settleTimer)clearTimeout(settleTimer);window.removeEventListener('blur',onBlur);document.removeEventListener('visibilitychange',onVisibility);document.removeEventListener('pointerdown',onInput,true);document.removeEventListener('keydown',onInput,true);fx?.destroy();ripple?.destroy();if(app.renderer)app.destroy({removeView:true,releaseGlobalResources:false},{children:true});clipTexture?.destroy(true);pieceClipTexture?.destroy(true);};
  },[]);
- useEffect(()=>{controller.current?.render(true)},[props.state,props.events,props.tutorial]);
+ // Consume new actions before the Pixi resize ticker. Dismissing a tutorial
+ // changes the board width in the same commit as its first accepted swap.
+ useLayoutEffect(()=>{controller.current?.render(true)},[props.state,props.events,props.tutorial]);
  useEffect(()=>{controller.current?.resetHint();if(props.locked)controller.current?.cancel()},[props.locked,props.tool]);
  return <div className="board-wrap"><div className="board" ref={host} aria-label={tr("퍼즐 보드")} role="application" data-input-phase="idle"/>
-  <div className="sr-only" role="group" aria-label={tr("퍼즐 칸")}>{props.state.cells.map((cell,index)=>cell.exists?<button key={index} disabled={props.locked||props.state.status!=='playing'} aria-pressed={selected===index} onClick={()=>controller.current?.tap(index)}>{Math.floor(index/props.state.width)+1}{tr("행")}{' '}{index%props.state.width+1}{tr("열")}{' '}{cell.tile?.kind==='normal'?t(`item.${cell.tile.color}`):cell.tile?.kind||cell.obstacleId}{cell.frost>0?` · ${t('item.frost')} ${cell.frost}`:''}</button>:null)}</div>
+  {props.state.gardenStage&&stageGeometry&&<GardenStageOverlay animal={props.animal} state={props.state} events={props.events} action={props.action} geometry={stageGeometry} reduced={props.reduced}/>}
+  <div className="sr-only" role="group" aria-label={tr("퍼즐 칸")}>{props.state.cells.map((cell,index)=>{
+   if(!cell.exists)return null;
+   const obstacle=cell.obstacleId?props.state.obstacles[cell.obstacleId]:undefined;
+   const number=planterGroupNumber(obstacle);
+   const group=number===undefined?'':` · ${obstacle?.cover?itemName(obstacle.cover.kind)+' ':''}${number}`;
+   const rule=obstacle?.chapter?' · '+chapterObstacleLabel(obstacle,props.state):
+    obstacle?.rule?' · '+[tr(obstacleRuleLabel[obstacle.rule]),obstacleRuleDetail(obstacle,props.state.turn),obstacle.lastHitColor&&itemName(obstacle.lastHitColor)].filter(Boolean).join(' '):'';
+   return <button key={index} disabled={props.locked||props.state.status!=='playing'} aria-pressed={selected===index} onClick={()=>controller.current?.tap(index)}>{Math.floor(index/props.state.width)+1}{tr("행")}{' '}{index%props.state.width+1}{tr("열")}{' '}{cell.obstacleId&&isDeviceGate(props.state.devices?.steps,index)?tr('장치 문'):cell.tile?.kind==='normal'?t(`item.${cell.tile.color}`):cell.tile?.kind==='rainbow'&&props.state.powerRainbow?t('powerRainbow.name'):cell.tile?itemName(cell.tile.kind):(obstacle?props.goldGarden?tr('금화'):itemName(obstacle.kind):null)}{group}{rule}{props.state.devices?.pollenIds?.includes(cell.tile?.id??-1)?' · '+tr('꽃가루 표식'):''}{cell.frost>0?` · ${t('item.frost')} ${cell.frost}`:''}{cell.exit?' · '+tr('씨앗 출구'):''}</button>;
+  })}</div>
  </div>;
 }

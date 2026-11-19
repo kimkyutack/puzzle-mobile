@@ -1,0 +1,16 @@
+{
+  "method": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "rainbow",
+      "prompt": "Use case: precise-object-edit. Asset: one production-ready TRANSPARENT standard Rainbow Lantern sprite, cheerful match-3 game. Image 1 is the ordinary round lantern whose colors are too dull; it is the edit target. Image 2 is its enhanced counterpart for comparison only. Keep the round silhouette, top cap, curved base, and the small simple four-point star on Image 1. Give it the cheerful and luminous COLORS of a sunny toy shop, with rich bright sky-blue and turquoise glass in the center, a strawberry pink left panel, and a clean lilac-blue right panel. The rainbow crescent at the top has clear generous bands of pink, apricot, pale lemon yellow, fresh mint, and sky blue. Use a warm honey-gold polished rim instead of the brown brass. Keep the center star relatively SMALL, made from warm ivory enamel with a soft golden edge. It is an opaque piece of ceramic without any luminous core. Give the satin glass a couple of broad soft reflections and gentle color gradients like glossy candy. Raise the midtones and saturation, preserve soft dimensional shadows at the edges. Bright and playful just like the surrounding colorful tiles; dial back only the contrast of the specular highlights and emission compared with the enhanced version. Strong contrast between cream star and bright teal-blue glass. All meaningful shapes should still be recognizable at 32 pixels. Exactly one front-facing object, centered on a square canvas, complete with transparent perimeter and genuine alpha. No gray cast, brown cast, darkness, mirror flashes, neon, little glints, glowing aura, rays, text, graphic labels, scene, or shadows outside the lantern.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1e875-d3bf-7ba1-a58c-af24b88da167/exec-538418ef-5bbb-45d5-a124-a346c511d03e.png",
+      "savedPath": "packages/assets/source/rainbow.png",
+      "references": [
+        "/Users/kimkyutack/.codex/generated_images/01a1e875-d3bf-7ba1-a58c-af24b88da167/exec-27343ae8-043a-4cff-a0a8-915dacadebe8.png",
+        "packages/assets/source/rainbow_enhanced.png"
+      ],
+      "transparent_background": true
+    }
+  ]
+}

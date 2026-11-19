@@ -3,17 +3,17 @@
 .game-page[data-page="events"]>.events-page-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
 .game-page[data-page="events"]>.page-header{margin-bottom:2px}
 .game-page[data-page="events"]>.page-content{margin:0 11px;padding:0 0 24px}
-.events-v17{--event-ink:#47304c;--event-muted:#654b5c;display:flex;flex-direction:column;gap:20px;padding:0 0 4px}
+.events-v17{--event-ink:#47304c;--event-muted:#654b5c;display:flex;flex-direction:column;gap:14px;padding:0 0 4px}
 .events-v17 section{scroll-margin-top:10px;flex:none}
-.event-icon-chips{display:flex;justify-content:center;gap:16px;padding:7px 0 0;min-height:109px}
-.event-icon-chip{position:relative;display:flex;flex-direction:column;align-items:center;width:94px;min-width:0;gap:0;color:#fff5df;filter:drop-shadow(0 3px 2px #081f3f88)}
+.event-icon-chips{display:flex;justify-content:center;gap:7px;padding:0;min-height:95px}
+.event-icon-chip{position:relative;display:flex;flex:1;flex-direction:column;align-items:center;min-width:0;gap:0;color:#fff5df;filter:drop-shadow(0 3px 2px #081f3f88)}
 .event-chip-art{position:relative;display:grid;place-items:center;width:67px;height:66px;isolation:isolate}
 .event-chip-art:before{content:"";position:absolute;inset:7px 2px 0;border-radius:50%;background:#d66542;box-shadow:inset 0 3px 0 #ffd294,inset 0 -5px 0 #8d3037,0 2px 0 #08264d;z-index:-1}
 .chip-treasure .event-chip-art:before{background:#2261a5;box-shadow:inset 0 3px 0 #7dc7ff,inset 0 -5px 0 #153779,0 2px 0 #08264d}
 .chip-season .event-chip-art:before{background:#be4966;box-shadow:inset 0 3px 0 #ffadc2,inset 0 -5px 0 #7a2c51,0 2px 0 #08264d}
 .event-chip-art>img{width:66px;height:66px;object-fit:contain;filter:drop-shadow(0 2px 1px #152e5966)}
 .event-chip-art>.reward-dot{right:-3px;top:4px}
-.event-icon-chip>strong{position:relative;font-size:13px;line-height:18px;white-space:nowrap;margin-top:-1px;padding:4px 9px 5px;min-width:85px;text-align:center;background:#a3433c;border-radius:12px;box-shadow:inset 0 1px 0 #ffbe81,0 3px 0 #632e40;color:#fff5df;text-shadow:0 1px 1px #702b36}
+.event-icon-chip>strong{position:relative;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:14px;white-space:normal;word-break:keep-all;overflow-wrap:anywhere;min-height:34px;margin-top:-1px;padding:4px 4px 6px;width:100%;min-width:0;text-align:center;background:#a3433c;border-radius:12px;box-shadow:inset 0 1px 0 #ffbe81,0 3px 0 #632e40;color:#fff5df;text-shadow:0 1px 1px #702b36}
 .chip-treasure>strong{background:#22609d;box-shadow:inset 0 1px 0 #82ccff,0 3px 0 #123c73;text-shadow:0 1px 1px #123c73}
 .chip-season>strong{background:#a63e68;box-shadow:inset 0 1px 0 #ffa8bc,0 3px 0 #642849;text-shadow:0 1px 1px #642849}
 .events-v17 .event-kicker{display:inline-block;font-size:11px;line-height:17px;padding:2px 8px;border-radius:8px;background:#893846;color:#fff6e6;box-shadow:0 2px 0 #622e3e33}
@@ -86,8 +86,8 @@
 @media(max-width:360px){
  .game-page[data-page="events"]>.page-content{margin-left:9px;margin-right:9px}
  .event-icon-chips{gap:7px;min-height:104px}
- .event-icon-chip{width:88px}
- .events-v17{gap:17px}
+ .event-icon-chip{width:auto}
+ .events-v17{gap:14px}
  .events-v17 h2{font-size:24px}
  .attendance-v17 .attendance-scene{height:157px}
  .attendance-v17 .attendance-scene-copy{left:12px;top:15px;width:44%}
@@ -109,17 +109,22 @@
 .game-page[data-page="events"]>.page-header{height:58px;margin-left:12px;margin-right:12px;padding:3px 3px 7px;gap:7px}
 .game-page[data-page="events"]>.page-header>h1{font-size:29px;line-height:34px;color:#fff0cb;text-shadow:0 2px 2px #0b294c;-webkit-text-stroke:0}
 .game-page[data-page="events"]>.page-header>.icon{width:45px;height:46px;filter:drop-shadow(0 3px 1px #081f3f88)}
-.game-page[data-page="events"]>.page-header>.page-player-level{padding:5px 9px;background:#183e65;border-radius:12px;color:#e2eeff;font-size:11px;box-shadow:inset 0 1px 0 #7790a866}
 /* A local reading scrim keeps live copy clear over the illustrated calendar. */
 .attendance-v17 .attendance-scene:after{content:"";position:absolute;inset:0 27% 0 0;background:linear-gradient(90deg,#f3b58de8,#f3b58da8 53%,#f3b58d00);pointer-events:none}
 .attendance-v17 .attendance-counter{z-index:1}
 html[lang="en"] .events-v17 h2{font-size:23px}
 @media(max-width:360px){
  html[lang="en"] .events-v17 h2{font-size:20px;line-height:1.12}
- html[lang="en"] .event-icon-chip>strong{font-size:11px;line-height:16px;padding-left:5px;padding-right:5px;min-width:0;width:88px}
+ html[lang="en"] .event-icon-chip>strong{font-size:11px;line-height:16px;padding-left:5px;padding-right:5px;min-width:0;width:100%}
  html[lang="en"] .treasure-event-copy{top:13px}
  html[lang="en"] .treasure-event-copy p{font-size:10px;line-height:14px}
  html[lang="en"] .attendance-v17 .attendance-scene-copy h2{margin-top:6px;margin-bottom:4px}
  html[lang="en"] .attendance-v17 .attendance-scene-copy p{font-size:10px;line-height:14px}
  .event-treasure-feature{min-height:0}
 }
+
+/* Keep the schedule readable without consuming another poster-sized row. */
+.events-v17>.start-rush-banner{margin:0;min-height:55px;padding:8px 12px;gap:8px}
+.events-v17>.start-rush-banner .start-rush-icons .icon{width:24px;height:24px}
+.events-v17>.start-rush-banner strong{font-size:12px}
+.events-v17>.start-rush-banner small{font-size:9px;line-height:1.4}

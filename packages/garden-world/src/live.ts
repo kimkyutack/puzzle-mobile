@@ -1,17 +1,36 @@
+import {applyFlowerlightGardenGifts} from './flowerlight';
 import {RESTORATIONS} from '../../content/src';
-import {DECORATIONS} from './catalog';
+import {DECORATIONS,GARDEN_MARKET_ITEMS} from './catalog';
 import {applyGardenCommand,applyTrustedDecorationGrant,applyTrustedRegionUnlock,createGardenWorld,validateGardenPlacement,type GardenWorldState} from './model';
 import {restorationItemId,restorationSite} from './restoration-sites';
 
-/** Published soft-currency prices; never accept a price or ownership from a client. */
-export const GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
+/** Prices embedded in older apps, used only to decide whether an unquoted purchase is safe. */
+export const LEGACY_GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
  'garden-path-stone':20,'garden-planter':100,'garden-bench':180,'garden-lamp':120,
  'garden-tree':200,'garden-rose-arch':300,'garden-gazebo':700,'garden-pond':450,
  'garden-picnic':350,'garden-hedge':100,'garden-mushroom':80,
  'animal-rabbit':300,'animal-cat':400,'animal-dog':500
 };
+/** The updated price for items recognized by existing clients. */
+export const CLASSIC_GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
+ 'garden-path-stone':50,'garden-planter':280,'garden-bench':450,'garden-lamp':350,
+ 'garden-tree':1800,'garden-rose-arch':2400,'garden-gazebo':6500,'garden-pond':4800,
+ 'garden-picnic':3000,'garden-hedge':240,'garden-mushroom':200,
+ 'animal-rabbit':900,'animal-cat':1200,'animal-dog':1600,
+ 'garden-lotus-pavilion':8000,'garden-aurora-conservatory':10000
+};
+/** The server charges this catalog; the client can only confirm the displayed quote. */
+export const GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
+ ...CLASSIC_GARDEN_SHOP_PRICES,
+ ...Object.fromEntries(GARDEN_MARKET_ITEMS.map(([id,,,,,,price])=>[id,price]))
+};
+export const GARDEN_SHOP_MIN_LEVEL=5;
+export const GARDEN_SHOP_LEVELS:Readonly<Partial<Record<string,number>>>={
+ 'garden-gazebo':20,'garden-lotus-pavilion':50,'garden-aurora-conservatory':120,
+ ...Object.fromEntries(GARDEN_MARKET_ITEMS.filter(item=>item[4]==='building').map(([id,,,,,,,level])=>[id,level]))
+};
 /** Read-only migration from earned restorations. Stable grants never re-place moved/stored objects. */
-export function projectLiveGarden(player:{id:string;restored:string[]},saved?:GardenWorldState|null):GardenWorldState{
+export function projectLiveGarden(player:{id:string;restored:string[];flowerFestival?:{restoredStages:number}},saved?:GardenWorldState|null):GardenWorldState{
  let world=saved||createGardenWorld(player.id);
  if(world.ownerId!==player.id)throw new Error('Garden owner mismatch');
  for(let index=0;index<RESTORATIONS.length;index++){
@@ -32,6 +51,6 @@ export function projectLiveGarden(player:{id:string;restored:string[]},saved?:Ga
    const instanceId=instanceIds[i++]!;try{world=applyGardenCommand(world,{type:'place',instanceId,x,y,rotation:0,expectedRevision:world.revision,operationId:'initial-'+instanceId},player.id);}catch{}
   }
  }
- return world;
+ return applyFlowerlightGardenGifts(world,player.flowerFestival?.restoredStages??0);
 }
-export const liveShopItems=()=>DECORATIONS.filter(item=>Object.hasOwn(GARDEN_SHOP_PRICES,item.id));
+export const liveShopItems=(prices=GARDEN_SHOP_PRICES)=>DECORATIONS.filter(item=>Object.hasOwn(prices,item.id));

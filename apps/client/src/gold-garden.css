@@ -1,0 +1,47 @@
+.gold-garden-overlay{position:fixed;inset:0;z-index:120;background:#15182e;display:flex;justify-content:center;overscroll-behavior:contain}
+.gold-garden-screen.game-shell.playing{width:min(100%,560px);height:100dvh;min-height:0;position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto}
+.gold-garden-heading{display:flex;align-items:center;gap:9px;justify-content:center;position:relative;margin:calc(var(--safe-top,0px) + 4px) 10px 4px;padding:8px 54px;color:#fff1b1}
+.gold-garden-heading h2{margin:0;font-size:22px;color:inherit}
+.gold-garden-heading button{position:absolute;right:5px;top:50%;transform:translateY(-50%)}
+.gold-garden-hud{display:flex;justify-content:space-around;align-items:center;gap:6px;margin:2px 14px;padding:8px 16px;color:#14325d;min-height:42px}
+.gold-garden-hud>span,.gold-garden-footer p{display:flex;gap:6px;align-items:center;justify-content:center}
+.gold-garden-hud strong{font-size:22px}
+.gold-garden-screen .board-area{margin:0 12px;padding:8px 0;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);place-items:center}
+.gold-garden-screen .board-wrap{max-width:min(480px,calc(100dvh - 225px));width:100%}
+.gold-garden-footer.play-footer{display:grid;justify-items:center;gap:6px;padding:10px 16px calc(8px + var(--safe-bottom,0px));height:auto;min-height:62px}
+.gold-garden-footer p{margin:0;text-align:center;font-size:13px;color:#fff5d3}
+.gold-garden-footer .gold-garden-error{color:#ffe0b4}
+.game-button.gold-garden-play[data-button-tone="gold"]{
+ position:relative;
+ isolation:isolate;
+ gap:6px;
+ color:#5a2a05;
+ -webkit-text-stroke:0;
+ text-shadow:0 1px 0 #fff7b5;
+ font-size:clamp(19px,5.8vw,25px);
+}
+.gold-garden-play > [data-local-frame]{filter:grayscale(1) brightness(1.23) sepia(1) saturate(3.1)}
+.game-button.gold-garden-play.pressed{filter:brightness(.92)}
+.gold-garden-play::after{
+ content:"";
+ position:absolute;
+ z-index:0;
+ inset:0;
+ clip-path:inset(12% 5% 20% round 10px);
+ pointer-events:none;
+ background:linear-gradient(110deg,transparent 39%,#fffce6b8 50%,transparent 61%) 132% center / 205% 100% no-repeat;
+ animation:gold-garden-sweep 2.8s ease-in-out infinite;
+}
+.game-button.gold-garden-play > :is(.icon,.button-label){
+ position:relative;
+ z-index:1;
+}
+.gold-garden-play > .icon{width:27px;height:27px;flex:none}
+.gold-garden-play > .button-label{min-width:0;text-align:center}
+.hub-main-actions > .gold-garden-lookup{font-size:clamp(15px,4.8vw,20px)}
+@keyframes gold-garden-sweep{
+ 0%,12%{background-position:132% center}
+ 54%,100%{background-position:-32% center}
+}
+@media(prefers-reduced-motion:reduce){.gold-garden-play::after{animation:none}}
+@media(max-height:680px){.gold-garden-screen .board-wrap{max-width:calc(100dvh - 205px)}.gold-garden-heading{padding-block:4px}.gold-garden-footer.play-footer{min-height:54px;padding-block-start:7px}}

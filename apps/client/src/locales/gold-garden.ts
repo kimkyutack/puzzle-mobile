@@ -1,0 +1,16 @@
+export const goldGardenCopy={
+ '황금 정원':['Golden Garden','黄金の庭'],
+ '금화':['Gold coin','金貨'],
+ '모은 골드':['Gold collected','集めたゴールド'],
+ '금화 옆에서 맞추거나 특수 블록을 맞혀요.':['Match beside gold coins or hit them with a power-up.','金貨の隣でそろえるか、特殊ブロックを当てましょう。'],
+ '아이템을 누르거나 합쳐 금화를 모아요. 금화 한 개는 1코인이에요.':['Tap or combine power-ups. Each gold piece gives you 1 coin.','アイテムをタップしたり組み合わせたりして金貨を集めましょう。金貨1枚につき1コイン獲得できます。'],
+ '황금 정원 보상':['Golden Garden reward','黄金の庭の報酬'],
+ '모은 골드를 받을 수 있어요.':['Your collected gold is ready.','集めたゴールドを受け取れます。'],
+ '이미 보상을 받았어요.':['You already collected this reward.','報酬は受け取り済みです。'],
+ '해당 레벨을 클리어하면 황금 정원이 열려요.':['Clear this level to unlock the Golden Garden.','対象のレベルをクリアすると黄金の庭が開放されます。'],
+ '이동을 모두 쓰거나 금화를 전부 모아 주세요.':['Use all moves or collect every gold coin.','手数を使い切るか、金貨をすべて集めてください。'],
+ '남은 이동을 모두 써 주세요.':['Use all remaining moves.','残りの手数を使い切ってください。'],
+ '퍼즐을 진행하지 못했어요. 황금 정원을 다시 열어 주세요.':['The puzzle could not continue. Open the Golden Garden again.','パズルを続けられませんでした。黄金の庭を開き直してください。'],
+ '이 기기에 진행을 보관할 수 없어요.':['Progress could not be saved on this device.','この端末に進行状況を保存できません。'],
+ '보상을 확인하지 못했어요. 다시 시도해 주세요.':['The reward could not be confirmed. Try again.','報酬を確認できませんでした。もう一度お試しください。'],
+} as const;

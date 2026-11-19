@@ -1,50 +1,82 @@
 import { z } from 'zod';
-import type { AuthResponse, Player } from '@garden/contracts';
+import {APP_LOCALES,type AuthResponse,type Player} from '@garden/contracts';
 import { exchangeAppleAuthorizationCode, sealAppleRevocationToken, verifyAppleIdentityNotification, verifyIdentity } from './providers';
 import { boundedText } from './validation';
-import { activeRun, assertSQL, digest, ensure, mutate, newPlayer, one, operationKey, readPlayer, rows, sql, uid, type ApiEnv } from './db';
+import { eraseAccount } from './account-erasure';
+import {profileAppearanceSchema} from './profile-appearance';
+import { accountAge, ageAdmissionStatements, approvedAdmission, requireAgeAccess } from './age-access';
+import { activeRun, assertSQL, digest, ensure, mutate, newPlayer, one, operationKey, readPlayer, readState, rows, sql, uid, type ApiEnv } from './db';
 
+import type { AgeBand } from '../../../packages/contracts/src/age-access';
+
+export interface AppSession {id:string;user_id:string;ops_data?:string;controls_data?:string;age_band:AgeBand|null;age_verified_at:number|null}
 export async function authenticate(request:Request,env:ApiEnv,limit?:{maximum:number;seconds:number}){
   const token=request.headers.get('authorization')?.replace(/^Bearer /,'');ensure(token && token.length<300,'UNAUTHORIZED','다시 연결해 주세요.',401);
-  const hash=await digest(token),now=Date.now(),query=sql(env.DB,'SELECT id,user_id FROM sessions WHERE access_hash=? AND access_expires>? AND revoked=0',hash,now);
+  const hash=await digest(token),now=Date.now(),query=sql(env.DB,`SELECT s.id,s.user_id,o.data ops_data,c.data controls_data,a.band age_band,a.verified_at age_verified_at FROM sessions s LEFT JOIN ops_settings o ON o.key='runtime' LEFT JOIN ops_user_controls c ON c.user_id=s.user_id LEFT JOIN account_age_access a ON a.user_id=s.user_id WHERE s.access_hash=? AND s.access_expires>? AND s.revoked=0`,hash,now);
   if(limit){
     const window=Math.floor(now/(limit.seconds*1000));
     // Invalid or revoked tokens cannot increment a user's rate counter.
-    const [sessionResult,rateResult]=await env.DB.batch<{user_id:string;id:string}|{hits:number}>([query,sql(env.DB,`INSERT INTO rate_limits(key,window,hits,expires_at)
+    const [sessionResult,rateResult]=await env.DB.batch<AppSession|{hits:number}>([query,sql(env.DB,`INSERT INTO rate_limits(key,window,hits,expires_at)
       SELECT 'user:'||user_id,?,1,? FROM sessions WHERE access_hash=? AND access_expires>? AND revoked=0
-      ON CONFLICT(key,window) DO UPDATE SET hits=hits+1 RETURNING hits`,window,(window+1)*limit.seconds*1000,hash,now)]);
+      ON CONFLICT(key,window) DO UPDATE SET hits=hits+1 RETURNING hits`,window,(window+1)*limit.seconds*1000,hash,now),sql(env.DB,`INSERT INTO player_activity(user_id,last_seen,platform,app_version) SELECT s.user_id,?,?,? FROM sessions s LEFT JOIN account_age_access a ON a.user_id=s.user_id WHERE s.access_hash=? AND s.access_expires>? AND s.revoked=0 AND (a.verified_at IS NOT NULL OR (a.user_id IS NULL AND ?=0)) ON CONFLICT(user_id) DO UPDATE SET last_seen=excluded.last_seen,platform=excluded.platform,app_version=excluded.app_version WHERE player_activity.last_seen<?`,now,(request.headers.get('x-app-platform')??'').slice(0,30),(request.headers.get('x-app-version')??'').slice(0,40),hash,now,requireAgeAccess(env)?1:0,now-300000)]);
     const session=sessionResult!.results[0],rate=rateResult!.results[0];
     ensure(session&&'user_id' in session,'UNAUTHORIZED','세션이 만료되었습니다.',401);
     ensure(rate&&'hits' in rate&&rate.hits<=limit.maximum,'RATE_LIMIT','요청이 많아요. 잠시 후 다시 시도해 주세요.',429);return session;
   }
-  const session=await query.first<{user_id:string;id:string}>();
+  const session=await query.first<AppSession>();
   ensure(session,'UNAUTHORIZED','세션이 만료되었습니다.',401);return session;
 }
-async function sessionStatement(env:ApiEnv,userId:string,now:number){
-  const accessToken=uid()+uid();const refreshToken=uid()+uid();
+async function sessionStatement(env:ApiEnv,userId:string,now:number,tokens={accessToken:uid()+uid(),refreshToken:uid()+uid()}){
+  const {accessToken,refreshToken}=tokens;
   return {accessToken,refreshToken,statement:sql(env.DB,'INSERT INTO sessions VALUES(?,?,?,?,?,?,0)',uid(),userId,await digest(accessToken),await digest(refreshToken),now+3_600_000,now+30*86_400_000)};
 }
-export async function guest(env:ApiEnv):Promise<AuthResponse>{
-  const now=Date.now();const player=newPlayer(uid(),now);const session=await sessionStatement(env,player.id,now);
+export async function guest(env:ApiEnv,body:Record<string,unknown>={},ageRequired=requireAgeAccess(env)):Promise<AuthResponse>{
+  ensure(body.ageToken!==undefined||!ageRequired,'AGE_ACCESS_REQUIRED','이용 전에 연령 확인을 완료해 주세요.',403);
+  const enrollment=body.ageToken===undefined?null:await approvedAdmission(env,body.ageToken,null);
+  const now=Date.now();
+  const enrollmentTokens=async(token:string,nonce:string)=>({accessToken:await digest('garden:admission:access:'+token+nonce),refreshToken:await digest('garden:admission:refresh:'+token+nonce)});
+  async function resumeGuest({row,token}:NonNullable<typeof enrollment>){
+    const userId=row.result_user_id;
+    ensure(userId&&row.retry_nonce,'AGE_REQUEST_CLOSED','이미 사용한 요청이에요. 앱을 다시 열어 주세요.',409);
+    const tokens=await enrollmentTokens(token,row.retry_nonce);
+    const session=await one(env.DB,'SELECT id FROM sessions WHERE user_id=? AND refresh_hash=? AND access_hash=? AND revoked=0',userId,await digest(tokens.refreshToken),await digest(tokens.accessToken));
+    ensure(session,'AGE_REQUEST_CLOSED','이미 사용한 요청이에요. 앱을 다시 열어 주세요.',409);
+    return {...await readState(env.DB,userId),...tokens};
+  }
+  if(enrollment?.row.consumed_at!=null)return resumeGuest(enrollment);
+  const retryNonce=enrollment?uid():null;
+  const tokens=enrollment&&retryNonce?await enrollmentTokens(enrollment.token,retryNonce):undefined;
+  const player=newPlayer(uid(),now);const session=await sessionStatement(env,player.id,now,tokens);
+  try{
   await env.DB.batch([sql(env.DB,'INSERT INTO players(id,data,version,created_at) VALUES(?,?,1,?)',player.id,JSON.stringify(player),now),session.statement,
     sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),player.id,'coins',500,'guest:create',player.id,now),sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),player.id,'hearts',5,'guest:create',player.id,now),
-    ...Object.entries(player.inventory).map(([item,count])=>sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),player.id,`item:${item}:normal`,count.normal,'tutorial:grant',player.id,now))]);
+    ...Object.entries(player.inventory).map(([item,count])=>sql(env.DB,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),player.id,`item:${item}:normal`,count.normal,'tutorial:grant',player.id,now)),
+    ...(enrollment?ageAdmissionStatements(env,enrollment.row,player.id,now,retryNonce):[])]);
+  }catch(error){
+    if(enrollment){const retry=await approvedAdmission(env,enrollment.token,null);if(retry.row.consumed_at!==null)return resumeGuest(retry);}
+    throw error;
+  }
   return {player,activeRun:null,accessToken:session.accessToken,refreshToken:session.refreshToken};
 }
 export async function refresh(env:ApiEnv,body:Record<string,unknown>){
   const token=z.string().min(20).max(300).parse(body.refreshToken);const now=Date.now();
   const session=await one<{id:string;user_id:string}>(env.DB,'SELECT id,user_id FROM sessions WHERE refresh_hash=? AND refresh_expires>? AND revoked=0',await digest(token),now);
   ensure(session,'UNAUTHORIZED','세션이 만료되었습니다. 다시 로그인해 주세요.',401);
-  const accessToken=uid()+uid();const player=await readPlayer(env.DB,session.user_id,now);
+  const accessToken=uid()+uid();
+  const age=await accountAge(env,session.user_id);
+  const state=age?.verified_at||(!age&&!requireAgeAccess(env))?await readState(env.DB,session.user_id,now):null;
   await sql(env.DB,'UPDATE sessions SET access_hash=?,access_expires=? WHERE id=? AND revoked=0',await digest(accessToken),now+3_600_000,session.id).run();
-  return {accessToken,refreshToken:token,player,activeRun:await activeRun(env.DB,player.id)};
+  return {accessToken,refreshToken:token,...state};
 }
 export async function profile(env:ApiEnv,userId:string,body:Record<string,unknown>){
-  const settings=z.object({sound:z.boolean().optional(),music:z.boolean().optional(),haptics:z.boolean().optional(),reducedMotion:z.boolean().optional(),language:z.enum(['ko','en']).optional()}).strict().optional().parse(body.settings);
+  const settings=z.object({sound:z.boolean().optional(),music:z.boolean().optional(),haptics:z.boolean().optional(),reducedMotion:z.boolean().optional(),language:z.enum(APP_LOCALES).optional()}).strict().optional().parse(body.settings);
   const nickname=z.string().trim().min(2).max(20).regex(/^[\p{L}\p{N} _-]+$/u).optional().parse(body.nickname);
   const tutorials=z.array(z.string().min(1).max(60)).max(100).optional().parse(body.tutorials);
-  return mutate(env,userId,operationKey(body)||uid(),`profile:${JSON.stringify({settings,nickname,tutorials})}`,tx=>{
-    if(nickname)tx.player.nickname=nickname;if(settings)Object.assign(tx.player.settings,settings);if(tutorials)tx.player.tutorials=[...new Set(tutorials)];return {player:tx.player};
+  const profileAppearance=profileAppearanceSchema.optional().parse(body.profileAppearance);
+  return mutate(env,userId,operationKey(body)||uid(),`profile:${JSON.stringify({settings,nickname,tutorials,profileAppearance})}`,tx=>{
+    if(nickname)tx.player.nickname=nickname;if(settings)Object.assign(tx.player.settings,settings);if(tutorials)tx.player.tutorials=[...new Set(tutorials)];
+    if(profileAppearance)tx.player.profileAppearance=profileAppearance;
+    return {player:tx.player};
   });
 }
 export async function challenge(env:ApiEnv,userId:string,body:Record<string,unknown>){
@@ -91,35 +123,23 @@ export async function switchAccount(env:ApiEnv,userId:string,body:Record<string,
   const row=await one<{to_user:string}>(env.DB,'SELECT to_user FROM account_switches WHERE token_hash=? AND from_user=? AND expires_at>? AND consumed=0',hash,userId,now);
   ensure(row,'SWITCH_EXPIRED','계정 전환 요청이 만료되었어요.',401);
   ensure(!await activeRun(env.DB,userId),'ACTIVE_RUN','진행 중인 퍼즐을 종료한 후 계정을 전환해 주세요.',409);
-  const player=await readPlayer(env.DB,row.to_user,now);const session=await sessionStatement(env,player.id,now);
+  const age=await accountAge(env,row.to_user);
+  const state=age?.verified_at||(!age&&!requireAgeAccess(env))?await readState(env.DB,row.to_user,now):null;
+  const session=await sessionStatement(env,row.to_user,now);
   await env.DB.batch([assertSQL(env.DB,'SELECT consumed=0 AND expires_at>? FROM account_switches WHERE token_hash=?',now,hash),sql(env.DB,'UPDATE account_switches SET consumed=1 WHERE token_hash=?',hash),session.statement,sql(env.DB,'UPDATE sessions SET revoked=1 WHERE user_id=?',userId),sql(env.DB,'DELETE FROM tx_assertions')]);
-  return {player,activeRun:await activeRun(env.DB,player.id),accessToken:session.accessToken,refreshToken:session.refreshToken};
+  return {...state,accessToken:session.accessToken,refreshToken:session.refreshToken};
 }
 export async function deleteAccount(env:ApiEnv,userId:string,body:Record<string,unknown>){
   ensure(body.confirm==='DELETE'||body.confirmation==='DELETE','DELETE_CONFIRMATION','계정 삭제 확인 문구가 필요합니다.');
-  return mutate(env,userId,operationKey(body)||uid(),`account:delete`,async tx=>{
-    const missingApple=await one(tx.db,"SELECT 1 FROM auth_links l LEFT JOIN apple_authorizations a ON a.subject=l.subject AND a.user_id=l.user_id WHERE l.user_id=? AND l.provider='apple' AND a.subject IS NULL",userId);
-    ensure(!missingApple,'APPLE_REAUTH_REQUIRED','Apple 계정을 한 번 더 연결한 뒤 삭제해 주세요. Apple 인증도 함께 해제하기 위해 필요합니다.',409);
-    const tokens=await rows<{sealed_token:string}>(tx.db,'SELECT sealed_token FROM apple_authorizations WHERE user_id=? UNION ALL SELECT sealed_apple_token sealed_token FROM auth_challenges WHERE user_id=? AND sealed_apple_token IS NOT NULL',userId,userId);
-    for(const token of tokens)tx.statements.push(sql(tx.db,"INSERT INTO outbox(id,topic,payload,created_at) VALUES(?,'$apple-revoke',?,?)",uid(),JSON.stringify({sealedToken:token.sealed_token}),tx.now));
-    const membership=await one<{guild_id:string;role:string}>(tx.db,'SELECT guild_id,role FROM guild_members WHERE user_id=?',userId);
-    if(membership?.role==='leader'){
-      const successor=await one<{user_id:string}>(tx.db,'SELECT user_id FROM guild_members WHERE guild_id=? AND user_id<>? ORDER BY joined_at LIMIT 1',membership.guild_id,userId);
-      if(successor)tx.statements.push(sql(tx.db,"UPDATE guild_members SET role='leader' WHERE user_id=?",successor.user_id));
-    }
-    tx.player.nickname='삭제된 정원사';tx.player.guildId=null;
-    for(const table of ['activity_counters','activity_days','mission_claims','clear_milestones','treasure_attempts'])tx.statements.push(sql(tx.db,`DELETE FROM ${table} WHERE user_id=?`,userId));
-    tx.statements.push(sql(tx.db,'DELETE FROM story_seen WHERE user_id=?',userId),sql(tx.db,'DELETE FROM garden_styles WHERE user_id=?',userId),sql(tx.db,'DELETE FROM garden_worlds WHERE user_id=?',userId));
-    tx.statements.push(sql(tx.db,'DELETE FROM apple_authorizations WHERE user_id=?',userId),sql(tx.db,'DELETE FROM auth_challenges WHERE user_id=?',userId));
-    tx.statements.push(sql(tx.db,'UPDATE players SET deleted_at=? WHERE id=?',tx.now,userId),sql(tx.db,'UPDATE sessions SET revoked=1 WHERE user_id=?',userId),sql(tx.db,'DELETE FROM auth_links WHERE user_id=?',userId),sql(tx.db,'DELETE FROM guild_members WHERE user_id=?',userId),sql(tx.db,'DELETE FROM guild_applications WHERE user_id=?',userId),sql(tx.db,'UPDATE support_requests SET closed=1 WHERE user_id=?',userId),sql(tx.db,"UPDATE chat_messages SET nickname='삭제된 정원사',text='삭제된 메시지' WHERE user_id=?",userId));
-    return {deleted:true,identityRevocation:tokens.length?'pending':'not_needed'};
-  });
+  return eraseAccount(env,userId);
 }
 export async function links(env:ApiEnv,userId:string){return {providers:await rows<{provider:string}>(env.DB,'SELECT provider FROM auth_links WHERE user_id=?',userId)};}
 
 export async function appleIdentityNotification(env:ApiEnv,body:Record<string,unknown>){
   const verified=await verifyAppleIdentityNotification(z.string().min(20).max(32768).parse(body.payload),env);
-  await sql(env.DB,"INSERT INTO external_events(provider,event_id,payload,created_at) VALUES('apple-identity',?,?,?) ON CONFLICT DO NOTHING",verified.eventId,JSON.stringify(verified),Date.now()).run();
+  await sql(env.DB,`INSERT INTO external_events(provider,event_id,payload,created_at) SELECT 'apple-identity',?,?,?
+    WHERE EXISTS(SELECT 1 FROM auth_links WHERE provider='apple' AND subject=? UNION SELECT 1 FROM apple_authorizations WHERE subject=?)
+    ON CONFLICT DO NOTHING`,verified.eventId,JSON.stringify(verified),Date.now(),verified.subject,verified.subject).run();
   await processAppleIdentityNotification(env,verified.eventId);return {received:true};
 }
 export async function processAppleIdentityNotification(env:ApiEnv,eventId:string){
@@ -131,7 +151,7 @@ export async function processAppleIdentityNotification(env:ApiEnv,eventId:string
     const cutoff=event.eventTime+999;
     statements.push(sql(env.DB,"UPDATE sessions SET revoked=1 WHERE user_id IN (SELECT l.user_id FROM auth_links l LEFT JOIN apple_authorizations a ON a.subject=l.subject WHERE l.provider='apple' AND l.subject=? AND coalesce(a.updated_at,l.created_at)<=?)",event.subject,cutoff),sql(env.DB,"DELETE FROM auth_links WHERE provider='apple' AND subject=? AND created_at<=? AND NOT EXISTS(SELECT 1 FROM apple_authorizations a WHERE a.subject=auth_links.subject AND a.updated_at>?)",event.subject,cutoff,cutoff),sql(env.DB,'DELETE FROM apple_authorizations WHERE subject=? AND updated_at<=?',event.subject,cutoff));
   }
-  statements.push(sql(env.DB,"UPDATE external_events SET processed=1 WHERE provider='apple-identity' AND event_id=?",eventId));await env.DB.batch(statements);
+  statements.push(sql(env.DB,"UPDATE external_events SET processed=1,payload='{}' WHERE provider='apple-identity' AND event_id=?",eventId));await env.DB.batch(statements);
 }
 
 export async function appleCallback(env:ApiEnv,request:Request){

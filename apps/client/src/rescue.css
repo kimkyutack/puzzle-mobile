@@ -12,9 +12,48 @@
 .rescue-dialogue{margin:0 14px;padding:12px 17px 16px;min-height:56px;font-size:15px;line-height:1.4;color:#20335d}
 .rescue-intro{margin:8px 20px;padding:20px 24px 27px;text-align:center;display:flex;flex-direction:column;gap:15px;align-items:center}.rescue-intro p{font-size:18px}.rescue-intro small{font-size:12px}.rescue-intro .game-button{width:100%}
 .rescue-targets{margin:0 auto;padding:8px 18px 12px;display:flex;align-items:center;justify-content:center;gap:28px;min-height:48px;width:min(88%,320px);font-size:14px}.rescue-targets>span{display:flex;align-items:center;gap:6px}.rescue-targets strong{font-family:var(--font-game-number);font-size:28px;line-height:30px}
-.rescue-board{padding:0 12px;flex-shrink:0}.rescue-board .board-wrap{max-width:min(340px,max(240px,calc(100dvh - var(--safe-top) - var(--safe-bottom) - 420px)))}
+.rescue-board{
+ padding-inline:max(8px,env(safe-area-inset-left,0px)) max(8px,env(safe-area-inset-right,0px));
+}
+.rescue-board .board-wrap{max-width:520px}
+.rescue-scroll.is-playing .rescue-cinematic{flex-shrink:1;min-height:54px}
+.rescue-scroll.is-playing .rescue-tori{max-height:60%;object-position:center bottom}
+.rescue-scroll.is-playing .rescue-plank{max-height:68%}
+@media(max-height:700px){
+ .rescue-scroll.is-playing{gap:6px;padding-bottom:max(8px,var(--safe-bottom))}
+ .rescue-scroll.is-playing .rescue-dialogue{min-height:0;padding-block:8px 12px}
+ .rescue-scroll.is-playing .rescue-targets{min-height:44px;padding-block:5px 8px}
+}
+@media(orientation:portrait) and (max-height:600px){
+ .rescue-scroll.is-playing .rescue-cinematic{min-height:40px}
+ .rescue-scroll.is-playing .rescue-dialogue{padding-block:7px 9px}
+}
+@media(orientation:portrait) and (min-aspect-ratio:4/5){
+ .rescue-board .board-wrap{max-width:min(520px,max(300px,calc(100dvh - var(--safe-top) - var(--safe-bottom) - 272px)))}
+}
+@media(orientation:landscape) and (max-height:650px){
+ .rescue-scroll.is-playing{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  grid-template-rows:auto minmax(54px,1fr) auto auto auto;
+  grid-template-areas:"header header" "scene board" "dialogue board" "targets board" "footer board";
+  align-items:start;
+ }
+ .is-playing>.rescue-header{grid-area:header}
+ .is-playing>.rescue-cinematic{grid-area:scene;height:100%;max-height:150px;align-self:end}
+ .is-playing>.rescue-dialogue{grid-area:dialogue}
+ .is-playing>.rescue-targets{grid-area:targets}
+ .is-playing>.rescue-board{grid-area:board;align-self:center}
+ .is-playing>.rescue-board .board-wrap{max-width:min(520px,max(180px,calc(100dvh - var(--safe-top) - var(--safe-bottom) - 92px)))}
+ .is-playing>:is(.rescue-actions,.rescue-footnote){grid-area:footer}
+}
 .rescue-actions{margin:0 18px;display:flex;flex-direction:column;gap:8px;text-align:center;color:#fff;text-shadow:0 1px #20335d}.rescue-actions p{padding:6px;font-size:14px}.rescue-footnote{text-align:center;font-size:12px;color:#fff;-webkit-text-stroke:1px #20335d;paint-order:stroke fill;text-shadow:0 1px #20335d}
 .rescue-journal-card{padding:10px 14px 15px;margin-bottom:16px;color:#20335d}.rescue-journal-card .poster{height:122px;overflow:hidden;margin-bottom:7px}.rescue-journal-card h3{margin:5px 0 3px;color:#20335d!important}.rescue-journal-card p{font-size:14px;color:#20335d!important}.rescue-journal-card .game-button{width:100%;margin-top:8px;font-size:18px}
+.rescue-journal-card .rescue-journal-art { width: 100%; height: auto; margin: 0 0 8px; border-radius: 10px; overflow: hidden; }
+.rescue-journal-card .rescue-journal-art .poster-art { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; }
+.rescue-journal-caption { display: flex; align-items: center; gap: 9px; }
+.rescue-journal-caption > .icon { flex: none; object-fit: contain; }
+.rescue-journal-caption h3, .rescue-journal-caption p { margin: 0; }
 @media(prefers-reduced-motion:reduce){.rescue-plank,.rescue-tori{transition-duration:.01s;transition-delay:0s}}
 .rescue-loading{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px;margin:22dvh 25px 20px;padding:18px;color:#20335d;text-align:center}.rescue-loading .game-button{width:100%}
 .rescue-daily-reward{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 0;color:#20335d;font-size:15px}.rescue-daily-reward .resource-amount{font-size:22px;gap:7px}.rescue-daily-reward .icon{width:38px;height:38px;object-fit:contain}

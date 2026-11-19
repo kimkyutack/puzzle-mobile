@@ -24,7 +24,7 @@
     },
     "SystemBars": {
       "insetsHandling": "css",
-      "initialViewportFitValueHint": "cover",
+      "initialViewportFitValueHint": "contain",
       "style": "LIGHT",
       "hidden": false
     }

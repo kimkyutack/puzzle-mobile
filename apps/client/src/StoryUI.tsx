@@ -1,8 +1,9 @@
 import {tr} from "./i18n";
-import {useEffect,useId,useMemo,useState} from 'react';
+import {useEffect,useId,useMemo,useRef,useState} from 'react';
 import type {Player,StoryScene,StoryState} from '@garden/contracts';
-import {BRIDGE_EPISODE,rescueUnlocked,RESTORATIONS,STORY_SCENES,STORY_SPEAKERS} from '@garden/content';
-import {Amount,Button,Icon,LinkAction,Modal,Poster,Card} from './ui';
+import {rescueUnlocked,RESTORATIONS,STORY_SCENES,STORY_SPEAKERS} from '@garden/content';
+import journalBridge from '../../../packages/assets/story-journal/runtime/cloud-bridge.webp';
+import {Amount,Button,Icon,LinkAction,Modal,Poster} from './ui';
 import {serverNow} from './api';
 import {dailyRescueCacheKey,restoreRescue} from './rescue-progress';
 import {sound,startMusic} from './sound';
@@ -32,20 +33,49 @@ export function StoryViewer({scene,busy,error,onClose}:ViewerProps){
  </Modal>;
 }
 
-interface JournalProps {story:StoryState|null;player:Player;loading:boolean;error:string;onRetry:()=>void;onPlay:(scene:StoryScene)=>void;onClose:()=>void;onEpisode:()=>void}
-export function StoryJournal({story,player,loading,error,onRetry,onPlay,onClose,onEpisode}:JournalProps){
+interface JournalProps {story:StoryState|null;player:Player;loading:boolean;error:string;showList:boolean;onListChange:(show:boolean)=>void;onRetry:()=>void;onPlay:(scene:StoryScene)=>void;onClose:()=>void;onEpisode:()=>void}
+export function StoryJournal({story,player,loading,error,showList,onListChange,onRetry,onPlay,onClose,onEpisode}:JournalProps){
  const scenes=STORY_SCENES,unlocked=new Set(story?.unlocked??[]),seen=new Set(story?.seen??[]);
  const read=scenes.filter(scene=>seen.has(scene.id)).length,open=scenes.filter(scene=>unlocked.has(scene.id)).length;
  const featured=scenes.find(scene=>unlocked.has(scene.id)&&!seen.has(scene.id))??[...scenes].reverse().find(scene=>unlocked.has(scene.id))??scenes[0]!;
  const daily=story?.dailyRescue,currentDaily=!!daily&&daily.endsAt>serverNow();
+ const listHeading=useRef<HTMLHeadingElement>(null);
  const hasProgress=useMemo(()=>{if(!daily)return false;try{return restoreRescue(localStorage.getItem(dailyRescueCacheKey(player.id,daily.periodId))).actions.length>0;}catch{return false;}},[player.id,daily?.periodId]);
  useEffect(()=>{if(!daily)return;const timer=setTimeout(onRetry,Math.max(50,daily.endsAt-serverNow()+50));return()=>clearTimeout(timer);},[daily?.endsAt,onRetry]);
- return <Modal theme="sky" title={tr("루미의 기록")} onClose={onClose} wide>
-  <div className="story-journal" data-story-flow="continuous">
-   <Card className="rescue-journal-card" tone="gold"><Poster id={BRIDGE_EPISODE.scene} label={tr("토리가 기다리는 구름다리")}/><h3>{tr("구름길 구조대")}</h3><p>{tr('성공 보상은 하루 한 번 받을 수 있어요.')}</p>{daily&&<div className="rescue-daily-reward"><span>{tr('오늘의 보상')}</span><Amount kind={daily.reward.item} value={'+'+daily.reward.quantity}/></div>}<Button icon="tori_v8" disabled={loading||!rescueUnlocked(player)||!currentDaily||!!daily?.claimed} onClick={onEpisode}>{!rescueUnlocked(player)?tr("7판 완료 후 열려요"):!currentDaily?tr('도전 준비 중…'):daily?.claimed?tr('오늘 보상 수령 완료'):hasProgress?tr('이어서 도와주기'):tr('오늘의 구조 도전')}</Button>{daily?.claimed&&currentDaily&&<p className="rescue-daily-reset">{tr('한국 시간 자정에 새 도전이 열려요.')}</p>}</Card>
-   <section aria-label={tr('이어지는 정원 이야기')}>
-    <Poster id={featured.art} className="story-journal-cover" label={tr(featured.title)}><figcaption className="poster-caption" data-frame="event_sky_v9" data-frame-scale="0.08">{tr('감상')}{' '}{read} / {scenes.length}</figcaption></Poster>
-    <h3 className="story-chapter-title">{tr('한 통의 편지로 이어지는 정원')}</h3><p className="story-chapter-summary">{tr('복원한 정원마다 다음 이야기가 기다려요.')}</p>
+ useEffect(()=>{if(showList)listHeading.current?.focus();},[showList]);
+ return <Modal theme="sky" className="story-journal-modal" title={tr("루미의 기록")} onClose={onClose} wide={showList}>
+  <div className="story-journal">
+   {!showList?<div className="journal-summary">
+    <p className="journal-daily-caption">{tr('하루 한 번 보상')}</p>
+    <section className="journal-feature" aria-label={tr('구름길 구조대')}>
+     <figure className="story-poster journal-feature-art" data-content-group>
+      <img className="poster-art" src={journalBridge} alt={tr('토리가 기다리는 구름다리')} draggable={false}/>
+     </figure>
+     <div className="journal-feature-body">
+      <div className="journal-rescue-line">
+       <Icon id="tori_v8" size={56} className="journal-tori"/>
+       <h3>{tr('구름길 구조대')}</h3>
+       {daily&&<div className="journal-today-reward"><span>{tr('오늘의 보상')}</span><Amount kind={daily.reward.item} value={'+'+daily.reward.quantity}/></div>}
+      </div>
+      <Button className="journal-rescue-start" disabled={loading||!rescueUnlocked(player)||!currentDaily||!!daily?.claimed} onClick={onEpisode}>{!rescueUnlocked(player)?tr('7판 완료 후 열려요'):!currentDaily?tr('도전 준비 중…'):daily?.claimed?tr('오늘 보상 수령 완료'):hasProgress?tr('이어서 도와주기'):tr('오늘의 구조 도전')}</Button>
+      {daily?.claimed&&currentDaily&&<p className="journal-rescue-reset">{tr('한국 시간 자정에 새 도전이 열려요.')}</p>}
+     </div>
+    </section>
+    <section className="journal-feature" aria-label={tr('이어지는 정원 이야기')}>
+     <Poster id={featured.art} className="journal-feature-art journal-story-art" label={tr(featured.title)}/>
+     <div className="journal-feature-body">
+      <h3>{tr('한 통의 편지로 이어지는 정원')}</h3>
+      <div className="journal-story-line">
+       <div className="journal-read-progress">
+        <progress value={read} max={scenes.length} aria-label={tr('감상')}/>
+        <span aria-hidden="true">{tr('감상')} {read} / {scenes.length}</span>
+       </div>
+       <Button tone="blue" className="journal-list-open" onClick={()=>onListChange(true)}>{tr('이야기 목록')}</Button>
+      </div>
+     </div>
+    </section>
+   </div>:<section className="journal-library" aria-label={tr('이어지는 이야기 목록')}>
+    <header className="journal-library-head"><h3 ref={listHeading} tabIndex={-1}>{tr('이야기 목록')}</h3><Button tone="blue" onClick={()=>onListChange(false)}>{tr('돌아가기')}</Button></header>
     <div className="story-journal-progress" data-frame="card_ice_v9" data-frame-scale="0.14"><span>{tr('열린 이야기')}{' '}{open}{tr('편')}</span><span>{tr('감상')}{' '}{read}</span></div>
     {error&&<div className="story-journal-error" data-frame="card_gold_v4" data-content-group><p role="alert">{tr(error)}</p><Button tone="blue" disabled={loading} onClick={onRetry}>{loading?tr("불러오는 중…"):tr("다시 불러오기")}</Button></div>}
     {loading&&!story?<p className="story-journal-loading" role="status">{tr("이야기 기록을 펼치는 중…")}</p>:!story&&!error?<div className="story-journal-error" data-frame="card_sage_v6"><p>{tr("이야기 기록을 다시 불러와 주세요.")}</p><Button tone="blue" onClick={onRetry}>{tr("다시 불러오기")}</Button></div>:<ol className="story-scene-list" aria-label={tr("이어지는 이야기 목록")}>{scenes.map((scene,index)=>{
@@ -54,7 +84,7 @@ export function StoryJournal({story,player,loading,error,onRetry,onPlay,onClose,
      return <li key={scene.id} data-story-entry={scene.id}>{available?<button className="story-entry" data-frame={finished?'card_sage_v6':'card_green_v4'} data-frame-scale="0.15" data-content-group aria-label={`${index+1}. ${tr(scene.title)} · ${finished?tr("다시 보기"):tr("읽기")}`} onClick={()=>{sound('button');startMusic();onPlay(scene);}}>{contents}</button>:<div className="story-entry story-entry-locked" data-frame="card_sage_v6" data-frame-scale="0.15" data-content-group>{contents}</div>}</li>;
     })}</ol>}
     <p className="story-journal-note">{tr("정원을 복원하면 새로운 이야기가 열려요.")}<br/>{tr("감상한 장면은 언제든 다시 볼 수 있어요.")}</p>
-   </section>
+   </section>}
   </div>
  </Modal>;
 }

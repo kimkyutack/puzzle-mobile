@@ -31,6 +31,64 @@
       "generationReference": "packages/assets/source/style-reference.png"
     },
     {
+      "id": "bee_flight",
+      "category": "sprite",
+      "sourcePromptId": "bee_flight",
+      "sourcePath": "packages/assets/source/bee_flight.png",
+      "runtimePath": "/assets/bee_flight.efd5abfced44.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "efd5abfced445b85050a3701756fea04826e23d307e4642aea60ea8d8d628ee8",
+      "generationReference": "packages/assets/beehive-prompts.json"
+    },
+    {
+      "id": "beehive",
+      "category": "sprite",
+      "sourcePromptId": "beehive",
+      "sourcePath": "packages/assets/source/beehive.png",
+      "runtimePath": "/assets/beehive.0e5a7e6e9cc7.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "0e5a7e6e9cc74adce884ab0e3f8c8640d50eb3db15cd29d4eb36ee264a09b6b8",
+      "generationReference": "packages/assets/beehive-prompts.json"
+    },
+    {
       "id": "bench_after",
       "category": "restoration",
       "sourcePromptId": "bench_after",
@@ -2379,6 +2437,93 @@
       "generationReference": "packages/assets/source/style-reference.png"
     },
     {
+      "id": "magnet_rail_corner_v39",
+      "category": "sprite",
+      "sourcePromptId": "magnet_rail_corner_v39",
+      "sourcePath": "packages/assets/source/magnet_rail_corner_v39.png",
+      "runtimePath": "/assets/magnet_rail_corner_v39.749c9d90a699.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "749c9d90a699b3b6ba8197f651549f9ab195df2ba19a3507b3fb6589f33e54da",
+      "generationReference": "packages/assets/magnet-rail-v39-prompts.json"
+    },
+    {
+      "id": "magnet_rail_end_v39",
+      "category": "sprite",
+      "sourcePromptId": "magnet_rail_end_v39",
+      "sourcePath": "packages/assets/source/magnet_rail_end_v39.png",
+      "runtimePath": "/assets/magnet_rail_end_v39.f41de07597c2.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "f41de07597c2fe336900adce31026898d9412d59e8399aa5ff3adc43d9684bc7",
+      "generationReference": "packages/assets/magnet-rail-v39-prompts.json"
+    },
+    {
+      "id": "magnet_rail_segment_v39",
+      "category": "sprite",
+      "sourcePromptId": "magnet_rail_segment_v39",
+      "sourcePath": "packages/assets/source/magnet_rail_segment_v39.png",
+      "runtimePath": "/assets/magnet_rail_segment_v39.a57e5acc5701.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "a57e5acc57019e5ae6091b13be52801a8000800bb1d420a68c3059998a34f45e",
+      "generationReference": "packages/assets/magnet-rail-v39-prompts.json"
+    },
+    {
       "id": "mail",
       "category": "sprite",
       "sourcePromptId": "mail",
@@ -2850,6 +2995,76 @@
       "generationReference": "packages/assets/source/style-reference.png"
     },
     {
+      "id": "play_hud_band_v32",
+      "category": "ui",
+      "sourcePromptId": "play_hud_band_v32",
+      "sourcePath": "packages/assets/source/play_hud_band_v32.png",
+      "runtimePath": "/assets/play_hud_band_v32.6e392b9b4bdd.png",
+      "width": 1024,
+      "height": 300,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "sliceInsets": {
+        "left": 72,
+        "right": 72,
+        "top": 44,
+        "bottom": 48
+      },
+      "originalSize": {
+        "width": 2172,
+        "height": 724
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "6e392b9b4bdd8f578881ab5f16b2a10f58a699ead7d62a77cf3b990d814240de",
+      "generationReference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "play_hud_goals_v32",
+      "category": "ui",
+      "sourcePromptId": "play_hud_goals_v32",
+      "sourcePath": "packages/assets/source/play_hud_goals_v32.png",
+      "runtimePath": "/assets/play_hud_goals_v32.c146aa474a79.png",
+      "width": 768,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "sliceInsets": {
+        "left": 80,
+        "right": 80,
+        "top": 56,
+        "bottom": 60
+      },
+      "originalSize": {
+        "width": 2048,
+        "height": 768
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "c146aa474a790eebab1c780af11f3dfd20e127355408158a5512d70aa4ae35ee",
+      "generationReference": "packages/assets/source/style-reference.png"
+    },
+    {
       "id": "portrait_frame",
       "category": "sprite",
       "sourcePromptId": "portrait_frame",
@@ -3260,7 +3475,7 @@
       "category": "sprite",
       "sourcePromptId": "rainbow",
       "sourcePath": "packages/assets/source/rainbow.png",
-      "runtimePath": "/assets/rainbow.06606980898e.png",
+      "runtimePath": "/assets/rainbow.db0a901474f0.png",
       "width": 256,
       "height": 256,
       "logicalSize": {
@@ -3281,8 +3496,8 @@
         "y": 0
       },
       "atlasGroup": "interface",
-      "contentHash": "06606980898e31c562d7dd0d50999d9115734c7ea1d54e79904d1bb7bd095812",
-      "generationReference": "packages/assets/source/style-reference.png"
+      "contentHash": "db0a901474f0db8ddca035c87cfd9c23bd8eff283ff0366ad4898b0e071bc951",
+      "generationReference": "packages/assets/rainbow-standard-prompts.json"
     },
     {
       "id": "rainbow_charge",
@@ -3341,6 +3556,35 @@
       "atlasGroup": "interface",
       "contentHash": "4c72bbf50a72a81d800448eb60035633cc247119fecee13516d737e6112e5360",
       "generationReference": "packages/assets/special-v25-prompts.json"
+    },
+    {
+      "id": "rainbow_enhanced",
+      "category": "sprite",
+      "sourcePromptId": "rainbow_enhanced",
+      "sourcePath": "packages/assets/source/rainbow_enhanced.png",
+      "runtimePath": "/assets/rainbow_enhanced.0eb32847477b.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "0eb32847477b1a57f2daa54291f68c3bb5d61a934311d4ef0e3cfa88bc7a8331",
+      "generationReference": "packages/assets/rainbow-enhanced-prompts.json"
     },
     {
       "id": "rescue_bridge_plank_v1",
@@ -3550,6 +3794,325 @@
       "atlasGroup": "interface",
       "contentHash": "bf8af6c7ed130a97302b32648439a692fa8ff7d47aeec6ab8fda6b406ee987f2",
       "generationReference": "packages/assets/source/style-reference.png"
+    },
+    {
+      "id": "stage_dry_corner_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_dry_corner_v33",
+      "sourcePath": "packages/assets/source/stage_dry_corner_v33.png",
+      "runtimePath": "/assets/stage_dry_corner_v33.cb24946cab84.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "cb24946cab84b053f4da9b5a9c70dd54e0d38d98a55e0a7b46a1eeebffdb8ec2",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
+    },
+    {
+      "id": "stage_dry_cross_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_dry_cross_v33",
+      "sourcePath": "packages/assets/source/stage_dry_cross_v33.png",
+      "runtimePath": "/assets/stage_dry_cross_v33.51807f14dc14.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "51807f14dc14c307cc1472b75ff577ccc0f7c95de7c244f1a645209e4e584c29",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
+    },
+    {
+      "id": "stage_dry_straight_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_dry_straight_v33",
+      "sourcePath": "packages/assets/source/stage_dry_straight_v33.png",
+      "runtimePath": "/assets/stage_dry_straight_v33.41e7c73fc337.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "41e7c73fc3374a0a7f0d7ea9803c6a08810d2d49d8c0b38d19a25b9de5ad85f4",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
+    },
+    {
+      "id": "stage_flower_bloom_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_flower_bloom_v33",
+      "sourcePath": "packages/assets/source/stage_flower_bloom_v33.png",
+      "runtimePath": "/assets/stage_flower_bloom_v33.d3fdbf0e5915.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "d3fdbf0e5915d190cc6add3b8cb7ce1a3ba32176b85461f594060187ad205451",
+      "generationReference": "packages/assets/stage-icons-v33-prompts.json"
+    },
+    {
+      "id": "stage_flower_bud_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_flower_bud_v33",
+      "sourcePath": "packages/assets/source/stage_flower_bud_v33.png",
+      "runtimePath": "/assets/stage_flower_bud_v33.a861c1611511.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "a861c16115110eba740dfcbbb76991593b6aa526b9c412092f8202e217cc06aa",
+      "generationReference": "packages/assets/stage-icons-v33-prompts.json"
+    },
+    {
+      "id": "stage_mud_gate_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_mud_gate_v33",
+      "sourcePath": "packages/assets/source/stage_mud_gate_v33.png",
+      "runtimePath": "/assets/stage_mud_gate_v33.a96e695c23b8.png",
+      "width": 384,
+      "height": 192,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "a96e695c23b8d9ac16457b1f267f802d733fbc5a2bfd986e431e6ac1ceda289f",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
+    },
+    {
+      "id": "stage_rabbit_home_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_rabbit_home_v33",
+      "sourcePath": "packages/assets/source/stage_rabbit_home_v33.png",
+      "runtimePath": "/assets/stage_rabbit_home_v33.8f5debdeb1d0.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "8f5debdeb1d067ec8193d89af65c1ef4af5972fadfe29ea6ff823615cf367a7d",
+      "generationReference": "packages/assets/stage-icons-v33-prompts.json"
+    },
+    {
+      "id": "stage_spring_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_spring_v33",
+      "sourcePath": "packages/assets/source/stage_spring_v33.png",
+      "runtimePath": "/assets/stage_spring_v33.655162878dbf.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "655162878dbf8f9ab15bf98256bab716ea2827ee55206a4b50326cd18219edf7",
+      "generationReference": "packages/assets/stage-icons-v33-prompts.json"
+    },
+    {
+      "id": "stage_water_corner_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_water_corner_v33",
+      "sourcePath": "packages/assets/source/stage_water_corner_v33.png",
+      "runtimePath": "/assets/stage_water_corner_v33.db8cb8029996.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "db8cb80299965d0430802cbf1f99db8bdcca3273c69cd5eecbc3791ac09e0512",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
+    },
+    {
+      "id": "stage_water_cross_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_water_cross_v33",
+      "sourcePath": "packages/assets/source/stage_water_cross_v33.png",
+      "runtimePath": "/assets/stage_water_cross_v33.da100bb4e566.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "da100bb4e566fc4763ad3142e0231ea3b98b1c7b20cc771cfa03df0ac0d380f5",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
+    },
+    {
+      "id": "stage_water_straight_v33",
+      "category": "sprite",
+      "sourcePromptId": "stage_water_straight_v33",
+      "sourcePath": "packages/assets/source/stage_water_straight_v33.png",
+      "runtimePath": "/assets/stage_water_straight_v33.3e7340a4d4eb.png",
+      "width": 256,
+      "height": 256,
+      "logicalSize": {
+        "width": 64,
+        "height": 64
+      },
+      "alpha": true,
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "originalSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "trimOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "atlasGroup": "interface",
+      "contentHash": "3e7340a4d4eb47d13818c2473907497c79b66dfa49ea8cc67dec8cffe34b9850",
+      "generationReference": "packages/assets/stage-floor-v33-prompts.json"
     },
     {
       "id": "star",
@@ -6848,31 +7411,31 @@
     {
       "id": "rainbow_charge",
       "frames": [
-        "/assets/frame_rainbow_charge_0.1bf248ce7b0b.png",
-        "/assets/frame_rainbow_charge_1.722b32cda74c.png",
-        "/assets/frame_rainbow_charge_2.68568feafe59.png",
-        "/assets/frame_rainbow_charge_3.c23cf2f2c94d.png",
-        "/assets/frame_rainbow_charge_4.1b2ce68ef485.png",
-        "/assets/frame_rainbow_charge_5.1f37eb4f2cc6.png",
-        "/assets/frame_rainbow_charge_6.dca80c355e2e.png",
-        "/assets/frame_rainbow_charge_7.f45f4a02bded.png",
-        "/assets/frame_rainbow_charge_8.ae29951f3100.png",
-        "/assets/frame_rainbow_charge_9.65c07c525fba.png",
-        "/assets/frame_rainbow_charge_10.5d9dbada9ba9.png",
+        "/assets/frame_rainbow_charge_0.2ea37d9e78f9.png",
+        "/assets/frame_rainbow_charge_1.60bcd3949036.png",
+        "/assets/frame_rainbow_charge_2.e63d360404e8.png",
+        "/assets/frame_rainbow_charge_3.b64a3b504a98.png",
+        "/assets/frame_rainbow_charge_4.328c473766ab.png",
+        "/assets/frame_rainbow_charge_5.5d2ea905ee67.png",
+        "/assets/frame_rainbow_charge_6.80bab21f89ee.png",
+        "/assets/frame_rainbow_charge_7.e7f27d1a58eb.png",
+        "/assets/frame_rainbow_charge_8.ddf8ada3fe5d.png",
+        "/assets/frame_rainbow_charge_9.dda7e01530e9.png",
+        "/assets/frame_rainbow_charge_10.f54aab0bacca.png",
         "/assets/frame_rainbow_charge_11.72e4110c0ea4.png"
       ],
       "contentHashes": [
-        "1bf248ce7b0b2881a84be786c7c476919a18364abd30c052e2b433429a709190",
-        "722b32cda74c31134ec852523fb3fb433fbc4499999a5db540545d18009688a1",
-        "68568feafe591ba076380beecf210113101406121565f4c4911bcf81df8b8060",
-        "c23cf2f2c94d7099762a460a52e3c5311d41fc276ce31ef60be89c64e5be9931",
-        "1b2ce68ef48562b1e6d3b882b375c4335cfbc9977de4864d403959c7d97914a8",
-        "1f37eb4f2cc69d4453079986dae3c2f8866b6ba37ab8c0b7ad14feb06a48f670",
-        "dca80c355e2ecc5a288042981f07b64f3d9ad8ad53cc41305ae930b6e36f048d",
-        "f45f4a02bdede635f7acaa423bc44898e6b5887e88645f1736a031e87084e3f9",
-        "ae29951f31000aa7abceafdf139e4b43ca83eaa6d52a69fceb4c6b4a529574e0",
-        "65c07c525fbaabd0539d925f19948085ee980df1d0837fe98ca4ee7797562651",
-        "5d9dbada9ba90a045d4af235729fde29e7d938957d3f734cd3a5aa2a56bdee41",
+        "2ea37d9e78f9c5439c4971fed9dc99033a3437baf9d630456ee68850a28c4322",
+        "60bcd3949036223c4506570f15083b1ec18a8c20bd7dd010ec5a35609b957fff",
+        "e63d360404e829ff08af4c14b449a03d3cb6c6fa56e7cf509c7440e3246ab412",
+        "b64a3b504a98e6b212e4f05cc855f00e44f1a7b49c4fef1f9ed9f8c3d327068f",
+        "328c473766abce30bbe08681eaf61d42f52386dd6cc0238abde5be14c6bbebf1",
+        "5d2ea905ee675611f4d1d615e53066f54950455dfb0c1644ed87c3098c209544",
+        "80bab21f89eebc9df5194b68d9ec0906b33f5ac1d0a2a315a16cc8567f6889f7",
+        "e7f27d1a58eb9905571c1070ee5aa0b1c168716afe5eff08778b45d8c19e621a",
+        "ddf8ada3fe5dcc789b0317df45de1cc0f8581cc603c76a9b26921f752794bf55",
+        "dda7e01530e92b57b5adcffa49a171925632fe5d60733e161c55bf685cb825e4",
+        "f54aab0baccaa441ef23e2b7931def56567b140227b0a71a24776608892a2dc9",
         "72e4110c0ea4073d0c55fccdac23cbccf29b86ca822aa71b4953c4487b71fff4"
       ],
       "fps": 24,
@@ -6881,7 +7444,7 @@
         "x": 0.5,
         "y": 0.5
       },
-      "note": "Authored closed/open keyframes; uniform scale and alpha interpolation."
+      "note": "Fixed identity, scale and alpha sequence; separate authored fragment sprites provide outward motion."
     },
     {
       "id": "glider_flight",

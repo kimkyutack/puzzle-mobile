@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {RESTORATIONS} from '@garden/content';
-import {createGardenWorld,gardenExpansionOptions,gardenExpansionPlot,gardenPlotCells,gardenLandCells,gardenBounds,canExpandGarden,applyGardenExpansion,applyGardenCommand,applyTrustedDecorationGrant,publicGardenSnapshot,type GardenWorldState} from '../packages/garden-world/src';
+import {createGardenWorld,gardenExpansionOptions,gardenExpansionCandidates,gardenExpansionPlot,gardenPlotCells,gardenLandCells,gardenBounds,canExpandGarden,applyGardenExpansion,applyGardenCommand,applyTrustedDecorationGrant,publicGardenSnapshot,type GardenWorldState} from '../packages/garden-world/src';
 import {projectLiveGarden} from '../packages/garden-world/src/live';
 import {gardenVisitorCount,gardenWalkable,residentRoute} from '../apps/client/src/garden-world/residents';
 const owner='land-owner';
@@ -15,6 +15,22 @@ describe('paid twenty-cell garden land',()=>{
   const world=createGardenWorld(owner),options=gardenExpansionOptions(world);expect(options.length).toBeGreaterThan(1);expect(options.length).toBeLessThanOrEqual(8);
   const offered=new Set<string>();for(const plot of options){expect(canExpandGarden(world,plot)).toBe(true);expect(gardenPlotCells(plot)).toHaveLength(20);for(const c of gardenPlotCells(plot)){expect(offered.has(c.x+','+c.y)).toBe(false);offered.add(c.x+','+c.y);expect(gardenLandCells(world).has(c.x+','+c.y)).toBe(false);}}
   expect(canExpandGarden(world,gardenExpansionPlot('land-5-10')!)).toBe(false);expect(canExpandGarden(world,gardenExpansionPlot('land-10-5')!)).toBe(false);
+ });
+ it('lets the map select any adjacent origin, including positions between old suggestions',()=>{
+  const world=createGardenWorld(owner),candidates=gardenExpansionCandidates(world),suggested=new Set(gardenExpansionOptions(world).map(plot=>plot.id));
+  expect(candidates.length).toBeGreaterThan(suggested.size);
+  for(const plot of candidates)expect(canExpandGarden(world,plot)).toBe(true);
+  const picked=candidates.find(plot=>!suggested.has(plot.id))!,next=expand(world,picked.id);
+  expect(gardenLandCells(next).size).toBe(gardenLandCells(world).size+20);
+  expect(gardenExpansionCandidates(next).some(plot=>plot.id===picked.id)).toBe(false);
+  for(const plot of gardenExpansionCandidates(next))expect(canExpandGarden(next,plot)).toBe(true);
+ });
+ it('offers every legal boundary origin and excludes corner-only or detached land',()=>{
+  const world=createGardenWorld(owner),candidates=new Set(gardenExpansionCandidates(world).map(plot=>plot.id));
+  for(let y=0;y<=60;y++)for(let x=0;x<=59;x++){
+   const plot=gardenExpansionPlot(`land-${x}-${y}`)!;
+   expect(candidates.has(plot.id),plot.id).toBe(canExpandGarden(world,plot));
+  }
  });
  it('rejects overlaps, distant or forged plots, foreign actors and stale requests without changing land',()=>{
   const world=createGardenWorld(owner),plot=gardenExpansionOptions(world)[0]!,command={plotId:plot.id,expectedRevision:world.revision,operationId:'one-key-123'};

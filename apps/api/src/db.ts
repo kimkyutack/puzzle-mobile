@@ -1,13 +1,17 @@
-import type { Item, Player, Run } from '@garden/contracts';
+import {SHOP_ITEM_PRICES,type Item,type Player,type Run} from '@garden/contracts';
 
-export type ApiEnv = { [K in keyof Env]: Env[K] extends string ? string : Env[K] } & {
-  ADMIN_TOKEN?:string; GOOGLE_CLIENT_IDS?:string; APPLE_CLIENT_IDS?:string; GOOGLE_SERVICE_ACCOUNT_JSON?:string;
+// Live service bindings can be absent in local and test Workers.
+export type ApiEnv = { [K in keyof Env as K extends 'APPLE_TEAM_ID'|'APPLE_AUTH_KEY_ID'|'AGE_ACCESS_REQUIRED'|'GUARDIAN_EMAIL' ? never : K]: Env[K] extends string ? string : Env[K] } & {
+  ADMIN_TOKEN?:string; ADMIN_BOOTSTRAP_TOKEN?:string; ADMIN_PASSWORD_PEPPER?:string; GOOGLE_CLIENT_IDS?:string; APPLE_CLIENT_IDS?:string; GOOGLE_SERVICE_ACCOUNT_JSON?:string;
   GOOGLE_PACKAGE_NAME?:string; APPLE_APP_ID?:string; APPLE_IAP_ISSUER_ID?:string; APPLE_IAP_KEY_ID?:string;
   GOOGLE_IAP_ENVIRONMENT?:string;
   APPLE_IAP_PRIVATE_KEY?:string; APPLE_IAP_ENVIRONMENT?:'Sandbox'|'Production'; APPLE_ROOT_CA_PEMS?:string;
   ADMOB_AD_UNITS?:string; ADMOB_REWARD_ITEMS?:string; GOOGLE_RTDN_AUDIENCE?:string; GOOGLE_RTDN_EMAIL?:string;
   APPLE_TEAM_ID?:string; APPLE_AUTH_KEY_ID?:string; APPLE_AUTH_PRIVATE_KEY?:string; APPLE_AUTH_CLIENT_ID?:string; APPLE_AUTH_REDIRECT_URL?:string;
   AUTH_TOKEN_ENCRYPTION_KEY?:string;
+  AGE_ACCESS_REQUIRED?:string;
+  GUARDIAN_EMAIL?:SendEmail;
+  PRIVACY_ACCESS_RETENTION_YEARS?:string;
 };
 export class HttpError extends Error {
   constructor(public code:string,message:string,public status=400){super(message);}
@@ -19,10 +23,15 @@ export const sql=(db:D1Database,query:string,...args:unknown[])=>db.prepare(quer
 export async function one<T>(db:D1Database,query:string,...args:unknown[]){return sql(db,query,...args).first<T>();}
 export async function rows<T>(db:D1Database,query:string,...args:unknown[]){return (await sql(db,query,...args).all<T>()).results;}
 export async function digest(value:string){return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))),x=>x.toString(16).padStart(2,'0')).join('');}
+export async function rateLimit(env:ApiEnv,key:string,maximum=240,seconds=60){
+  const window=Math.floor(Date.now()/(seconds*1000));
+  const r=await sql(env.DB,'INSERT INTO rate_limits(key,window,hits,expires_at) VALUES(?,?,1,?) ON CONFLICT(key,window) DO UPDATE SET hits=hits+1 RETURNING hits',key,window,(window+1)*seconds*1000).first<{hits:number}>();
+  ensure(r&&r.hits<=maximum,'RATE_LIMIT','요청이 많아요. 잠시 후 다시 시도해 주세요.',429);
+}
 interface PlayerRow {data:string;pass_points:number;season_active:number;active_run?:string|null}
 function playerQuery(db:D1Database,id:string,now:number,withRun=false){
   return sql(db,`WITH current_season AS (
-    SELECT starts_at,ends_at FROM seasons WHERE starts_at<=? AND ends_at>? ORDER BY starts_at DESC LIMIT 1
+    SELECT starts_at,ends_at FROM seasons WHERE starts_at<=? AND ends_at>? AND NOT EXISTS(SELECT 1 FROM ops_events e WHERE e.id=seasons.id AND e.status<>'published') ORDER BY starts_at DESC LIMIT 1
   ) SELECT p.data,
     (SELECT count(*)*10 FROM level_rewards r JOIN current_season s ON r.created_at>=s.starts_at AND r.created_at<s.ends_at WHERE r.user_id=p.id) pass_points,
     EXISTS(SELECT 1 FROM current_season) season_active
@@ -95,6 +104,7 @@ export async function mutate<T>(env:ApiEnv,userId:string,key:string,fingerprint:
       notify(guildId,payload){statements.push(sql(env.DB,'INSERT INTO outbox(id,topic,payload,created_at) VALUES(?,?,?,?)',uid(),guildId,JSON.stringify(payload),now));}
     };
     if(options.touchPlayer!==false)tx.touch(player);
+    else statements.push(assertSQL(env.DB,'SELECT deleted_at IS NULL FROM players WHERE id=?',userId));
     const result=await fn(tx);
     // Secondary recipients are loaded together; the initiating player already
     // has its exact persisted pre-write snapshot, before heart recovery.
@@ -112,12 +122,12 @@ export async function mutate<T>(env:ApiEnv,userId:string,key:string,fingerprint:
     statements.push(sql(env.DB,'INSERT INTO operations VALUES(?,?,?,?,?)',userId,key,fingerprint,JSON.stringify(result),now));
     // Assertions are only needed for the duration of this transaction.
     statements.push(sql(env.DB,'DELETE FROM tx_assertions'));
-    try{await env.DB.batch(statements);const parts=fingerprint.split(':');console.log(JSON.stringify({event:parts[0]+(/^[a-z_-]+$/.test(parts[1]??'')?':'+parts[1]:''),userId,at:now}));return result;}
+    try{await env.DB.batch(statements);const parts=fingerprint.split(':');console.log(JSON.stringify({event:parts[0]+(/^[a-z_-]+$/.test(parts[1]??'')?':'+parts[1]:''),at:now}));return result;}
     catch(e){if(attempt<3&&/tx_assertions|UNIQUE constraint failed: operations|CHECK constraint failed: ok/.test(String(e)))continue;throw e;}
   }
   throw new HttpError('CONFLICT','다른 기기에서 변경되었습니다. 다시 시도해 주세요.',409);
 }
 export function operationKey(body:Record<string,unknown>){return String(body.idempotencyKey??body.key??'');}
 export const ITEMS:Item[]=['hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass','wind-row','bomb','rainbow'];
-export const PRICES:Record<Item,number>={'hammer':150,'sweep-row':250,'sweep-column':250,'shuffle':150,'sweep-border':350,'world-bomb':0,'cross-firework':350,'color-magnet':400,'move-hourglass':300,'wind-row':150,'bomb':200,'rainbow':300};
+export const PRICES:Record<Item,number>=SHOP_ITEM_PRICES;
 export function newPlayer(id:string,now:number):Player{return {id,nickname:`정원사${id.slice(0,4)}`,level:1,coins:500,boundCoins:0,stars:0,hearts:5,heartAt:0,unlimitedUntil:0,freeClaimAt:0,version:1,inventory:Object.fromEntries(ITEMS.map(item=>[item,{normal:item==='world-bomb'?0:2,bound:0}])) as Player['inventory'],restored:[],tutorials:[],settings:{sound:true,music:true,haptics:true,reducedMotion:false,language:'ko'},guildId:null,passPoints:0};}

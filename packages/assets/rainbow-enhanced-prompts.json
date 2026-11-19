@@ -1,0 +1,15 @@
+{
+  "method": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "rainbow_enhanced",
+      "prompt": "Use case: precise-object-edit. Asset: a single transparent round Enhanced Rainbow Lantern sprite, for a Cloud Garden match-3 board. Transform the attached charged angular lantern into a clearly CIRCULAR round lantern body. The requested change is shape. Keep the intense center star, energy, gold material, bright magenta and electric cyan crystals, rich purple glass, and the rainbow accent of this design. Round the whole silhouette into one near-perfect circle in a front view: no projecting wings, star caps, handles, rectangular pedestal, or pointed exterior. Fit the bold pink and blue faceted crystal wedges along the inner left and right sides of the circle, curving them inward to follow the circular enclosure. Center the same huge hot white-gold four-point energy star in a deep violet glowing lens. Use a thick gold circular cage with a deep jewel-purple edge and a single broad multicolor band across the upper arc, plus a shallow integration of small built-in gold collar and curved base details contained WITHIN the круг silhouette. The object still reads as a sculptural 3D lantern with convex glass and thick dimensional bevels, with visibly stored magical power. Match the reference high color saturation and dramatic highlights, with big chunky readable shapes prioritized at 32px. Fill about 85% of a square, perfectly centered, all visible, clean genuinely transparent alpha surrounding the object. No exterior particles, glow beyond the rim, shadow, text, additional objects, branding, or border outside the lantern.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1e875-d3bf-7ba1-a58c-af24b88da167/exec-704d379d-2106-4e70-b136-80c523fa0ad7.png",
+      "savedPath": "packages/assets/source/rainbow_enhanced.png",
+      "references": [
+        "/Users/kimkyutack/.codex/generated_images/01a1e875-d3bf-7ba1-a58c-af24b88da167/exec-0a1d2514-1a71-43a0-b04f-71865c483fdb.png"
+      ],
+      "transparent_background": true
+    }
+  ]
+}

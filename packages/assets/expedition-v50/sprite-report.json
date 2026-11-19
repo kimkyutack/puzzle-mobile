@@ -1,0 +1,32 @@
+[
+  {
+    "animal": "panda",
+    "source": "packages/assets/expedition-v50/source/panda.png",
+    "frames": 16,
+    "size": 256,
+    "footY": 250,
+    "format": "webp",
+    "quality": 92,
+    "scale": 0.8309859154929577
+  },
+  {
+    "animal": "fox",
+    "source": "packages/assets/expedition-v50/source/fox.png",
+    "frames": 16,
+    "size": 256,
+    "footY": 250,
+    "format": "webp",
+    "quality": 92,
+    "scale": 0.8027210884353742
+  },
+  {
+    "animal": "red-panda",
+    "source": "packages/assets/expedition-v50/source/red-panda.png",
+    "frames": 16,
+    "size": 256,
+    "footY": 250,
+    "format": "webp",
+    "quality": 92,
+    "scale": 0.7946127946127947
+  }
+]

@@ -1,3 +1,5 @@
+export const ATTENDANCE_DAILY_COINS=200;
+
 /** Daily rewards have server-issued UTC day keys. Missing a day never resets
  * earned attendance, and one daily claim advances exactly once. */
 export function attendanceProgress(sources:readonly string[],today:number){

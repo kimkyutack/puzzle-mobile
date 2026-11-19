@@ -7,24 +7,36 @@ export interface PurchaseInput {provider:'google'|'apple';productId:string;token
 export interface VerifiedPurchase {
   provider:'google'|'apple';transactionId:string;productId:string;environment:string;userId:string;purchaseIntentId:string;
   state:'purchased'|'pending'|'cancelled';purchasedAt?:number;acknowledgement:{token:string;consumable:boolean;alreadyFinished:boolean};
+  orderId?:string;priceMilliunits?:number;currency?:string;refundedAt?:number;
 }
 interface GooglePurchase {
   productLineItem?:Array<{productId?:string;productOfferDetails?:{quantity?:number;consumptionState?:string;refundableQuantity?:number}}>;
   purchaseStateContext?:{purchaseState?:string};obfuscatedExternalAccountId?:string;acknowledgementState?:string;
-  testPurchaseContext?:{fopType?:string};purchaseCompletionTime?:string;
+  testPurchaseContext?:{fopType?:string};purchaseCompletionTime?:string;orderId?:string;
 }
 function checkedPurchaseTime(value:number|undefined,needed:boolean):number|undefined {
   if(value===undefined&&!needed)return undefined;
   if(typeof value!=='number'||!Number.isSafeInteger(value)||value<=0||value>Date.now()+300_000)throw new ProviderError('PURCHASE_TIME_INVALID','공급자의 구매 시각을 확인할 수 없습니다.',502);
   return value;
 }
-async function googleAccessToken(config:ProviderConfig) {
-  let account: {client_email?:string;private_key?:string};
+function googleServiceAccount(config:ProviderConfig) {
+  let account: {client_email?:unknown;private_key?:unknown}|null;
   try { account=JSON.parse(required(config.GOOGLE_SERVICE_ACCOUNT_JSON,'GOOGLE_SERVICE_ACCOUNT_JSON')); }
   catch { throw new ProviderError('PROVIDER_NOT_CONFIGURED','Google 서비스 계정 설정을 확인해 주세요.',503); }
-  const key=await importPKCS8(required(account.private_key,'Google private_key'),'RS256');
+  if(typeof account?.client_email!=='string'||typeof account.private_key!=='string')
+    throw new ProviderError('PROVIDER_NOT_CONFIGURED','Google 서비스 계정 설정을 확인해 주세요.',503);
+  return {email:required(account.client_email,'Google client_email'),privateKey:required(account.private_key,'Google private_key')};
+}
+function googleEnvironment(config:ProviderConfig):'Sandbox'|'Production' {
+  const value=required(config.GOOGLE_IAP_ENVIRONMENT,'GOOGLE_IAP_ENVIRONMENT');
+  if(value!=='Sandbox'&&value!=='Production')throw new ProviderError('PROVIDER_NOT_CONFIGURED','Google environment는 Sandbox 또는 Production이어야 합니다.',503);
+  return value;
+}
+async function googleAccessToken(config:ProviderConfig) {
+  const account=googleServiceAccount(config);
+  const key=await importPKCS8(account.privateKey,'RS256');
   const assertion=await new SignJWT({scope:'https://www.googleapis.com/auth/androidpublisher'})
-    .setProtectedHeader({alg:'RS256',typ:'JWT'}).setIssuer(required(account.client_email,'Google client_email'))
+    .setProtectedHeader({alg:'RS256',typ:'JWT'}).setIssuer(account.email)
     .setAudience('https://oauth2.googleapis.com/token').setIssuedAt().setExpirationTime('5m').sign(key);
   const result=await providerJSON<{access_token?:string}>(await fetch('https://oauth2.googleapis.com/token',{
     method:'POST',headers:{'content-type':'application/x-www-form-urlencoded'},
@@ -46,7 +58,7 @@ export async function verifyGooglePurchaseResponse(input:PurchaseInput,data:Goog
     provider:'google',transactionId:input.token,productId:input.productId,userId:input.userId,purchaseIntentId:input.purchaseIntentId,
     environment,
     state:status==='PENDING'?'pending':status==='CANCELLED'||line.productOfferDetails?.refundableQuantity===0?'cancelled':'purchased',
-    purchasedAt,
+    purchasedAt,orderId:data.orderId,
     acknowledgement:{token:input.token,consumable:input.consumable??true,alreadyFinished:line.productOfferDetails?.consumptionState==='CONSUMPTION_STATE_CONSUMED'},
   };
 }
@@ -55,13 +67,41 @@ function appleEnvironment(config:ProviderConfig):'Sandbox'|'Production' {
   if(value!=='Sandbox' && value!=='Production') throw new ProviderError('PROVIDER_NOT_CONFIGURED','Apple environment는 Sandbox 또는 Production이어야 합니다.',503);
   return value;
 }
-async function appleVerifier(config:ProviderConfig):Promise<SignedDataVerifier> {
-  const environment=appleEnvironment(config);
+function appleAppId(config:ProviderConfig,environment:'Sandbox'|'Production'):number|undefined {
+  const appId=config.APPLE_APP_ID?Number(config.APPLE_APP_ID):undefined;
+  if(environment==='Production'&&(!Number.isSafeInteger(appId)||(appId??0)<=0)) throw new ProviderError('PROVIDER_NOT_CONFIGURED','APPLE_APP_ID 설정이 필요합니다.',503);
+  return appId;
+}
+function appleRoots(config:ProviderConfig):string[] {
   let pems:unknown;
   try {pems=config.APPLE_ROOT_CA_PEMS?JSON.parse(config.APPLE_ROOT_CA_PEMS):APPLE_ROOT_PEMS;} catch {throw new ProviderError('PROVIDER_NOT_CONFIGURED','Apple Root CA JSON 설정이 필요합니다.',503);}
   if(!Array.isArray(pems)||pems.length===0||pems.some(p=>typeof p!=='string'||!p.includes('BEGIN CERTIFICATE'))) throw new ProviderError('PROVIDER_NOT_CONFIGURED','Apple Root CA 설정이 올바르지 않습니다.',503);
-  const appId=config.APPLE_APP_ID?Number(config.APPLE_APP_ID):undefined;
-  if(environment==='Production'&&(!Number.isSafeInteger(appId)||(appId??0)<=0)) throw new ProviderError('PROVIDER_NOT_CONFIGURED','APPLE_APP_ID 설정이 필요합니다.',503);
+  return pems;
+}
+export async function assertPurchaseProviderReady(platform:string|null,config:ProviderConfig):Promise<void> {
+  const unavailable='스토어 결제를 이용할 수 없어요. 잠시 후 다시 시도해 주세요.';
+  if(platform!=='ios'&&platform!=='android')throw new ProviderError('PURCHASE_UNAVAILABLE',unavailable,403);
+  try {
+    if(platform==='ios'){
+      appleAppId(config,appleEnvironment(config));
+      appleRoots(config);
+      required(config.APPLE_BUNDLE_ID,'APPLE_BUNDLE_ID');
+      required(config.APPLE_IAP_ISSUER_ID,'APPLE_IAP_ISSUER_ID');
+      required(config.APPLE_IAP_KEY_ID,'APPLE_IAP_KEY_ID');
+      await importPKCS8(required(config.APPLE_IAP_PRIVATE_KEY,'APPLE_IAP_PRIVATE_KEY'),'ES256');
+    }else{
+      googleEnvironment(config);
+      required(config.GOOGLE_PACKAGE_NAME,'GOOGLE_PACKAGE_NAME');
+      await importPKCS8(googleServiceAccount(config).privateKey,'RS256');
+    }
+  }catch{
+    throw new ProviderError('PURCHASE_UNAVAILABLE',unavailable,503);
+  }
+}
+async function appleVerifier(config:ProviderConfig):Promise<SignedDataVerifier> {
+  const environment=appleEnvironment(config);
+  const pems=appleRoots(config);
+  const appId=appleAppId(config,environment);
   // Apple's transitive crypto library initializes randomness: load it inside a Worker request, never at isolate startup.
   const apple=await import('@apple/app-store-server-library');
   return new apple.SignedDataVerifier(pems.map(p=>Buffer.from(p)),true,environment==='Sandbox'?apple.Environment.SANDBOX:apple.Environment.PRODUCTION,required(config.APPLE_BUNDLE_ID,'APPLE_BUNDLE_ID'),appId);
@@ -77,8 +117,7 @@ export async function verifyPurchase(input:PurchaseInput,config:ProviderConfig):
   if(!input.purchaseIntentId||!input.token||input.token.length>32_768||!input.productId||input.productId.length>200) throw new ProviderError('INVALID_PURCHASE','구매 정보가 올바르지 않습니다.');
   if(input.provider==='google') {
     const packageName=required(config.GOOGLE_PACKAGE_NAME,'GOOGLE_PACKAGE_NAME');
-    const environment=required(config.GOOGLE_IAP_ENVIRONMENT,'GOOGLE_IAP_ENVIRONMENT');
-    if(environment!=='Sandbox'&&environment!=='Production')throw new ProviderError('PROVIDER_NOT_CONFIGURED','Google environment는 Sandbox 또는 Production이어야 합니다.',503);
+    const environment=googleEnvironment(config);
     const token=await googleAccessToken(config);
     const data=await providerJSON<GooglePurchase>(await fetch(`https://androidpublisher.googleapis.com/androidpublisher/v3/applications/${encodeURIComponent(packageName)}/purchases/productsv2/tokens/${encodeURIComponent(input.token)}`,{headers:{authorization:`Bearer ${token}`},signal:AbortSignal.timeout(8_000)}));
     return verifyGooglePurchaseResponse(input,data,environment);
@@ -86,11 +125,11 @@ export async function verifyPurchase(input:PurchaseInput,config:ProviderConfig):
   const verifier=await appleVerifier(config);
   const submitted=await verifier.verifyAndDecodeTransaction(input.token);
   if(!submitted.transactionId) throw new ProviderError('INVALID_PURCHASE','Apple 거래 번호가 없습니다.');
-  const host=appleEnvironment(config)==='Sandbox'?'api.storekit-sandbox.itunes.apple.com':'api.storekit.itunes.apple.com';
+  const host=appleEnvironment(config)==='Sandbox'?'api.storekit-sandbox.apple.com':'api.storekit.apple.com';
   const current=await providerJSON<{signedTransactionInfo?:string}>(await fetch(`https://${host}/inApps/v1/transactions/${encodeURIComponent(submitted.transactionId)}`,{headers:{authorization:`Bearer ${await appleAuthorization(config)}`},signal:AbortSignal.timeout(8_000)}));
   const transaction=await verifier.verifyAndDecodeTransaction(required(current.signedTransactionInfo,'Apple signedTransactionInfo'));
   if(transaction.productId!==input.productId||transaction.transactionId!==submitted.transactionId||transaction.appAccountToken?.toLowerCase()!==input.purchaseIntentId.toLowerCase()||transaction.quantity!==1) throw new ProviderError('PURCHASE_ACCOUNT_MISMATCH','Apple 상품 또는 계정이 일치하지 않습니다.',403);
-  return {provider:'apple',transactionId:transaction.transactionId,productId:input.productId,environment:String(transaction.environment),userId:input.userId,purchaseIntentId:input.purchaseIntentId,state:transaction.revocationDate?'cancelled':'purchased',purchasedAt:checkedPurchaseTime(transaction.purchaseDate,true),acknowledgement:{token:transaction.transactionId,consumable:input.consumable??true,alreadyFinished:false}};
+  return {provider:'apple',transactionId:transaction.transactionId,productId:input.productId,environment:String(transaction.environment),userId:input.userId,purchaseIntentId:input.purchaseIntentId,state:transaction.revocationDate?'cancelled':'purchased',purchasedAt:checkedPurchaseTime(transaction.purchaseDate,true),refundedAt:transaction.revocationDate,priceMilliunits:transaction.price,currency:transaction.currency,acknowledgement:{token:transaction.transactionId,consumable:input.consumable??true,alreadyFinished:false}};
 }
 /** Only call AFTER the D1 grant commits. Put a failed finalization in the durable outbox. */
 export async function finishPurchase(purchase:VerifiedPurchase,config:ProviderConfig):Promise<void> {
@@ -113,7 +152,7 @@ export async function verifyAppleNotification(signedPayload:string,config:Provid
   const notification=await verifier.verifyAndDecodeNotification(signedPayload);
   const transaction=notification.data?.signedTransactionInfo?await verifier.verifyAndDecodeTransaction(notification.data.signedTransactionInfo):undefined;
   if(!notification.notificationUUID) throw new ProviderError('INVALID_NOTIFICATION','알림 식별자가 없습니다.');
-  return {signedTransactionInfo:notification.data?.signedTransactionInfo,eventId:notification.notificationUUID,type:notification.notificationType,transactionId:transaction?.transactionId,userId:transaction?.appAccountToken,productId:transaction?.productId,environment:transaction?.environment,revoked:!!transaction?.revocationDate};
+  return {signedTransactionInfo:notification.data?.signedTransactionInfo,eventId:notification.notificationUUID,type:notification.notificationType,transactionId:transaction?.transactionId,userId:transaction?.appAccountToken,productId:transaction?.productId,environment:transaction?.environment,revoked:!!transaction?.revocationDate,refundedAt:transaction?.revocationDate};
 }
 export async function verifyGoogleNotification(authorization:string|null,body:{message?:{messageId?:string;data?:string}},config:ProviderConfig) {
   await verifyGooglePushAuthorization(authorization,config);
@@ -128,7 +167,7 @@ export async function lookupGooglePurchaseBinding(purchaseToken:string,config:Pr
   if(!purchaseToken||purchaseToken.length>32_768)throw new ProviderError('INVALID_PURCHASE','구매 토큰이 올바르지 않습니다.');
   const packageName=required(config.GOOGLE_PACKAGE_NAME,'GOOGLE_PACKAGE_NAME');
   const data=await providerJSON<GooglePurchase>(await fetch(`https://androidpublisher.googleapis.com/androidpublisher/v3/applications/${encodeURIComponent(packageName)}/purchases/productsv2/tokens/${encodeURIComponent(purchaseToken)}`,{headers:{authorization:`Bearer ${await googleAccessToken(config)}`},signal:AbortSignal.timeout(8_000)}));
-  const expected=required(config.GOOGLE_IAP_ENVIRONMENT,'GOOGLE_IAP_ENVIRONMENT');
+  const expected=googleEnvironment(config);
   if((data.testPurchaseContext?'Sandbox':'Production')!==expected)throw new ProviderError('PURCHASE_ENVIRONMENT_MISMATCH','구매 환경이 다릅니다.',403);
   return required(data.obfuscatedExternalAccountId,'Google purchase account binding');
 }

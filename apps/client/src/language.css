@@ -1,4 +1,4 @@
-.language-gate{position:relative;isolation:isolate;width:100%;max-width:520px;height:100dvh;margin:0 auto;overflow:hidden;color:#fff;font-family:var(--font-game-ui)}
+.language-gate{position:relative;isolation:isolate;width:100%;max-width:none;height:100dvh;margin:0 auto;overflow:hidden;color:#fff;font-family:var(--font-game-ui)}
 .language-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
 .language-choice{height:100%;padding:calc(var(--safe-top) + 30px) 26px calc(var(--safe-bottom) + 30px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .language-choice section{display:grid;gap:12px;margin:0 auto;width:100%;max-width:340px;padding:18px 0 0}
@@ -9,4 +9,9 @@ html[lang="en"]{--font-game-ui:'Lilita One','Jua','Arial Rounded MT Bold',sans-s
 html[lang="en"] :is(.row-title,.fine,.row-meta,.story-dialogue-copy p,.story-chapter-summary,.commerce-store-note){overflow-wrap:anywhere}
 html[lang="en"] .game-button{font-size:18px}
 html[lang="en"] .story-dialogue-copy p{line-height:1.45}
+html[lang="ja"]{--font-game-ui:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic UI',Meiryo,sans-serif}
+html[lang="ja"] .story-dialogue-copy p{line-height:1.5}
+html[lang="ja"] .modal-layer .operations-links .game-button{font-size:clamp(12px,3.6vw,16px);padding-inline:8px}
+html[lang="ja"] .operations-links .game-button>.icon{width:28px;height:28px}
+.language-choice [lang="ja"]{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic UI',Meiryo,sans-serif;font-weight:800}
 @media(max-height:660px){.language-choice{padding-top:calc(var(--safe-top) + 18px);padding-bottom:calc(var(--safe-bottom) + 18px)}.language-choice section{gap:8px}}

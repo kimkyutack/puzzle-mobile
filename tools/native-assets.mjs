@@ -3,16 +3,37 @@ import {readdir,writeFile} from 'node:fs/promises';
 import {join} from 'node:path';
 
 // Resize approved raster artwork only. No programmatic mascot, icon, or game illustration is drawn.
-const icon='packages/assets/source/app_icon.png';
+const icon='packages/assets/branding/native-app-icon.png';
 const background='#1645a0';
 const root='android/app/src/main/res';
+const iconsOnly=process.argv.includes('--icons-only');
 await writeFile(`${root}/values/ic_launcher_background.xml`,`<?xml version="1.0" encoding="utf-8"?>\n<resources>\n    <color name="ic_launcher_background">${background}</color>\n</resources>\n`);
 const densities=[['mdpi',1],['hdpi',1.5],['xhdpi',2],['xxhdpi',3],['xxxhdpi',4]];
 for(const [density,scale] of densities){
- for(const name of ['ic_launcher','ic_launcher_round'])await sharp(icon).resize(Math.round(48*scale),Math.round(48*scale)).flatten({background}).png().toFile(`${root}/mipmap-${density}/${name}.png`);
- await sharp(icon).resize(Math.round(108*scale),Math.round(108*scale)).flatten({background}).png().toFile(`${root}/mipmap-${density}/ic_launcher_foreground.png`);
+ const directory=`${root}/mipmap-${density}`;
+ const legacySize=48*scale;
+ const legacyIcon=await sharp(icon).resize(legacySize,legacySize).png().toBuffer();
+ await writeFile(`${directory}/ic_launcher.png`,legacyIcon);
+
+ const radius=legacySize/2;
+ const circle=Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${legacySize}" height="${legacySize}"><circle cx="${radius}" cy="${radius}" r="${radius}" fill="white"/></svg>`);
+ await sharp(legacyIcon)
+  .composite([{input:circle,blend:'dest-in'}])
+  .png().toFile(`${directory}/ic_launcher_round.png`);
+
+ // Android shows the central 72dp of the 108dp layer. Extend the existing art
+ // into the outer 18dp on each side to preserve the approved framing.
+ const viewportSize=72*scale;
+ const inset=18*scale;
+ await sharp(icon).resize(viewportSize,viewportSize)
+  .extend({top:inset,bottom:inset,left:inset,right:inset,extendWith:'copy'})
+  .png().toFile(`${directory}/ic_launcher_foreground.png`);
 }
 await sharp(icon).resize(1024,1024).flatten({background}).png().toFile('ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png');
+if(iconsOnly){
+ console.log('Installed app icons for Android and iOS.');
+ process.exit(0);
+}
 async function splash(path){
  const {width,height}=await sharp(path).metadata();
  if(!width||!height)throw new Error(`Invalid launch image: ${path}`);

@@ -1,0 +1,6 @@
+.garden-stage-overlay{position:absolute;left:50%;top:0;transform:translateX(-50%);pointer-events:none;z-index:2;isolation:isolate}
+.stage-revealed-floor>.stage-floor-art{inset:-.25%;width:100.5%;height:100.5%}
+.stage-rabbit>img{position:absolute;inset:0;width:100%;height:100%}
+.stage-face{position:absolute;overflow:hidden}.stage-face img{object-fit:contain;pointer-events:none;user-select:none}.stage-revealed-floor{position:absolute}.stage-revealed-floor>img{position:absolute;inset:0;width:100%;height:100%}.stage-revealed-floor.is-fresh{animation:stage-flow-reveal .24s both}.stage-earth-gate{position:absolute;z-index:1;filter:drop-shadow(0 1px 1px #49311b88)}.stage-ornament{position:absolute;z-index:2;filter:drop-shadow(0 2px 1px #47372b66)}.stage-destination.is-complete{animation:stage-bloom .3s ease-out both}.stage-rabbit{position:absolute;z-index:3;object-fit:contain;filter:drop-shadow(0 2px 1px #47372b66)}.stage-rabbit.is-walking{offset-rotate:0deg;animation:stage-walk linear both}
+@keyframes stage-flow-reveal{from{opacity:0}to{opacity:1}}@keyframes stage-bloom{from{transform:scale(.78)}to{transform:scale(1)}}@keyframes stage-walk{from{offset-distance:0%}to{offset-distance:100%}}
+@media(prefers-reduced-motion:reduce){.stage-revealed-floor.is-fresh,.stage-destination.is-complete{animation:none}}

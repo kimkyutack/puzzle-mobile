@@ -3,14 +3,14 @@ import {createGame,applyAction,stateHash} from '@garden/core';
 import {getLevel} from '@garden/content';
 import type {Action,GameEvent} from '@garden/contracts';
 import solutions from '../packages/content/src/campaign-solutions.json';
-import {effectTiming,VISUAL_BEATS} from '../apps/client/src/visual-timing';
+import {effectTiming,VISUAL_BEATS,windArrival} from '../apps/client/src/visual-timing';
 describe('event-derived presentation timing',()=>{
  it('holds rainbow targets through the enlarged charge and beam travel, including a fused pair',()=>{
-  for(const combined of [false,true]){const events:GameEvent[]=[{type:'special',kind:combined?'rainbow+rainbow':'rainbow',cells:combined?[23,24]:[24]},{type:'remove',cells:[1,9,17,30,40],kind:'berry',effectId:1}];const plan=effectTiming(events,createGame(getLevel(1))),impact=(combined?VISUAL_BEATS.fusion:0)+1550;expect(plan.primaryImpactAt).toBe(impact);for(const at of events[1]!.cells)expect(plan.firstRemovalAt.get(at)).toBe(impact);}
+  for(const combined of [false,true]){const events:GameEvent[]=[{type:'special',kind:combined?'rainbow+rainbow':'rainbow',cells:combined?[23,24]:[24]},{type:'remove',cells:[1,9,17,30,40],kind:'berry',effectId:1}];const plan=effectTiming(events,createGame(getLevel(1))),impact=(combined?VISUAL_BEATS.fusion:0)+VISUAL_BEATS.rainbowCharge+VISUAL_BEATS.rainbowTravel;expect(plan.primaryImpactAt).toBe(impact);for(const at of events[1]!.cells)expect(plan.firstRemovalAt.get(at)).toBe(impact);}
  });
  it('keeps later cascade tiles present while the first rainbow is charging',()=>{
   const events:GameEvent[]=[{type:'special',kind:'rainbow',cells:[24]},{type:'remove',cells:[1],kind:'berry',effectId:1},{type:'fall',cells:[1],from:0,to:1},{type:'remove',cells:[12],kind:'sun',effectId:2}];
-  const plan=effectTiming(events,createGame(getLevel(1)));expect(plan.firstRemovalAt.get(12)).toBe(1550);expect(plan.firstRemovalAt.get(1)).toBe(1550);
+  const plan=effectTiming(events,createGame(getLevel(1)));expect(plan.firstRemovalAt.get(12)).toBe(VISUAL_BEATS.rainbowCharge+VISUAL_BEATS.rainbowTravel);expect(plan.firstRemovalAt.get(1)).toBe(VISUAL_BEATS.rainbowCharge+VISUAL_BEATS.rainbowTravel);
  });
  it('lets a normal match settle promptly without holding an unchanged tile',()=>{
   const state=createGame(getLevel(1)),result=applyAction(state,(solutions['1'].actions as Action[])[0]!),plan=effectTiming(result.events,result.state);
@@ -24,6 +24,17 @@ describe('event-derived presentation timing',()=>{
   const state=createGame(getLevel(1)),row:GameEvent[]=[{type:'special',kind:'wind-row',cells:[24]},{type:'remove',cells:[25],kind:'berry'},{type:'remove',cells:[27],kind:'drop'}],column:GameEvent[]=[{type:'special',kind:'wind-column',cells:[24]},{type:'remove',cells:[31],kind:'berry'},{type:'remove',cells:[45],kind:'drop'}];
   const horizontal=effectTiming(row,state),vertical=effectTiming(column,state);expect(horizontal.delays[1]).toBeGreaterThan(VISUAL_BEATS.charge);expect(horizontal.delays[2]).toBeGreaterThan(horizontal.delays[1]!);expect(vertical.delays).toEqual(horizontal.delays);
  });
+ it('uses the first sweep to reach a rocket-bomb target where the row and column overlap',()=>{
+  const state=createGame(getLevel(1)),events:GameEvent[]=[
+   {type:'special',kind:'wind-row+bomb',cells:[23,24],effectId:1},
+   {type:'hit',kind:'crate',cells:[18],effectId:1},
+   {type:'remove',kind:'sun',cells:[27],effectId:1},
+  ];
+  const plan=effectTiming(events,state),launch=VISUAL_BEATS.fusion+VISUAL_BEATS.charge;
+  expect(plan.delays[1]).toBe(launch+windArrival(1/3.5));
+  expect(plan.delays[2]).toBe(launch+windArrival(3/3.5));
+  expect(plan.rocketContacts.get(1)).toBe(18);
+ });
  it('shows the hammer approaching before anything at its target disappears',()=>{
   const state=createGame(getLevel(1)),events:GameEvent[]=[{type:'remove',kind:'berry',cells:[20],effectId:1}];
   const plan=effectTiming(events,state,{type:'booster',item:'hammer',at:20});expect(plan.toolImpact).toBe(760);expect(plan.firstRemovalAt.get(20)).toBe(760);expect(plan.settleAt).toBe(940);
@@ -33,7 +44,7 @@ describe('event-derived presentation timing',()=>{
   const plan=effectTiming(events,state);expect(plan.delays[3]).toBeGreaterThanOrEqual(800);expect(plan.firstRemovalAt.get(40)!-plan.delays[3]!).toBe(1100);expect(plan.settleAt+420).toBeLessThanOrEqual(3000);
  });
  it('preserves all authored replay states and bounds presentation through their entire solutions',()=>{
-  let checked=0,longest=0;for(const [id,fixture]of Object.entries(solutions)){let state=createGame(getLevel(Number(id)));for(const action of fixture.actions as Action[]){const result=applyAction(state,action);const before=stateHash(result.state),events=JSON.stringify(result.events);const plan=effectTiming(result.events,result.state,action);longest=Math.max(longest,plan.settleAt+420);expect(stateHash(result.state)).toBe(before);expect(JSON.stringify(result.events)).toBe(events);expect(plan.delays.every(delay=>Number.isFinite(delay)&&delay>=0)).toBe(true);expect(plan.settleAt+420).toBeLessThanOrEqual((result.events.some(event=>event.kind?.includes('rainbow'))?VISUAL_BEATS.maxChainStart+VISUAL_BEATS.rainbowCharge+VISUAL_BEATS.rainbowTravel+VISUAL_BEATS.pop+420:3000)+(plan.fusionAt.size?VISUAL_BEATS.fusion:0));state=result.state;checked++;}}
+  let checked=0,longest=0;for(const [id,fixture]of Object.entries(solutions)){let state=createGame(getLevel(Number(id),'1.3.0'));for(const action of fixture.actions as Action[]){const result=applyAction(state,action);const before=stateHash(result.state),events=JSON.stringify(result.events);const plan=effectTiming(result.events,result.state,action);longest=Math.max(longest,plan.settleAt+420);expect(stateHash(result.state)).toBe(before);expect(JSON.stringify(result.events)).toBe(events);expect(plan.delays.every(delay=>Number.isFinite(delay)&&delay>=0)).toBe(true);expect(plan.settleAt+420).toBeLessThanOrEqual((result.events.some(event=>event.kind?.includes('rainbow'))?VISUAL_BEATS.maxChainStart+VISUAL_BEATS.rainbowCharge+VISUAL_BEATS.rainbowTravel+VISUAL_BEATS.pop+420:3000)+(plan.fusionAt.size?VISUAL_BEATS.fusion:0)+(plan.conversionAt.size?VISUAL_BEATS.rainbowHold+VISUAL_BEATS.charge:0));state=result.state;checked++;}}
   expect(checked).toBeGreaterThan(400);expect(longest).toBeGreaterThan(1600);
  });
 });

@@ -21,15 +21,20 @@
     "api:check": "wrangler deploy --dry-run --config apps/api/wrangler.jsonc --outdir output/worker",
     "api:check:production": "wrangler deploy --dry-run --config wrangler.jsonc --outdir output/worker-production",
     "db:migrate:remote": "wrangler d1 migrations apply puzzle-mobile-db --remote --config wrangler.jsonc",
-    "deploy": "npm run db:migrate:remote && wrangler deploy --config wrangler.jsonc",
-    "native:sync": "npm run build && cap sync",
+    "deploy": "npm run build:admin && npm run db:migrate:remote && wrangler deploy --config wrangler.jsonc --keep-vars --strict",
+    "native:sync": "node tools/native-build.mjs release",
     "native:local": "node tools/native-build.mjs local",
     "native:release": "node tools/native-build.mjs release",
+    "native:ads-test": "node tools/native-build.mjs local --test-ads",
+    "admob:check": "node tools/admob-config.mjs check",
+    "admob:configure": "node tools/admob-config.mjs sync",
     "native:ios-simulator": "sh tools/native-ios-simulator.sh",
     "levels:campaign:build": "node --import tsx tools/level-validation/campaign-build.ts",
     "levels:campaign:verify": "node --import tsx tools/level-validation/campaign-build.ts --verify",
     "levels:bulk:build": "node --import tsx tools/level-validation/bulk-build.ts",
-    "levels:bulk:verify": "node --import tsx tools/level-validation/bulk-build.ts --verify"
+    "levels:bulk:verify": "node --import tsx tools/level-validation/bulk-build.ts --verify",
+    "dev:admin": "vite --config apps/admin/vite.config.ts --host 127.0.0.1",
+    "build:admin": "vite build --config apps/admin/vite.config.ts"
   },
   "dependencies": {
     "@apple/app-store-server-library": "3.1.0",

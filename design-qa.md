@@ -1,112 +1,144 @@
-# Visual-v9 design QA
-
-- Source visual truth: `output/design-v9/references/royal-home.png`, user-selected Royal Match home screenshot,238×500 pixels. Used for visual vocabulary/hierarchy rather than character/world or exact feature copying. Latest palette steering: purple beside the garden rejected; use sky blue/gold plaques and amber chapter/build emphasis.
-- Implementation screenshot: `output/verification/visual-v9/final-pixels/home-402.png`, browser-rendered through official CUA Chrome,402×874 pixels at402×874 CSS viewport, deviceScaleFactor1. CSS safe-area simulation top62/bottom34. This is an isolated renderer fixture, not the actual iOS account.
-- Original user before: `output/design-v9/references/current-home.png`,359×759 with device bezel. Device chrome/bezel and different account state intentionally do not match the unframed new QA capture; the world styling remains retained.
-- Full-view same-input evidence: `output/design-v9/royal-before-after.png` (source / previous user screenshot / new implementation, each fit within402×874); both source and implementation were opened together for visual comparison. The low-resolution238px reference is scaled for style comparison, not asserted as pixel-identical.
-- Focused same-input evidence: `output/design-v9/compare-header.png`, `compare-actions-footer.png`. Each source/implementation crop was normalized into480×260 cells and opened together. Original captures and pixel sampling remain unscaled. `final-contexts.png` records shop/rank/pass/editor/settings/start side by side for material variety, separate from source fidelity comparison.
-- State: existing home, four persistent pages, modal contexts, actual board renderer; final native packaging pending. Real iOS player state is protected and not used for fixture writes.
-
-## Five required fidelity surfaces
-
-1. Fonts/typography: Korean Jua and numeric Lilita One remain local licensed game fonts. Display actions are white with a dark external outline; resource numbers use dark navy on pearl. Small labels have their own material-specific contrast. Title center uses new PNG geometry(320,90), and content clears the entire panel cap. This deliberately follows game typography weight, without extracting Royal Match's font.
-2. Spacing/layout rhythm: independent currency plates, overlapping icons, four symmetrical side shortcuts, a compact chapter invitation, separated main actions and an anchored four-destination footer replace the repeated teal tray. Selected Home raises its icon and keeps caption within the footer. Responsive checks cover360/402/430 widths and360×667 short screen. The reference has other features and five destinations; this project preserves the authorized four page contracts.
-3. Colors/tokens: sky-blue/gold event plaques now complement the retained garden; amber chapter/build, lime play and pearl/navy currencies provide separate emphasis. The footer is blue/gold. Independent popup/page contexts combine sapphire/violet/sunset and ice/peach/lavender insets. Broad cream and antique sage/copper framing are replaced. Tiny guild/event illustration accents remain their own objects rather than large purple Home surfaces.
-4. Image quality: twenty-one new real PNGs, individual generated originals and painted bevels; retained world/characters. Actual nine-slice framing, stable raster loading bar and real board aperture. No source-game graphics, CSS-drawn game art, inline SVG or emoji placeholders. Technical alpha cleanup removes detached source specks only in derived runtime rasters.
-5. Copy/content: actual current level, currencies, restore counts, catalog quantities and ownership still come from existing contracts. Korean labels retained; English helper labels not introduced. Fixture level15/1275/stars11/restoration3 is explicitly presentation data, distinct from protected user level15/1400/stars4/restoration6.
-
-## Comparison history and resolved findings
-
-- P1 antique repeated framing: thin copper/leaf/sage header/footer/buttons conflicted with the selected molded casual-game direction. Replaced with individually authored buttons/panels/cards/chrome and distinct content surfaces. Post-fix: full-view and focused comparisons above; context montage.
-- P1 cap/content collision in initial v9 popup: absolute header was covered by body. Padding76px clears the170px authored top cap at runtime scale. Post-fix: final modal captures and title checks.
-- P2 Home purple clash: user rejected the initial violet event plaques beside the garden. Generated `event_sky_v9`, switched all four plaques, made chapter amber and progress inset pearl. Post-fix: final home PNG and focused header comparison.
-- P2 chain-step label covered by chest DOM image: moved the actual pearl PNG into a local `FrameFace` stacking context. Post-fix: final chain capture/contrast sample.
-- P2 narrow settings iconless row collapsed into36px column: explicit two-column label/control layout. Post-fix: settings short-screen and expanded/bottom captures.
-- P2 small label contrast/rim intersections: darkened light-card ink and placeholders, white balance/loading copy, proper dark outlines for light compact controls, and settings title left padding6px. Post-fix: final original-PNG text/background pairs, no waived failures.
-- P2 loading bar shrank under inherited object-fit: explicit fill sizing on authored track/fill. Post-fix: separate0% and verified100% loading captures.
-
-## Verification scope
-
-Official CUA browser interactions cover home links, all four page destinations, page scroll ends, ranking tabs, shop shelves/bundles, offers tabs, pass tiers, guild member/leader states, profile/settings/hearts disclosure, garden/editor/styles, story journal/viewer, start selection/cancel, board/tool/pause, win/fail/discovery and loading. The final browser report (`output/verification/visual-v9/summary.json`) records38originalPNGpairs/706textareas and0contrast findings. During browser work, stale service-worker data produced a missing new asset warning and HMR produced a bound-texture warning; a clean current158-entry pack rendered correctly. Console checking was performed during investigation, but a separate console scan for each final state was not collected, so final per-state console-zero is unverified. Generated renderer-fixture requests are isolated from the real API; synthetic result/help replies only drive presentation. Economic/server correctness is not inferred from those captures. Root also viewed the actual API-backed fresh-guest board/home without gameplay actions.
-
-Automated checkout validation: TypeScript passed; latest full Vitest27files182tests passed on2026-11-03, plus the final2file10test locale/purchase check. No new gameplay/API/economy logic changes were made by this visual revision; existing concurrent gameplay work remains intact. Current integrated runtime pack is garden-2026.11.03-story-v10:162entries/3atlases/17sequences/missing0, dry-run288files/84,748,123bytes, no remote upload. Earlier160-entry UI candidates are historical.
-
-No P0/P1/P2 remains in the compared design itself. Final loading-copy recapture passed. The final numeric evidence contains38originalPNGpairs/706textareas,107 outlined samples,0contrast failures, with no waiver. The focused final gameplay check adds15PNGpairs/258textareas with0contrast failures. It covers1/2/3/5objectives, completed mixes, three phone widths, short height and tool select/cancel. All final focused states have0window errors/unhandled rejections and0realAPIwrites.28resize/HMR bound-texture warnings are retained as development console limitations. Independent native archive verification has passed; final iOS installation is intentionally withheld while the user has an active run. Android emulator recovery is a separately reported environment limit.
-
-
-
-## Gameplay follow-up from the10:20 user screenshot
-
-Source feedback evidence: `output/design-v9/references/gameplay-before-feedback.png`,342×730 pixels, Android emulator chrome/status bar included. Current actual API-backed fresh-guest browser implementation: `output/design-v9/gameplay-current-402.png`,402×874pixels/CSS, density1, no simulated native safe area in this root capture. Same-input comparison opened: `output/design-v9/gameplay-feedback-comparison.png`, each fit in402×874cells. Levels/objectives/tutorial state and Android chrome differ intentionally; this evaluates the requested hierarchy/material change rather than pixel replication. Focused final geometry/contrast fixture captures live under `output/verification/visual-v9/hud-followup/`.
-
-- P2 small target count in an oversized face: single tray max144×84 with46px icon/36px count; two targets36px/29px. Three to five objectives use32px icons/23px counts in a94px tray, with dense objectives prioritized over mascot width. The initial84px multi-goal candidate overlapped the title by4px; corrected94px height/padding25+10 gives2px label/icon separation and11px number/bottom clearance in final measurements across360/402/430.
-- P2 tool selection used the original83px wrapper inside a smaller mascot slot: wrapper now matches100% of its slot, minimum44px hit target, with proportional icon and local sky cancel plaque. Removes the old dense scale compensation. Final focused recheck passed: ordinary62px/dense48px slots retain at least44px hit targets, and the narrow dense case clears the moves panel by1px; actual select/cancel produced GET-only traffic with no fixture errors.
-- P2 incompatible play materials: removed saturated blue cell faces and flat teal scenery. New neutral slate-stone cells support the colorful pieces; warm sandstone terrace relates to the garden world with fresh green/yellow/coral edge plants. An overly gray initial scene draft was rejected and preserved outside runtime. Home backgrounds are unchanged. Small level/status plaques use sky/gold actual raster material for contrast against the warm scene.
-
-The later gameplay changes do not alter puzzle actions, timing, goals, progress or settlement. The initial38-pair706-text baseline applies to the earlier whole-UI candidate and remains separate from focused final gameplay results. Final native packaging uses the160-entry/21-new-original pack (`2026-11-03T01:40:01.559Z` local metadata); the final native/archive report will record verification.
-
-
-## Final footer, border and commerce acceptance
-
-Source evidence: the latest user screenshots(10:21 footer,10:24 settings,10:26 pass,10:27 shop) and unchanged original panel/card/button PNGs. Corrected implementation screenshots are in `output/verification/visual-v9/frame-followup/`; `home-402.png`, `settings-402.png`, `pass-top-402-final.png`, `purchase-confirm-402-final.png`, `premium-402-final.png` were opened and visually reviewed. Same-input corner comparison `output/design-v9/panel-corner-reference.png` shows source/runtime upper/lower left corners alongside the rendered panel. Source128px squares are normalized to49px at the fixed0.38 frame scale; rendered49px crops are shown at4x for inspection. Density/antialiasing and source alpha-versus-live garden background differences are expected, rather than asserted as identical pixels. Full context remains in the original viewport captures. `final-pass-and-confirm.png` presents two unchanged final rendered screenshots side by side.
-
-Resolved additional findings:
-
-- P2 selected footer top rim clipped by the shorter dock canvas: selected buttons now own a local PNG FrameFace. Twelve4-page×3-width captures show the complete upper gold rail/four corners, no clipping ancestor intersection, no dialog and no overflow.
-- P2 modal/card corner curves entered stretch regions: fixed source bounds panel128/128/178/128, cards112/112/80/88, buttons128/128/80/100 and pearl88/88/64/72. Eight modal boundary cases show all corners within viewport, retaining the painted curved silhouette.
-- P2 move-count box overflow: explicit14px+44px rows/42px digits. Fifteen numeric fixtures(0/9/24/32/5 at360/402/430) retain17px bottom space and at least11.41px horizontal space. Counts follow the actual continue contract(each lost/0→5, not accumulated totals).
-- P2 immediate coin purchase and missing pass actions: real confirmation UI precedes existing authoritative purchase, bulk receipt endpoint/UI and premium entry added. Read-only actual guest confirmation/cancel retains500coins/2hammers; synthetic GUI tests record open/cancel0requests, doubleclick1purchase, error selection retained, insufficient funds disabled, bulk requests1 and events-refresh/claimed state. The server authority is independently tested through actual isolated Worker/D1 HTTP8checks, with existing economy21regressions.
-- P2 confirmation layout overridden by later generic card CSS: scoped summary selectors restore centered25/22px headings and32px/28px padding. Post-fix images above.
-- P2 white title on bright orange cap:1px dark brown outline with legacy external-shadow equivalent. Superseded three failing screenshots remain in report history; final adopted captures pass.
-
-Latest adopted final frame/commerce set:46PNGpairs/807textareas/0contrast failures, four viewports including360×667, all three panel themes, footer corner pixel evidence, bidirectional focus trap/root inert restoration, pass tier30 fully reached with27.2px bottom space. Synthetic GUI mutations are local in-memory fixtures with real API network blocked. Real store purchase/provider completion is unverified; unavailable SDK state correctly makes no prepare request. This is Korean UI acceptance, not full multilingual layout certification. Historical development warnings(stale old manifest, intentional synthetic failures, Pixi resize/HMR) are retained; final adopted states have0uncaught/unhandled errors. Test-only HMR filtering stabilizes in-flight flows while concurrent source work continues and is absent from shipped code. Own14storage keys removed and original16values restored exactly; temporary overrides/tabs cleaned.
-
-Current parallel story/flow/localization changes are preserved. Source hash changes due to tr()/formatLocale() were reviewed; corrected FrameFace/confirmation guards/permission logic remain present. Exact fixed spawn regressions use archived v1 definitions/logs instead of changing assertions to fit newly regenerated content. Latest engine1.1 pass HTTP checks explicitly request the matching engine version.
-
-Native artifacts: metadata2026-11-03T02:25:06.840Z/local/API8787. Root independently matched162asset hashes,321dist files per APK/iOS ZIP, all21JS/CSS/HTML files, exact metadata, pass/confirm feature markers and fixture absence. Both archive SHA256 values match the native builder's independent values(`output/verification/native-v9-archive-audit.json`). Final iOS installation is withheld while the user has an active run. Android was updated. A guest reboot did not clear the old emulator system/GPU fault; one same-userdata cold boot recovered it. Final launch wasStatus:ok/COLD/4353ms with0ANR/crash since boot and a normal language selector. No language selection or menu/board input was automated, so those final native flows are unverified. iOS remains uninstalled while the user continues an active run(level31 in the latest observation).
-
-
-
-Native follow-up limit: the final Android system-bar clock/icons are dark on the blue native backing in the entry capture. Day/night status-bar foreground tuning is P3 polish outside the verified DOM text set. Physical-device performance and store completion remain unverified. Browser/native limits are not treated as actual native menu/board interaction proof.
+# 열린 물길 v36 검수
 
 final result: passed
 
-## Shop poster follow-up v11 — 2026-11-03 13:00 feedback
+## 현상과 수정
 
-Page headings are now 상점 and 이벤트. All seven tool products share the sky-blue card_ice_v9 PNG, and all six coin products share orange card_peach_v9. Four new original full-scene poster paintings replace generic package/bundle card backgrounds in the shop and offer detail. Product contents, prices, deadlines and status remain live catalog data. Exact prompts, reference roles and unchanged source-byte checks are in packages/assets/prompts-ui-v11.json. Current integrated pack: garden-2026.11.03-shop-v11,166entries/3atlases/17sequences/missing0, preserving concurrent story/flow/localization/friends changes.
+사용자 보고: 흙마개 위의 타일이 깨진 뒤 다른 타일들이 물길로 보충되고 다시 터짐. 전체 연쇄 후에야 길을 여는 규칙 순서가 원인이었습니다. 1.8 규칙은 타격 → 길 개방 → 보충 순서로 처리합니다. 타일 레이어에는 열린 칸 마스크도 적용했습니다. 기존 1.7 판의 재생 결과를 보존했습니다.
 
-Root opened and reviewed the final three unchanged402×874 screenshot composite output/design-v11/shop-v11-preview.png, the narrow offer images, maximum chain bundle, short confirmation and 이벤트 page. Original source paintings were also opened. Whole-poster2:1/3:2 ratios stay exact; poster rims are never nine-sliced. Local PNG FrameFace controls paint above the posters without extra WebGL contexts.
+## 실제 시각 근거
 
-Resolved during verification: narrow offer copy entered bright source art, timed title clipped by2.5px, pass link contrast was insufficient, and an interim negative margin clipped5px of the poster rim. Final copy begins in the quiet blue field; redundant timed sublabel removed; compact narrow layout and18px offer modal padding retain whole300×200 poster within x30~330 clip. Maximum chain-ready8contents/120minutes/reference price fits copy172px/card200px. Pass link now has dark1px outline and legacy external-shadow fallback. Superseded failures remain in history and are excluded from acceptance.
+- 기존 실제 게임의 화면·PNG·글꼴·색·레이아웃을 그대로 사용했습니다. 새 디자인 시안이나 임의의 UI 변경 없음.
+- 390×844 브라우저 실제 App 50레벨에서 가로·세로 물길을 개방한 뒤 다음 교환/연쇄 중 빈 물길을 확인했습니다. `output/verification/water-v36/opened-path.png`, `second/contact-sheet.png`, `open-floor-preview.mp4`가 근거입니다.
+- 바닥·수원·화단·발광 이펙트는 보이며, 일반 타일만 열린 물길에서 제외됩니다. 원본 타일은 타격 전에 사라지지 않고 제거 시점까지 표시됩니다.
+- 마지막 물길 연결과 물 흐름 후 승리했습니다. 실제 화면 결과와 DOM의 연결 칸·타일 마스크를 함께 저장했습니다. 일반 판의 연쇄 후 잠금 해제도 확인했습니다.
+- 초기 중첩 레이어 검사에서 진단 코드의 부모 참조 오류를 발견하고 수정 후 다시 확인했습니다. 수정 후 새 오류 없음. 수정 전 로그는 숨기거나 지우지 않고 별도 기록했습니다.
 
-Final adopted set:25screenshot/background pairs,535text regions,0contrast failures,0reported text overflow,0uncaught/unhandled errors,0API write requests and0synthetic writes. Four viewports360×667/360×780/402×874/430×932. Root independently aggregated the stored reports in output/verification/visual-v11/root-final-qa-summary.json. Confirmation open/cancel, insufficient balance, pass entry, last product reach and simple event title use a read-only fixture; real store completion is unverified. This is Korean rendered UI acceptance, not full multilingual certification. Existing commerce/provider tests2files/9tests and final typecheck/production build pass.
+## 검증 범위
 
-Native local build metadata2026-11-03T04:26:06.011Z. Root independently matched327dist files/166asset hashes/21web files/exact metadata and fixture absence in both new APK/iOS ZIP archives. iOS updated only after active0/queue0; progress and5localStorage values remained unchanged, and the Preferences plist file remained absent before/after. The actual installed entry screenshot shows LanguageGate; no language preference was selected, so native shop interaction remains unverified. Android AVD was gracefully shut down before installation; no restart/input/final APK installation was performed. APK is provided and local API8787 remains alive. See docs/shop-poster-v11.md and output/verification/native-v11-archive-audit.json.
+- 24개 변형의 모든 연쇄 프레임에서 열린 칸이 비어 있고, 개방 뒤 그 칸을 향한 보충/낙하 로그가 없는지 자동 검사했습니다. 기존 1.7 해시, 맵 seed·이동 횟수, 클립의 열린/닫힌 칸 알파 픽셀도 검증했습니다.
+- 68개 파일 / 468개 자동 테스트, TypeScript, Worker dry-run, Release API 검증 통과. 네이티브 리소스 533개 해시 일치.
+- 운영 배포 및 health의 1.8 협상 정보 확인. 실제 운영 사용자 데이터 변경 없음. 구 앱/기존 판에는 기존 규칙을 유지하므로 수정된 앱의 새 판부터 새 규칙을 사용합니다.
+- 실물 Android/iOS FPS·접근성 인증은 별도 범위입니다.
 
-v11 result: passed for the scoped rendered UI and archive checks; native/store limits recorded above.
+이전 타격 검수는 `docs/design-qa-impact-v35.md`, 세부 내용은 `docs/water-floor-v36.ko.md`에 보존했습니다.
 
-## Purchase entry follow-up v12 — 2026-11-03 13:40 feedback
+## 운영 콘솔 추가 검증
 
-The user screenshot exposed a missing purchase entry: the previous candidate rendered catalog buy buttons only when a native store price existed. Local builds explicitly disable purchases, so the accepted unavailable-store state had no buy entry. Shop bundle3/coin6 entries now always show a button, with 구매하기 fallback or an actual SDK price. The button opens a catalog confirmation; unavailable/missing-price checkout is disabled with an explanation, and price lookup can be retried when the SDK is available. Native purchase/receipt/server authority and local payment settings are unchanged.
+`/admin` 운영 콘솔과 게임 연동 검증은 [docs/design-qa-admin-console.md](docs/design-qa-admin-console.md)에 별도로 기록했습니다. 기존 퍼즐 디자인 검증 기록은 위에 보존합니다.
 
-The final read-only fixture checks cover3bundle entry/cancel flows,6coin CTAs,8tool-bundle contents, and unavailable/error/empty/loading/ready price states. Prices are synthetic only in the isolated test adapter; buy throws and all API writes are blocked. The ready price button uses one-line price text after a 좁은 구매하기+price label wrapped incorrectly; the retry link uses navy ink after its initial white text failed contrast. Final8adopted screenshot/background pairs,168text regions,0contrast failures,0DOM overflow/uncaught exceptions/POST. Root opened the unavailable/ready/confirmation/retry screenshots and final composite output/design-v12/purchase-buttons-preview.png. Typecheck and existing commerce/provider2files9tests pass. Existing garden-2026.11.03-shop-v11 asset166 pack is reused unchanged.
+시작 아이템 무제한 시간 이벤트의 서버·실제 게임 화면 검증은 [docs/start-booster-rush.ko.md](docs/start-booster-rush.ko.md)에 기록했습니다.
 
-QA storage16original keys restored exactly, only5own fixture keys removed, cache/SW/network/viewport overrides reset and temporary tab closed. Cleanup errors0;18Pixi release warnings are recorded separately. Details: docs/shop-buy-button-v12.md and output/verification/visual-v12/summary.json. Native v12 archive/install verification is recorded separately after build.
+잠금 아래 계단 낙하 수정과 전후 화면, 기존 판 호환성 및 새 맵 클리어 검증은 [docs/gravity-flow-v40.ko.md](docs/gravity-flow-v40.ko.md)에 기록했습니다.
 
-Native v12 local04:50:35.943Z built successfully and safely installed on iOS with Player/progress/ledger/settings7keys preserved. Android remained off; APK prepared without restarting it. Root frozen-pair audit verifies166asset hashes, recorded sync metadata, GUI-tested source hashes, actual emitted entry fallback, fixture exclusion and365public files identical across APK/iOS ZIP. Unrelated garden work subsequently replaced shared dist and installed04:55:04.027Z; these are explicitly not claimed byte-identical to v12. That later installed compiledJS retains the purchase entry/confirmation/retry markers, fallback and final SDK/price gate. Previous21archives are unchanged,23SHA entries total. See native-v12-archive-audit.json / visual-v12/installed-latest-purchase-markers.json. No unrelated build was interrupted or reverted.
+초반 1~100레벨 난이도 완화의 범위와 실제 서버 데이터·화면 검증은 [docs/early-balance-v41.ko.md](docs/early-balance-v41.ko.md)에 기록했습니다.
 
-## Settings follow-up v13 — 2026-11-03 14:34 feedback
 
-Removed the replay tutorial entry and its reset handler. Account linking is a separate ice PNG Card immediately after the comfort/language card and outside the collapsed management disclosure. Remaining disclosure title is 구매 및 계정 관리. Delete uses a red Button tone backed by the existing verified hud_moves PNG material; input/working guards and deletion endpoint are preserved. No new art/asset pack was generated.
+## 2026-11-09 · 이벤트 UI v44
 
-Final360/402 Korean fixture8screenshot/background pairs/97text regions/0contrast failures/0overflow/0runtime errors/0writes. DOM accountInsideDetails=false and tutorialReplay=false; red disabled/enabled input states checked without invoking deletion. Root opened04/05/09 and the unchanged screenshot composite output/design-v13/settings-preview.png. Typecheck passes. Original16storage keys restored exactly, only3fixture keys removed, all overrides reset/tab closed;2Pixi cleanup warnings separate from0console errors.
+final result: passed
 
-Frozen sync05:43:15.452Z/363files supports independent APK/iOS ZIP audit:363frozen files/166asset hashes/21web files/exact metadata/new markers/fixture absence pass. Two packages share365public files. Concurrent iOS sync changed only metadata during compilation; a separate completed App copy was repackaged with the entire frozen public and re-signed, without restoring shared source/currentdist. Actual user activeRun1 persisted, so no native installation/restart/settings/deletion/link/logout input was performed. Android remained off. Packages are ready; actual native settings GUI is unverified. See docs/settings-v13.md and native-v13-archive-audit.json.
+범위: 신규 이벤트 배너와 꽃빛축제 모달의 화면 구성 및 입장/재시도 흐름.
 
-## Counter foreground follow-up v14
+- 기존 화면과 변경 화면을 같은 390 × 844px 상태로 나란히 비교했다. 얇은 테두리/탭 바와 중첩 카드 대신 실제 꽃 프레임, 장소 이미지, 리본, 두루마리를 사용한다.
+- 320px 영문 두 자리 목표, 390px 기본 상태, 540px 완료 상태에서 가로 넘침/누락 이미지가 없었다.
+- 자동 입장, 이야기 전환, 복원 후 장식 표시, 배너 선택을 확인했다. 미지원 API/미확인 응답/20초 지연 후 재시도를 확인했다.
+- 브라우저 데이터는 합성 상태다. 실기기 및 운영 계정의 실제 참여/보상 지급 검증은 포함하지 않는다.
+- 웹 빌드, 관련 클라이언트/서버 테스트, Worker 패키징 검증 통과. 신규 이벤트 API를 운영에 배포하고 공개 기능 목록/상태 확인을 마쳤다.
+- 증거: `output/verification/event-layout-v44/`. 상세: `docs/events-ui-v44.ko.md`.
 
-User pot-number capture: obstacle Text shared the obstacle visual group and could be painted over by later obstacle/departure/effect content. Board.tsx now owns a dedicated last stage container for counts, with non-interactive cell-contained labels and synchronized impact/redraw cleanup. Rules, HP calculations and timing are unchanged. Typecheck plus existing impact/geometry2files7tests pass.
+## 2026-11-09 · 이벤트 아이콘 탭 v45
 
-Actual isolated renderer fixture at360/402 verifies4Text instances/topmost child/owner bounds/no duplicates;18→17 occurs at526.1ms against525planned impact, HP1/removal leaves no stale text.2departure sprites and28FX simultaneously remain behind17. Root opened01/06/08 full captures; output/design-v14/counter-foreground-detail.png is an explicit2x crop of two corrected states, not a before/after comparison. Requests0/user mutations0, original16storage values preserved/tab/overrides cleaned.0pageerrors,6existing Pixi release warnings separate. Full report: visual-v14/verification.md.
+final result: passed
 
-v14 local06:03:05.119Z builds and frozen363-file snapshot pass independent archive check(166asset hashes/21web files/metadata/new+preserved markers/fixture absence). Both platform public365files match; signatures pass. Existing25archives preserved,27total SHA records. Actual user's active run1 persists, so no installation/restart/input; Android stays off and API8787 alive. This is renderer/frozen-archive verification, not installed native gameplay proof. See docs/board-counters-v14.md and native-v14-archive-audit.json.
+- 출석 선물을 첫 번째/기본 선택 탭으로 두고, 꽃빛축제와 구출 원정을 포함한 이벤트 아이콘을 가로로 배치했다. 320/390/540px에서 약 4.5개가 보인다.
+- 선택한 이벤트 본문만 표시하고, 본문을 스크롤해도 아이콘 줄은 유지한다. 푸터 이벤트 재선택 및 페이지 재진입 시 출석으로 초기화한다.
+- 실제 보상/플레이/재개 상태에 따라 빨간점을 표시한다. 출석 수령 후 점 제거와 완료/만료 조건을 확인했다.
+- 이전 화면과 변경 후 출석/꽃빛축제 화면을 함께 비교했다. 본문 가로 넘침/누락 이미지 없음. 꽃빛축제 장면은 화면 폭에 맞고 구출 퍼즐은 전체 게임 영역에 표시된다.
+- 웹 빌드 및 관련 31개 테스트 통과. 합성 브라우저 상태에서 검증했으며 실기기/운영 계정 검증, 서버 배포, 네이티브 동기화는 포함하지 않는다.
+- 증거: `output/verification/event-tabs-v45/`. 상세: `docs/event-tabs-v45.ko.md`.
+
+### 시즌 보상 알림 회귀 수정
+
+- 출석을 포함한 전체 알림과 시즌 수령 가능 상태를 분리하고, 목표 미달 상태를 시즌 알림에서 제외했다.
+- 합성 390×844px 브라우저에서 개인/길드 보상 모두 수령 시 점 없음, 마지막 보상 수령 즉시 점 제거, 목표 미달 시 점 없음을 확인했다. 출석 점은 독립적으로 유지됐다.
+- TypeScript 검사와 관련 16개 테스트 통과. 상세와 화면 근거는 `docs/event-tabs-v45.ko.md`의 수정 기록에 보존했다.
+
+## 2026-11-09 · 전체 메뉴 알림 v46
+
+final result: passed
+
+- 홈·푸터·이벤트 탭과 내부 수령 버튼의 수령/플레이 조건을 통일했다. 완료·만료·운영 중지, 가득 찬 하트, 미보유 프리미엄, 차단된 친구 요청, 정원이 가득 찬 길드 승인을 알림에서 제외했다.
+- 실제 App을 사용하는 합성 390×844px 브라우저에서 완료 상태의 점 0개, 남은 콘텐츠 표시, 연속 보상 수령 후 제거, 친구/길드 처리, 공지/운영 보상 처리를 확인했다. 수령 전 지연 응답이 점을 다시 켜지 않음을 확인했다.
+- 77개 관련 테스트, TypeScript/웹 빌드, Worker dry-run 통과. 운영 배포·네이티브 동기화·실기기 검사는 포함하지 않는다.
+- 상세: `docs/attention-v46.ko.md`. 화면 및 상태 근거: `output/verification/attention-v46/`.
+
+## 2026-11-09 · 구출 보상 및 원정 균형 v47
+
+final result: passed
+
+- 구출 성공 화면의 선물 이름·수량과 실제 수령 후 내역을 분명하게 표시했다. 5코스의 토끼 1마리도 함께 표시한다.
+- 축제 제목은 원본 4:1 리본의 붉은 띠 중심에 정렬했다. 320px 영문/390px 한국어에서 넘침 없음.
+- 난이도는 색상 5→6개, 흙마개 6→18개, 후반 통나무 6→12개로 단계적으로 구성했다. 재도전 배치 15개의 도구 없는 승리 기록을 검증했다. 기존 저장된 판은 유지한다.
+- 합성 실제 컴포넌트 화면에서 보상/수령 내역 및 버튼 잘림 없음을 확인했다. 관련 49개 테스트, TypeScript/웹 빌드 및 Worker dry-run 통과. 배포·네이티브 동기화·실기기 검증은 포함하지 않는다.
+- 상세: `docs/expedition-v47.ko.md`. 화면 및 상태 근거: `output/verification/expedition-v47/`.
+
+## 2026-11-09 · 동물 구출 원정 일반전 화면 통일 v48
+
+final result: passed
+
+- Source visual truth: 일반전 `apps/client/src/App.tsx`, `PlayHud.tsx`, 공유 게임 CSS와 원본 PNG 자산. 동일 상태의 실제 일반전 HUD 캡처 `output/verification/expedition-header-v48/main-hud-reference.png` (390×164px). 최초 문제 화면은 사용자 첨부 `스크린샷 2026-11-09 오후 1.46.50.png` 및 `before-390.png`에 보존했다.
+- 최종 구현: `normal-layout-390.png` (390×844px), `normal-layout-320.png` (320×658px), `normal-layout-540.png` (540×900px), `normal-victory-320.png`. 실제 CSS viewport와 캡처 픽셀 크기가 같고 devicePixelRatio=1, 확대/밀도 보정 없음. 최종 540px 상태의 근거는 `browser-proof.json`, 영문 표시도 200px 레벨판 내부 넘침 없음을 확인했다.
+- 비교 이력: (1) 평평한 파란 막대와 작은 토끼/왼쪽 제목은 P1, blocked. (2) 별도 초상·번호 프레임은 일반전과 불필요하게 다른 구성이라는 사용자 피드백으로 폐기, blocked. (3) 공용 HUD만 재사용한 중간 구현은 별도 이벤트 표시 줄·X·배경·하단 배치가 남아 P1, blocked. (4) 전용 헤더/안내/통계 레이아웃을 제거하고 일반전의 전체 화면 구조·배경·HUD·레벨판 위치·푸터 및 결과 모달을 사용, passed.
+- Full-view comparison: 최종 전체 화면을 일반전 구성에 맞춰 확인했다. 레벨판에 `동물 구출 원정 3`을 표시하며 플레이 중 상단 X는 없다. 나가기는 하단 설정에 배치했다. 이벤트 이름의 길이에 따른 레벨판 너비(200px)와 도구 미사용 규칙에 따른 슬롯 비활성화는 의도한 차이다.
+- Focused comparison: `main-hud-reference.png`와 최종 `final-event-header.png` (각390×164px)를 같은 비교 입력에 함께 열었다. 목표판/루미/이동판의 자산·배치·크기 일치. 전체 화면은 `normal-layout-390.png`로 추가 확인했다.
+- 필수 표면: 글꼴 Jua/Lilita One 및 계층은 본편 컴포넌트 그대로. 간격/정렬은 공유 board-area/play-footer CSS 그대로. 색/그림자는 본편 PNG 그대로. 이미지 모서리·비율 유지 및 깨진 이미지 0개. 문구는 레벨판의 이벤트명/실제 코스 번호 및 기존 보상 이름·수량으로 제한했다.
+- 실제 인터랙션: 설정 열기와 입력 잠금, 계속 플레이, 진행 보관하고 나가기, 같은 코스 재개, 5코스 승리 모달에서 선물 수령 및 수령 내역 확인. 모든 API는 합성 계정으로 격리됐으며 운영 계정/재화는 변경하지 않았다.
+- 콘솔 검토: 보드 종료 시 PixiJS textureSource/textureSampler 해제 경고가 관찰됐다. 이미지 누락·동작 차단은 관찰되지 않았으며 기존 렌더러 해제 경고는 별도 정리 대상으로 기록했다.
+- 검증: TypeScript/웹 빌드 및 diff 검사 통과. 실기기/네이티브 동기화/운영 배포는 실행하지 않았다. 상세: `docs/expedition-layout-v48.ko.md`.
+
+## 2026-11-09 · 강아지 원정과 이벤트 운영 v49
+
+final result: passed
+
+- 일반전 공용 배경·HUD·보드·레벨판을 유지하고 원정 하단을 재시도/나가기 두 버튼으로 변경했다. `play-320.png`, `play-390.png`, `play-540-en.png`에서 버튼 높이가 각각 56px로 같고 영역 넘침이 없음을 확인했다.
+- 강아지 목표 아이콘과 보드 동물, imagegen으로 편집한 안내 포스터, 10단계 완료 보상 및 수령 내역을 확인했다. 일반전 토끼는 별도 기본값으로 유지한다. `final-reward-320.png`, `dog-receipt-320.png`, `menu-390.png`에 근거가 있다.
+- 새 단계/재시도만 차감, 이어하기 무료, 소진 시 시작 비활성화와 빨간점 제거를 실제 컴포넌트 합성 API 화면으로 확인했다. KST 자정과 실제 서버 트랜잭션의 동시 요청/지급은 테스트로 별도 확인했다.
+- 운영 콘솔은 기존 카드/폼/검토창/권한 체계를 재사용했다. `admin-events-default.png`에서 기본 3회·레벨20·10단계를 확인했고, `admin-browser-proof.json`에는 입력한 KST 일정의 UTC 값과 수정된 횟수 저장 및 조회 권한 차단을 기록했다. 처음 날짜 입력의 저장 누락을 발견해 네이티브 날짜 입력의 input 이벤트 처리를 보완하고 재검증했다.
+- 폰트와 PNG 프레임은 기존 Jua/Lilita One 및 같은 이미지 자산을 사용한다. 안내 그림은 기존 루미/숲 구도에 참조 웰시코기를 적용했다. 이미지 누락 및 새 콘솔 오류 없음. 브라우저 검사는 밀도1의 320×658, 390×844, 540×900 CSS px이며 관리자 화면은 1280px 폭 전체 캡처다.
+- 106개 테스트, TypeScript/웹/관리자 빌드와 Worker 드라이런 통과. 운영 배포·네이티브 동기화·실기기 검증은 포함하지 않는다. 상세: `docs/expedition-v49.ko.md`. 증거: `output/verification/expedition-v49/`.
+
+## v50 동물 구출 원정 전용 보상과 운영 회차 (2026-11-09)
+
+- 판다·여우·레서판다 투명 원화 48프레임과 공통 구출 포스터 신규 제작. 상점 판매를 제외하고 완주 보상으로만 지급.
+- 운영 콘솔에 회차 ID·구출 동물 선택. 회차별 10단계, 이전 시도·보상 동물 고정, 회차 전체에서 하루 도전 사용량 공유.
+- 기존 토끼·강아지 보상 보존. 구버전 앱에는 정원 응답 원화만 대체하고 정식 소유권은 유지.
+- 11개 파일 111개 테스트 통과. 실제 SQLite 보상/중복/이전 회차 검증 및 관리자 인증·감사 API 저장 포함.
+- 320/390/540px 격리 브라우저: 판다 목표·보드, 여우 완주 수량과 수령 후 빨간점 제거, 횟수 소진 후 이전 판다 이어하기, 영문 레서판다, 실제 정원 보행·수면·기지개, 운영 회차 변경 저장 확인. 최종 WebP 이미지 누락 0, 브라우저 오류 0.
+- 타입 검사, 클라이언트·운영 콘솔 빌드, Worker production dry-run 통과. 기존 큰 청크 경고는 유지. 운영 배포·네이티브 동기화·앱 아카이브는 하지 않음.
+- 근거: `output/verification/expedition-v50/{tests.log,client-build.log,admin-build.log,worker-dry-run.log,browser-proof.json,animals-garden-540.png}`.
+
+## v51 홈 아이콘·실제 정원 꽃빛축제·카메라 전체 보기 (2026-11-09)
+
+- 미션은 체크리스트·연필 원화, 순위는 금색 트로피 원화로 교체. 루미의 기록용 편지와 구별.
+- 이벤트 전용 축제 광장을 제거하고 실제 정원 모델을 표시. 단계마다 아치 1·화단 4·분수 1·벤치 1·가로등 2개를 영구 지급하고 빈자리에 설치. 공간 부족 시 보관함 유지, 기존 이동/보관/배치 보존.
+- 원래 분수 지급 ID를 보존하고 완료한 이전 단계의 누락 장식도 보충. 코인·도구·꽃잎 목표 유지.
+- 공유 카메라 최소 배율 0.04, 홈·꾸미기 전체 보기. 320px에서 이벤트 아이콘이 버튼 입력을 가로채던 문제를 발견해 버튼을 중앙으로 이동하고 높이·문구 줄바꿈 고정.
+- 12개 파일 128개 테스트 통과. 실제 SQLite/Worker 라우트로 설치 저장·중복/롤백·구버전 원화 대체 확인. 타입 검사·웹 빌드·운영 Worker dry-run 통과. 큰 청크 경고는 기존대로 유지.
+- 격리 브라우저에서 320/390/540px 홈, 꾸미기, 실제 축제 정원, 보상 설치 후 홈의 동일 인스턴스/좌표/축제 변형 유지, 영문 완료 화면 검증. 새 축제 장식 9개, 이미지 누락 0, 브라우저 오류 0, 가로 넘침 없음, 완료 후 축제 빨간점 없음.
+- 근거: `output/verification/garden-v51/{tests.log,typecheck.log,client-build.log,worker-dry-run.log,browser-proof.json}`와 해당 폴더의 스크린샷.
+- 변경은 로컬 코드·원화에 반영. 운영 서버 배포·네이티브 동기화·앱 아카이브는 하지 않음.
+
+### v51 후속 운영 배포 (2026-11-09 17:18 한국 시간)
+
+사용자 요청으로 API·운영 콘솔 배포 완료. 버전 `9699522b-d9d6-4868-bf4a-e3041a7944a4`, 트래픽 100%. D1 미적용 마이그레이션 없음. 직전 타입 검사·관련 75개 테스트 통과. 공개 API 정상, 콘솔 파일 해시 일치, 비인증 관리 API 401 확인. 사용자 보상 변경 없는 읽기 전용 확인. 앱 빌드·네이티브 동기화 없음. 근거: `output/verification/garden-v51/production-verification.json`.
+
+## 2026-11-17 · 레벨 시작 모달 1안
+
+final result: passed
+
+- 시안 원본은 `/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-9f3e67e6-d9a8-4fc9-b2bc-6ae3d89996b1.png`의 852×1846px 이미지다. 원본을 390×844px로 맞춘 뒤, 동일한 밀도 1의 실제 앱 캡처 `output/verification/start-level-modal/level-100-390.jpg`와 `comparison-390.png`에서 레벨 100 기본 상태를 비교했다.
+- 보라색·금색 프레임, 하늘색 목표판, 초록 버튼을 시안에서 재제작했다. 토끼·길·집과 도구 아이콘은 게임 원화를 사용했다. 제목은 중앙, 목표와 그림 안내는 한 카드, 시작 도구는 한 줄, 플레이와 하트는 하단에 배치했다. 본문은 Jua와 기존 숫자 글꼴을 사용했다. 비교에서 목표 라벨의 공용 제목 여백을 발견해 보정했고, 최종 목표판은 300×181px이다.
+- 390×844 및 320×568에서 스크롤 영역과 본문 높이가 일치한다. 영문 레벨 43의 다중 목표와 강화 무지개등, 일본어 레벨 170 물길 안내, 한국어 레벨 5946의 다중 목표를 320×568에서 확인했다. 화면의 목표 수량은 각 레벨 데이터에서 가져온다.
+- 정원 홈에서 모달을 열고, 시간표 열기·닫기, 도구 선택, 꽃폭탄을 적용한 레벨 100 진입, 모달 닫기를 격리된 합성 계정으로 확인했다. 무제한 시간에는 세 도구 모두 ∞를 표시하고 시간표에 카운트다운이 보인다. 시간표를 열어도 플레이 버튼 위치가 유지된다. 보이는 모달 이미지 누락과 브라우저 콘솔 오류는 없었다. 측정 근거는 `output/verification/start-level-modal/browser-proof.json`에 있다.
+- TypeScript, 클라이언트 빌드, 관련 테스트 28개가 통과했다. 전체 번역 검사에는 기존 `GardenGameMenu.tsx`의 `골드` 항목 누락 1건이 남아 있다. 검수 범위는 로컬 웹이다.

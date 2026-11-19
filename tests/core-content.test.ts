@@ -1,6 +1,8 @@
 import { describe,it,expect } from 'vitest';
 import { createGame,applyAction,findMatches,legalActions,replay,stateHash,validateLevel } from '@garden/core';
-import { getLevel,APPROVED_LEVEL_COUNT } from '@garden/content';
+import { getLevel as getContentLevel,APPROVED_LEVEL_COUNT } from '@garden/content';
+// These publication certificates retain the v1.3 board and action hashes.
+const getLevel=(id:number)=>getContentLevel(id,'1.3.0');
 import type { Action } from '@garden/contracts';
 import solutions from '../packages/content/src/campaign-solutions.json';
 const logs=solutions as Record<string,{actions:Action[];hash:string;status:string}>;

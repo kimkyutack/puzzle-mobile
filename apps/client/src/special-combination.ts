@@ -1,5 +1,5 @@
 import type {GameState,Special} from '@garden/contracts';
-const specials:readonly string[]=['wind-row','wind-column','bomb','glider','rainbow'];
+const specials:readonly string[]=['wind-row','wind-column','bomb','glider','rainbow','beehive'];
 export function combinationParts(kind:string):[Special,Special]|null{
  const parts=kind.split('+');return parts.length===2&&parts.every(part=>specials.includes(part))?parts as [Special,Special]:null;
 }

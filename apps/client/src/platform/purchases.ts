@@ -3,6 +3,7 @@ import { Capacitor } from '@capacitor/core';
 import { Preferences } from '@capacitor/preferences';
 import { NativePurchases, PURCHASE_TYPE, type Transaction } from '@capgo/native-purchases';
 import type { Product } from '@garden/contracts';
+import { childAccount } from './account-age';
 export type PurchaseState='loading'|'ready'|'purchasing'|'pending'|'verifying'|'complete'|'cancelled'|'error'|'unavailable';
 export interface PurchaseIntent {purchaseIntentId:string;productId:string;seasonId?:string;expiresAt:number}
 export interface PurchaseVerification {provider:'google'|'apple';productId:string;token:string;idempotencyKey:string;purchaseIntentId?:string}
@@ -16,7 +17,7 @@ export interface PurchaseHooks {
 // The plugin owns a single BillingClient. Do not let background recovery close it during a store sheet.
 let storeQueue:Promise<unknown>=Promise.resolve();
 function withStore<T>(work:()=>Promise<T>):Promise<T>{const next=storeQueue.then(work,work);storeQueue=next.catch(()=>{});return next;}
-export function purchasesAvailable(){return Capacitor.isNativePlatform()&&import.meta.env.VITE_ENABLE_PURCHASES==='true';}
+export function purchasesAvailable(){return !childAccount()&&Capacitor.isNativePlatform()&&import.meta.env.VITE_ENABLE_PURCHASES==='true';}
 async function configure(){
   if(!purchasesAvailable()) throw new Error(tr("스토어 상품과 결제 설정이 연결된 모바일 앱에서 구매할 수 있습니다."));
   await NativePurchases.configure({autoFinishTransactions:false});

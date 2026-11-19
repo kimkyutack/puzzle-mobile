@@ -1,10 +1,14 @@
+import {gameEventAvailable,gameEventConfig,type RuntimeSettings} from '../../../packages/contracts/src/operations';
 import {z} from 'zod';
 import {treasureDeck,replayTreasure,TREASURE_MAX_TURNS,missionPeriod} from '@garden/content';
 import type {ActivityReward,TreasureAttempt} from '@garden/contracts';
 import {ensure,mutate,one,operationKey,rows,sql,uid,type ApiEnv} from './db';
 import {grantActivityReward,recordActivity} from './activity';
-export async function startTreasure(env:ApiEnv,userId:string,body:Record<string,unknown>){
+export async function startTreasure(env:ApiEnv,userId:string,body:Record<string,unknown>,settings?:RuntimeSettings){
+ const config=gameEventConfig('treasure',settings);
  return mutate(env,userId,operationKey(body),'treasure:start',async tx=>{
+  ensure(tx.player.level>=config.minLevel,'MINIGAME_LOCKED',`레벨 ${config.minLevel}부터 보물 카드에 참여할 수 있어요.`,409);
+  ensure(gameEventAvailable('treasure',settings,tx.now),'EVENT_NOT_OPEN','지금은 이벤트 참여 시간이 아니에요.',409);
   const period=missionPeriod('daily',tx.now),attempts=await rows<{data:string;status:string}>(tx.db,'SELECT data,status FROM treasure_attempts WHERE user_id=? AND day=? ORDER BY created_at DESC',userId,period.id),active=attempts.find(a=>a.status==='playing');
   if(active)return {player:tx.player,attempt:JSON.parse(active.data) as TreasureAttempt};
   ensure(attempts.length<3,'MINIGAME_LIMIT','오늘의 보물 카드를 모두 열었어요. 내일 다시 만나요.',409);

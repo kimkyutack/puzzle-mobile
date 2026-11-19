@@ -1,0 +1,2 @@
+import {useEffect,useState} from 'react';import {api} from './api';
+export function useResource<T>(path:string,initial:T){const [data,setData]=useState(initial),[error,setError]=useState(''),[loading,setLoading]=useState(true),[epoch,setEpoch]=useState(0);useEffect(()=>{let live=true;setLoading(true);setError('');void api<T>(path).then(value=>{if(live)setData(value)},e=>{if(live)setError(e instanceof Error?e.message:'불러오지 못했습니다.')}).finally(()=>{if(live)setLoading(false)});return()=>{live=false}},[path,epoch]);return {data,error,loading,reload:()=>setEpoch(v=>v+1),setData};}

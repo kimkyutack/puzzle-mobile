@@ -1,0 +1,89 @@
+{
+  "createdAt": "2026-11-06",
+  "method": "built-in image_gen",
+  "referenceScreenshots": [
+    "output/verification/header-v32/six-390-final.png"
+  ],
+  "requestedButUnavailableReference": "/Users/kimkyutack/Desktop/스크린샷 2026-11-06 오전 10.38.31.png",
+  "artDirection": "Current game saturated softly bevelled square tiles, bright azure water, low honey sandstone banks, warm dry animal path, transparent exterior. Water/dry variants generated as corresponding edits to keep geometry.",
+  "assets": [
+    {
+      "id": "stage_water_straight_v33",
+      "sourcePath": "packages/assets/source/stage_water_straight_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-d4861ac9-23f2-4777-bef5-728d7928c906.png",
+      "prompt": "Use case: stylized-concept. Asset type: ONE seamless tileable TOP-DOWN square mobile match-3 game WATER CHANNEL cell sprite. Attached screenshot supplies the actual game's polished chunky rounded 3D cartoon material, saturation and warm honey-stone environment. Create a single HORIZONTAL STRAIGHT WATERWAY, precisely orthographic overhead, never isometric or perspective. Natural square512x512 canvas. The channel runs LEFT to RIGHT, both mouths OPEN and FLUSH with canvas edges, so copies touch seamlessly. At BOTH left and right edges the opaque bright clear azure-blue water opening occupies y28% through y72%, centered at50%. Upper and lower low honey-colored rounded stone banks border the water; their geometry continues flush to left/right edges at the same vertical positions. Banks modestly dimensional, softly bevelled and chunky, rendered from straight above, no tall walls or side-facing architecture. Water has gentle short soft ripples and controlled blue highlights, no white glare, no waterfall, no flow arrow. It is an opaque blue water bed, not a hollow cutout. Bank texture warm light ochre stone with just a few rounded block divisions, not dense rubble. Everything outside the water and its two banks must be TRUE TRANSPARENT alpha; upper/lower outer canvas areas transparent. Water center stays fully opaque. No walls or rims capping the open LEFT/RIGHT ends, no complete square tile border, no enclosing frame, no characters, fish, buildings, leaves, plants, text, numbers, icons or UI. Clean silhouette, no detached pixels, no surrounding ground plane, no cast shadow far outside. This must read as a cute connected blue canal beneath empty puzzle cells when reduced to 40x40 pixels.",
+      "revisionPrompt": "EDIT the attached single transparent WATER CHANNEL cell sprite. Preserve the same bright blue water and chunky honey stone material, straight overhead view, LEFT and RIGHT mouths open flush at edges. Make the canal MUCH BROADER vertically: the blue water alone must occupy almost HALF of the square's height, from about 28% down to72%; its two honey stone banks must now sit near the TOP and BOTTOM of the image, roughly18-28% and72-82%. Greatly REDUCE the excessive empty transparent space above and below. Keep the center of the water at the canvas center, square canvas, left/right edges open, no endcaps. Maintain true transparent alpha above/below banks and clean outlined banks. No icons, text, symbols, perspective, new objects, ground plane or new colors. It should look like a wide walkable-size blue canal at40px cell size, not a narrow blue strip. Do not alter the horizontal span; both water and banks reach both left and right edges continuously.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    },
+    {
+      "id": "stage_dry_straight_v33",
+      "sourcePath": "packages/assets/source/stage_dry_straight_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-5b7ab9e4-7f6f-41fe-86c6-0a9828fee7c5.png",
+      "prompt": "Use case: precise-object-edit. EDIT this square top-down horizontal WATER CHANNEL game sprite into its DRY WALKING PATH counterpart. Preserve the canvas size and position, every honey-colored stone bank, their contours, LEFT and RIGHT open mouths, overhead geometry, transparency and outer silhouette EXACTLY. Change ONLY the blue water-filled central band into an opaque warm pale sandy stone-and-earth walking path, soft golden-beige fine ground, broad smooth stepping-surface with just a few gentle irregular stone seams. All blue water, blue glow and water reflections must disappear; dry center clearly walkable for a small garden animal. No footprints, characters, arrows, grass, obstacles, icons, text or border frame. Dry path should use the same polished chunky soft 3D cartoon mobile-game materials, no perspective. Both dry floor and banks extend to left/right canvas edges, no end caps. Keep true transparent alpha above and below the existing banks, no outside ground plane. Do NOT narrow or widen the channel or move its banks.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    },
+    {
+      "id": "stage_water_corner_v33",
+      "sourcePath": "packages/assets/source/stage_water_corner_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-f001fcfc-717e-4446-b22e-ce9387846eb2.png",
+      "prompt": "Use case: stylized-concept. Create ONE square seamless top-down CORNER WATER CHANNEL cell sprite for this same mobile match-3 game, using attached straight-channel sprite as exact material, color, scale and mouth-width reference. Strict orthographic OVERHEAD, no isometric perspective. Natural square512x512. It is an L-shaped broad blue waterway that enters from the LEFT edge and turns smoothly downwards to exit the BOTTOM edge; ONLY LEFT and BOTTOM edges are open. Water's LEFT mouth exactly centered vertically (y31%-68% like reference), BOTTOM mouth exactly centered horizontally (x31%-68%). At these open edges water and low honey-colored stone banks go FLUSH to the canvas boundary without endcaps. Water width stays broad and consistent through a smooth rounded 90-degree bend around the cell center. Honey-colored rounded low stone banks border both sides of the blue water, warm polished chunky sandstone matching attached reference; inner bank follows a gentle small rounded inside corner, outer bank follows a larger smooth outside curve. No banks cross or block the water course. The empty outside areas beyond the two banks must be TRUE TRANSPARENT alpha, including TOP/RIGHT corners; channel water center stays opaque azure blue with restrained soft ripples. The canal and banks occupy most of the cell; no distant padding or ground plane. Clean readable 3D cartoon game illustration, softly bevelled banks seen from above, no tall wall faces. No extra straight openings at TOP or RIGHT, no square frame, no puddle or enclosed pool, no arrows, characters, text, icons, vegetation, objects or detached pixels. When rotated90degrees it must connect perfectly to the straight reference's central open mouth.",
+      "revisionPrompt": "Precise geometry correction only for this square transparent L-shaped top-down canal sprite. Keep LEFT water opening and its top/bottom stone banks exactly unchanged. The BOTTOM water outlet is currently offset to the RIGHT. Shift the BOTTOM vertical leg LEFT until its opening is centered exactly at x50% of canvas, with water opening from x31% to68%, matching the left mouth width. Move both bottom-leg stone banks left together by about8% of canvas width, and smoothly reconnect the quarter-turn bend. The bottom-leg inside bank should finish aroundx22%-31%, the bottom-leg outside bank aroundx68%-77%. Do not scale, rotate, add openings or change left edge. Preserve the same honey stone, blue water ripples, bank thickness, overhead view and true transparent alpha outside banks. No text, icons, labels, grid or new objects. Final two open edges ONLY LEFT and BOTTOM, both centered, ready to connect to centered straight canal tiles.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    },
+    {
+      "id": "stage_dry_corner_v33",
+      "sourcePath": "packages/assets/source/stage_dry_corner_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-3ef8cf78-912f-41a1-bb01-d136ce39cf71.png",
+      "prompt": "Use case: precise-object-edit. Change ONLY the blue water in attached LEFT-to-BOTTOM corner channel cell into its DRY animal-walking PATH counterpart. Preserve precisely the square canvas, ALL honey stone banks and their contours, the rounded90degree bend, LEFT and BOTTOM centered open mouths, transparent exterior and every geometric proportion. Replace the entire blue water-filled area with opaque warm pale golden-beige dry sandstone/earth floor, fine smooth sandy texture with just a few soft irregular stone seams matching this same casual game's honey-colored terrain. No blue, cyan, liquid reflections or puddles remain. The dry walking floor must be one continuous broad L-shaped route, OPEN flush to the LEFT and BOTTOM canvas edges without endcaps. Keep the exact bank positions and shapes, no new objects, no footprints, animal, foliage, text, icons, square frame or perspective. True transparent alpha outside the existing banks and opaque dry center. Do not change channel width or rotate or crop the sprite.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    },
+    {
+      "id": "stage_water_cross_v33",
+      "sourcePath": "packages/assets/source/stage_water_cross_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-94f93864-1b43-489f-963e-696458626cfc.png",
+      "prompt": "Use case: stylized-concept. Asset type: ONE square seamless 4-WAY CROSS WATER JUNCTION sprite for a mobile puzzle game. Attached straight canal is the exact style, material, bank thickness, WATER WIDTH and color reference. Orthographic straight OVERHEAD, zero perspective, not isometric. Square512x512 natural canvas. Two broad perpendicular blue canals intersect at the EXACT CENTER, with FOUR OPEN mouths at TOP, RIGHT, BOTTOM and LEFT canvas edges. Each mouth is centered on its edge; blue water occupies central approx31%-68% of each edge, matching the reference straight waterway. Both horizontal and vertical legs have equal width. WATER and banks run FLUSH to all four edges, no closing rims or end caps. Honey-gold rounded sandstone banks occupy ONLY the four outside corner quadrants, curving smoothly around the four rounded inside corners of the cross. There must be NO stone obstacle or island in the central water junction and NO stone bars across any mouth. Bright clear opaque azure-blue water in one continuous plus-shaped intersection, subtle soft ripples, controlled highlights. Opaque honey stone banks, TRUE TRANSPARENT alpha beyond the corner banks. The plus-shaped water and outer corner banks should nearly fill the canvas and align precisely at edges so rotating and joining with the straight reference gives a continuous canal. Same polished chunky softly bevelled 3D casual game look, warm light sandstone, no tall wall faces or architecture. No square tile frame, enclosed pool, bridge, islands, text, icons, direction arrows, characters, plants or detached pixels. Clearly show four equal open channel mouths.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    },
+    {
+      "id": "stage_dry_cross_v33",
+      "sourcePath": "packages/assets/source/stage_dry_cross_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-49bc108f-b8aa-424d-a160-c6f921cb694c.png",
+      "prompt": "Use case: precise-object-edit. Transform ONLY the water-filled blue areas of the attached square four-way canal CROSS JUNCTION into a DRY animal-walking path. Preserve precisely its existing geometry, every honey-gold sandstone bank, FOUR centered open mouths flush at TOP/RIGHT/BOTTOM/LEFT canvas edges, rounded inside corners, all proportions and true transparent alpha outside banks. Replace all opaque blue water with an opaque warm pale golden-beige fine sandy sandstone walking surface, gentle soft ground texture and only a few subtle irregular stone seams. No blue, water ripples, cyan reflections, puddles or liquid anywhere. Keep an unobstructed continuous dry plus-shaped walking route through the center, wide enough for a garden animal. Do not move or resize banks or narrow path. Same polished chunky softly bevelled top-down casual game materials. No footprints, character, animal, vegetation, items, text, number, icon, square tile border, enclosed frame or perspective. Transparent outside corners, dry center opaque; preserve the exact canvas size and orientation.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    },
+    {
+      "id": "stage_mud_gate_v33",
+      "sourcePath": "packages/assets/source/stage_mud_gate_v33.png",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-553222d1-6fda-4730-9ed4-aba20d11362a.png",
+      "prompt": "Use case: stylized-concept. Asset type: ONE isolated low MUD GATE obstruction sprite for a mobile match-3 puzzle cell. The attached screenshot is the actual game and the attached canal sprites define warm softly bevelled 3D casual-game materials. Natural square512x512 canvas, true TRANSPARENT alpha background. Strict ORTHOGRAPHIC TOP-DOWN view, not isometric, no perspective. One compact LOW mound of 5-7 chunky rounded brown mud/earth clods across the LOWER HALF of the square cell, two small warm grey pebbles and one or two gentle short curled roots woven between clods. The mound must read immediately as removable loose dirt blocking a garden channel, not a stone wall, wooden gate, building, crate or flat brown tile. Broad soft bevels, warm cocoa-brown shadows, ochre highlights, tactile polished cartoon game quality that looks coherent next to bright square gem tiles. Keep mud pile low and visually simple enough to recognize at40px; avoid dense tiny detail. Mound centered horizontally, most visible mass in y45%-85%, transparent space above for game tile/icon layering. No complete tile frame, no floor platform or square backing, no text, number, symbols, arrows, flowers, large vegetation, animal, character, tools, water or duplicate piles. Clean complete silhouette with a tight subtle contact shadow only immediately under mud, no detached pixels, no enclosing border.",
+      "width": 1254,
+      "height": 1254,
+      "alpha": true
+    }
+  ],
+  "orientation": {
+    "straight": "LEFT to RIGHT; rotate90deg for vertical",
+    "corner": "LEFT to BOTTOM; rotate90deg for other corner mouths",
+    "cross": "TOP RIGHT BOTTOM LEFT",
+    "mud": "Low dirt obstruction in lower half of cell"
+  },
+  "verification": {
+    "allSquare1254": true,
+    "allRGBA": true,
+    "rawAlphaZeroOutside": true,
+    "allOpaqueCentralSurfaces": true,
+    "notes": "Sources are unmodified original image_gen PNGs copied into project. Channel endpoints reach specified open canvas edges. Water and dry counterparts preserve their bank silhouette. Generated edge widths vary modestly between straight/corner/cross, so implementation should visually check joins at runtime cell size. No source code, manifest, pipeline or native changes."
+  }
+}

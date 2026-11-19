@@ -1,0 +1,16 @@
+// Isolated local Worker only. Never create test users or edit levels in production.
+import assert from 'node:assert/strict';import {writeFile} from 'node:fs/promises';
+import {ENGINE_VERSION,SUPPORTED_ENGINE_VERSIONS,type Player,type Run,type Envelope,type Action} from '@garden/contracts';
+import {applyAction,stateHash} from '@garden/core';
+import {getLevel} from '@garden/content';
+import {progressionSelection} from '../packages/content/src/progressive';
+import proofs from '../packages/content/src/gravity-flow-proofs.json';
+const origin='http://127.0.0.1:8798';assert.equal(new URL(origin).hostname,'127.0.0.1');
+async function call<T>(path:string,body?:unknown,headers:Record<string,string>={},method=body?'POST':'GET'){const response=await fetch(origin+path,{method,headers:{'Content-Type':'application/json',Origin:origin,...headers},...(body?{body:JSON.stringify(body)}:{})}),value=await response.json() as Envelope<T>&{error?:{code:string;message:string}};if(!response.ok)throw Error(path+': '+value.error?.code+' '+value.error?.message);return {data:value.data,response};}
+const login=await call<{csrf:string}>('/api/admin/auth/login',{email:'qa@example.test',password:'Admin-QA-Only-2026!'}),admin={Cookie:login.response.headers.get('set-cookie')!.split(';')[0]!,'X-Admin-CSRF':login.data.csrf};
+const guest=await call<{accessToken:string;player:Player}>('/api/auth/guest',{}),auth={Authorization:'Bearer '+guest.data.accessToken};
+await call('/api/admin/users/'+guest.data.player.id+'/profile',{key:crypto.randomUUID(),reason:'격리된 로컬 계단 낙하 서버 재생 검증',nickname:'계단 낙하 QA',level:204},admin,'PUT');
+const start=await call<{run:Run;player:Player}>('/api/runs/start',{idempotencyKey:crypto.randomUUID(),engineVersion:ENGINE_VERSION,supportedEngineVersions:SUPPORTED_ENGINE_VERSIONS,randomStart:false,preBoosters:[]},auth);assert.equal(start.data.run.state.engineVersion,'1.10.0');
+const before=start.data.run.state,profile=progressionSelection(getLevel(204))!,action=(proofs as Record<string,{actions:Action[]}>)[profile.key]!.actions[0]!,chosen={action,result:applyAction(before,action)};assert(chosen.result.accepted);const key=crypto.randomUUID(),body={idempotencyKey:key,sequence:0,actions:[chosen.action as Action]},server=await call<{run:Run;player:Player}>('/api/runs/'+start.data.run.id+'/actions',body,auth),replayed=await call<{run:Run;player:Player}>('/api/runs/'+start.data.run.id+'/actions',body,auth);
+assert.equal(stateHash(server.data.run.state),stateHash(chosen.result.state));assert.equal(stateHash(replayed.data.run.state),stateHash(chosen.result.state));assert.equal(server.data.run.sequence,1);assert.equal(replayed.data.run.state.moves,before.moves-1);assert.deepEqual(replayed.data.player.inventory,start.data.player.inventory);
+const proof={engine:ENGINE_VERSION,level:204,serverClientHash:stateHash(server.data.run.state),replayedSequence:replayed.data.run.sequence,sideFalls:chosen.result.events.filter(e=>e.type==='fall'&&e.from!%before.width!==e.to!%before.width).length,moveSpentOnce:true};assert(proof.sideFalls>0,'The API check must exercise a real side fall');await writeFile('output/verification/gravity-v40/local-api-proof.json',JSON.stringify(proof,null,2));console.log(proof);

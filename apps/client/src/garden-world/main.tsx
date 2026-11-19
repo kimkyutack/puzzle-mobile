@@ -1,10 +1,10 @@
 import {StrictMode,useCallback,useEffect,useRef,useState,type CSSProperties,type ReactNode} from 'react';
 import {createRoot} from 'react-dom/client';
-import {DECORATIONS,GARDEN_WORLD,nextGardenRotation,GardenWorldError,applyGardenCommand,storedDecorations,validateGardenPlacement,type DecorationDefinition,type GardenPlacement,type GardenWorldState} from '../../../../packages/garden-world/src';
+import {DECORATIONS,GARDEN_WORLD,GardenWorldError,applyGardenCommand,storedDecorations,validateGardenPlacement,type DecorationDefinition,type GardenPlacement,type GardenWorldState} from '../../../../packages/garden-world/src';
 import {PREVIEW_KEY,PREVIEW_OWNER,readPreviewGarden} from './preview-state';
 import {UI_ART,WORLD_ART,loadWorldArt,type LoadedArt} from './assets';
 import {WorldMap,type MapHandle} from './WorldMap';
-import {findPreviewPlacement} from './placement-preview';
+import {findPreviewPlacement,rotatePreviewPlacement} from './placement-preview';
 import {purchasePreviewItem} from './preview-shop';
 import {gardenDirectionArt} from './direction-art';
 import './fonts.css';
@@ -12,7 +12,7 @@ import './world.css';
 function Button({children,onClick,tone='blue',disabled=false,label}:{children:ReactNode;onClick:()=>void;tone?:'blue'|'lime'|'amber';disabled?:boolean;label?:string}){
  return <button className="gw-button" disabled={disabled} aria-label={label} style={{borderImageSource:`url(${tone==='lime'?UI_ART.play:tone==='amber'?UI_ART.amber:UI_ART.secondary})`}} onClick={onClick}>{children}</button>;
 }
-const errorText:Record<string,string>={OCCUPIED:'다른 물건과 겹쳐요.',REGION_LOCKED:'아직 열리지 않은 땅이에요.',OUT_OF_BOUNDS:'정원 안에 놓아주세요.',WRONG_REGION:'이 건물은 온실 구역에 놓아주세요.',UNSUPPORTED_ROTATION:'이 물건은 방향을 바꿀 수 없어요.'};
+const errorText:Record<string,string>={OCCUPIED:'다른 물건과 겹쳐요.',REGION_LOCKED:'아직 열리지 않은 땅이에요.',OUT_OF_BOUNDS:'정원 안에 놓아주세요.',UNSUPPORTED_ROTATION:'이 물건은 방향을 바꿀 수 없어요.'};
 type Category='all'|DecorationDefinition['category'];
 const categories:readonly [Category,string][]=[['all','전체'],['decoration','장식'],['building','시설'],['animal','동물']];
 const featured=['animal-rabbit','animal-cat','animal-dog','garden-rose-arch','garden-gazebo','garden-pond','garden-picnic','garden-hedge','garden-mushroom'];
@@ -32,8 +32,8 @@ function App(){
  const movePreview=useCallback((point:{x:number;y:number})=>setPreview(old=>old?{...old,...point}:old),[]);
  const beginPlacement=(instanceId:string,current=worldRef.current)=>{
   if(visitor)return;const item=current.owned[instanceId];if(!item)return;
-  setDrawer(null);const definition=DECORATIONS.find(def=>def.id===item.itemId)!,region=definition.regions?.includes('workshop')?'workshop':'sky';
-  const at=region==='workshop'?{x:4,y:18}:{x:18,y:19},candidate=findPreviewPlacement(current,item.id,at);
+  setDrawer(null);
+  const candidate=findPreviewPlacement(current,item.id,{x:18,y:19});
   if(!candidate){setSelected(null);setNotice('놓을 공간이 부족해요. 다른 물건을 옮기거나 보관해 주세요.');return;}
   setSelected(item.id);setPreview(candidate);map.current?.focus({x:candidate.x+.5,y:candidate.y+.5});
  };
@@ -69,7 +69,7 @@ function App(){
    {drawer==='inventory'?<><p className="gw-sheet-note">보유한 장식과 동물 친구를 골라 놓아보세요</p>{inventoryCatalog.length?<div key={category} className="gw-inventory">{inventoryCatalog.map(item=>{const count=owned.filter(owned=>owned.itemId===item.id).length;return <button key={item.id} className="gw-product gw-plate" aria-label={`${item.name} · 보관 ${count}개`} disabled={!count} onClick={()=>chooseStored(item.id)}><img src={WORLD_ART[item.id]} alt=""/><strong>{item.name}</strong><span>{count?`${count}개 보관`:'모두 배치했어요'}</span></button>;})}</div>:<div className="gw-empty"><img src={WORLD_ART[category==='animal'?'animal-rabbit':'garden-rose-arch']} alt=""/><p>{category==='animal'?'정원에 함께할 동물 친구를 만나보세요.':'상점에서 새로운 꾸미기를 만나보세요.'}</p><Button tone="amber" onClick={()=>setDrawer('shop')}>체험 상점으로</Button></div>}</>:drawer==='shop'?<><p className="gw-sheet-note">무료 체험 구매 · 실제 코인이나 결제를 사용하지 않아요</p><div key={category} className="gw-shop-grid">{shopCatalog.map(item=>{const count=Object.values(world.owned).filter(owned=>owned.itemId===item.id).length;return <article key={item.id} className={'gw-shop-item is-'+item.category} style={{borderImageSource:`url(${item.category==='animal'?UI_ART.peach:item.category==='building'?UI_ART.lavender:UI_ART.ice})`}}><img src={WORLD_ART[item.id]} alt={item.name}/><h3>{item.name}</h3><p>{item.width}×{item.height}칸 · {count}개 보유</p><Button label={`${item.name} 체험 구매`} tone="amber" onClick={()=>purchase(item.id)}>체험 구매</Button></article>;})}</div></>:<div className="gw-regions">{GARDEN_WORLD.regions.map(region=>{const unlocked=world.unlockedRegions.includes(region.id);return <button key={region.id} className="gw-region gw-plate" onClick={()=>{map.current?.focus({x:region.x+region.width/2,y:region.y+region.height/2});setDrawer(null);}}><img src={WORLD_ART[region.id==='workshop'?'garden-greenhouse':region.id==='terrace'?'garden-fountain':region.id==='forest'?'garden-tree':'garden-planter']} alt=""/><span>{region.name}<small>{unlocked?'둘러보기':'이야기로 열리는 구역'}</small></span></button>;})}</div>}
   </section>}
   {selected&&definition&&<section className="gw-selection" aria-label="선택한 정원 물건"><div className="gw-selection-head"><img src={selectedArt!.art} style={{transform:selectedArt?.flipped?'scaleX(-1)':undefined}} alt=""/><div><h2>{definition.name}</h2><p>{preview?invalid||'여기에 놓을 수 있어요.':`${definition.width}×${definition.height}칸 · ${visitor?'정원을 구경하는 중':'이동하거나 보관할 수 있어요'}`}</p></div><button aria-label="선택 닫기" onClick={()=>{setPreview(null);setSelected(null);}}><img src={UI_ART.close} alt=""/></button></div>
-   {!visitor&&<div className="gw-actions">{preview?<><Button label="배치 취소" onClick={()=>{setPreview(null);setSelected(null);}}>취소</Button>{definition.rotations.length>1&&<Button label="건물 방향 바꾸기" onClick={()=>setPreview(old=>old?{...old,rotation:nextGardenRotation(old.rotation)}:null)}>방향 {preview.rotation}°</Button>}<Button tone="lime" disabled={!!invalid} onClick={place}>{definition.category==='animal'?'친구 놓기':'배치'}</Button></>:<><Button tone="amber" onClick={()=>{const placed=world.placements[selected];if(placed)setPreview({...placed});}}>이동</Button><Button onClick={store}>보관</Button></>}</div>}
+   {!visitor&&<div className="gw-actions">{preview?<><Button label="배치 취소" onClick={()=>{setPreview(null);setSelected(null);}}>취소</Button>{definition.rotations.length>1&&<Button label="건물 방향 바꾸기" onClick={()=>setPreview(old=>old?rotatePreviewPlacement(definition,old):null)}>방향 {preview.rotation}°</Button>}<Button tone="lime" disabled={!!invalid} onClick={place}>{definition.category==='animal'?'친구 놓기':'배치'}</Button></>:<><Button tone="amber" onClick={()=>{const placed=world.placements[selected];if(placed)setPreview({...placed});}}>이동</Button><Button onClick={store}>보관</Button></>}</div>}
   </section>}
   {notice&&<div className="gw-toast gw-plate" role="status">{notice}</div>}
   <div className="gw-accessible">{Object.values(world.placements).filter(p=>world.owned[p.instanceId]!.itemId!=='garden-path-stone').map(p=><button key={p.instanceId} onClick={()=>{select(p.instanceId);map.current?.focus({x:p.x+1,y:p.y+1});}}>{DECORATIONS.find(item=>item.id===world.owned[p.instanceId]!.itemId)!.name} 선택 · {p.x},{p.y}</button>)}</div>

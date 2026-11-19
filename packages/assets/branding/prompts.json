@@ -30,6 +30,25 @@
         "alphaQuality": 100,
         "effort": 6
       }
+    },
+    {
+      "locale": "ja",
+      "file": "title-ja.png",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1c841-64d9-7742-8a08-0128edb76703/exec-e2ebbbf9-d18a-45b1-b226-3633cc3be43b.png",
+      "reference": "title-ko.png",
+      "prompt": "Text localization edit of the supplied original Cloud Garden casual game title lockup, for the Japanese edition. Keep the exact recognizable smiling red panda Lumi at the left (eyes closed, straw gardening hat and cream sealed invitation), the green leaves with white flowers, white and sky-blue clouds and the curved golden ribbon beneath. Replace the Korean wordmark entirely with exactly three Japanese characters on a single line: 雲の庭 (雲, hiragana の, 庭). Thick friendly rounded sculpted cream-to-sky-blue lettering, polished metallic gold stroke and dark navy backing, faithful to the original brand. On the center of the gold ribbon put exactly ルミの招待状 (ル ミ の 招 待 状) in dark chestnut, clear and unbroken. Keep overall silhouette wide and compact at about 2.4:1, all artwork fully visible with a narrow clean exterior margin. Genuinely transparent outside the artwork, no background, no other text. Pay special attention to correct Japanese kanji and exactly these two lines.",
+      "runtime": {
+        "file": "title-ja.webp",
+        "width": 1200,
+        "encoder": "sharp WebP",
+        "quality": 94,
+        "alphaQuality": 100,
+        "effort": 6
+      },
+      "website": {
+        "file": "apps/admin/public/official/media/title-ja.webp",
+        "width": 720
+      }
     }
   ]
 }

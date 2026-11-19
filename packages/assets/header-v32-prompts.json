@@ -1,0 +1,92 @@
+{
+  "createdAt": "2026-11-06",
+  "method": "built-in image_gen",
+  "selectedHeader": "packages/assets/reference/play-hud-v32-selected.png",
+  "assets": [
+    {
+      "id": "play_hud_band_v32",
+      "sourcePath": "packages/assets/source/play_hud_band_v32.png",
+      "width": 2172,
+      "height": 724,
+      "alpha": true,
+      "alphaBoundsAt32": {
+        "x": 5,
+        "y": 47,
+        "width": 2162,
+        "height": 630
+      },
+      "alphaComponentsAt32": 1,
+      "prompt": "Use case: precise-object-edit. Asset type: blank nine-slice raster frame for a real mobile casual puzzle-game HUD. Input image is an approved full header visual design. Recreate ONLY its OUTERMOST royal-blue sculpted supporting header tray as a SINGLE separate blank raster UI asset. Exact same saturated royal-blue material and warm polished gold rounded rim along all FOUR sides, with the slim blue lower edge and gentle dimensional depth from the selected reference. Remove the pale goals inset, red moves counter, all text and numbers, tile icons, character medallion, leaves, stone background, and every other object. Inside the outer rim there must be one uninterrupted uniform blue center, softly shaded vertically only, suitable for stretching. Natural wide horizontal shape about 1536x384 pixels; modest rounded corner radius, preserve crisp refined thin gold top AND bottom edges, no capsule-like exaggerated ends. Keep the complete frame visible and nearly filling the canvas, with only minimal equal transparent padding outside it. TRUE TRANSPARENT background outside the frame; blue center is opaque. No lettering, badges, controls, decorations, symbols, icons, textures of a scene, drop shadow extending far away, checkerboard painted into image, multiple assets or comparison sheet. Nine-slice-friendly: horizontal edge segments must be visually uniform, corners consistent, center broadly empty. High-quality 3D illustrated game UI artwork matching the provided design, not flat vector.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-c559c654-ca32-4d45-b426-dfa0d8ea48c5.png",
+      "recommendedRuntime": {
+        "size": [
+          1024,
+          256
+        ],
+        "sliceInsets": {
+          "left": 70,
+          "right": 70,
+          "top": 40,
+          "bottom": 40
+        }
+      },
+      "finalRuntimeGeometry": {
+        "size": [
+          1024,
+          300
+        ],
+        "insets": [
+          72,
+          72,
+          44,
+          48
+        ],
+        "scale": 0.32
+      }
+    },
+    {
+      "id": "play_hud_goals_v32",
+      "sourcePath": "packages/assets/source/play_hud_goals_v32.png",
+      "width": 2048,
+      "height": 768,
+      "alpha": true,
+      "alphaBoundsAt32": {
+        "x": 31,
+        "y": 52,
+        "width": 1987,
+        "height": 663
+      },
+      "alphaComponentsAt32": 1,
+      "prompt": "Use case: precise-object-edit. Asset type: a SINGLE blank nine-slice raster GOALS PANEL for a mobile match-3 game. The attached approved header is the exact visual reference. Recreate ONLY the large pale ice-blue recessed GOALS inset panel on the left as a separate clean UI image. Preserve its exact refined rounded warm-gold rim, quiet very pale cool-blue center, subtle blue/lavender lower edge shadow, softly bevelled toy-like depth and crisp horizontal/vertical alignment. Remove every goal icon, all text, numbers, the mascot medallion and the red moves counter. Remove the outer blue header rail and stone background. Output just ONE rectangular blank goal tray with rounded corners, natural wide aspect about1024x384, clean uniform very pale blue center suitable for nine-slice stretching, moderate corners. Complete panel nearly fills canvas with a small equal transparent padding, no missing edges. TRUE TRANSPARENT alpha background around the panel; center remains fully opaque pale ice blue. The gold rim must remain rich and dimensional but thinner than a chunky button, as in approved source. No scene, leaves, objects, inner frames, UI controls, symbols, letters, watermark or painted checkerboard. Very clean anti-aliased edge silhouette: no stray colored flecks or detached alpha islands outside the panel, no rough ragged outlines. Top-down flat-on view, no perspective skew. This is a production UI frame asset, not a full header mockup.",
+      "cleanupPrompt": "Use case: background-extraction. EDIT the attached blank game goals panel. Preserve the pale ice-blue inner panel and its refined gold rounded rectangular border EXACTLY as drawn, including their proportions and rendering. Remove ALL the gold/yellow/brown backdrop OUTSIDE the OUTERMOST gold rounded frame. Everything outside the physical frame's silhouette must become completely transparent alpha, including the four corners and outer margin. Keep the entire pale-blue face and gold rim opaque. No color background anywhere outside the rim, no glow, no shadow fog, no flecks, no detached pixels. Clean anti-aliased silhouette only. Do not add text or icons or change the panel. This is a transparent UI cutout for a nine-slice renderer.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1ae5d-e74b-7993-a868-e4ee32e00de6/exec-9a82e4cd-c378-48cb-a412-9531fc7469e4.png",
+      "recommendedRuntime": {
+        "size": [
+          768,
+          272
+        ],
+        "sliceInsets": {
+          "left": 80,
+          "right": 80,
+          "top": 48,
+          "bottom": 52
+        }
+      },
+      "finalRuntimeGeometry": {
+        "size": [
+          768,
+          256
+        ],
+        "insets": [
+          80,
+          80,
+          56,
+          60
+        ],
+        "scale": 0.38
+      }
+    }
+  ],
+  "verification": "No raster modifications: final generated PNGs copied directly. Both have one foreground alpha component at threshold32. Outer gold RGB visible in image-generator preview is under alpha0; actual transparent corners verified. No application, manifest, pipeline or native files changed.",
+  "selection": "Global fourth displayed concept; six goals, pale blue tray, red moves counter at right"
+}

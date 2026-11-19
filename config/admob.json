@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "testMode": false,
+  "rewardAmount": 1,
+  "rewardItem": "Reward",
+  "ssvCallbackUrl": "https://puzzle-mobile.ddr1323.workers.dev/api/ads/ssv",
+  "android": {
+    "appId": "ca-app-pub-8278526737142254~8377793165",
+    "heart": "ca-app-pub-8278526737142254/9847446642",
+    "coinBonus": "ca-app-pub-8278526737142254/9847446642"
+  },
+  "ios": {
+    "appId": "ca-app-pub-8278526737142254~9512404728",
+    "heart": "ca-app-pub-8278526737142254/4199921188",
+    "coinBonus": "ca-app-pub-8278526737142254/4199921188"
+  }
+}

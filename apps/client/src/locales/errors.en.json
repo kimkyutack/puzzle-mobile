@@ -1,6 +1,7 @@
 {
   "UNAUTHORIZED": "Your session expired. Please sign in again.",
   "IDEMPOTENCY_CONFLICT": "This request was already used for a different action. Please try again.",
+  "GARDEN_PRICE_CHANGED": "The price changed. Please check the new price.",
   "AUTH_CHALLENGE_EXPIRED": "The sign-in request expired. Please try again.",
   "IDENTITY_REQUIRED": "Please finish signing in with your account provider.",
   "IDENTITY_MISMATCH": "The signed-in account does not match.",
@@ -36,6 +37,7 @@
   "GUILD_LEVEL": "You have not reached this guild's minimum level.",
   "NO_APPLICATION": "This join request could not be found.",
   "CHAT_RATE_LIMIT": "Please wait a moment before sending another message.",
+  "CHAT_HARMFUL_MESSAGE": "This message contains language that isn't allowed in chat. Edit it and try again.",
   "REQUEST_COOLDOWN": "You can request help every 4 hours.",
   "MAILBOX_FULL": "This player's heart mailbox is full.",
   "REQUEST_UNAVAILABLE": "This request is not available for help.",
@@ -64,6 +66,7 @@
   "NO_SEASON": "This purchase does not belong to a season.",
   "PRODUCT_ALREADY_OWNED": "You already own this season's pass.",
   "PURCHASE_PENDING": "Your purchase is awaiting store approval and will keep being checked.",
+  "PURCHASE_UNAVAILABLE": "Store purchases are unavailable. Please try again later.",
   "PURCHASE_INTENT_REQUIRED": "This purchase request does not belong to this account.",
   "PURCHASE_TIME_MISMATCH": "This transaction occurred before the purchase request.",
   "PURCHASE_ACCOUNT_MISMATCH": "This purchase belongs to another account.",
@@ -93,5 +96,9 @@
   "PAYLOAD_TOO_LARGE": "This request is too large.",
   "INVALID_JSON": "This request is invalid. Please try again.",
   "RESCUE_DAY_CHANGED": "A new day has started. Open today’s rescue challenge.",
-  "LAND_UNAVAILABLE": "This land is unavailable. Choose another plot."
+  "LAND_UNAVAILABLE": "This land is unavailable. Choose another plot.",
+  "CONTENT_CHANGED": "This puzzle has changed. Check the new goals before starting again.",
+  "CONTENT_INVALID": "Could not verify this puzzle. Please reload it.",
+  "START_BOOSTER_EVENT_ENDED": "The unlimited starting item event has ended. Please select your items again.",
+  "START_BOOSTER_TRIAL_USED": "The free trial is unavailable. Please select your starting items again."
 }

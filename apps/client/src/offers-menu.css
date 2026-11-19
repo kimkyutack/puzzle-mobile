@@ -1,3 +1,104 @@
-.offers-menu-v7{color:#143a31}.deal-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:15px}.deal-tabs>button{position:relative;min-width:0;min-height:49px;padding:6px 5px 10px;display:flex;align-items:center;justify-content:center;gap:3px;color:#143a31;font-size:12px;line-height:17px;white-space:nowrap}.deal-tabs>button[aria-selected="true"]{color:#110b07}.deal-tabs .icon{width:24px;height:26px}.deal-products{display:flex;flex-direction:column;gap:14px}.deal-banner{position:relative;min-width:0;padding:9px 13px 17px;color:#143a31}.deal-banner-top{display:grid;grid-template-columns:44% minmax(0,1fr);align-items:center;gap:9px;min-height:130px}.deal-art{position:relative;min-width:0;height:131px;display:flex;align-items:center;justify-content:center}.deal-art>.icon{width:100%;height:131px;object-fit:contain}.deal-heading{min-width:0}.deal-heading h3,.modal-content .deal-heading h3{font-size:22px;line-height:28px;margin:0 0 7px!important;color:#143a31!important}.deal-deadline,.modal-content .deal-deadline{font-size:12px;line-height:18px;margin:0;color:#3b2c16}.deal-theme-label{display:block;font-size:12px;line-height:18px;margin-top:6px;color:#213e34}.deal-banner .commerce-loot{position:relative;justify-content:center;gap:6px 11px;margin:3px 0 9px;padding:5px 0}.deal-banner .commerce-loot>.resource-amount{font-size:19px}.deal-banner .commerce-loot .icon{width:30px;height:31px}.deal-banner .commerce-loot strong{font-size:17px;line-height:22px}.deal-footer{display:flex;justify-content:center;align-items:center;min-height:48px;margin-top:4px}.deal-footer .deal-buy{width:100%;min-height:45px;margin:0;font-size:20px;padding:5px 12px 12px}.deal-footer .deal-buy>.button-label{transform:translateY(3px)}.deal-price{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:154px;max-width:100%;min-height:48px;padding:7px 14px 11px;color:#143a31;line-height:20px}.deal-price>strong{font-family:var(--font-game-number);font-size:22px;line-height:24px}.deal-price>small,.modal-content .deal-price>small{font-size:10px;line-height:14px;color:#143a31}.deal-state,.modal-content .deal-state{display:flex;align-items:center;justify-content:center;gap:5px;min-height:40px;font-size:13px;line-height:20px;margin:0;text-align:center;color:#143a31}.deal-state>.icon{width:23px;height:25px}.deal-step{position:absolute;left:5px;bottom:1px;min-width:56px;min-height:26px;padding:5px 8px 7px;text-align:center;font-size:12px;line-height:16px;color:#143a31}.deal-chain-note,.deal-message,.modal-content .deal-chain-note,.modal-content .deal-message{color:#edf3e5!important;font-size:12px;line-height:19px;text-align:center;margin:9px 0 13px}.deal-chain-note small,.modal-content .deal-chain-note small{color:#d5e6d7;font-size:11px;line-height:17px}
-@media(max-width:370px){.deal-tabs{gap:4px}.deal-tabs>button{gap:2px;font-size:11px;padding-left:3px;padding-right:3px}.deal-tabs .icon{width:21px;height:23px}.deal-banner{padding-left:10px;padding-right:10px}.deal-banner-top{gap:6px;grid-template-columns:43% minmax(0,1fr)}.deal-heading h3,.modal-content .deal-heading h3{font-size:20px;line-height:26px}.deal-banner .commerce-loot{gap:5px 8px}.deal-banner .commerce-loot .icon{width:27px;height:29px}.deal-banner .commerce-loot strong{font-size:16px}}
-.deal-tabs>button{flex-direction:column;min-height:60px;padding:6px 8px 11px;gap:2px;font-size:12px;line-height:15px}.deal-tabs .icon{width:22px;height:22px;flex:none}.deal-heading h3,.modal-content .deal-heading h3{word-break:keep-all;overflow-wrap:normal}
+.modal-layer.limited-offers-modal > .modal {
+ width: min(100%, 500px);
+ min-height: 0;
+ padding-bottom: 18px;
+}
+.modal-layer.limited-offers-modal .modal-content {
+ flex: 0 1 auto;
+ min-height: 0;
+ padding-bottom: 4px;
+}
+.modal-layer.limited-offers-modal .modal-content .deal-message {
+ margin-bottom: 5px;
+}
+
+.deal-products{display:flex;flex-direction:column;gap:14px}
+.deal-heading{min-width:0}
+.deal-footer{display:flex;justify-content:center;align-items:center}
+.deal-price{
+ position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ min-height:44px;padding:4px 12px 8px;text-align:center;line-height:20px;
+}
+.deal-price>strong{font-family:var(--font-game-number);font-size:20px;line-height:23px}
+.deal-price>small,.modal-content .deal-price>small{font-size:10px;line-height:13px}
+.deal-state{display:flex;align-items:center;justify-content:center;text-align:center}
+.deal-state>.icon{width:23px;height:25px}
+.deal-message,.modal-content .deal-message{font-size:12px;line-height:19px;text-align:center;margin:9px 0 13px}
+
+.modal-layer.chain-offers-modal{padding-inline:9px}
+.modal-layer.chain-offers-modal>.modal[data-frame]{
+ width:min(100%,440px);min-height:0;padding-left:12px;padding-right:12px;padding-bottom:22px
+}
+.modal-layer.chain-offers-modal .modal-heading h2{font-size:clamp(25px,7.6vw,36px)}
+.chain-offers-modal .modal-content{flex:0 1 auto;min-height:0;padding-bottom:4px}
+.chain-carousel{position:relative;text-align:center;--surface-ink:#fff8df;--surface-muted:#e4efff}
+.chain-scene{
+ position:relative;isolation:isolate;overflow:hidden;aspect-ratio:1 / 1.1;
+ max-height:clamp(185px,calc(100dvh - var(--safe-top) - var(--safe-bottom) - 280px),425px);
+}
+.chain-greenhouse.icon{
+ position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;
+ opacity:.58;mask-image:linear-gradient(#000 12%,#000 38%,transparent 84%);
+}
+.chain-carousel .chain-deadline{
+ position:absolute;z-index:1;top:6px;left:0;right:0;margin:0;font-size:12px;
+ color:#fff9e6;text-shadow:0 1px 2px #09275f,0 0 6px #09275f;
+}
+.chain-orbit{position:absolute;inset:0;pointer-events:none}
+.chain-rail-art{
+ position:absolute;left:0;top:42%;width:100%;height:auto;pointer-events:none;user-select:none;
+}
+.chain-slot{
+ position:absolute;width:51%;aspect-ratio:1.85;
+ transform-origin:50% 50%;pointer-events:none;user-select:none;
+}
+.chain-slot-stand{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.chain-slot-reward.icon,.chain-slot-lock{
+ position:absolute;left:50%;transform:translateX(-50%);object-fit:contain;pointer-events:none;
+}
+.chain-slot-reward.icon{width:120%;height:auto;bottom:60%}
+.chain-slot-lock{width:58%;height:auto;bottom:53%}
+.chain-slot-lock.has-reward{width:40%;bottom:-16%}
+.chain-slot[data-front="true"][data-open="true"] .chain-slot-lock{
+ animation:chain-unseal 340ms cubic-bezier(.2,.85,.45,1);
+}
+@keyframes chain-unseal{
+ 0%{transform:translateX(-50%) translateY(4px) rotate(-10deg) scale(.88)}
+ 60%{transform:translateX(-50%) translateY(-4px) rotate(7deg) scale(1.08)}
+ 100%{transform:translateX(-50%)}
+}
+
+.chain-checkout{display:grid;justify-items:center;gap:13px;padding:2px 7px 5px}
+.chain-checkout h3,.modal-content .chain-carousel .chain-checkout h3{
+ margin:0;color:#fff8df;font-size:clamp(24px,7vw,33px);line-height:1.18;text-shadow:0 2px 2px #0e397e;
+ overflow-wrap:anywhere;
+}
+.chain-carousel .commerce-loot{
+ justify-content:center;align-items:center;gap:4px 9px;width:min(100%,360px);box-sizing:border-box;
+ margin:0;padding:6px 9px;border-radius:22px;background:#10478baa;color:#fff9e6;
+}
+.chain-carousel .commerce-loot>span{display:inline-flex;align-items:center;gap:2px;min-height:27px}
+.chain-carousel .commerce-loot .icon{width:24px;height:24px}
+.chain-carousel .commerce-loot strong,.chain-carousel .commerce-loot .resource-amount{
+ color:#fff9e6;font-size:16px;line-height:22px;
+}
+.chain-carousel .commerce-loot strong>small{font-size:10px;margin-left:1px}
+.chain-action{width:min(100%,310px);min-height:51px}
+.chain-carousel .chain-action>:is(.deal-buy,.chain-claim,.deal-price){
+ box-sizing:border-box;width:100%;min-height:60px;aspect-ratio:3.87;margin:0;
+ padding:6px 10px 10px;border:0;border-radius:23px;box-shadow:none;
+ background:transparent url('../../../packages/assets/offer-chain/checkout.webp') center / 100% 100% no-repeat;
+ font-size:23px;color:#fff9e6;-webkit-text-stroke:1px #244d10;paint-order:stroke fill;
+ text-shadow:0 2px 1px #244d10;
+}
+.chain-action .game-button.pressed{filter:brightness(.92)}
+.chain-action .deal-price{gap:1px;padding-top:6px}
+.chain-action .deal-price>strong{font-size:25px;line-height:26px}
+.chain-action .deal-state{min-height:44px;margin:0;font-size:13px}
+.chain-carousel[data-reduced-motion="true"] .chain-slot-lock{animation:none}
+@media(prefers-reduced-motion:reduce){.chain-carousel .chain-slot-lock{animation:none}}
+@media(max-height:690px){
+ .chain-scene{aspect-ratio:1/.91}
+ .chain-checkout{gap:7px}
+ .chain-slot-reward.icon{width:95%}
+}

@@ -14,9 +14,11 @@ sequenceDiagram
   participant W as Worker
   participant D as D1
   C->>C: Prepare required assets
+  C->>W: Negotiate compatible rules and request next-level JSON
+  W-->>C: Definition, schema version and SHA-256 (no spending)
   C->>W: Start (idempotency key, selected boosters)
-  W->>W: Load certified level and validate placement
-  W->>D: Atomic heart + inventory + run transaction
+  W->>W: Check preview hash, certified level and placement
+  W->>D: Atomic inventory + run transaction
   W-->>C: Pinned run, initial state, sequence, server time
   C->>C: Deterministic action + pending log + animation
   C->>W: Ordered actions, starting sequence, stable key
@@ -46,7 +48,11 @@ Guild score is the sum of the current active members' personal highest clears. L
 
 ## Content and assets
 
-Levels 1–200 are fixed approved JSON with exact no-purchase victory logs. Levels beyond 200 select a certified fallback from the last 60 entries; only the visible level number changes. A start request performs no bot search. Candidate evaluation is offline and never changes a live run's version/seed. Rules and content are pinned at run creation.
+Worker deployment IDs, simulation rule versions and content publication versions are independent. A compatible server update retains the client's known rules and saved runs. The health response advertises supported rules while preserving the existing `engineVersion` field for installed clients. Gameplay calculations and animations continue locally; the server replays actions to confirm resources and rewards.
+
+The start screen requests an authenticated next-level JSON definition and its SHA-256. It validates the known schema and rules rather than blocking at the app's bundled catalog size. Start submits the displayed definition's hash; changed content is rejected before spending and must be previewed again. The legacy bundled-map fallback is used only when an older server lacks the preview endpoint. New executable rules, unsupported mechanics and bundled visuals still require a client update.
+
+The 1.3.0 catalog contains 300 authored stages and certified parameter variants through level 10,000. Older rule versions retain their existing 200-stage content and sixty-stage compatibility fallback. A start request performs no bot search. Candidate evaluation is offline and never changes a live run's version/seed. Rules and full definitions are pinned at run creation, including the fixed rules for the daily rescue board.
 
 Generated raster sources are retained separately from runtime files. The manifest records source, dimensions, alpha, pivot, slice metadata and hash; the packer makes the runtime atlas. R2 is intended for versioned runtime artifacts served through a custom domain. Production credentials and private source images must not be placed into a public bucket. Initial assets are bundled so a failure can be detected before charging a heart.
 

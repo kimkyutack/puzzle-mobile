@@ -1,6 +1,8 @@
 import type { Booster, ChatMessage, Guild, GuildMember, SupportRequest } from '@garden/contracts';
 import { z } from 'zod';
 import { assertSQL, day, digest, ensure, mutate, one, operationKey, readPlayer, rows, spendItem, sql, uid, type ApiEnv, type MutationContext } from './db';
+import {publicPlayerAgeSQL} from './age-access';
+import {isHarmfulGuildChat} from './guild-chat-moderation';
 import { boosterSchema } from './validation';
 
 type MemberRow={guild_id:string;role:GuildMember['role'];user_id:string;contribution:number;joined_at:number};
@@ -12,17 +14,20 @@ function officer(m:MemberRow){ensure(m.role==='leader'||m.role==='officer','GUIL
 export async function searchGuilds(env:ApiEnv,q:string,userId?:string){
   // D1 limits LIKE patterns to 50 bytes; a valid 24-character Hangul name exceeds that.
   // instr keeps substring search literal, including % and _, with the existing ASCII case folding.
-  const list=await rows<GuildRow>(env.DB,'SELECT g.*,count(m.user_id) members FROM guilds g LEFT JOIN guild_members m ON g.id=m.guild_id WHERE instr(lower(g.name),lower(?))>0 GROUP BY g.id ORDER BY members DESC,g.created_at LIMIT 50',q.slice(0,32));
+  const list=await rows<GuildRow>(env.DB,'SELECT g.*,count(m.user_id) members FROM guilds g LEFT JOIN guild_members m ON g.id=m.guild_id WHERE instr(lower(g.name),lower(?))>0 GROUP BY g.id HAVING count(m.user_id)>0 ORDER BY members DESC,g.created_at LIMIT 50',q.slice(0,32));
   const applications=userId?await rows<{guild_id:string}>(env.DB,'SELECT guild_id FROM guild_applications WHERE user_id=?',userId):[];
   return {guilds:list.map(mapGuild),pendingIds:applications.map(item=>item.guild_id)};
 }
 export async function guildView(env:ApiEnv,userId:string){
   const m=await membership(env.DB,userId);if(!m)return {guild:null,members:[],requests:[],messages:[],applications:[]};
   const g=await one<GuildRow>(env.DB,'SELECT g.*,count(m.user_id) members FROM guilds g LEFT JOIN guild_members m ON g.id=m.guild_id WHERE g.id=? GROUP BY g.id',m.guild_id);ensure(g,'GUILD_NOT_FOUND','길드를 찾을 수 없어요.',404);
-  const members=await rows<{user_id:string;role:GuildMember['role'];contribution:number;data:string}>(env.DB,'SELECT m.*,p.data FROM guild_members m JOIN players p ON p.id=m.user_id WHERE m.guild_id=? ORDER BY m.joined_at',m.guild_id);
-  const requests=await rows<{id:string;user_id:string;data:string;kind:SupportRequest['kind'];received:number;maximum:number;expires_at:number}>(env.DB,'SELECT r.*,p.data FROM support_requests r JOIN players p ON p.id=r.user_id WHERE r.guild_id=? AND r.closed=0 AND r.expires_at>? AND r.received<r.maximum ORDER BY r.created_at DESC',m.guild_id,Date.now());
-  const messages=await rows<{id:string;user_id:string;nickname:string;text:string;created_at:number}>(env.DB,'SELECT * FROM chat_messages WHERE guild_id=? AND user_id NOT IN(SELECT blocked_id FROM blocks WHERE user_id=?) ORDER BY created_at DESC LIMIT 50',m.guild_id,userId);
-  const applications=m.role==='member'?[]:await rows<{user_id:string;data:string}>(env.DB,'SELECT a.user_id,p.data FROM guild_applications a JOIN players p ON p.id=a.user_id WHERE a.guild_id=? ORDER BY a.created_at',m.guild_id);
+  const members=await rows<{user_id:string;role:GuildMember['role'];contribution:number;data:string}>(env.DB,`SELECT m.*,p.data FROM guild_members m JOIN players p ON p.id=m.user_id WHERE m.guild_id=? AND ${publicPlayerAgeSQL(env)} ORDER BY m.joined_at`,m.guild_id);
+  const requests=await rows<{id:string;user_id:string;data:string;kind:SupportRequest['kind'];received:number;maximum:number;expires_at:number}>(env.DB,`SELECT r.*,p.data FROM support_requests r JOIN players p ON p.id=r.user_id WHERE r.guild_id=? AND r.closed=0 AND r.expires_at>? AND r.received<r.maximum AND ${publicPlayerAgeSQL(env)} ORDER BY r.created_at DESC`,m.guild_id,Date.now());
+  const messages=await rows<{id:string;user_id:string;nickname:string;text:string;created_at:number}>(env.DB,`SELECT c.* FROM chat_messages c JOIN players p ON p.id=c.user_id
+    WHERE c.guild_id=? AND NOT EXISTS(SELECT 1 FROM deleted_chat_messages d WHERE d.message_id=c.id)
+      AND c.user_id NOT IN(SELECT blocked_id FROM blocks WHERE user_id=?) AND ${publicPlayerAgeSQL(env)}
+    ORDER BY c.created_at DESC LIMIT 50`,m.guild_id,userId);
+  const applications=m.role==='member'?[]:await rows<{user_id:string;data:string}>(env.DB,`SELECT a.user_id,p.data FROM guild_applications a JOIN players p ON p.id=a.user_id WHERE a.guild_id=? AND ${publicPlayerAgeSQL(env)} ORDER BY a.created_at`,m.guild_id);
   const donations=await rows<{request_id:string}>(env.DB,'SELECT d.request_id FROM donations d JOIN support_requests r ON r.id=d.request_id WHERE d.sender_id=? AND r.guild_id=? AND r.expires_at>?',userId,m.guild_id,Date.now());
   const now=Date.now();
   const cooldowns=await one<{heart:number|null;item:number|null}>(env.DB,"SELECT max(CASE WHEN kind='heart' THEN created_at END) heart,max(CASE WHEN kind<>'heart' THEN created_at END) item FROM support_requests WHERE user_id=?",userId);
@@ -77,6 +82,7 @@ export async function editGuild(env:ApiEnv,userId:string,body:Record<string,unkn
 }
 export async function chat(env:ApiEnv,userId:string,body:Record<string,unknown>){
   const text=z.string().trim().min(1).max(240).parse(body.text);
+  ensure(!isHarmfulGuildChat(text),'CHAT_HARMFUL_MESSAGE','채팅에 사용할 수 없는 표현이 있어요. 내용을 바꿔서 다시 보내 주세요.',400);
   return mutate(env,userId,operationKey(body),`guild:chat:${text}`,async tx=>{
     const m=await needGuild(tx);const previous=await one<{created_at:number}>(tx.db,'SELECT created_at FROM chat_messages WHERE user_id=? ORDER BY created_at DESC LIMIT 1',userId);ensure(!previous||tx.now-previous.created_at>=2000,'CHAT_RATE_LIMIT','잠시 후 메시지를 보내 주세요.',429);
     const message:ChatMessage={id:uid(),userId,nickname:tx.player.nickname,text,createdAt:tx.now};
@@ -110,7 +116,17 @@ export async function help(env:ApiEnv,userId:string,requestId:string,body:Record
   });
 }
 export async function block(env:ApiEnv,userId:string,body:Record<string,unknown>){const target=z.string().uuid().parse(body.userId);ensure(target!==userId,'INVALID_TARGET','자신은 차단할 수 없어요.');return mutate(env,userId,operationKey(body),`guild:block:${target}`,tx=>{tx.statements.push(sql(tx.db,'INSERT INTO blocks VALUES(?,?) ON CONFLICT DO NOTHING',userId,target));return {blocked:true};});}
-export async function report(env:ApiEnv,userId:string,body:Record<string,unknown>){const messageId=z.string().uuid().parse(body.messageId);const reason=z.string().min(2).max(300).parse(body.reason);return mutate(env,userId,operationKey(body),`guild:report:${messageId}`,async tx=>{const m=await needGuild(tx);ensure(await one(tx.db,'SELECT 1 FROM chat_messages WHERE id=? AND guild_id=?',messageId,m.guild_id),'MESSAGE_NOT_FOUND','메시지를 찾을 수 없어요.');tx.statements.push(sql(tx.db,'INSERT INTO reports VALUES(?,?,?,?,?)',uid(),userId,messageId,reason,tx.now));return {reported:true};});}
+export async function report(env:ApiEnv,userId:string,body:Record<string,unknown>){
+  const messageId=z.string().uuid().parse(body.messageId),reason=z.string().min(2).max(300).parse(body.reason);
+  return mutate(env,userId,operationKey(body),`guild:report:${messageId}`,async tx=>{
+    const m=await needGuild(tx);
+    const visible='SELECT 1 FROM chat_messages m WHERE m.id=? AND m.guild_id=? AND NOT EXISTS(SELECT 1 FROM deleted_chat_messages d WHERE d.message_id=m.id)';
+    ensure(await one(tx.db,visible,messageId,m.guild_id),'MESSAGE_NOT_FOUND','메시지를 찾을 수 없어요.',404);
+    tx.statements.push(assertSQL(tx.db,`EXISTS(${visible})`,messageId,m.guild_id),
+      sql(tx.db,'INSERT INTO reports VALUES(?,?,?,?,?)',uid(),userId,messageId,reason,tx.now));
+    return {reported:true};
+  });
+}
 export async function socketTicket(env:ApiEnv,userId:string){const m=await membership(env.DB,userId);ensure(m,'NOT_IN_GUILD','길드에 가입해 주세요.');const ticket=uid()+uid();await sql(env.DB,'INSERT INTO socket_tickets VALUES(?,?,?,?,0)',await digest(ticket),userId,m.guild_id,Date.now()+30_000).run();return {ticket};}
 export async function changeRole(env:ApiEnv,userId:string,body:Record<string,unknown>){
   const target=z.string().uuid().parse(body.userId);const role=z.enum(['leader','officer','member']).parse(body.role);ensure(target!==userId,'INVALID_TARGET','다른 멤버를 선택해 주세요.');

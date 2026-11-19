@@ -1,7 +1,7 @@
 import {describe,it,expect,beforeAll} from 'vitest';
 import {generateKeyPairSync,sign as nodeSign} from 'node:crypto';
 import {createLocalJWKSet,exportJWK,generateKeyPair,SignJWT} from 'jose';
-import {verifyIdentityWithKeys,verifyAdMobSignature,signedAdMobQuery,verifyGooglePurchaseResponse,sha256,verifyPurchase} from '../apps/api/src/providers';
+import {assertPurchaseProviderReady,verifyIdentityWithKeys,verifyAdMobSignature,signedAdMobQuery,verifyGooglePurchaseResponse,sha256,verifyPurchase} from '../apps/api/src/providers';
 const config={GOOGLE_CLIENT_IDS:'google-client',APPLE_CLIENT_IDS:'apple-client',ADMOB_AD_UNITS:'test-unit',ADMOB_REWARD_ITEMS:'reward'};
 const nonce='challenge-nonce-at-least-sixteen-bytes';
 const ec=generateKeyPairSync('ec',{namedCurve:'prime256v1'});
@@ -29,6 +29,15 @@ describe('AdMob real ECDSA verification of original query bytes',()=>{
     const alien=generateKeyPairSync('ec',{namedCurve:'prime256v1'}).publicKey.export({format:'pem',type:'spki'}).toString();
     expect(()=>verifyAdMobSignature(ssv(body()),alien,config)).toThrow();
     expect(()=>signedAdMobQuery('https://example.test/?a=b')).toThrow();
+  });
+  it('binds signed numeric unit IDs to the configured full SDK ID and accepts the real reward label',()=>{
+    const unit='ca-app-pub-8278526737142254/4199921188',live={...config,ADMOB_AD_UNITS:unit,ADMOB_REWARD_ITEMS:'reward,Reward'};
+    const query=body().replace('test-unit','4199921188').replace('reward_item=reward','reward_item=Reward');
+    expect(verifyAdMobSignature(ssv(query),pem,live).adUnit).toBe(unit);
+    expect(verifyAdMobSignature(ssv(query.replace('4199921188',unit)),pem,live).adUnit).toBe(unit);
+    expect(()=>verifyAdMobSignature(ssv(query.replace('4199921188','ca-app-pub-1111111111111111/4199921188')),pem,live)).toThrow();
+    expect(()=>verifyAdMobSignature(ssv(query),pem,{...live,ADMOB_AD_UNITS:unit+',ca-app-pub-1111111111111111/4199921188'})).toThrow();
+    expect(()=>verifyAdMobSignature(ssv(query),pem,config)).toThrow();
   });
 });
 describe('OIDC identity checks with cryptographically signed fixtures',()=>{
@@ -76,4 +85,20 @@ describe('purchase authority',()=>{
     await expect(verifyGooglePurchaseResponse(input,data)).rejects.toThrow();
   });
   it('fails closed without credentials instead of trusting a client token',async()=>{await expect(verifyPurchase(input,{})).rejects.toThrow('GOOGLE_PACKAGE_NAME');});
+});
+describe('purchase preparation provider readiness',()=>{
+  it('requires the iOS purchase key and numeric app ID for Production',async()=>{
+    const apple={APPLE_BUNDLE_ID:'com.cloudgarden.match',APPLE_IAP_ENVIRONMENT:'Sandbox',APPLE_IAP_ISSUER_ID:'test-issuer',APPLE_IAP_KEY_ID:'test-key',APPLE_IAP_PRIVATE_KEY:ec.privateKey.export({format:'pem',type:'pkcs8'}).toString()};
+    await expect(assertPurchaseProviderReady('ios',apple)).resolves.toBeUndefined();
+    await expect(assertPurchaseProviderReady('ios',{...apple,APPLE_IAP_ENVIRONMENT:'Production'})).rejects.toMatchObject({code:'PURCHASE_UNAVAILABLE',status:503});
+    await expect(assertPurchaseProviderReady('ios',{...apple,APPLE_IAP_PRIVATE_KEY:'invalid'})).rejects.toMatchObject({code:'PURCHASE_UNAVAILABLE',status:503});
+  });
+  it('checks the selected platform independently and rejects an invalid Google service account',async()=>{
+    const {privateKey}=generateKeyPairSync('rsa',{modulusLength:2048});
+    const google={GOOGLE_PACKAGE_NAME:'com.cloudgarden.match',GOOGLE_IAP_ENVIRONMENT:'Production',GOOGLE_SERVICE_ACCOUNT_JSON:JSON.stringify({client_email:'test@example.test',private_key:privateKey.export({format:'pem',type:'pkcs8'}).toString()})};
+    await expect(assertPurchaseProviderReady('android',google)).resolves.toBeUndefined();
+    await expect(assertPurchaseProviderReady('android',{...google,GOOGLE_SERVICE_ACCOUNT_JSON:'null'})).rejects.toMatchObject({code:'PURCHASE_UNAVAILABLE',status:503});
+    await expect(assertPurchaseProviderReady('ios',google)).rejects.toMatchObject({code:'PURCHASE_UNAVAILABLE',status:503});
+    await expect(assertPurchaseProviderReady('web',google)).rejects.toMatchObject({code:'PURCHASE_UNAVAILABLE',status:403});
+  });
 });

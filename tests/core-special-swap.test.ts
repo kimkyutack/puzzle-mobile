@@ -20,8 +20,8 @@ describe('ordinary match formed by a special swap',()=>{
   expect(result.state.goals[0]!.remaining).toBeLessThanOrEqual(96);
  });
  for(const [matched,destination,created]of [
-  [[22,23,24,25],17,'wind-row'],
-  [[10,17,24,31],25,'wind-column'],
+  [[22,23,24,25],17,'wind-column'],
+  [[10,17,24,31],25,'wind-row'],
   [[22,23,24,25,26],17,'rainbow'],
   [[10,17,24,25,26],31,'bomb']
  ] as const)it(`also creates ${created} from the exchanged normal tiles`,()=>{

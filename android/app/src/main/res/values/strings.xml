@@ -5,5 +5,5 @@
     <string name="package_name">com.cloudgarden.match</string>
     <string name="custom_url_scheme">com.cloudgarden.match</string>
     <!-- Google official sample app ID. Replace before release. -->
-    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_app_id">ca-app-pub-8278526737142254~8377793165</string>
 </resources>

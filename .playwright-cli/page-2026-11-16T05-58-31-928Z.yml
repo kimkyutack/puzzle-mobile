@@ -1,0 +1,9 @@
+- main [ref=e3]:
+  - generic:
+    - img "동물 친구들과 푸른 정원에 정자를 짓는 루미"
+  - heading [level=1] [ref=e4]:
+    - 'img "구름정원: 루미의 초대장" [ref=e5]'
+  - generic [ref=e6]:
+    - status [ref=e7]: 함께 정원을 만드는 중이에요
+    - progressbar "리소스 준비" [ref=e9]
+    - generic [ref=e10]: 0%

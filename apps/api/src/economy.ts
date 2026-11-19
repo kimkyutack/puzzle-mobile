@@ -1,11 +1,14 @@
+import type {RuntimeSettings} from '../../../packages/contracts/src/operations';
+import {shopPrices} from './operations';
 import { PRODUCTS, RESTORATIONS } from '@garden/content';
 import {projectLiveGarden} from '../../../packages/garden-world/src/live';
 import {stored as storedGarden,save as saveGarden} from './garden-world';
-import type { Gift, Item, Player, PassClaimAllResponse } from '@garden/contracts';
+import { SHOP_ITEM_MAX_QUANTITY, type Gift, type Item, type Player, type PassClaimAllResponse } from '@garden/contracts';
 import { z } from 'zod';
 import { assertSQL, day, ensure, mutate, one, operationKey, PRICES, readPlayer, rows, spendCoins, sql, uid, type ApiEnv, type MutationContext } from './db';
 import { itemSchema } from './validation';
-import {attendanceProgress} from './attendance';
+import {ATTENDANCE_DAILY_COINS,attendanceProgress} from './attendance';
+import {monthlyBundlePurchase} from './offers';
 
 export async function freeUnlimited(env:ApiEnv,userId:string,body:Record<string,unknown>){
   return mutate(env,userId,operationKey(body),'hearts:free',tx=>{
@@ -22,12 +25,25 @@ export async function buyHearts(env:ApiEnv,userId:string,body:Record<string,unkn
     const count=amount==='full'?5-tx.player.hearts:Math.min(1,5-tx.player.hearts);ensure(count>0,'HEARTS_FULL','하트가 가득해요.');spendCoins(tx.player,count*100);tx.player.hearts+=count;if(tx.player.hearts===5)tx.player.heartAt=0;return {player:tx.player,cost:count*100};
   });
 }
-export async function buyItem(env:ApiEnv,userId:string,body:Record<string,unknown>){
-  const item=itemSchema.parse(body.item);ensure(item!=='world-bomb','EARN_ONLY_ITEM','별빛 대폭탄은 새 퍼즐 10판을 완료할 때마다 모여요.');
-  return mutate(env,userId,operationKey(body),`shop:buy:${item}`,tx=>{
+export async function buyItem(env:ApiEnv,userId:string,body:Record<string,unknown>,settings?:RuntimeSettings){
+  const item=itemSchema.parse(body.item),prices=settings?{...PRICES,...settings.prices}:await shopPrices(env);
+  const quantity=z.number().int().min(1).max(SHOP_ITEM_MAX_QUANTITY).default(1).parse(body.quantity);
+  const expectedCost=z.number().int().positive().optional().parse(body.expectedCost);
+  const key=operationKey(body),unitPrice=prices[item],cost=unitPrice*quantity;
+  const fingerprint=`shop:buy:${item}${expectedCost===undefined?'':':'+expectedCost}${quantity===1?'':':quantity='+quantity}`;
+  return mutate(env,userId,key,fingerprint,tx=>{
     ensure(tx.player.level>=5,'LOCKED','4판을 완료하면 상점이 열려요.');
-    const bound=spendCoins(tx.player,PRICES[item]);tx.player.inventory[item][bound?'bound':'normal']++;
-    tx.statements.push(sql(tx.db,'INSERT INTO inventory_lots VALUES(?,?,?,?,?,?,?)',uid(),userId,item,bound?1:0,1,operationKey(body),tx.now));return {player:tx.player,bound,cost:PRICES[item]};
+    ensure(expectedCost===undefined||expectedCost===cost,'SHOP_PRICE_CHANGED','상품 가격이 바뀌었어요. 새 가격을 확인해 주세요.',409);
+    const beforeBoundCoins=tx.player.boundCoins;
+    const bound=spendCoins(tx.player,cost);
+    // Spend bound coins first, with the same item ownership as consecutive single purchases.
+    const boundQuantity=bound?Math.ceil((beforeBoundCoins-tx.player.boundCoins)/unitPrice):0;
+    const normalQuantity=quantity-boundQuantity;
+    tx.player.inventory[item].bound+=boundQuantity;
+    tx.player.inventory[item].normal+=normalQuantity;
+    if(boundQuantity)tx.statements.push(sql(tx.db,'INSERT INTO inventory_lots VALUES(?,?,?,?,?,?,?)',uid(),userId,item,1,boundQuantity,key,tx.now));
+    if(normalQuantity)tx.statements.push(sql(tx.db,'INSERT INTO inventory_lots VALUES(?,?,?,?,?,?,?)',uid(),userId,item,0,normalQuantity,key,tx.now));
+    return {player:tx.player,bound,cost,quantity};
   });
 }
 export async function restore(env:ApiEnv,userId:string,body:Record<string,unknown>){
@@ -59,8 +75,19 @@ export async function claimGift(env:ApiEnv,userId:string,giftId:string,body:Reco
   });
 }
 export interface Season {id:string;starts_at:number;ends_at:number}
-export async function currentSeason(env:ApiEnv,now=Date.now()):Promise<Season|null>{return one<Season>(env.DB,'SELECT * FROM seasons WHERE starts_at<=? AND ends_at>? ORDER BY starts_at DESC LIMIT 1',now,now);}
-export async function catalog(env:ApiEnv){const season=await currentSeason(env);return {products:PRODUCTS.filter(product=>!product.offer),prices:PRICES,restorations:RESTORATIONS,season:season?{...season,startsAt:season.starts_at,endsAt:season.ends_at}:null,paymentsConfigured:!!env.GOOGLE_SERVICE_ACCOUNT_JSON||!!env.APPLE_IAP_PRIVATE_KEY,adsConfigured:!!env.ADMOB_HEART_AD_UNIT&&!!env.ADMOB_COIN_AD_UNIT};}
+export async function currentSeason(env:ApiEnv,now=Date.now()):Promise<Season|null>{return one<Season>(env.DB,`SELECT * FROM seasons WHERE starts_at<=? AND ends_at>? AND NOT EXISTS(SELECT 1 FROM ops_events e WHERE e.id=seasons.id AND e.status<>'published') ORDER BY starts_at DESC LIMIT 1`,now,now);}
+export async function catalog(env:ApiEnv,settings?:RuntimeSettings,userId?:string){
+ const now=Date.now(),monthlyProduct=PRODUCTS.find(product=>product.monthlyLimit);
+ const [season,prices,monthlyBundle]=await Promise.all([
+  currentSeason(env,now),
+  settings?{...PRICES,...settings.prices}:shopPrices(env),
+  userId&&monthlyProduct?monthlyBundlePurchase(env.DB,userId,monthlyProduct.id,now):null,
+ ]);
+ return {products:PRODUCTS.filter(product=>!product.offer),prices,restorations:RESTORATIONS,
+  season:season?{...season,startsAt:season.starts_at,endsAt:season.ends_at}:null,
+  monthlyBundle:monthlyBundle&&{productId:monthlyBundle.productId,purchased:monthlyBundle.purchased,resetsAt:monthlyBundle.resetsAt},
+  paymentsConfigured:!!env.GOOGLE_SERVICE_ACCOUNT_JSON||!!env.APPLE_IAP_PRIVATE_KEY,adsConfigured:!!env.ADMOB_HEART_AD_UNIT&&!!env.ADMOB_COIN_AD_UNIT};
+}
 export async function events(env:ApiEnv,userId:string){
   const now=Date.now();const season=await currentSeason(env,now);const p=await readPlayer(env.DB,userId,now);
   const claims=await rows<{kind:string;source_id:string}>(env.DB,'SELECT kind,source_id FROM reward_claims WHERE user_id=?',userId);
@@ -68,7 +95,7 @@ export async function events(env:ApiEnv,userId:string){
   const premium=season?!!await one(env.DB,'SELECT 1 FROM season_owners WHERE user_id=? AND season_id=?',userId,season.id):false;
   const guildClears=p.guildId&&season?await one<{n:number}>(env.DB,'SELECT count(*) n FROM level_rewards r JOIN guild_members m ON r.user_id=m.user_id WHERE m.guild_id=? AND r.created_at>=MAX(?,m.joined_at) AND r.created_at<?',p.guildId,season.starts_at,season.ends_at):null;
   const vouchers=await rows<{seasonId:string}>(env.DB,"SELECT o.season_id seasonId FROM season_owners o JOIN reward_claims r ON r.user_id=o.user_id AND r.kind='pass:premium' AND r.source_id=o.season_id||':30' WHERE o.user_id=?",userId);
-  return {attendance:attendanceProgress(claims.filter(c=>c.kind==='daily').map(c=>c.source_id),day(now)),dailyClaimed:claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),daily:{available:!claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),coins:50,nextReset:(day(now)+1)*86_400_000},season,pass:{points:(clears?.n??0)*10,premium,guildGifts:vouchers.map(v=>({seasonId:v.seasonId,item:'hammer',quantityPerMember:1,sent:claims.some(c=>c.kind==='pass:guild-gift'&&c.source_id===v.seasonId)})),tiers:Array.from({length:30},(_,i)=>({tier:i+1,points:(i+1)*10,free:{coins:25},premium:{coins:75,hammer:(i+1)%5===0?1:0,decoration:i===14?{id:'season-gardener',name:'시즌 정원사 문장',asset:'star'}:null,guildGift:i===29?{item:'hammer',quantityPerMember:1}:null},freeClaimed:claims.some(c=>c.kind==='pass:free'&&c.source_id===`${season?.id}:${i+1}`),premiumClaimed:claims.some(c=>c.kind==='pass:premium'&&c.source_id===`${season?.id}:${i+1}`)}))},personal:{progress:clears?.n??0,target:10,coins:300,claimed:claims.some(c=>c.kind==='personal'&&c.source_id===season?.id)},guild:{progress:guildClears?.n??0,target:30,coins:100,claimed:claims.some(c=>c.kind==='guild'&&c.source_id===season?.id)}};
+  return {attendance:attendanceProgress(claims.filter(c=>c.kind==='daily').map(c=>c.source_id),day(now)),dailyClaimed:claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),daily:{available:!claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),coins:ATTENDANCE_DAILY_COINS,nextReset:(day(now)+1)*86_400_000},season,pass:{points:(clears?.n??0)*10,premium,guildGifts:vouchers.map(v=>({seasonId:v.seasonId,item:'hammer',quantityPerMember:1,sent:claims.some(c=>c.kind==='pass:guild-gift'&&c.source_id===v.seasonId)})),tiers:Array.from({length:30},(_,i)=>({tier:i+1,points:(i+1)*10,free:{coins:25},premium:{coins:75,hammer:(i+1)%5===0?1:0,decoration:i===14?{id:'season-gardener',name:'시즌 정원사 문장',asset:'star'}:null,guildGift:i===29?{item:'hammer',quantityPerMember:1}:null},freeClaimed:claims.some(c=>c.kind==='pass:free'&&c.source_id===`${season?.id}:${i+1}`),premiumClaimed:claims.some(c=>c.kind==='pass:premium'&&c.source_id===`${season?.id}:${i+1}`)}))},personal:{progress:clears?.n??0,target:10,coins:300,claimed:claims.some(c=>c.kind==='personal'&&c.source_id===season?.id)},guild:{progress:guildClears?.n??0,target:30,coins:100,claimed:claims.some(c=>c.kind==='guild'&&c.source_id===season?.id)}};
 }
 export async function profileDecorations(env:ApiEnv,userId:string){
   const earned=await rows<{seasonId:string}>(env.DB,"SELECT o.season_id seasonId FROM season_owners o JOIN reward_claims r ON r.user_id=o.user_id AND r.kind='pass:premium' AND r.source_id=o.season_id||':15' WHERE o.user_id=? ORDER BY r.created_at DESC",userId);
@@ -91,8 +118,8 @@ export async function daily(env:ApiEnv,userId:string,body:Record<string,unknown>
     const source=String(day(tx.now));ensure(!await one(tx.db,"SELECT 1 FROM reward_claims WHERE user_id=? AND kind='daily' AND source_id=?",userId,source),'ALREADY_CLAIMED','오늘의 보상을 받았어요.',409);
     const claims=await rows<{source_id:string}>(tx.db,"SELECT source_id FROM reward_claims WHERE user_id=? AND kind='daily'",userId);
     const attendance=attendanceProgress(claims.map(claim=>claim.source_id),day(tx.now)),bonus=(attendance.total+1)%7===0;
-    tx.player.coins+=50;if(bonus)tx.player.inventory.hammer.bound++;
-    tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,'daily',source,tx.now));return {player:tx.player,attendanceReward:{coins:50,hammer:bonus?1:0}};
+    tx.player.coins+=ATTENDANCE_DAILY_COINS;if(bonus)tx.player.inventory.hammer.bound++;
+    tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,'daily',source,tx.now));return {player:tx.player,attendanceReward:{coins:ATTENDANCE_DAILY_COINS,hammer:bonus?1:0}};
   });
 }
 export async function passClaim(env:ApiEnv,userId:string,body:Record<string,unknown>){

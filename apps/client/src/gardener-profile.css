@@ -1,0 +1,58 @@
+.gardener-card {
+ --surface-ink: #25384f;
+ border-radius: 17px;
+ overflow: hidden;
+ color: #25384f;
+ background: #fff4da;
+ box-shadow: 0 4px 0 #24378045, 0 0 0 1px #86b3ed80;
+ text-align: left;
+}
+.gardener-cover { position:relative;overflow:hidden;height:clamp(100px,32vw,154px);background:#397e83; }
+.gardener-landscape { width:100%;height:100%;object-fit:cover;object-position:center 54%;display:block; }
+[data-backdrop="flowerlight"] .gardener-landscape { object-position:center 60%; }
+[data-backdrop="terrace"] .gardener-landscape { object-position:center 45%; }
+.gardener-fountain { position:absolute;height:90%;max-width:55%;object-fit:contain;bottom:5%;right:21%; }
+.gardener-identity { display:flex; position:relative; align-items:flex-start; gap:13px; padding:0 14px 12px; }
+.gardener-portrait, .gardener-frame-option {
+ --portrait-rim:#e4af52;
+ --portrait-shade:#a16b30;
+ --portrait-bg:#224460;
+ box-sizing:border-box;
+ display:grid;
+ place-items:center;
+ border:4px solid var(--portrait-rim);
+ border-radius:50%;
+ background:var(--portrait-bg);
+ box-shadow:0 2px 0 var(--portrait-shade), inset 0 0 0 2px #ffffff3d;
+}
+[data-profile-frame="leaf"] { --portrait-rim:#91c967;--portrait-shade:#487545;--portrait-bg:#26584c; }
+[data-profile-frame="violet"] { --portrait-rim:#c89df1;--portrait-shade:#725292;--portrait-bg:#453967; }
+.gardener-portrait { margin-top:-26px; width:94px; height:94px; flex:none; }
+.gardener-portrait .icon { display:block; object-fit:contain; }
+.gardener-name { min-width:0; padding-top:10px; flex:1; }
+.gardener-level { display:inline-block; padding:3px 9px; color:#335e55; background:#e5ecd2; border-radius:10px; font-size:12px; line-height:16px; }
+.gardener-card .gardener-name h3 { margin:5px 0 0; font-size:clamp(20px,6vw,28px); line-height:1.12; overflow-wrap:anywhere; color:inherit; }
+.gardener-guild { display:flex; align-items:center; gap:4px; font-size:12px; margin-top:5px; overflow-wrap:anywhere; }
+.gardener-records { display:flex; padding:11px 14px 13px; gap:11px; border-top:1px solid #d6bd898c; background:#f5e8c8; }
+.gardener-records > div { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
+.gardener-records > div + div { padding-left:10px; border-left:1px solid #ba9c6570; }
+.gardener-records .icon { flex:none; }
+.gardener-records span { display:grid; font-size:12px; line-height:16px; gap:3px; }
+.gardener-records strong { font:24px/1 var(--font-game-number,inherit); white-space:nowrap; }
+.gardener-editor { display:grid; gap:10px; }
+.gardener-editor-tabs,.gardener-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+.gardener-editor-tabs button { min-height:38px; border-radius:10px; color:#143a65; background:#dbeaff; font-size:13px; }
+.gardener-editor-tabs button[aria-pressed="true"] { background:#183f77;color:#fff6d9; }
+.gardener-choices button { display:grid; justify-items:center; gap:5px; padding:5px 2px; min-height:71px; border:2px solid transparent; border-radius:11px; font-size:12px; line-height:1.2; color:#24446a; background:#dfedff; }
+.gardener-choices button[aria-pressed="true"] { border-color:#b37725; background:#fff1c7; }
+.gardener-choices button>span { display:grid; place-items:center; height:45px; max-width:100%; }
+.gardener-choices .gardener-frame-option { width:42px;height:42px;margin-top:2px; }
+.gardener-choices .gardener-cover { width:100%;height:43px;border-radius:6px; }
+.gardener-editor-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+@media(max-width:350px){
+ .gardener-portrait{width:78px;height:78px;margin-top:-20px}
+ .gardener-portrait .icon{width:64px;height:64px}
+ .gardener-identity{gap:9px;padding-right:10px;padding-left:10px}
+ .gardener-records{gap:7px;padding-inline:9px}
+ .gardener-records strong{font-size:21px}
+}

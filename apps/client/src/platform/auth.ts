@@ -4,9 +4,11 @@ import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { Preferences } from '@capacitor/preferences';
 import { SocialLogin, type InitializeOptions } from '@capgo/capacitor-social-login';
+import { childAccount } from './account-age';
 export type SignInProvider='google'|'apple';
 let initialized=false;
 export function identityAvailable(provider:SignInProvider):boolean {
+  if(childAccount())return false;
   if(provider==='google') return !!import.meta.env.VITE_GOOGLE_WEB_CLIENT_ID;
   return Capacitor.getPlatform()==='ios' || !!(import.meta.env.VITE_APPLE_SERVICE_ID && import.meta.env.VITE_APPLE_REDIRECT_URL);
 }

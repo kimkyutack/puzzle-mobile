@@ -1,0 +1,192 @@
+.modal-layer.garden-pass-modal > .modal {
+ max-width: 440px;
+ padding-top: 69px;
+ padding-inline: 16px;
+ padding-bottom: 17px;
+}
+.modal-layer.garden-pass-modal .modal-heading h2 { font-size: clamp(22px,6.2vw,26px); }
+.garden-pass-modal .modal .modal-content { padding: 0 2px 7px; }
+.garden-pass {
+ display: grid;
+ gap: 8px;
+ min-width: 0;
+ padding: 8px;
+ color: #4c174c;
+ --surface-ink: #4c174c;
+ background: #fff4e1;
+ border-radius: 16px;
+}
+.garden-pass .garden-pass-cover { margin: -8px -8px 0; border-radius: 16px 16px 11px 11px; }
+.garden-pass .garden-pass-cover > .poster-art {
+ height: clamp(86px,17dvh,154px);
+ max-height: none;
+ aspect-ratio: auto;
+ object-fit: cover;
+ object-position: center 44%;
+}
+.garden-pass .garden-pass-cover .poster-caption {
+ inset: auto 10% 5px;
+ min-height: 30px;
+ padding: 4px 6px 6px;
+ color: #fff9e9;
+ font-size: 21px;
+ line-height: 1;
+}
+.pass-season-line {
+ display: grid;
+ grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr);
+ gap: 5px;
+ align-items: center;
+ font-size: clamp(11px,3.25vw,13px);
+ font-weight: 700;
+ line-height: 1.3;
+ text-align: center;
+}
+.pass-season-line > span:first-child { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.pass-season-line > span:last-child { border-left: 1px solid #e3c2a7; padding-left: 4px; }
+.pass-season-line time { white-space: nowrap; }
+.pass-tier-picker { display: grid; justify-items: stretch; gap: 2px; }
+.pass-tier-picker > span {
+ justify-self: center;
+ border-radius: 16px;
+ padding: 2px 14px;
+ background: #752c8b;
+ color: #fff8ee;
+ font-size: 12px;
+ line-height: 1.3;
+}
+.pass-tier-controls {
+ display: grid;
+ grid-template-columns: 36px minmax(0,1fr) 36px;
+ align-items: center;
+ min-width: 0;
+ min-height: 44px;
+ border: 1px solid #e9caa4;
+ border-radius: 13px;
+ background: #f8e7d2;
+}
+.pass-tier-options { display: flex; gap: 4px; min-width: 0; }
+.pass-tier-options > button {
+ flex: 1 1 0;
+ min-width: 0;
+ min-height: 44px;
+ position: relative;
+ padding: 4px 2px 6px;
+ font-size: clamp(15px,4.5vw,20px);
+ line-height: 1.2;
+ color: #4c174c;
+}
+.pass-tier-options > button[aria-pressed="true"] { color: #49220b; }
+.pass-tier-arrow {
+ display: grid;
+ place-items: center;
+ min-height: 44px;
+ color: #762b8a;
+ font: 700 32px/1 system-ui,sans-serif;
+}
+.pass-tier-arrow:disabled { opacity: .32; }
+.modal-layer .modal-content .pass-selected-title {
+ margin: 0;
+ color: #52164f;
+ font-size: clamp(15px,4.5vw,20px);
+ font-weight: 700;
+ line-height: 1.2;
+ text-align: center;
+}
+.pass-track-comparison { display: grid; grid-template-columns: minmax(0,.92fr) minmax(0,1.08fr); gap: 6px; }
+.pass-track-comparison[data-slide="true"] { animation: pass-reward-slide-in 240ms ease-out both; }
+@keyframes pass-reward-slide-in {
+ from { transform: translateX(36px); opacity: .42; }
+ to { transform: translateX(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .pass-track-comparison[data-slide="true"] { animation: none; }
+}
+.pass-track {
+ --pass-track-header: #ebd7fa;
+ --pass-track-border: #d9b5e8;
+ display: flex;
+ flex-direction: column;
+ align-items: stretch;
+ min-width: 0;
+ overflow: hidden;
+ background: #fffbf2;
+ border: 1px solid var(--pass-track-border);
+ border-radius: 12px;
+}
+.pass-track[data-track="premium"] { --pass-track-header: #ffdc8b; --pass-track-border: #ecc474; background: #fff7e0; }
+.pass-track h4 {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 3px;
+ min-height: 36px;
+ margin: 0;
+ padding: 4px;
+ color: #551d61;
+ background: var(--pass-track-header);
+ font-size: clamp(11px,3.7vw,16px);
+ line-height: 1.14;
+ text-align: center;
+ word-break: keep-all;
+}
+.pass-track h4 > .icon { width: 22px; height: 23px; }
+.pass-track-items { display: grid; align-content: center; flex: 1; gap: 3px; min-width: 0; padding: 6px; }
+.pass-track-coins { display: flex; align-items: center; justify-content: center; gap: 4px; min-width: 0; font-size: 13px; text-align: center; }
+.pass-track-coins strong { color: #501449; font: 21px/1 var(--font-game-number); }
+.pass-track-coins .icon { width: 31px; height: 31px; }
+.pass-track[data-track="free"] .pass-track-coins { flex-direction: column; }
+.pass-track[data-track="free"] .pass-track-coins .icon { width: clamp(34px,12vw,54px); height: clamp(34px,12vw,54px); }
+.pass-track-extra {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 4px;
+ min-width: 0;
+ font-size: clamp(10px,3.1vw,13px);
+ line-height: 1.2;
+ overflow-wrap: anywhere;
+}
+.pass-track-extra > .icon { width: 24px; height: 24px; }
+.pass-track-extra small { display: inline-block; font-size: inherit; }
+.garden-pass .pass-track .pass-track-status,.garden-pass .pass-compact-actions > p {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ gap: 4px;
+ min-height: 27px;
+ margin: 0 5px 5px;
+ padding: 4px;
+ border-radius: 16px;
+ background: #efe5df;
+ color: #513c52;
+ font-size: clamp(10px,3.2vw,13px);
+ line-height: 1.2;
+ text-align: center;
+}
+.garden-pass .pass-track .pass-track-status[data-claimed="true"] { background: #e7efc7; color: #2c531b; }
+.garden-pass .pass-track[data-track="premium"] .pass-track-status[data-claimed="false"] { background: #ffe9b9; color: #644018; }
+.pass-compact-actions { display: grid; gap: 4px; }
+.garden-pass .pass-compact-actions > p { margin: 0; min-height: 28px; }
+.garden-pass :is(.pass-compact-actions,.pass-track) .game-button[data-button-tone] {
+ width: 100%;
+ margin: 0;
+ min-height: 44px;
+ padding: 5px 6px 8px;
+ font-size: clamp(14px,4.3vw,19px);
+ line-height: 1.2;
+}
+.garden-pass .pass-track .game-button.pass-tier-claim { width: calc(100% - 10px); margin: 0 5px 5px; font-size: 13px; }
+.garden-pass .pass-claim-all .icon { width: 23px; height: 23px; }
+.garden-pass .pass-premium-open small { line-height: 1; }
+@media (max-height: 700px) {
+ .garden-pass { gap: 5px; }
+ .garden-pass .garden-pass-cover > .poster-art { height: clamp(58px,12dvh,84px); }
+ .pass-tier-picker > span { display: none; }
+ .pass-track-items { padding-block: 4px; }
+ .pass-track h4 { min-height: 29px; }
+ .pass-track-extra > .icon { width: 20px; height: 20px; }
+ .pass-compact-actions:has(> .pass-claim-all) { grid-template-columns: repeat(auto-fit,minmax(min(100%,100px),1fr)); }
+ .garden-pass .pass-compact-actions .game-button[data-button-tone] { font-size: clamp(13px,4.2vw,17px); }
+ .garden-pass .pass-claim-all .icon { width: 18px; height: 18px; }
+}

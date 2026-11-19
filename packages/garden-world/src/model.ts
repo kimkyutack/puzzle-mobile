@@ -1,4 +1,4 @@
-import {DECORATIONS,GARDEN_WORLD,type DecorationDefinition,type GardenDefinition,type GardenRegionId,type GardenRotation,type GridRect} from './catalog';
+import {DECORATIONS,GARDEN_WORLD,type DecorationDefinition,type GardenDefinition,type GardenRegionId,type GardenRotation} from './catalog';
 import {canExpandGarden,gardenBounds,gardenExpansionPlot,isGardenCellUnlocked} from './land';
 
 export type DecorationSource='restoration'|'shop'|'event';
@@ -18,7 +18,7 @@ export interface GardenPlacementBatch {operationId:string;expectedRevision:numbe
 export interface TrustedDecorationGrant {
  ownerId:string;grantId:string;itemId:string;variant:string;source:DecorationSource;instanceIds:string[];
 }
-export type GardenErrorCode='INVALID_INPUT'|'FORBIDDEN'|'UNKNOWN_ITEM'|'UNKNOWN_REGION'|'ITEM_NOT_FOR_SALE'|'GRANT_CONFLICT'|'INSTANCE_CONFLICT'|'OPERATION_CONFLICT'|'STALE_REVISION'|'NOT_OWNED'|'ALREADY_PLACED'|'NOT_PLACED'|'OUT_OF_BOUNDS'|'REGION_LOCKED'|'WRONG_REGION'|'UNSUPPORTED_ROTATION'|'OCCUPIED'|'LAND_UNAVAILABLE';
+export type GardenErrorCode='INVALID_INPUT'|'FORBIDDEN'|'UNKNOWN_ITEM'|'UNKNOWN_REGION'|'ITEM_NOT_FOR_SALE'|'GRANT_CONFLICT'|'INSTANCE_CONFLICT'|'OPERATION_CONFLICT'|'STALE_REVISION'|'NOT_OWNED'|'ALREADY_PLACED'|'NOT_PLACED'|'OUT_OF_BOUNDS'|'REGION_LOCKED'|'UNSUPPORTED_ROTATION'|'OCCUPIED'|'LAND_UNAVAILABLE';
 export class GardenWorldError extends Error {
  constructor(public readonly code:GardenErrorCode){super(code);this.name='GardenWorldError';}
 }
@@ -28,7 +28,6 @@ const validId=(id:string)=>typeof id==='string'&&/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,
 function requireId(id:string){if(!validId(id))fail('INVALID_INPUT');}
 function itemDefinition(itemId:string,catalog:readonly DecorationDefinition[]){return catalog.find(item=>item.id===itemId)??fail('UNKNOWN_ITEM');}
 function requireMap(state:GardenWorldState,map:GardenDefinition){if(state.mapId!==map.id)fail('INVALID_INPUT');}
-const contains=(rect:GridRect,x:number,y:number)=>x>=rect.x&&y>=rect.y&&x<rect.x+rect.width&&y<rect.y+rect.height;
 
 export function createGardenWorld(ownerId:string,map:GardenDefinition=GARDEN_WORLD):GardenWorldState {
  requireId(ownerId);
@@ -71,7 +70,6 @@ export function validateGardenPlacement(state:GardenWorldState,placement:GardenP
  const bounds=gardenBounds(state,map);
  if(cells.some(c=>c.x<0||c.y<0||c.x>=bounds.width||c.y>=bounds.height))fail('OUT_OF_BOUNDS');
  if(cells.some(c=>!isGardenCellUnlocked(state,c.x,c.y,map)))fail('REGION_LOCKED');
- if(item.regions&&cells.some(c=>!map.regions.some(region=>item.regions!.includes(region.id)&&contains(region,c.x,c.y))))fail('WRONG_REGION');
  const occupied=new Set<string>();
  for(const existing of Object.values(state.placements)){
   if(existing.instanceId===placement.instanceId)continue;

@@ -1,0 +1,4 @@
+.link-action.heart-ad-action{min-height:54px;text-decoration:none}
+.heart-ad-action>span{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+.heart-ad-title{text-decoration:underline;text-underline-offset:3px}
+.heart-ad-remaining{font-size:12px;font-weight:700;line-height:1.35;opacity:.9;text-align:left}

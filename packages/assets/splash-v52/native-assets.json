@@ -1,0 +1,86 @@
+[
+  {
+    "path": "ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732-2.png",
+    "width": 360,
+    "height": 640,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732-1.png",
+    "width": 720,
+    "height": 1280,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732.png",
+    "width": 1080,
+    "height": 1920,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable/splash.png",
+    "width": 480,
+    "height": 320,
+    "source": "packages/assets/splash-v52/source/garden-build-wide.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-land-hdpi/splash.png",
+    "width": 800,
+    "height": 480,
+    "source": "packages/assets/splash-v52/source/garden-build-wide.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-land-mdpi/splash.png",
+    "width": 480,
+    "height": 320,
+    "source": "packages/assets/splash-v52/source/garden-build-wide.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-land-xhdpi/splash.png",
+    "width": 1280,
+    "height": 720,
+    "source": "packages/assets/splash-v52/source/garden-build-wide.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-land-xxhdpi/splash.png",
+    "width": 1600,
+    "height": 960,
+    "source": "packages/assets/splash-v52/source/garden-build-wide.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-land-xxxhdpi/splash.png",
+    "width": 1920,
+    "height": 1280,
+    "source": "packages/assets/splash-v52/source/garden-build-wide.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-port-hdpi/splash.png",
+    "width": 480,
+    "height": 800,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-port-mdpi/splash.png",
+    "width": 320,
+    "height": 480,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-port-xhdpi/splash.png",
+    "width": 720,
+    "height": 1280,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-port-xxhdpi/splash.png",
+    "width": 960,
+    "height": 1600,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  },
+  {
+    "path": "android/app/src/main/res/drawable-port-xxxhdpi/splash.png",
+    "width": 1280,
+    "height": 1920,
+    "source": "packages/assets/splash-v52/source/garden-build.png"
+  }
+]

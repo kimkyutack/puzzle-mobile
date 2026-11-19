@@ -1,0 +1,11 @@
+{
+  "slug": "cloud-garden",
+  "basePath": "/official",
+  "origin": null,
+  "packageId": "com.cloudgarden.match",
+  "studioName": "HIDDEN STAGE",
+  "stores": {
+    "googlePlay": null,
+    "appStore": null
+  }
+}

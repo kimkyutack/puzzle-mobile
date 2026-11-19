@@ -1,0 +1,157 @@
+/* The authored frame is nine-sliced; floral corners keep their proportions. */
+.featured-events{margin:0;color:#fff;border:0;border-radius:0;background:none;box-shadow:none;isolation:isolate;overflow:visible}
+.featured-events-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.featured-events-track::-webkit-scrollbar{display:none}
+.featured-event-slide{position:relative;isolation:isolate;min-width:0;flex:0 0 100%;height:164px;scroll-snap-align:start;scroll-snap-stop:always}
+.featured-event-slide::after,.festival-scene-stage::after{content:"";position:absolute;inset:0;border-style:solid;border-color:transparent;border-width:32px 48px;border-image-source:url('../../../packages/assets/event-ui-v44/festival-frame.webp');border-image-slice:160 240 fill;border-image-width:1;border-image-repeat:stretch;pointer-events:none;z-index:4}
+.featured-event-art{position:absolute;inset:7px;width:calc(100% - 14px);height:calc(100% - 14px);border-radius:13px;object-fit:cover;object-position:center 46%;pointer-events:none}
+.featured-fountain{position:absolute;right:20px;bottom:16px;width:42%;height:141px;object-fit:contain;filter:drop-shadow(0 4px 3px #3e261e99);pointer-events:none}
+.featured-event-shade{position:absolute;inset:8px;border-radius:13px;background:linear-gradient(90deg,#10234dde 0%,#132a5380 44%,transparent 75%),linear-gradient(0deg,#102449ad,transparent 62%);pointer-events:none}
+.featured-expedition .featured-event-art{object-position:center 40%}
+.featured-expedition .featured-event-shade{background:linear-gradient(0deg,#102449ed,transparent 94%),linear-gradient(90deg,#10244982,transparent 85%)}
+.featured-event-copy{position:absolute;left:19px;top:26px;max-width:73%;color:#fff;text-shadow:0 2px 2px #061a3e}
+.featured-event-copy>span{display:block;color:#ffe4ad;font-size:10px;line-height:15px}
+.game-page[data-page="events"] .featured-event-copy h2,.featured-event-copy h2{font-size:24px;line-height:1.13;margin:5px 0 0;color:#fff4d5;word-break:keep-all;max-width:100%;text-shadow:0 2px 0 #3b2750,0 3px 4px #102341}
+.featured-event-index{position:absolute;top:18px;right:22px;font-size:10px;line-height:15px;color:#fff3d0;text-shadow:0 1px 2px #061935}
+.featured-event-action{position:absolute;bottom:18px;left:20px;right:17px;display:flex;align-items:center;justify-content:space-between;gap:9px;z-index:5}
+.featured-event-action>span{font-size:11px;color:#fff1d0;line-height:1.45;max-width:49%;text-shadow:0 1px 2px #061935}
+.featured-event-action .game-button,.game-page[data-page="events"] .featured-event-action .game-button{width:auto;min-width:103px;max-width:47%;min-height:43px;font-size:15px;line-height:18px;padding:6px 10px 9px;margin:0;position:relative;flex:0 0 auto}
+.game-page[data-page="events"] .featured-event-action .game-button .button-label{line-height:18px}
+.featured-event-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(130px,1fr);overflow-x:auto;scrollbar-width:none;gap:9px;background:none;border:0;min-height:44px;padding:4px 12px 0}
+.featured-event-tabs>button{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:42px;padding:3px 9px 8px;color:#e8f1ff;border:0;font-size:12px;text-shadow:0 1px 1px #102c58}
+.featured-event-tabs>button[aria-selected="true"]{color:#fff4cc;text-shadow:0 1px 1px #6b360b}
+.featured-event-tabs>button>img{width:32px;height:32px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 2px 1px #09234b66)}
+.featured-event-tabs>button>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.featured-event-tabs .reward-dot{right:2px;top:1px;width:10px;height:10px}
+.flowerlight-menu,.expedition-menu{display:grid;gap:12px;color:#17365a}
+.flowerlight-scene{position:relative;aspect-ratio:1.5;isolation:isolate;overflow:hidden;border-radius:13px;background:#243f67}
+.flowerlight-plaza{width:100%;height:100%;object-fit:cover;display:block}
+.festival-object{position:absolute;object-fit:contain;filter:drop-shadow(0 5px 3px #2a211f55);pointer-events:none}
+.festival-gate{width:27%;left:9%;bottom:32%;z-index:1}
+.festival-flowers{width:17%;z-index:3}
+.flowers-0{left:8%;bottom:15%}.flowers-1{right:8%;bottom:15%}.flowers-2{left:26%;bottom:7%}.flowers-3{right:26%;bottom:7%}
+.festival-fountain{width:43%;left:34%;bottom:23%;z-index:2}
+.festival-lumi{width:17%;left:17%;bottom:17%;z-index:4}.festival-rabbit{width:10%;right:14%;bottom:25%;z-index:4}.festival-cat{width:10%;right:23%;bottom:15%;z-index:4}
+.festival-lamp{width:13%;bottom:26%;z-index:3;filter:drop-shadow(0 0 9px #ffb94988)}.lamp-left{left:1%}.lamp-right{right:1%}
+.festival-fireflies{position:absolute;inset:0;z-index:5;pointer-events:none}.festival-fireflies i{position:absolute;width:4px;height:4px;background:#ffe9a7;box-shadow:0 0 8px 3px #efb14399;border-radius:50%;animation:flowerlight-fly 2.8s ease-in-out infinite alternate}
+.is-restoring .festival-object{animation:flowerlight-build .8s cubic-bezier(.2,.85,.3,1.15) both}
+.festival-time{display:flex;justify-content:center;align-items:center;gap:6px;font-size:12px;color:#fff3cf;padding:5px 9px;background:#173d73;border:1px solid #769bce;border-radius:20px}
+.festival-stage-track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));list-style:none;padding:10px 5px;margin:0;background:linear-gradient(#e2efff,#b6d3f2);border:1px solid #7599ce;border-radius:12px;gap:3px}
+.festival-stage-track li{text-align:center;position:relative;color:#3e5976;min-width:0}
+.festival-stage-track li>span{display:grid;place-items:center;width:26px;height:26px;margin:0 auto 6px;border-radius:50%;background:#7896bd;color:#fff;font-size:15px;box-shadow:inset 0 2px 2px #ffffff60,0 2px 0 #42638f}
+.festival-stage-track li.is-complete>span{background:#4b921d;box-shadow:inset 0 2px 2px #ffffff60,0 2px 0 #245d17}
+.festival-stage-track li.is-current>span{background:#ef9b17;outline:2px solid #ffdf82;color:#173458;box-shadow:0 2px 0 #b9650e}
+.festival-stage-track small{display:block;font-size:10px;line-height:1.4;word-break:keep-all;overflow-wrap:anywhere;padding:0 1px}
+.festival-next,.festival-story,.festival-prize{padding:14px;border-radius:14px;border:2px solid #db9141;background:linear-gradient(120deg,#ffdbb1,#f5b978);box-shadow:inset 0 2px 0 #fff5dd,0 3px 0 #94652d;min-width:0}
+.festival-stage-track,.festival-next,.festival-story,.festival-prize,.expedition-course-list{--surface-ink:#17365a;--surface-muted:#365b7c}
+.festival-next h3,.festival-story h3,.festival-prize h3{font-size:17px;margin:0 0 10px;line-height:1.3;color:#233d60}
+.festival-petal-progress{display:flex;gap:7px;align-items:center;margin-bottom:10px}.festival-petal-progress strong{font-size:22px;white-space:nowrap}.festival-petal-progress .activity-meter{flex:1;background:#a9652c;height:14px;border:1px solid #d18f49}.festival-petal-progress .activity-meter i{background:linear-gradient(#ffcc58,#ed7927)}
+.festival-next>.activity-rewards{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin:6px 0 12px;font-size:17px}
+.festival-next .game-button,.festival-story .game-button,.festival-prize .game-button{width:100%;margin:8px 0 0}
+.festival-story-beat{display:flex;align-items:center;gap:9px;margin:10px 0}.festival-story-beat .icon{flex:0 0 auto}.festival-story-beat p{margin:0;font-size:13px;line-height:1.6}
+.festival-prize{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:center;gap:10px;background:linear-gradient(120deg,#fff0c9,#ffd294)}
+.festival-prize>img{width:72px;height:88px;object-fit:contain}.festival-prize h3{font-size:15px;margin:0 0 6px}.festival-prize p{font-size:12px;line-height:1.45;margin:0}.festival-prize .game-button{grid-column:1/-1}
+.content-event-help{font-size:11px;text-align:center;line-height:1.65;margin:0;padding:0 6px;color:#e6f2ff}.content-event-error{padding:9px 11px;border-radius:8px;background:#fff0ed;color:#9b272a;font-size:13px;line-height:1.5;margin:0}
+.expedition-poster{position:relative;aspect-ratio:1.5;overflow:hidden;border-radius:13px}.expedition-poster img{width:100%;height:100%;display:block;object-fit:cover}.expedition-poster strong{position:absolute;inset:auto 0 0;padding:24px 12px 10px;background:linear-gradient(transparent,#092d48ed);color:white;font-size:17px;text-align:center;text-shadow:0 2px 2px #092132}
+.expedition-course-list{list-style:none;padding:0;margin:0;display:grid;gap:7px}.expedition-course-list li{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:linear-gradient(110deg,#c8e4f9,#a7c8ed);border:1px solid #7ba4ce;color:#1c3a60;min-width:0;box-shadow:0 2px 0 #234c90}
+.expedition-course-list li.is-current{background:linear-gradient(110deg,#ffdda2,#f5b666);border-color:#ecb752}.expedition-course-list li.is-complete{background:linear-gradient(110deg,#d1e9c0,#accc96)}
+.expedition-course-list li>span:first-child{display:grid;place-items:center;flex:0 0 29px;height:31px;border-radius:8px;background:#215c9d;color:white;box-shadow:inset 0 2px 0 #ffffff44,0 2px 0 #123c76}.expedition-course-list li.is-complete>span:first-child{background:#4f7f2d}.expedition-course-list li>div{flex:1;min-width:0}.expedition-course-list strong{font-size:14px;display:block}.expedition-course-list small{font-size:10px;display:block;margin-top:3px}
+.expedition-course-list .activity-rewards{font-size:12px;display:grid;justify-items:end;gap:3px}.expedition-course-list .activity-rewards .icon{width:21px;height:21px}
+.expedition-final-reward{display:flex;align-items:center;justify-content:center;gap:10px;padding:4px;color:#fff4cc;font-size:13px}.expedition-final-reward img{width:48px;height:52px;object-fit:contain}
+.animal-expedition-screen{position:absolute!important;inset:0;z-index:70!important}
+.animal-expedition-screen .board-area .expedition-event-level{width:200px;max-width:100%;white-space:nowrap}
+.expedition-pause-help{margin-bottom:16px;text-align:center}
+.expedition-daily{padding:12px 14px 15px;display:grid;gap:5px;text-align:center;color:#17395c}
+.expedition-daily>strong{font-size:18px}.expedition-daily>small{font-size:11px;color:#355779}
+.expedition-round-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;align-items:center}
+.expedition-round-actions .game-button{margin:0;min-height:54px;font-size:21px;padding:9px 8px 13px}
+.expedition-round-actions .icon{width:32px;height:32px}
+.expedition-controls{display:flex;align-items:flex-start}
+.expedition-retry-remaining{margin:14px 0;text-align:center;font-size:18px}
+.expedition-reward-summary{position:relative;isolation:isolate;padding:12px 15px 15px;width:100%;min-width:0;--surface-ink:#17395c;--surface-muted:#355779}
+.expedition-reward-summary h3,.modal-content .expedition-reward-summary h3{color:#17395c!important;font-size:15px!important;line-height:20px;margin:0 0 9px!important;text-align:center;text-shadow:none}
+.expedition-rewards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center;gap:8px;min-width:0}
+.expedition-reward-entry{display:flex;align-items:center;justify-content:center;gap:7px;min-width:0;color:#17395c;text-shadow:none}
+.expedition-reward-entry>.icon,.expedition-reward-entry>img{width:40px;height:44px;flex:0 0 40px;object-fit:contain}
+.expedition-reward-entry>span{display:grid;gap:3px;min-width:0;text-align:left}
+.expedition-reward-entry small{color:#355779!important;font-size:12px;line-height:16px;word-break:keep-all;overflow-wrap:anywhere}
+.expedition-reward-entry strong{color:#17395c!important;-webkit-text-fill-color:#17395c;font:25px/1.1 var(--font-game-number);text-shadow:none}
+.expedition-reward-friend{grid-column:1/-1}
+.expedition-receipt{margin-bottom:3px}
+.hub-content-event-icon{height:54px!important;width:54px!important;object-fit:contain;filter:drop-shadow(0 3px 3px #0004)}
+.flowerlight-clear-reward{display:flex;align-items:center;justify-content:center;gap:8px;padding:7px 12px;margin:10px 0;color:#fff2b2;background:#204e88;border-radius:12px;border:1px solid #8dafe3;font-size:14px}
+@keyframes flowerlight-build{from{transform:translateY(-18px) scale(.7);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+@keyframes flowerlight-fly{from{transform:translateY(4px);opacity:.35}to{transform:translateY(-9px);opacity:1}}
+@media(max-width:350px){.featured-event-copy h2,.game-page[data-page="events"] .featured-event-copy h2{font-size:21px}.featured-event-tabs>button{font-size:11px;padding-left:5px;padding-right:8px}.featured-event-action .game-button,.game-page[data-page="events"] .featured-event-action .game-button{min-width:95px;font-size:14px}.expedition-course-list li{gap:7px;padding:8px}.expedition-course-list strong{font-size:12px}.festival-stage-track small{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.is-restoring .festival-object,.festival-fireflies i{animation:none}}
+[data-reduced-motion=true] .festival-object,[data-reduced-motion=true] .festival-fireflies i{animation:none}
+
+.expedition-chapter-label{color:#ffe3a8!important;text-align:center;font-size:14px}
+
+/* Festival: a scene and image HUD, rather than nested bordered web cards. */
+.modal-layer:has(.festival-v44) .modal{padding-left:21px;padding-right:21px;max-width:430px}
+.modal-layer:has(.festival-v44) .modal-content{padding-bottom:5px}
+.festival-v44{gap:9px}
+.festival-scene-stage{position:relative;isolation:isolate}
+.festival-v44 .flowerlight-scene{aspect-ratio:1.16;max-height:290px;border-radius:17px;margin:5px;overflow:hidden;background:none}
+.festival-v44 .flowerlight-plaza{object-position:center}
+.festival-v44 .festival-time{position:absolute;right:18px;top:17px;z-index:5;display:flex;gap:4px;max-width:85%;font-size:11px;padding:0;border:0;background:none;box-shadow:none;text-shadow:0 1px 2px #151f3d,0 0 5px #10224a;color:#fff3d2}
+.festival-places{position:absolute;left:20px;right:20px;bottom:18px;z-index:5;list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;align-items:flex-end;gap:5px}
+.festival-places li{position:relative;width:45px;height:51px;display:grid;place-items:center;filter:brightness(.7) saturate(.7)}
+.festival-places li>img{height:43px;width:43px;object-fit:contain;filter:drop-shadow(0 3px 2px #10253c99)}
+.festival-places li>span{position:absolute;right:0;bottom:0;display:grid;place-items:center;background-position:center;background-size:contain;background-repeat:no-repeat;width:21px;height:21px;color:#fff8ce;font-size:12px;text-shadow:0 1px 1px #6e250f}
+.festival-places li.is-current{filter:none;transform:scale(1.14)}
+.festival-places li.is-complete{filter:none}
+.festival-places li.is-current>img{filter:drop-shadow(0 0 5px #ffe795) drop-shadow(0 3px 2px #10253c99)}
+.festival-mission{position:relative;margin-top:-5px;isolation:isolate}
+.festival-mission-title,.modal-layer .festival-mission-title{position:relative;z-index:2;min-height:0;aspect-ratio:4;margin:0 10px -23px!important;padding:0;background-position:center;background-size:100% 100%;background-repeat:no-repeat;color:#fff3ce!important;text-align:center;font-size:17px!important;line-height:21px;text-shadow:0 2px 1px #782c17}
+.festival-mission-title>span{position:absolute;left:13%;right:13%;top:32%;transform:translateY(-50%);line-height:1.15;word-break:keep-all;overflow-wrap:anywhere}
+.festival-mission-tray{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7px;padding:23px 29px 18px;min-height:124px;color:#263c65;--surface-ink:#263c65;--surface-muted:#354c71}
+.festival-mission-tray::before{content:"";position:absolute;inset:0;border:solid transparent;border-width:22px 40px;border-image-source:url('../../../packages/assets/event-ui-v44/mission-scroll.webp');border-image-slice:110 200 fill;border-image-width:1;border-image-repeat:stretch;z-index:-1;pointer-events:none}
+.festival-petal-goal{display:flex;gap:5px;align-items:center;justify-content:center;min-width:0}
+.festival-petal-goal>.icon{flex:0 0 auto;filter:drop-shadow(0 2px 1px #bc6b3688)}
+.festival-petal-goal strong{font-size:31px;white-space:nowrap;line-height:1;text-align:center}
+.festival-petal-goal strong small{display:block;font-size:14px;margin-top:3px;color:#5f5175!important}
+.festival-mission-reward{display:grid;justify-items:center;gap:5px;min-width:0}
+.festival-mission-reward>small{font-size:11px;color:#684326!important}
+.festival-mission-reward>.activity-rewards{display:flex;align-items:center;justify-content:center;gap:8px;font-size:17px}
+.festival-mission-reward .resource-amount{gap:2px}
+.festival-mission-reward .icon{width:23px;height:23px}
+.festival-petal-meter{grid-column:1/-1;height:13px;border-radius:8px;background:#6b432e;box-shadow:inset 0 2px 3px #281a3155;overflow:hidden;margin:0 6px}
+.festival-petal-meter i{display:block;height:100%;min-width:0;border-radius:inherit;background:linear-gradient(#fff087,#ffbd33 45%,#ec8f17);box-shadow:inset 0 1px 1px #fffac5}
+.festival-primary-action{display:grid;gap:8px}
+.festival-primary-action .game-button,.festival-conversation>.game-button{width:100%;margin:0;min-height:51px;font-size:21px}
+.festival-v44 .content-event-help{font-size:11px;margin:0;text-shadow:0 1px 1px #10254b}
+.festival-joining,.modal-layer .festival-joining{margin:2px 0;text-align:center;font-size:13px;color:#fff4d7!important;line-height:1.5}
+.festival-v44 .content-event-error{background:#fbe3cc;color:#8b2e36!important;border:0;border-radius:9px;font-size:12px;padding:9px 12px}
+.festival-conversation{display:grid;grid-template-columns:67px minmax(0,1fr);align-items:center;gap:6px;min-width:0}
+.festival-dialogue-portrait{position:relative;width:78px;z-index:2;align-self:end}
+.festival-dialogue-portrait .icon{width:84px;height:104px;object-fit:contain;filter:drop-shadow(0 3px 2px #14254f99)}
+.festival-dialogue-bubble{padding:16px 13px 16px 17px;min-height:111px;min-width:0;--surface-ink:#20365e}
+.festival-dialogue-bubble p{font-size:14px;line-height:1.6;margin:0;color:#20365e!important;word-break:keep-all;overflow-wrap:anywhere}
+.festival-conversation>.game-button{grid-column:1/-1}
+.festival-grand-prize{padding:12px 15px;border:0;background:none;box-shadow:none;border-radius:0}
+.festival-grand-prize h3,.modal-layer .festival-grand-prize h3{color:#273c65!important}
+.festival-grand-prize p,.modal-layer .festival-grand-prize p{color:#344a71!important}
+@media(max-width:350px){.festival-v44 .flowerlight-scene{aspect-ratio:1.12}.festival-places{left:16px;right:16px}.festival-places li{width:37px;height:45px}.festival-places li>img{width:36px;height:37px}.festival-mission-tray{padding-left:23px;padding-right:23px}.festival-petal-goal>.icon{width:36px;height:36px}.festival-petal-goal strong{font-size:26px}.festival-mission-reward>.activity-rewards{font-size:15px;gap:4px}.festival-mission-title,.modal-layer .festival-mission-title{font-size:15px!important}.featured-event-copy{left:19px;top:25px}.featured-event-copy h2,.game-page[data-page="events"] .featured-event-copy h2{font-size:22px}}
+
+/* Round selector retains previous saved journeys without replacing current enrollment. */
+.expedition-round-selector{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}.expedition-round-selector .game-button{min-width:140px;flex:0 0 auto}.hud-expedition-animal{width:34px;height:34px;object-fit:contain}
+
+/* Festival progress is displayed on the saved garden, with permanent stage gifts. */
+.festival-v51 .festival-real-garden{position:relative;height:260px;overflow:hidden;border-radius:18px;background:#9bbe79;box-shadow:0 4px 0 #123962,0 0 0 2px #e4b957}
+.festival-real-garden>.gw-map{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;touch-action:pan-y}
+.festival-real-garden>p{display:grid;place-items:center;min-height:200px;color:#20365c;font-size:15px}
+.festival-real-garden-label{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:12px;background:#173b69dc;color:#fff3cb;font-size:13px;line-height:18px;pointer-events:none;text-shadow:0 2px #173655}
+.festival-real-garden .festival-visit-garden{position:absolute;bottom:10px;right:10px;width:110px;height:36px;min-height:36px;margin:0;font-size:14px;padding:3px 6px 7px}
+.festival-real-time{display:flex;align-items:center;justify-content:center;gap:4px;color:#f6e4b0;font-size:12px;margin:11px 0 3px;text-shadow:0 1px #123659}
+.festival-gift-track{display:flex;list-style:none;margin:6px 0 18px;padding:0 4px;gap:4px;justify-content:space-between}
+.festival-gift-track>li{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0;flex:1;color:#e4ecff;filter:saturate(.6);opacity:.7}
+.festival-gift-track>li.is-current,.festival-gift-track>li.is-complete{filter:none;opacity:1}
+.festival-gift-track img{width:46px;height:49px;object-fit:contain;filter:drop-shadow(0 3px 1px #0b2c50)}
+.festival-gift-track strong{position:absolute;left:2px;bottom:8px;display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#2469b1;color:white;box-shadow:inset 0 2px #ffe4a5,0 2px #102f55;font-size:13px}
+.festival-gift-track .is-complete strong{background:#2c881b}.festival-gift-track small{font-size:11px;font-weight:bold}
+.festival-garden-gift{display:flex;align-items:center;gap:6px;margin-bottom:5px}.festival-garden-gift>img{width:42px;height:44px;object-fit:contain}.festival-garden-gift>strong{font-size:13px;line-height:17px;color:#273c65}
+.festival-v51 .festival-mission-tray{align-items:center}.festival-v51 .festival-grand-prize{margin:10px 0}.festival-v51 .content-event-help{line-height:18px}
+.festival-install-receipt{padding:9px 12px;margin:10px 0;color:#f8edc9;background:#163b65a8;border-radius:14px;text-align:center;font-size:13px;line-height:19px}
+@media(max-width:350px){.festival-v51 .festival-real-garden{height:215px}.festival-gift-track img{width:41px;height:44px}.festival-garden-gift>strong{font-size:12px}.festival-garden-gift>img{width:35px;height:38px}.festival-v51 .festival-mission-tray{padding-left:20px;padding-right:20px}}

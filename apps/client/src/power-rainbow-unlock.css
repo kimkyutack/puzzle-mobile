@@ -1,0 +1,61 @@
+.power-rainbow-reveal > .modal-scrim { background:#070b18; opacity:.86; }
+.power-rainbow-reveal-content {
+ width:min(100%,380px);
+ max-height:100%;
+ overflow:auto;
+ padding:12px 6px 16px;
+ text-align:center;
+ color:#fff5d4;
+}
+.power-rainbow-reveal-content h2 {
+ margin:0;
+ font-size:clamp(26px,8vw,42px);
+ line-height:1.2;
+ color:#fff0b7;
+ text-shadow:0 3px 0 #75492d,0 0 20px #ffc97688;
+}
+.power-rainbow-reveal-art {
+ position:relative;
+ display:grid;
+ place-items:center;
+ width:min(100%,292px);
+ aspect-ratio:1.16;
+ margin:6px auto 0;
+ isolation:isolate;
+}
+.power-rainbow-reveal-art > .icon { grid-area:1/1; }
+.power-rainbow-reveal-art .power-rainbow-reveal-glow {
+ width:min(100%,270px);
+ height:auto;
+ opacity:.58;
+ animation:power-rainbow-glow 3s ease-in-out infinite;
+}
+.power-rainbow-reveal-art .power-rainbow-reveal-ball {
+ width:62%;
+ height:auto;
+ filter:drop-shadow(0 6px 14px #ffc76188);
+ animation:power-rainbow-reveal-in 540ms cubic-bezier(.2,.85,.28,1.2) both;
+}
+.power-rainbow-reveal-art > span {
+ position:absolute;
+ transform:translate(-50%,-50%);
+ animation:power-rainbow-sparkle 1.8s ease-in-out infinite alternate;
+}
+.power-rainbow-reveal-content p { margin:6px auto 18px; max-width:29ch; font-size:16px; line-height:1.45; }
+.power-rainbow-reveal-content .game-button { width:min(100%,244px); margin:auto; }
+.power-rainbow-reveal-content .game-button:focus-visible { border-radius:16px; outline:2px solid #ffe3a9; outline-offset:3px; }
+@keyframes power-rainbow-reveal-in {
+ from { opacity:0; transform:scale(.48) rotate(-12deg); }
+ to { opacity:1; transform:scale(1) rotate(0); }
+}
+@keyframes power-rainbow-glow {
+ 50% { opacity:.8; transform:scale(1.08); }
+}
+@keyframes power-rainbow-sparkle {
+ from { opacity:.35; transform:translate(-50%,-50%) scale(.68); }
+ to { opacity:.95; transform:translate(-50%,-50%) scale(1.12); }
+}
+.power-rainbow-reveal[data-reduced="true"] .power-rainbow-reveal-art * { animation:none; }
+@media (prefers-reduced-motion:reduce) {
+ .power-rainbow-reveal .power-rainbow-reveal-art * { animation:none; }
+}

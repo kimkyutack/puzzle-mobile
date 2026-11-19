@@ -6,8 +6,8 @@ import {purchasePreviewItem} from '../apps/client/src/garden-world/preview-shop'
 
 describe('decoration and animal sample shop',()=>{
  it('defines distinct placeable animals and a variety of new decorations',()=>{
-  expect(DECORATIONS.filter(item=>item.category==='animal').map(item=>item.id)).toEqual(['animal-rabbit','animal-cat','animal-dog']);
-  expect(DECORATIONS.filter(item=>item.category==='animal').every(item=>item.width===1&&item.height===1&&item.layer==='object'&&item.futureShop)).toBe(true);
+  expect(DECORATIONS.filter(item=>item.category==='animal').map(item=>item.id)).toEqual(['animal-rabbit','animal-cat','animal-dog','animal-panda','animal-fox','animal-red-panda','animal-duckling','animal-hedgehog']);
+  expect(DECORATIONS.filter(item=>item.category==='animal'&&item.futureShop).every(item=>item.width===1&&item.height===1&&item.layer==='object'&&item.futureShop)).toBe(true);
   for(const id of ['garden-rose-arch','garden-gazebo','garden-pond','garden-picnic','garden-hedge','garden-mushroom'])expect(DECORATIONS.some(item=>item.id===id&&item.futureShop)).toBe(true);
   expect(new Set(DECORATIONS.map(item=>item.id)).size).toBe(DECORATIONS.length);
  });
@@ -58,5 +58,14 @@ describe('decoration and animal sample shop',()=>{
   expect(()=>purchasePreviewItem(full,'animal-dog','new-overflow')).toThrow('꾸미기 보관함이 가득 찼어요.');
   expect(purchasePreviewItem(full,'animal-cat','capacity-retry').world).toBe(full);
   expect(readPreviewGarden(JSON.stringify(full)).status).toBe('restored');
+ });
+});
+
+describe('exclusive rescue friend catalog',()=>{
+ it('cannot purchase event animals from the decoration shop',()=>{
+  for(const id of ['animal-panda','animal-fox','animal-red-panda']){
+   expect(DECORATIONS.find(item=>item.id===id)?.futureShop).toBe(false);
+   expect(()=>purchasePreviewItem(createPreviewGarden(),id,'exclusive-preview-'+id)).toThrow('ITEM_NOT_FOR_SALE');
+  }
  });
 });

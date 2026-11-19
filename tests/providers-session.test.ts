@@ -9,7 +9,7 @@ describe('session renewal without replaying under another account',()=>{
  it('shares refresh and retries the same idempotent body',async()=>{
   let renewals=0;const bodies:string[]=[];
   vi.stubGlobal('fetch',vi.fn(async(url:string,init:RequestInit)=>{
-   if(url.endsWith('/auth/refresh')){renewals++;await Promise.resolve();return ok({accessToken:'new',refreshToken:'refresh-token'});}
+   if(new URL(url,'https://app.example').pathname.endsWith('/auth/refresh')){renewals++;await Promise.resolve();return ok({accessToken:'new',refreshToken:'refresh-token'});}
    bodies.push(String(init.body));return (init.headers as Record<string,string>).Authorization==='Bearer old'?expired():ok({done:true});
   }));
   const body={idempotencyKey:'unchanged',amount:1};
@@ -17,10 +17,26 @@ describe('session renewal without replaying under another account',()=>{
   expect(renewals).toBe(1);expect(new Set(bodies)).toEqual(new Set([JSON.stringify(body)]));expect(stored.accessToken).toBe('new');
  });
  it('does not replay a failed mutation after account switching',async()=>{
-  let release:()=>void=()=>{};const gate=new Promise<void>(resolve=>{release=resolve;});
-  vi.stubGlobal('fetch',vi.fn(async()=>{await gate;return expired();}));
-  const pending=api.request('/shop/buy',{idempotencyKey:'one',item:'hammer'});api.setToken('another-account');release();
+  let release!:()=>void,started!:()=>void;
+  const gate=new Promise<void>(resolve=>{release=resolve;});
+  const dispatched=new Promise<void>(resolve=>{started=resolve;});
+  vi.stubGlobal('fetch',vi.fn(async(_url:string,init:RequestInit)=>{
+   expect((init.headers as Record<string,string>).Authorization).toBe('Bearer old');
+   started();
+   await gate;
+   return expired();
+  }));
+  const pending=api.request('/shop/buy',{idempotencyKey:'one',item:'hammer'});
+  await dispatched;
+  api.setToken('another-account');release();
   await expect(pending).rejects.toMatchObject({code:'SESSION_CHANGED'});expect(fetch).toHaveBeenCalledTimes(1);
+ });
+ it('never sends a command under a newly selected account if switching happens before dispatch',async()=>{
+  vi.stubGlobal('fetch',vi.fn());
+  const pending=api.request('/shop/buy',{idempotencyKey:'never-cross-account',item:'hammer'});
+  api.setToken('another-account');
+  await expect(pending).rejects.toMatchObject({code:'SESSION_CHANGED'});
+  expect(fetch).not.toHaveBeenCalled();
  });
  it('stops after one renewal and leaves invalid refresh errors visible',async()=>{
   vi.stubGlobal('fetch',vi.fn(async()=>expired()));

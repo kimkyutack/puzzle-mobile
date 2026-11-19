@@ -1,7 +1,9 @@
 import {useState,type ReactNode} from 'react';
+import {APP_LOCALES} from '@garden/contracts';
 import {setLocale,useI18n,type Locale} from './i18n';
-import {readLanguagePreference,saveLanguagePreference} from './locale-preference';
+import {languageOptions,readLanguagePreference,saveLanguagePreference} from './locale-preference';
 import BrandLogo from './BrandLogo';
+import StartupPoster from './StartupPoster';
 import './language.css';
 
 /** No App effects, guest creation or heart-consuming run can mount before selection. */
@@ -11,12 +13,11 @@ export default function LanguageGate({children}:{children:ReactNode}){
  if(accepted)return children;
  const choose=(language:Locale)=>{saveLanguagePreference(language);setLocale(language);setAccepted(true)};
  return <main className="language-gate" aria-labelledby="language-title">
-  <img className="language-backdrop" src="/assets/loading-story.png" alt=""/>
+  <StartupPoster className="language-backdrop"/>
   <div className="language-choice">
    <h1 className="brand-heading"><BrandLogo/></h1>
    <section aria-labelledby="language-title"><h2 id="language-title">{t('language.choose')}</h2>
-    <button lang="ko" onClick={()=>choose('ko')}>한국어</button>
-    <button lang="en" onClick={()=>choose('en')}>English</button>
+    {APP_LOCALES.map(language=><button key={language} lang={language} onClick={()=>choose(language)}>{languageOptions[language]}</button>)}
     <p>{t('language.changeLater')}</p>
    </section>
   </div>

@@ -1,0 +1,141 @@
+.hidden-mission-poster-modal {
+ display: grid;
+ gap: 9px;
+}
+.hidden-mission-hero {
+ position: relative;
+ isolation: isolate;
+ overflow: hidden;
+ margin: 0;
+ border-radius: 11px;
+ aspect-ratio: 16 / 9;
+ background: #10263b;
+}
+.hidden-mission-illustration,
+.hidden-mission-letter-art {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+}
+.hidden-mission-letter-art { display: block; object-fit: cover; }
+.hidden-mission-illustration .hidden-mission-letter-icon {
+ position: absolute;
+ left: 50%;
+ top: 50%;
+ width: 15%;
+ height: 27%;
+ transform: translate(-50%, -50%);
+ filter: drop-shadow(0 2px 3px #67461985);
+}
+.hidden-mission-poster-modal[data-state="discovered"] .hidden-mission-illustration {
+ animation: hidden-mission-letter 550ms ease-out both;
+}
+.hidden-mission-clock {
+ position: relative;
+ isolation: isolate;
+ display: inline-flex;
+ justify-content: center;
+ align-items: center;
+ min-width: 58px;
+ min-height: 26px;
+ padding: 2px 8px 4px;
+ color: #fff8e9;
+ font: 14px/1.25 var(--font-game-ui);
+ font-variant-numeric: tabular-nums;
+ white-space: nowrap;
+}
+.hidden-mission-clock > .raster-frame-face { z-index: -1; }
+.hidden-mission-hero > .hidden-mission-clock { position: absolute; top: 8px; right: 8px; }
+.hidden-mission-poster-modal .hidden-mission-stage {
+ display: grid;
+ gap: 5px;
+ margin: 0;
+ padding: 12px 14px;
+}
+.hidden-mission-poster-modal .hidden-mission-stage h3 {
+ margin: 0;
+ font-size: 23px;
+ line-height: 1.18;
+ outline: none;
+}
+.hidden-mission-stage-label { font-size: 13px; }
+.hidden-mission-goal {
+ display: grid;
+ grid-template-columns: minmax(0, 1fr) auto;
+ align-items: center;
+ gap: 8px;
+}
+.hidden-mission-goal p { margin: 0; line-height: 1.3; }
+.hidden-mission-goal strong { font: 22px/1 var(--font-game-number); white-space: nowrap; }
+.hidden-mission-meter {
+ height: 9px;
+ overflow: hidden;
+ background: #583c2773;
+ border-radius: 8px;
+}
+.hidden-mission-meter span {
+ display: block;
+ height: 100%;
+ border-radius: inherit;
+ background: #62a82a;
+ transition: width 230ms ease-out;
+}
+.hidden-mission-reward {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 3px 9px;
+}
+.hidden-mission-reward .activity-rewards { margin: 0; }
+.hidden-mission-note, .hidden-mission-error, .hidden-mission-complete { margin: 0; text-align: center; }
+.hidden-mission-note, .hidden-mission-error { font-size: 13px; }
+.hidden-mission-error { color: #ffe1bf; }
+.hidden-mission-poster-modal > .game-button { width: 100%; margin: 0; }
+
+.hidden-mission-play-badge {
+ position: relative;
+ isolation: isolate;
+ display: grid;
+ flex: 0 0 62px;
+ align-content: center;
+ justify-items: center;
+ min-height: 70px;
+ padding: 2px 3px 4px;
+ gap: 1px;
+}
+.hidden-mission-play-badge:disabled { opacity: 1; }
+.hidden-mission-play-badge .hidden-mission-clock {
+ min-width: 48px;
+ min-height: 18px;
+ padding: 0 6px 1px;
+ border-radius: 5px;
+ background: #643b20;
+ color: #fff6de;
+ font-size: 13px;
+}
+.hidden-mission-play-badge > .icon { width: 30px; height: 30px; }
+.hidden-mission-badge-progress {
+ color: #492810;
+ font: 15px/1 var(--font-game-number);
+ white-space: nowrap;
+}
+.game-shell.has-hidden-mission-badge {
+ --hidden-mission-board-budget: 330px;
+}
+.game-shell.has-hidden-mission-badge.has-power-festival { --hidden-mission-board-budget: 331px; }
+.game-shell.has-hidden-mission-badge.has-campaign-device { --hidden-mission-board-budget: 395px; }
+.game-shell.has-hidden-mission-badge.has-campaign-device.has-power-festival { --hidden-mission-board-budget: 415px; }
+.game-shell.has-hidden-mission-badge.has-power-festival.has-tutorial { --hidden-mission-board-budget: 431px; }
+.game-shell.playing.has-hidden-mission-badge .board-area .board-wrap {
+ max-width: min(490px, max(120px, calc((100dvh - var(--safe-top) - var(--safe-bottom) - var(--hidden-mission-board-budget))*var(--hidden-mission-board-ratio,1))));
+}
+
+@keyframes hidden-mission-letter {
+ from { transform: scale(1.05); filter: brightness(.7); }
+ to { transform: none; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .hidden-mission-poster-modal[data-state] .hidden-mission-illustration { animation: none; }
+ .hidden-mission-meter span { transition: none; }
+}

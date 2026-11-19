@@ -4,7 +4,8 @@ import {getLevel} from '@garden/content';
 import type {Special} from '@garden/contracts';
 import {combinationAt,combinationParts} from '../apps/client/src/special-combination';
 import {fusionPose} from '../apps/client/src/effect-motion';
-import {effectTiming,VISUAL_BEATS} from '../apps/client/src/visual-timing';
+import {CROSS_ROCKET_BEATS,effectTiming,isCrossRocket,VISUAL_BEATS,windArrival} from '../apps/client/src/visual-timing';
+import {impactCues} from '../apps/client/src/tile-impact';
 const kinds:Special[]=['wind-row','wind-column','bomb','glider','rainbow'];
 describe('two-power fusion presentation',()=>{
  it('recognizes every ordered power pair without changing the board or accepting normal, seed, blocked or distant pieces',()=>{
@@ -18,8 +19,35 @@ describe('two-power fusion presentation',()=>{
  });
  it('gives every actual engine combination a fusion phase and keeps both input pieces out of the ordinary pop sequence',()=>{
   for(const a of kinds)for(const b of kinds){const before=createGame(getLevel(1));before.cells[24]!.tile={id:500,kind:a};before.cells[25]!.tile={id:501,kind:b};before.nextTileId=502;const hash=stateHash(before),action={type:'swap',from:24,to:25} as const,result=applyAction(before,action),plan=effectTiming(result.events,result.state,action),index=result.events.findIndex(event=>event.type==='special'&&event.kind===`${a}+${b}`);
-   expect(result.accepted).toBe(true);expect(plan.fusionAt.get(index)).toBe(0);expect(plan.delays[index]).toBe(VISUAL_BEATS.fusion);expect(plan.activationAt.get(24)).toBe(0);expect(plan.activationAt.get(25)).toBe(0);expect(plan.primaryImpactAt).toBeGreaterThanOrEqual(VISUAL_BEATS.fusion+VISUAL_BEATS.charge);expect(stateHash(before)).toBe(hash);
+   const cross=isCrossRocket(result.events[index]!.kind!),release=cross?CROSS_ROCKET_BEATS.fusion:VISUAL_BEATS.fusion;
+   expect(result.accepted).toBe(true);expect(plan.fusionAt.get(index)).toBe(0);expect(plan.delays[index]).toBe(release);expect(plan.activationAt.get(24)).toBe(0);expect(plan.activationAt.get(25)).toBe(0);expect(plan.primaryImpactAt).toBeGreaterThanOrEqual(release+(cross?0:VISUAL_BEATS.charge));expect(stateHash(before)).toBe(hash);
    for(const flight of result.events.flatMap((event,i)=>event.kind==='glider-flight'&&event.from===25?[i]:[]))expect(plan.delays[flight]).toBe(VISUAL_BEATS.fusion);
   }
+ });
+ it('times a crossed arm, its triggered rocket, and a multi-cell obstacle by their own contacts',()=>{
+  const before=createGame(getLevel(1));
+  before.cells[23]!.tile={id:500,kind:'wind-row'};
+  before.cells[24]!.tile={id:501,kind:'wind-column'};
+  before.cells[26]!.tile={id:502,kind:'wind-column'};
+  before.nextTileId=503;
+  const action={type:'swap',from:23,to:24} as const,result=applyAction(before,action);
+  const {events,state}=result;
+  const plan=effectTiming(events,state,action),cross=events.findIndex(event=>event.type==='special'&&isCrossRocket(event.kind??''));
+  const relayed=events.findIndex((event,i)=>i>cross&&event.type==='special'&&event.cells[0]===26);
+  const childId=events[relayed]!.effectId!;
+  const contact=CROSS_ROCKET_BEATS.fusion+windArrival(2/3.5,CROSS_ROCKET_BEATS.travel);
+  expect(plan.delays[relayed-1]).toBe(contact);
+  expect(plan.rocketLaunches.get(relayed)).toBe(contact+CROSS_ROCKET_BEATS.relay);
+  const childHit=events.findIndex(event=>event.type==='remove'&&event.effectId===childId&&event.cells[0]===19);
+  expect(plan.delays[childHit]).toBe(contact+CROSS_ROCKET_BEATS.relay+windArrival(1/3.5,CROSS_ROCKET_BEATS.travel));
+
+  const crossId=events[cross]!.effectId!;
+  const stagedEvents=[events[cross]!,{type:'remove',kind:'sun',cells:[25],effectId:crossId} as const,
+   {type:'hit',kind:'crate',cells:[33,27,34],effectId:crossId} as const].map(event=>({...event,cells:[...event.cells]}));
+  const staged=effectTiming(stagedEvents,state);
+  const crack=CROSS_ROCKET_BEATS.fusion+windArrival(3/3.5,CROSS_ROCKET_BEATS.travel);
+  expect(staged.rocketContacts.get(2)).toBe(27);
+  expect(staged.delays[2]).toBe(crack);
+  expect(impactCues(stagedEvents,staged).some(cue=>cue.name==='crack'&&cue.delay===crack)).toBe(true);
  });
 });

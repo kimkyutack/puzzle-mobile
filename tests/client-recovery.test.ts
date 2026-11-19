@@ -6,6 +6,26 @@ import type {Action,Run,Player} from '@garden/contracts';
 function fixture(){const level=getLevel(1);const run:Run={id:'run-a',userId:'user-a',level,state:createGame(level),sequence:0,status:'active',startedAt:0,expiresAt:86400000,preBoosters:[],heartSpent:true,continues:0};const action:Action={type:'swap',from:level.tutorial!.from,to:level.tutorial!.to};const state=applyAction(run.state,action).state;return {run,action,committed:{...run,state,sequence:1}};}
 describe('pending action recovery',()=>{
  it('does not replay a potentially committed batch before same-key acknowledgement',()=>{const {run,action,committed}=fixture(),cache:CachedRun={runId:run.id,baseSequence:0,queue:[action],batch:{id:'stable-command',sequence:0,actions:[action]}};const decision=reconcileCachedRun(committed,cache);expect(decision.kind).toBe('retry-batch');expect(decision.run.state).toBe(committed.state);if(decision.kind==='retry-batch')expect(decision.batch.id).toBe('stable-command');expect(cache.queue).toEqual([action]);});
+ it('restores playable local moves while the server still reports the exact base sequence',()=>{
+  const {run,action,committed}=fixture();
+  const next=legalActions(committed.state)[0]!,batch={id:'in-flight',sequence:0,actions:[action]};
+  const cache:CachedRun={runId:run.id,baseSequence:0,queue:[action,next],batch};
+  const decision=reconcileCachedRun(run,cache);
+  expect(decision.kind).toBe('retry-batch');
+  expect(decision.cache.batch).toEqual(batch);
+  expect(decision.cache.queue).toEqual([action,next]);
+  expect(decision.run.sequence).toBe(run.sequence);
+  expect(stateHash(decision.run.state)).toBe(stateHash(applyAction(committed.state,next).state));
+ });
+ it('preserves a requested exit after the final pending moves are acknowledged',()=>{
+  const {run,action,committed}=fixture();
+  const saved:CachedRun={runId:run.id,baseSequence:0,queue:[action],batch:{id:'persisted',sequence:0,actions:[action]},abandonPending:true};
+  const ack=reconcileCachedRun(run,saved,committed);
+  expect(ack.cache.queue).toEqual([]);
+  expect(ack.cache.abandonPending).toBe(true);
+  expect(reconcileCachedRun(committed,ack.cache).cache.abandonPending).toBe(true);
+  expect(reconcileCachedRun({...committed,status:'abandoned'},ack.cache).cache.abandonPending).toBeUndefined();
+ });
  it('drops only the proven committed prefix and does not spend/replay it twice',()=>{const {run,action,committed}=fixture(),cache:CachedRun={runId:run.id,baseSequence:0,queue:[action],batch:{id:'stable-command',sequence:0,actions:[action]}};const decision=reconcileCachedRun(committed,cache,committed);expect(decision.kind).toBe('ready');expect(decision.cache.queue).toEqual([]);expect(decision.cache.baseSequence).toBe(1);expect(stateHash(decision.run.state)).toBe(stateHash(committed.state));});
  it('replays new unsent actions after the acknowledged in-flight batch',()=>{const {run,action,committed}=fixture(),next=legalActions(committed.state)[0]!;const cache:CachedRun={runId:run.id,baseSequence:0,queue:[action,next],batch:{id:'stable-command',sequence:0,actions:[action]}};const decision=reconcileCachedRun(run,cache,committed);expect(decision.kind).toBe('ready');expect(decision.cache.queue).toEqual([next]);expect(decision.cache.baseSequence).toBe(1);expect(stateHash(decision.run.state)).toBe(stateHash(applyAction(committed.state,next).state));});
  it('archives unsent actions when another device advanced instead of applying to the wrong board',()=>{const {run,action,committed}=fixture(),cache:CachedRun={runId:run.id,baseSequence:0,queue:[action]};const decision=reconcileCachedRun(committed,cache);expect(decision.kind).toBe('conflict');expect(decision.cache.queue).toEqual([]);expect(decision.run).toBe(committed);if(decision.kind==='conflict'){expect(decision.archive.reason).toBe('OTHER_DEVICE_PROGRESS');expect(decision.archive.cache.queue).toEqual([action]);}});

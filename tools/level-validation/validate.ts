@@ -1,13 +1,13 @@
 import { createHash } from 'node:crypto';
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { createGame, applyAction, legalActions, findMatches, replay, stateHash, validateLevel, isSpecial } from '@garden/core';
-import { ENGINE_VERSION, CONTENT_VERSION, type Action, type GameState, type LevelDefinition } from '@garden/contracts';
+import { ENGINE_VERSION, CONTENT_VERSION, type Action, type GameState, type LevelDefinition, type PreBooster } from '@garden/contracts';
 import { candidate } from '../../packages/content/src/candidates.ts';
 
 export interface Solution {actions:Action[];status:string;hash:string;movesLeft:number;shuffles:number;initialChoices:number}
 const remaining=(s:GameState)=>s.goals.reduce((sum,g)=>sum+g.remaining,0);
-export function solve(level:LevelDefinition,policy:'goal'|'special'='goal',prefix:readonly Action[]=[]):Solution {
- let state=createGame(level);const actions:Action[]=[];const initialChoices=legalActions(state).length;let shuffles=0;
+export function solve(level:LevelDefinition,policy:'goal'|'special'='goal',prefix:readonly Action[]=[],preBoosters:PreBooster[]=[]):Solution {
+ let state=createGame(level,preBoosters);const actions:Action[]=[];const initialChoices=legalActions(state).length;let shuffles=0;
  if(level.tutorial){const a:Action={type:'swap',from:level.tutorial.from,to:level.tutorial.to};const r=applyAction(state,a);if(r.accepted){actions.push(a);shuffles+=r.events.filter(e=>e.type==='shuffle').length;state=r.state;}}
  // Batch authoring can extend a certified path after changing counts/layers.
  // Runtime level starts never call this offline search.

@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {DECORATIONS,GARDEN_WORLD,createGardenWorld,applyGardenCommand,applyTrustedDecorationGrant,applyTrustedRegionUnlock,publicGardenSnapshot,storedDecorations,placementCells,GardenWorldError,gardenGridToScreen,gardenScreenToGrid,gardenScreenToCell,zoomGardenAt,constrainGardenCamera,type GardenWorldState,type GardenCommand,type TrustedDecorationGrant} from '../packages/garden-world/src';
+import {DECORATIONS,GARDEN_WORLD,createGardenWorld,applyGardenCommand,applyTrustedDecorationGrant,applyTrustedRegionUnlock,applyGardenExpansion,publicGardenSnapshot,storedDecorations,placementCells,GardenWorldError,gardenGridToScreen,gardenScreenToGrid,gardenScreenToCell,zoomGardenAt,fitGardenView,GARDEN_ZOOM,constrainGardenCamera,type GardenWorldState,type GardenCommand,type TrustedDecorationGrant} from '../packages/garden-world/src';
 
 const owner='owner-1';
 function grant(state:GardenWorldState,itemId='garden-bench',id='bench-1',source:TrustedDecorationGrant['source']='restoration'){
@@ -85,12 +85,18 @@ describe('garden ownership, storage and placement',()=>{
   hasCode(()=>place(world,'flowers-1',12,12),'OCCUPIED');
  });
 
- it('preserves story region constraints for large landmarks after a region opens',()=>{
+ it('places landmarks anywhere their full footprint fits on unlocked land',()=>{
   let world=grant(createGardenWorld(owner),'garden-greenhouse','greenhouse-1');
   hasCode(()=>place(world,'greenhouse-1',3,12),'REGION_LOCKED');
+  expect(place(world,'greenhouse-1',12,12).placements['greenhouse-1']).toBeDefined();
   world=applyTrustedRegionUnlock(world,'workshop');
   expect(place(world,'greenhouse-1',3,12).placements['greenhouse-1']).toBeDefined();
-  hasCode(()=>place(world,'greenhouse-1',12,12),'WRONG_REGION');
+  expect(place(world,'greenhouse-1',8,12,90).placements['greenhouse-1']?.rotation).toBe(90);
+  world=applyGardenExpansion(world,{operationId:'new-land',expectedRevision:world.revision,plotId:'land-22-10'},owner);
+  world=place(world,'greenhouse-1',22,10,90);
+  world=grant(world,'garden-fountain','fountain-1');
+  hasCode(()=>place(world,'fountain-1',23,11),'OCCUPIED');
+  expect(place(world,'fountain-1',13,12).placements['fountain-1']).toBeDefined();
   expect(applyTrustedRegionUnlock(world,'workshop')).toBe(world);
  });
 
@@ -134,7 +140,7 @@ describe('large garden isometric camera',()=>{
   for(const requested of [.01,1.1,100]){
    const zoomed=zoomGardenAt(camera,finger,requested),after=gardenScreenToGrid(finger,zoomed);
    expect(after.x).toBeCloseTo(before.x);expect(after.y).toBeCloseTo(before.y);
-   expect(zoomed.zoom).toBeGreaterThanOrEqual(.45);expect(zoomed.zoom).toBeLessThanOrEqual(1.8);
+   expect(zoomed.zoom).toBeGreaterThanOrEqual(GARDEN_ZOOM.min);expect(zoomed.zoom).toBeLessThanOrEqual(1.8);
   }
  });
  it('keeps an overscrolled map reachable and centers a map smaller than the viewport',()=>{
@@ -149,4 +155,11 @@ describe('large garden isometric camera',()=>{
   expect(()=>zoomGardenAt({x:0,y:0,zoom:1},{x:NaN,y:2},1)).toThrow(RangeError);
   expect(()=>constrainGardenCamera({x:0,y:0,zoom:1},GARDEN_WORLD,{width:0,height:100})).toThrow(RangeError);
  });
+});
+
+it('fits a fully expanded garden into a phone overview and preserves pinch anchors below the old minimum',()=>{
+ const view={left:18,top:115,width:284,height:330},bounds={left:-3072,top:-800,right:3072,bottom:3072},camera=fitGardenView(bounds,view);
+ expect(camera.zoom).toBeLessThan(.45);expect(camera.zoom).toBeGreaterThanOrEqual(GARDEN_ZOOM.min);
+ for(const p of [{x:bounds.left,y:bounds.top},{x:bounds.right,y:bounds.bottom}]){expect(p.x*camera.zoom+camera.x).toBeGreaterThanOrEqual(view.left-1e-6);expect(p.x*camera.zoom+camera.x).toBeLessThanOrEqual(view.left+view.width+1e-6);expect(p.y*camera.zoom+camera.y).toBeGreaterThanOrEqual(view.top-1e-6);expect(p.y*camera.zoom+camera.y).toBeLessThanOrEqual(view.top+view.height+1e-6);}
+ const finger={x:150,y:250},before=gardenScreenToGrid(finger,camera),after=gardenScreenToGrid(finger,zoomGardenAt(camera,finger,.03));expect(after.x).toBeCloseTo(before.x);expect(after.y).toBeCloseTo(before.y);
 });

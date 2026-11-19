@@ -1,0 +1,226 @@
+.modal-layer:has(.settings-panel) {
+ padding: calc(var(--safe-top) + 12px) clamp(10px, 4vw, 16px) calc(var(--safe-bottom) + 12px);
+}
+
+.modal-layer:has(.settings-panel) > .modal {
+ width: min(100%, 420px);
+ min-height: 0;
+ max-height: calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px);
+ padding: 67px clamp(12px, 4.1vw, 18px) 23px;
+}
+
+.modal-layer:has(.settings-panel) .modal-heading h2 {
+ font-size: clamp(23px, 7vw, 29px);
+}
+
+.modal-layer:has(.settings-panel) .modal-content {
+ min-height: 0;
+ padding: 0;
+}
+
+.settings-panel {
+ --settings-ink: #102961;
+ --settings-divider: #7399ce85;
+ --surface-ink: var(--settings-ink);
+ padding: 10px clamp(9px, 3vw, 13px) 14px;
+ border: 2px solid #95bdeb;
+ border-radius: 21px;
+ background: #cfe7ff;
+ box-shadow: inset 0 1px 3px #f8fcff;
+ color: var(--settings-ink);
+}
+
+.settings-panel > section + section {
+ padding-top: 12px;
+ border-top: 1px solid var(--settings-divider);
+}
+
+.modal-layer .settings-panel h3.settings-section-title {
+ margin: 0 0 3px;
+ padding: 6px 10px;
+ border-radius: 11px;
+ background: #aacdf4;
+ color: var(--settings-ink);
+ font-size: clamp(16px, 4.8vw, 20px);
+ line-height: 1.2;
+}
+
+.settings-panel .settings-row {
+ position: relative;
+ display: flex;
+ width: 100%;
+ min-height: 44px;
+ align-items: center;
+ justify-content: space-between;
+ gap: 8px;
+ margin: 0;
+ padding: 0 10px;
+ color: var(--settings-ink);
+ font-size: clamp(16px, 4.6vw, 19px);
+ line-height: 1.22;
+ text-align: left;
+}
+
+.settings-panel .settings-row + .settings-row,
+.settings-panel > .settings-disclosure,
+.settings-footer {
+ border-top: 1px solid var(--settings-divider);
+}
+
+.modal-layer .settings-panel .game-button.settings-link {
+ min-height: 49px;
+ justify-content: flex-start;
+ gap: clamp(6px, 2.6vw, 12px);
+ padding: 0 26px 0 8px;
+ color: var(--settings-ink);
+ font-size: clamp(16px, 4.9vw, 20px);
+ -webkit-text-stroke: 0;
+ text-shadow: none;
+}
+
+.settings-link > .icon {
+ flex: none;
+ width: clamp(33px, 11vw, 44px);
+ height: clamp(33px, 11vw, 44px);
+ transform: none;
+}
+
+.modal-layer .settings-panel .settings-link > .button-label {
+ min-width: 0;
+ flex: 1;
+ justify-content: flex-start;
+ white-space: nowrap;
+ transform: none;
+}
+
+.settings-panel .settings-link > .reward-dot {
+ top: 5px;
+ right: auto;
+ left: clamp(32px, 11vw, 45px);
+ width: 12px;
+ height: 12px;
+}
+
+.settings-link::after,
+.settings-language::after,
+.settings-disclosure > summary::after {
+ content: '';
+ position: absolute;
+ right: 12px;
+ top: calc(50% - 4px);
+ width: 7px;
+ height: 7px;
+ border: solid currentColor;
+ border-width: 2px 2px 0 0;
+ transform: rotate(45deg);
+ pointer-events: none;
+}
+
+.settings-switch {
+ display: grid;
+ place-items: center;
+ width: 61px;
+ min-height: 44px;
+ flex: none;
+}
+
+.settings-switch-track {
+ position: relative;
+ width: 57px;
+ height: 27px;
+ border: 1px solid #627da3;
+ border-radius: 99px;
+ background: #7896b6;
+ box-shadow: inset 0 1px 3px #32486770;
+}
+
+.settings-switch-track::before {
+ content: '';
+ position: absolute;
+ top: 3px;
+ left: 3px;
+ width: 19px;
+ height: 19px;
+ border-radius: 50%;
+ background: #f4f9ff;
+ box-shadow: 0 1px 3px #2d4e68a6;
+}
+
+.settings-switch[aria-checked='true'] .settings-switch-track {
+ border-color: #2d7e1a;
+ background: #60ce0b;
+ box-shadow: inset 0 2px 2px #ecffb1a0, inset 0 -4px 4px #2e8108a0;
+}
+
+.settings-switch[aria-checked='true'] .settings-switch-track::before {
+ right: 3px;
+ left: auto;
+}
+
+.settings-switch:disabled {
+ opacity: .6;
+}
+
+.settings-panel .settings-language select {
+ appearance: none;
+ min-height: 44px;
+ max-width: 68%;
+ margin-left: auto;
+ padding: 0 20px 0 6px;
+ border: 0;
+ background: transparent;
+ color: var(--settings-ink);
+ font: inherit;
+ text-align: right;
+ cursor: pointer;
+}
+
+.settings-disclosure > summary {
+ padding-right: 26px;
+ list-style: none;
+ cursor: pointer;
+}
+
+.settings-disclosure > summary::-webkit-details-marker {
+ display: none;
+}
+
+.settings-disclosure[open] > summary::after {
+ transform: translateY(-2px) rotate(135deg);
+}
+
+.settings-disclosure-content {
+ padding: 0 7px 10px;
+}
+
+.settings-panel :is(.settings-row, .settings-switch, select):focus-visible {
+ outline: 2px solid #1b519d;
+ outline-offset: -2px;
+ border-radius: 7px;
+}
+
+.settings-footer .settings-legal-links {
+ flex-flow: row wrap;
+ justify-content: center;
+ column-gap: 9px;
+ row-gap: 0;
+}
+
+.settings-footer .settings-legal-links > a {
+ min-height: 31px;
+ gap: 3px;
+ padding: 4px 0;
+ font-size: 11px;
+ line-height: 1.25;
+}
+
+.settings-footer .settings-legal-links > a > span {
+ font-size: 11px;
+}
+
+.modal-content .settings-footer p {
+ margin: 2px 0 0;
+ color: #274a76;
+ font-size: 11px;
+ text-align: center;
+}

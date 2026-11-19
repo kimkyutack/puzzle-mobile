@@ -30,7 +30,8 @@ try{
  const startingCoins=player.coins+player.boundCoins,purchase={key:key(),itemId:'garden-path-stone',quantity:10};
  const bought=await ok<{world:GardenWorldState;player:Player;instanceIds:string[];cost:number}>('/garden/shop/buy',purchase);world=bought.world;player=bought.player;assert.equal(bought.instanceIds.length,10);assert.equal(bought.cost,200);assert.equal(player.coins+player.boundCoins,startingCoins-200);
  const retry=await ok<typeof bought>('/garden/shop/buy',purchase);assert.deepEqual(retry,bought);record('ten-copy purchase commits one charge and an identical retry returns the original copies');
- const bench=await ok<{world:GardenWorldState;player:Player;instanceId:string}>('/garden/shop/buy',{key:key(),itemId:'garden-bench'});world=bench.world;player=bench.player;
+ const shop=await ok<{shopVersion?:2;prices:Record<string,number>}>('/garden/world?shopVersion=2&gardenArt=garden-v62');
+ const bench=await ok<{world:GardenWorldState;player:Player;instanceId:string}>('/garden/shop/buy',{key:key(),itemId:'garden-bench',...(shop.shopVersion===2?{expectedUnitPrice:shop.prices['garden-bench']}: {})});world=bench.world;player=bench.player;
  for(const rotation of [0,90,180,270]){
   world=(await ok<{world:GardenWorldState}>('/garden/world/commands',{key:key(),type:rotation===0?'place':'move',instanceId:bench.instanceId,x:12,y:12,rotation,expectedRevision:world.revision})).world;
   assert.equal((await ok<{world:GardenWorldState}>('/garden/world')).world.placements[bench.instanceId]!.rotation,rotation);

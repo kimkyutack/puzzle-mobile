@@ -1,6 +1,7 @@
 {
   "UNAUTHORIZED": "연결 요청이 만료되었습니다.",
   "IDEMPOTENCY_CONFLICT": "다른 요청에 사용한 식별자입니다.",
+  "GARDEN_PRICE_CHANGED": "장식 가격이 변경됐어요. 새 가격을 확인해 주세요.",
   "AUTH_CHALLENGE_EXPIRED": "인증 요청이 만료되었습니다.",
   "IDENTITY_REQUIRED": "공급자 인증을 완료해 주세요.",
   "IDENTITY_MISMATCH": "인증 계정이 일치하지 않습니다.",
@@ -36,6 +37,7 @@
   "GUILD_LEVEL": "이 길드의 최소 레벨에 도달하지 못했어요.",
   "NO_APPLICATION": "가입 요청을 찾을 수 없어요.",
   "CHAT_RATE_LIMIT": "잠시 후 메시지를 보내 주세요.",
+  "CHAT_HARMFUL_MESSAGE": "채팅에 사용할 수 없는 표현이 있어요. 내용을 바꿔서 다시 보내 주세요.",
   "REQUEST_COOLDOWN": "지원 요청은 4시간마다 할 수 있어요.",
   "MAILBOX_FULL": "상대의 하트 선물함이 가득해요.",
   "REQUEST_UNAVAILABLE": "지원할 수 없는 요청이에요.",

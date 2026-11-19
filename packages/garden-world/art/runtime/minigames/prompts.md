@@ -1,0 +1,8 @@
+# 미니게임 완주 보상
+
+Built-in ImageGen. The existing garden gazebo sprite served as the style and camera reference for both images.
+
+> Use case stylized-concept, Cloud Garden match-3 landscape decoration sprite. The reference is STYLE AND CAMERA ONLY. One beautiful square-ish game prop with its entire footprint fully visible, on transparent alpha. Match the reference's orthographic 2.5D garden camera from straight in front of a base corner, glazed smooth sculpted toy-like edges, soft diffuse light and detailed high-end hand painting. A compact three by three tile square stone footprint shown as a symmetrical diamond with left and right equal, distinct front tip at exact bottom center of the square composition. No scenery around it, no ground beyond the base, no vignette, no fog, no cast shadow outside the object, no text, no UI, no logos. One isolated object.
+
+- `acorn-cottage.webp` — An exclusive little woodland acorn keeper cottage, domed chestnut orange acorn-cap roof in scalloped segments with a curled green stem finial, teal round front door, warm glowing windows and two miniature decorative leaf planters tucked along the Front walls. Free-standing building on a pale warm stone diamond base. No characters.
+- `waterwork-pavilion.webp` — An exclusive ornate airy spring-water conservatory pavilion, green-blue glass dome roof with gold tracery, pale cream limestone, polished green and brass pipes on either side, a little clear turquoise central basin with a visible vertical arc of water, flowers tucked inside the corners. Free-standing building on a pale warm stone diamond base. No characters.

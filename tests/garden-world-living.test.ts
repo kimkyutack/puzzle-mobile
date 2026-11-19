@@ -1,7 +1,8 @@
 import {describe,it,expect} from 'vitest';
-import {applyGardenCommand,applyGardenPlacementBatch,applyTrustedDecorationGrant,applyTrustedRegionUnlock,createGardenWorld,type GardenWorldState} from '../packages/garden-world/src';
+import {applyGardenCommand,applyGardenPlacementBatch,applyTrustedDecorationGrant,applyTrustedRegionUnlock,createGardenWorld,decorationFootprint,DECORATIONS,type GardenWorldState} from '../packages/garden-world/src';
 import {GardenResidents,gardenVisitorCount,gardenWalkable,residentRoute} from '../apps/client/src/garden-world/residents';
 import {extendGardenPaint,gardenBrushLine} from '../apps/client/src/garden-world/paint';
+import {gardenObjectOccludes} from '../apps/client/src/garden-world/depth';
 const grant=(world:GardenWorldState,itemId:string,ids:string[])=>applyTrustedDecorationGrant(world,{ownerId:world.ownerId,itemId,instanceIds:ids,grantId:'grant-'+ids[0],variant:'classic',source:'shop'});
 const place=(world:GardenWorldState,id:string,x:number,y:number)=>applyGardenCommand(world,{type:'place',instanceId:id,x,y,rotation:0,expectedRevision:world.revision,operationId:'place-'+id},world.ownerId);
 
@@ -60,5 +61,23 @@ describe('local garden life',()=>{
   world=applyGardenCommand(world,{type:'move',instanceId:'cat',x:11,y:11,rotation:0,operationId:'move-cat',expectedRevision:world.revision},world.ownerId);simulation.sync(world);
   expect(simulation.actors.find(a=>a.id==='cat')).toMatchObject({x:11,y:11,home:{x:11,y:11}});
   world=applyGardenCommand(world,{type:'store',instanceId:'cat',operationId:'store-cat',expectedRevision:world.revision},world.ownerId);simulation.sync(world);expect(simulation.actors.some(a=>a.id==='cat')).toBe(false);
+ });
+});
+
+describe('garden resident occlusion',()=>{
+ it('keeps feet past either near edge in front of a wide fountain',()=>{
+  const fountain={x:15,y:15,width:3,height:3};
+  // These walking positions are still higher than the deepest corner (18, 18).
+  expect(gardenObjectOccludes({x:16.45,y:19},fountain)).toBe(false);
+  expect(gardenObjectOccludes({x:19,y:16.35},fountain)).toBe(false);
+  expect(gardenObjectOccludes({x:16,y:18},fountain)).toBe(false);
+  expect(gardenObjectOccludes({x:16,y:17.95},fountain)).toBe(true);
+  expect(gardenObjectOccludes({x:15,y:17},fountain)).toBe(true);
+ });
+ it('uses the current orientation of a rectangular decoration',()=>{
+  const bench=DECORATIONS.find(item=>item.id==='garden-bench')!;
+  const feet={x:14.9,y:15.5};
+  expect(gardenObjectOccludes(feet,{x:14,y:14,...decorationFootprint(bench,0)})).toBe(false);
+  expect(gardenObjectOccludes(feet,{x:14,y:14,...decorationFootprint(bench,90)})).toBe(true);
  });
 });

@@ -11,7 +11,6 @@
 .connection-note{background:#27377e;color:#fff5d7}
 .toast{color:#20335d}
 .raster-frame-face{position:absolute;inset:0;z-index:-1;pointer-events:none;box-sizing:border-box}
-.deal-art .deal-step{isolation:isolate;z-index:2;min-width:60px;min-height:28px;padding:4px 8px 8px;font-size:11px;line-height:16px;color:#20335d}
 .game-button,.game-button[data-button-tone],.modal-layer .game-button[data-button-tone],.game-button[data-button-tone]:disabled{color:#fffdf0;-webkit-text-stroke:1px #244277;paint-order:stroke fill;text-shadow:0 2px 0 #244277;font-size:21px;line-height:1.2;padding:8px 18px 16px}
 .game-button[data-button-tone="gold"],.modal-layer .game-button[data-button-tone="gold"]{color:#fffbea;-webkit-text-stroke-color:#713a12;text-shadow:0 2px 0 #713a12}
 .game-button[data-button-tone="red"],.modal-layer .game-button[data-button-tone="red"]{color:#fff9e8;-webkit-text-stroke-color:#751626;text-shadow:0 2px 0 #751626}

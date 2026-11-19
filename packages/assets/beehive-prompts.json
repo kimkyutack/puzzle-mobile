@@ -1,0 +1,18 @@
+{
+  "revision": "beehive-v32",
+  "method": "built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "beehive",
+      "description": "Single compact amber honey hive, three rounded tiers, dark hexagonal entrance, honey drop and cream flower. Original sculpted casual puzzle sprite, transparent background, readable at one cell.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aadb-0896-7c92-809c-0b5f074c9da2/exec-c235e232-3b24-4ad8-82a7-a4ac34fdc30d.png",
+      "savedPath": "packages/assets/source/beehive.png"
+    },
+    {
+      "id": "bee_flight",
+      "description": "Single friendly bee facing right, golden body, brown stripes and blue-cream translucent wings. Original sculpted casual puzzle sprite, transparent background, readable while flying.",
+      "generatedPath": "/Users/kimkyutack/.codex/generated_images/01a1aadb-0896-7c92-809c-0b5f074c9da2/exec-bd5ef0de-22a4-47e3-a0cf-cd62c1966fc1.png",
+      "savedPath": "packages/assets/source/bee_flight.png"
+    }
+  ]
+}

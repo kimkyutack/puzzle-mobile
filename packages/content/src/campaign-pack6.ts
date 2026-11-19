@@ -1,4 +1,4 @@
-import {COLORS,ENGINE_VERSION,type LevelDefinition,type Obstacle,type ObstacleKind,type Color,type Goal} from '@garden/contracts';
+import {COLORS,GARDEN_ENGINE_VERSION,type LevelDefinition,type Obstacle,type ObstacleKind,type Color,type Goal} from '@garden/contracts';
 import {createGame} from '@garden/core';
 import {campaignPosition,campaignDifficulty} from './campaign';
 
@@ -56,7 +56,7 @@ export function pack6Candidate(id:number,attempt=0):LevelDefinition {
  if(goals.length<3){const count=easy?15:22+strength*3;goals.push({kind:color,count,remaining:count});}
  const gravity:number[][]=[];
  for(let x=0;x<width;x++){let lane:number[]=[];for(let y=0;y<height;y++){const i=at(x,y);if(shape[i])lane.push(i);else if(lane.length){gravity.push(lane);lane=[];}}if(lane.length)gravity.push(lane);}
- const level:LevelDefinition={id,version:PACK6_CONTENT_VERSION,engineVersion:ENGINE_VERSION,width,height,shape,colors,moves:50,
+ const level:LevelDefinition={id,version:PACK6_CONTENT_VERSION,engineVersion:GARDEN_ENGINE_VERSION,width,height,shape,colors,moves:50,
   seed:17_071+id*7919+attempt*104729,goals,obstacles,gravity,inlets:gravity.map(l=>l[0]!),...(exits.length?{exits}:{}),
   difficulty:campaignDifficulty(campaign.beat),campaign,strategy:{...strategy},approved:false};
  level.initial=createGame(level).cells.map(cell=>cell.tile);

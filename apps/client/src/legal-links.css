@@ -1,0 +1,4 @@
+.settings-legal-links{display:flex;flex-direction:column;gap:3px;min-width:0}
+.settings-legal-links>a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:8px 2px;color:#153c70;font-size:14px;line-height:22px;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+.settings-legal-links>a>span{font-size:18px;text-decoration:none;flex:none}
+.settings-legal-links>a:focus-visible{outline:3px solid #194b97;outline-offset:3px;border-radius:4px}

@@ -1,11 +1,11 @@
 import {describe,it,expect} from 'vitest';
 import {hammerPose,rakePose,curvedPoint,rainbowHeroPose} from '../apps/client/src/effect-motion';
 describe('distinct tool motion with fixed impact anchors',()=>{
- it('enlarges the rainbow to more than twice its size and keeps it visible until the actual target impact',()=>{
+ it('enlarges the rainbow without covering a large part of the board and keeps it visible until the actual target impact',()=>{
   const face={x:0,y:0,width:315,height:315};
   for(const origin of [{x:17.5,y:17.5},{x:297.5,y:17.5},{x:17.5,y:297.5},{x:297.5,y:297.5},{x:157.5,y:157.5}]){
    expect(rainbowHeroPose(0,origin,35,face,900,650)).toMatchObject({...origin,scale:1,alpha:1});
-   for(const ms of [800,900,1300,1550]){const pose=rainbowHeroPose(ms,origin,35,face,900,650);expect(pose.scale).toBeGreaterThan(2);expect(pose.alpha).toBe(1);expect(pose.x-pose.scale*35/2).toBeGreaterThanOrEqual(0);expect(pose.x+pose.scale*35/2).toBeLessThanOrEqual(315);expect(pose.y-pose.scale*35/2).toBeGreaterThanOrEqual(0);expect(pose.y+pose.scale*35/2).toBeLessThanOrEqual(315);}
+   for(const ms of [600,800,900,1300,1550]){const pose=rainbowHeroPose(ms,origin,35,face,900,650);expect(pose.scale).toBe(1.8);expect(pose.alpha).toBe(1);expect(pose.x-pose.scale*35/2).toBeGreaterThanOrEqual(0);expect(pose.x+pose.scale*35/2).toBeLessThanOrEqual(315);expect(pose.y-pose.scale*35/2).toBeGreaterThanOrEqual(0);expect(pose.y+pose.scale*35/2).toBeLessThanOrEqual(315);}
    expect(rainbowHeroPose(1810,origin,35,face,900,650).alpha).toBe(0);
   }
  });

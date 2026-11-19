@@ -1,6 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {createGame,applyAction,replay,stateHash,validateLevel} from '@garden/core';
-import {getLevel,campaignPosition,campaignPack,MAX_CAMPAIGN_LEVEL,CAMPAIGN_PACK_COUNT,CAMPAIGN_LESSONS,APPROVED_LEVEL_COUNT} from '@garden/content';
+import {getLevel as getContentLevel,campaignPosition,campaignPack,MAX_CAMPAIGN_LEVEL,CAMPAIGN_PACK_COUNT,CAMPAIGN_LESSONS,APPROVED_LEVEL_COUNT} from '@garden/content';
+// These publication certificates retain the v1.3 board and action hashes.
+const getLevel=(id:number,engine='1.3.0')=>getContentLevel(id,engine);
 import {ENGINE_VERSION,SCULPTED_ENGINE_VERSION,type Action,type GameState} from '@garden/contracts';
 import proofs from '../packages/content/src/campaign-solutions.json';
 import oldProofs from '../packages/content/src/legacy-solutions-v12.json';
@@ -54,6 +56,6 @@ describe('garden mechanism rules and presentation',()=>{
  });
  it('rejects malformed paths and prevents new mechanics from reaching old engines',()=>{
   const level=getLevel(221);level.obstacles[0]!.path=[0,3,8,9];expect(validateLevel(level)).toContain('CAROUSEL_PATH');level.engineVersion=SCULPTED_ENGINE_VERSION;expect(validateLevel(level)).toContain('MECHANIC_ENGINE');
-  expect(getLevel(201).engineVersion).toBe(ENGINE_VERSION);
+  expect(getContentLevel(201).engineVersion).toBe(ENGINE_VERSION);
  });
 });
