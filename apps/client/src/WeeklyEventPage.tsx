@@ -15,6 +15,8 @@ import AnimalExpedition from './AnimalExpedition';
 import GardenGameMenu from './GardenGameMenu';
 import ArtSurface from './ArtSurface';
 import {eventDesignArt} from './event-design-art';
+import WeeklyEventGuide from './WeeklyEventGuide';
+import {hasSeenWeeklyGuide,markWeeklyGuideSeen} from './weekly-event-guide-state';
 import './weekly-events.css';
 import './event-design-v62.css';
 
@@ -38,6 +40,11 @@ export default function WeeklyEventPage({event,player,onPlayer,onHome,onPage}:{e
  const {data}=useOperations(),[now,setNow]=useState(serverNow);
  useEffect(()=>{const timer=setInterval(()=>setNow(serverNow()),1000);return()=>clearInterval(timer);},[]);
  const current=weeklyEventEntry(player,now,data?.settings),available=current.id===event&&current.visible;
+ const scope=player.id+'/'+event;
+ const [guide,setGuide]=useState(()=>({scope,open:!hasSeenWeeklyGuide(player.id,event),manual:false}));
+ const guideOpen=guide.scope===scope?guide.open:!hasSeenWeeklyGuide(player.id,event);
+ const closeGuide=()=>{markWeeklyGuideSeen(player.id,event);setGuide({scope,open:false,manual:false});};
+ const animal=configuredExpeditionRound(data?.settings,now).animal;
  const scene=event==='animal-expedition'?eventDesignArt.rescue:event==='acorn-pinball'?eventDesignArt.pinball:eventDesignArt.water;
  return <section className="weekly-event-page weekly-designed" data-weekly-event={event} aria-label={tr(titles[event])}>
   <div className="weekly-event-stage" data-art-root>
@@ -46,7 +53,7 @@ export default function WeeklyEventPage({event,player,onPlayer,onHome,onPage}:{e
    <div className="weekly-event-countdown" role="timer" aria-label={tr('남은 시간')} aria-live="off" data-frame="event_sky_v9" data-frame-scale="0.12">
     <span>{tr('남은 시간')}</span><strong>{available?homeCountdown(current.endsAt-now):tr('이번 회차 종료')}</strong>
    </div>
-   <Button rasterFrame={false} className="weekly-close" onClick={onHome}><img src={eventDesignArt.closeButton} alt={tr('닫기')}/></Button>
+   <div className="weekly-event-controls"><button className="weekly-event-info" aria-label={tr('이벤트 안내')} aria-haspopup="dialog" onClick={()=>setGuide({scope,open:true,manual:true})}><span aria-hidden="true">i</span></button><Button rasterFrame={false} className="weekly-close" onClick={onHome}><img src={eventDesignArt.closeButton} alt={tr('닫기')}/></Button></div>
   </div>
   <h1 className="weekly-scene-title">{tr(titles[event])}</h1>
   <div className="weekly-event-content">
@@ -56,5 +63,6 @@ export default function WeeklyEventPage({event,player,onPlayer,onHome,onPage}:{e
     :<div className="weekly-event-ended"><p>{tr('새로운 주간 이벤트가 시작됐어요.')}</p><Button tone="gold" onClick={onHome}>{tr('홈으로')}</Button></div>}
   </div>
   </div>
+  {guideOpen&&(available||guide.scope===scope&&guide.manual)&&<WeeklyEventGuide key={scope} event={event} animal={animal} dailyLimit={gameEventConfig('animalExpedition',data?.settings).dailyLimit} ticketCap={event==='animal-expedition'?0:gameEventConfig(event,data?.settings).ticketCap} reduced={player.settings.reducedMotion} onClose={closeGuide}/>}
  </section>;
 }

@@ -78,7 +78,7 @@ export default function GardenGameMenu({game,player,settings,onPlayer,onPuzzle,v
   </section>
   {!attempt&&(status.canStart?<Button rasterFrame={false} className="weekly-scene-cta" onClick={()=>void start()} disabled={busy}>{tr(busy?'준비 중':game==='acorn-pinball'?'도전 시작':'물길 도전')}</Button>:status.completed<GARDEN_GAME_STAGES?<Button rasterFrame={false} className="weekly-scene-cta" onClick={onPuzzle}>{tr('퍼즐로 입장권 모으기')}</Button>:<Button rasterFrame={false} className="weekly-scene-cta" onClick={onPuzzle}>{tr('퍼즐 플레이')}</Button>)}
   {!attempt&&status.free&&status.completed<GARDEN_GAME_STAGES&&<small className="weekly-free-note">{tr('오늘 무료 도전 1회')}</small>}
-  {attempt&&<span className="weekly-ongoing-label">{tr(game==='acorn-pinball'?'발사 위치를 골라 주세요':'수로를 눌러 돌려요')}</span>}
+  {attempt&&<span className="weekly-ongoing-label">{tr(game==='acorn-pinball'?'위쪽 숫자를 눌러 발사':'수로를 눌러 돌려요')}</span>}
   {message&&<p className="weekly-scene-error" role="alert">{message}</p>}
  </section>;
  return <section className="garden-game" data-game={game} aria-label={tr(GARDEN_GAME_TITLES[game])}>
@@ -119,13 +119,13 @@ function GardenGamePlay({game,attempt,busy,reduced,onFinish,weekly=false}:{game:
  }
  return <>
   {pinball?<Pinball weekly={weekly} board={pinball} actions={actions} disabled={busy||terminal} reduced={reduced} onMove={move}/>:<WaterPuzzle weekly={weekly} board={water!} actions={actions} disabled={busy||terminal} reduced={reduced} onMove={move}/>}
-  <p className="garden-game-help">{tr(help[game])}</p>
+  {!weekly&&<p className="garden-game-help">{tr(help[game])}</p>}
   {terminal&&<Button disabled={busy} onClick={()=>onFinish(attempt,actions)}>{tr(busy?'결과 확인 중':'결과 확인')}</Button>}
  </>;
 }
 
 const pct=(value:number,size:number)=>value/size*100+'%';
-function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{board:PinballBoard;actions:number[];onMove:(slot:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
+export function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{board:PinballBoard;actions:number[];onMove:(slot:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
  // Artwork leaves a taller pocket region. Apply the same display projection to pegs and ball;
  // physics, collision coordinates and the replay log remain unchanged.
  const displayY=(y:number)=>pct(weekly?(y<=270?y*.78:210.6+(y-270)*2.188):y,PINBALL_HEIGHT);
@@ -163,7 +163,7 @@ function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{board:Pin
   </div>
   <div className="pinball-board" role="group" aria-label={tr('도토리 발사판')}>
    <div className="pinball-launch-rail" aria-hidden="true"/>
-   {PINBALL_LAUNCHES.map((x,slot)=><button key={slot} className="pinball-launch" data-selected={flight?.slot===slot} style={{left:pct(x,PINBALL_WIDTH)}} onClick={()=>fire(slot)} disabled={disabled||!!flight} aria-label={tr('{0}번 위치에서 발사',{0:slot+1})}><img src={arcadeArt.launch} alt="" draggable={false}/></button>)}
+   {PINBALL_LAUNCHES.map((x,slot)=><button key={slot} className="pinball-launch" data-selected={flight?.slot===slot} style={{left:pct(x,PINBALL_WIDTH)}} onClick={()=>fire(slot)} disabled={disabled||!!flight} aria-label={tr('{0}번 위치에서 발사',{0:slot+1})}><span className="pinball-launch-number" aria-hidden="true">{slot+1}</span><img src={arcadeArt.launch} alt="" draggable={false}/></button>)}
    {board.pegs.map((peg,i)=><img key={i} src={weekly?eventDesignArt.goldPeg:arcadeArt.bumper} alt="" draggable={false} data-lit={flight?.shot.hits.some(hit=>hit.peg===i&&flight.tick>=hit.tick&&flight.tick-hit.tick<12)||undefined} className="pinball-peg" style={{left:pct(peg.x,PINBALL_WIDTH),top:displayY(peg.y),width:pct(peg.r*2*(weekly?1.7:1),PINBALL_WIDTH)}}/>)}
    <div className="pinball-pockets" aria-hidden="true">{Array.from({length:PINBALL_POCKETS},(_,i)=>{
     const target=board.targets.includes(i),hit=result.reached.has(i),catching=flight?.landed&&flight.shot.pocket===i;
@@ -178,7 +178,7 @@ function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{board:Pin
  </div>;
 }
 
-function WaterPuzzle({board,actions,onMove,disabled,reduced,weekly=false}:{board:WaterBoard;actions:number[];onMove:(at:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
+export function WaterPuzzle({board,actions,onMove,disabled,reduced,weekly=false}:{board:WaterBoard;actions:number[];onMove:(at:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
  const {wet}=useMemo(()=>replayWater(board,actions),[board,actions]);
  const turns=Array<number>(board.pipes.length).fill(0);
  for(const at of actions)turns[at]=turns[at]!+1;

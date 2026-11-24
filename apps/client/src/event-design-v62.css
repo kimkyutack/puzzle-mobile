@@ -254,3 +254,14 @@ html[lang="en"] [data-weekly-event="animal-expedition"] .weekly-scene-title{font
 @media(max-width:350px){.events-v62 .attendance-day{min-height:88px}.attendance-v62 .attendance-day-reward{gap:1px}.events-v62 .festival-tool-board{padding-inline:14px;gap:9px}.events-v62 .season-goal-action{font-size:10px}.pass-book-cell>span>strong{font-size:15px}.pass-book-cell>span>.icon{width:20px;height:20px}.pass-reward-book{padding-inline:10px}.pass-book-head{font-size:13px}}
 @media(max-width:350px){.pass-book-cell>span>.icon{width:18px!important;height:18px!important}.pass-book-cell>span>strong,.pass-book-cell>span>b{font-size:14px}}
 @media(max-height:730px){.attendance-v62 .attendance-scene{height:44px}.events-v62 .attendance-day{min-height:82px;gap:3px}.attendance-v62 .attendance-content{padding-top:8px}.attendance-v62 .attendance-days{margin-bottom:9px}.events-v62 .event-rush-art{height:130px}.events-v62 .event-rush-art>.icon{width:125px;height:125px}.pass-reward-book{min-height:280px;padding-block:12px 17px}.pass-book-row{min-height:39px}.pass-book-head{font-size:13px}}
+
+/* Explicit firing targets and a score panel remain legible above the peg field. */
+.pinball-launch-number{display:none}
+.weekly-game-layout .pinball-meter{top:16.4%;left:12%;right:12%;height:3.6%;padding:0 2cqw;gap:2cqw;border:1px solid #ffdf78;border-radius:2cqw;background:#6e2a14;color:#fff8dc;text-shadow:0 1px #451c0c}
+.weekly-game-layout .pinball-meter strong{font-family:var(--font-game-number);font-size:clamp(16px,5.7cqw,24px);min-width:0;white-space:nowrap}
+.weekly-game-layout .pinball-stock{width:auto;height:90%;gap:1cqw}.weekly-game-layout .pinball-stock img{width:6cqw;height:100%}
+.weekly-game-layout .pinball-launch{display:flex;align-items:center;justify-content:flex-start;flex-direction:column;min-height:35px;padding:0;gap:1px}
+.weekly-game-layout .pinball-launch-number{display:grid;place-items:center;flex:none;width:clamp(22px,7.5cqw,32px);height:clamp(22px,7.5cqw,32px);border:2px solid #ffdc4a;border-radius:50%;background:linear-gradient(#29c7ff,#0575d7);color:#fff;text-shadow:0 1px #064578;box-shadow:0 1px 3px #412408;font:400 clamp(13px,4.8cqw,18px)/1 var(--font-game-number);pointer-events:none}
+.weekly-game-layout .pinball-launch img{width:45%;height:20%;margin:0}
+.weekly-game-layout[data-game="acorn-pinball"] .weekly-ongoing-label{top:81%;height:8%;left:24%;width:53%;font-size:4.8cqw}
+.weekly-game-preview .pinball-launch{display:none}
