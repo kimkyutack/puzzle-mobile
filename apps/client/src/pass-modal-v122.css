@@ -44,3 +44,7 @@
 .commerce-dialog-host .pass-premium-dialog .purchase-feedback{margin:0;padding:0;color:#244366;font-size:12px;line-height:1.4;text-align:center}
 .pass-premium-dialog .pass-premium-controls>.game-button{width:100%;min-height:44px;margin:0;padding:5px 8px 10px;font-size:17px}
 @media(max-height:740px){.garden-pass-modal .garden-pass{gap:5px}.garden-pass-modal .pass-reward-book{padding-top:13px!important;padding-bottom:13px!important;grid-template-rows:26px repeat(var(--pass-visible-tiers,3),minmax(0,1fr))}.garden-pass-modal .pass-single-prize>.icon{width:40px!important;height:40px!important}.garden-pass-modal .pass-single-prize>.pass-prize-image{width:42px;height:38px}.garden-pass-modal .pass-single-prize>strong{font-size:17px}.garden-pass-modal .pass-compact-actions>.game-button{height:44px;font-size:17px!important}.garden-pass-modal .pass-book-number{font-size:20px;height:30px}}
+/* Center live tier numbers on each painted stepping stone's inner face. */
+.modal-layer.garden-pass-modal[role=dialog] .pass-path-row>button.pass-path-number{top:25%}
+.modal-layer.garden-pass-modal[role=dialog] .pass-path-row:nth-child(4n+3)>button.pass-path-number{top:23%}
+.modal-layer.garden-pass-modal[role=dialog] .pass-path-row:nth-child(4n)>button.pass-path-number{top:27%}
