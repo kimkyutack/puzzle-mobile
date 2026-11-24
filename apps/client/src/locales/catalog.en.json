@@ -1367,5 +1367,7 @@
   "코인 표시는 목표 칸이에요. 도토리 3개 안에 목표 칸을 모두 맞히면 아래에 표시된 코인 보상을 받아요. +50·+5는 코인이 아닌 점수예요.": "Coins mark the target pockets. Reach all targets within 3 acorns to earn the coin reward shown below. +50 and +5 are points, not coins.",
   "핀 +10점 · 목표 칸 +50점 · 일반 칸 +5점": "Peg +10 pts · Target +50 pts · Other +5 pts",
   "코인 표시 칸을 모두 맞혀요": "Reach every coin-marked pocket",
-  "핀 +10점 · 목표 +50점 · 일반 +5점": "Peg +10 pts · Target +50 pts · Other +5 pts"
+  "핀 +10점 · 목표 +50점 · 일반 +5점": "Peg +10 pts · Target +50 pts · Other +5 pts",
+  "단계별 보상": "Stage rewards",
+  "온실 완성 보상": "Greenhouse rewards"
 }

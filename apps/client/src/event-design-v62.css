@@ -265,3 +265,21 @@ html[lang="en"] [data-weekly-event="animal-expedition"] .weekly-scene-title{font
 .weekly-game-layout .pinball-launch img{width:45%;height:20%;margin:0}
 .weekly-game-layout[data-game="acorn-pinball"] .weekly-ongoing-label{top:81%;height:8%;left:24%;width:53%;font-size:4.8cqw}
 .weekly-game-preview .pinball-launch{display:none}
+
+/* Water rewards have dedicated title, stage and amount areas inside the tray. */
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot{left:7%;width:86%;top:64.2%;height:18.8%}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot>h2{left:0;right:0;top:-8%;width:100%;height:22%;margin:0;padding:0;display:flex;align-items:center;justify-content:center;text-align:center;font-size:clamp(13px,4.6cqw,19px);line-height:1;color:#145466;font-weight:400;white-space:nowrap}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot>.garden-game-reward{top:16%;left:0;right:0;height:19%;margin:0;padding:0;display:flex;align-items:center;justify-content:center;gap:3cqw;color:#164f51}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot>.garden-game-reward b{font-family:var(--font-game-number);font-size:clamp(13px,4.8cqw,19px);line-height:1;font-weight:400}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot>.garden-game-reward .icon{width:clamp(18px,6cqw,24px);height:clamp(18px,6cqw,24px)}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-prizes{inset:36% 0 6%;gap:2px;align-items:stretch}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-prizes>div{height:100%;min-width:0;justify-content:center;gap:2px;filter:none}
+.weekly-water-plant{position:relative;flex:none;isolation:isolate;width:100%;height:13.2cqw;max-height:57px}
+.weekly-water-plant>img:not(.weekly-water-check){display:block;width:100%;height:100%;object-fit:contain}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-stage{position:absolute;z-index:2;left:0;top:-2px;display:grid;place-items:center;width:clamp(19px,6.6cqw,26px);height:clamp(19px,6.6cqw,26px);border:1px solid #ffd66e;border-radius:6px;background:linear-gradient(#2b92dc,#0b579e);box-shadow:inset 0 1px #b8eeff;color:#fff;font-family:var(--font-game-number);font-size:clamp(12px,4.1cqw,16px);line-height:1;font-weight:400}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-coin{display:flex;flex:none;align-items:center;justify-content:center;gap:2px;width:100%;height:clamp(18px,6.2cqw,25px);padding:1px 2px;border:1px solid #d6bc80;border-radius:6px;background:#fff8df;color:#204d56;white-space:nowrap;box-shadow:inset 0 1px #fff}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-coin>.icon{flex:none;width:clamp(14px,4.8cqw,19px);height:clamp(14px,4.8cqw,19px)}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-coin>strong{font-family:var(--font-game-number);font-size:clamp(11px,4.2cqw,16px);line-height:1;font-weight:400}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-water-prizes .weekly-water-check{left:auto;right:-1px;bottom:1px;width:clamp(14px,5cqw,21px);height:clamp(14px,5cqw,21px);z-index:3}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-ticket{top:83.4%;left:18%;width:64%;height:clamp(15px,2.4cqh,21px);padding:1px 5px;border:1px solid #87b8c5;border-radius:20px;background:#edfaff;color:#145466;font-size:clamp(11px,3.8cqw,14px);line-height:1;box-shadow:inset 0 1px #fff}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-free-note{top:auto;bottom:1.3%;left:23%;right:23%;min-height:18px;padding:2px 5px;display:grid;place-items:center;border:1px solid #d6f3ef;border-radius:15px;background:#075568e8;color:#fff;font-size:clamp(11px,3.4cqw,13px);line-height:1.2;text-shadow:none}
