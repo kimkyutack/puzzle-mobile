@@ -14,6 +14,7 @@ import {Button,Icon,names} from './ui';
 import {WORLD_ART} from './garden-world/assets';
 import {arcadeArt,arcadeIcons} from './garden-arcade-art';
 import {sound} from './sound';
+import {pinballDisplayY,pinballFlightDuration,pinballFlightFrames,PINBALL_STEP_MS} from './pinball-flight';
 import './garden-game.css';
 import {eventDesignArt} from './event-design-art';
 
@@ -128,30 +129,46 @@ const pct=(value:number,size:number)=>value/size*100+'%';
 export function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{board:PinballBoard;actions:number[];onMove:(slot:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
  // Artwork leaves a taller pocket region. Apply the same display projection to pegs and ball;
  // physics, collision coordinates and the replay log remain unchanged.
- const displayY=(y:number)=>pct(weekly?(y<=270?y*.78:210.6+(y-270)*2.188):y,PINBALL_HEIGHT);
+ const displayY=(y:number)=>pct(pinballDisplayY(y,weekly),PINBALL_HEIGHT);
  const result=useMemo(()=>replayPinball(board,actions),[board,actions]);
- const [flight,setFlight]=useState<{shot:PinballShot;tick:number;slot:number;landed:boolean}|null>(null);
- const frame=useRef(0),launching=useRef(false);
- useEffect(()=>()=>cancelAnimationFrame(frame.current),[]);
+ const [flight,setFlight]=useState<{shot:PinballShot;slot:number;landed:boolean}|null>(null);
+ const boardHost=useRef<HTMLDivElement>(null),ball=useRef<HTMLImageElement>(null),pegs=useRef<Array<HTMLImageElement|null>>([]);
+ const frame=useRef(0),launching=useRef(false),animation=useRef<Animation|null>(null);
+ const active=useRef<PinballShot|null>(null),lit=useRef(new Set<number>()),move=useRef(onMove),weeklyRef=useRef(weekly);move.current=onMove;weeklyRef.current=weekly;
+ function glow(next:Set<number>){
+  for(const at of lit.current)if(!next.has(at))pegs.current[at]?.removeAttribute('data-lit');
+  for(const at of next)if(!lit.current.has(at))pegs.current[at]?.setAttribute('data-lit','');
+  lit.current=next;
+ }
+ useEffect(()=>{
+  const element=boardHost.current;
+  const observer=new ResizeObserver(()=>{
+   if(active.current&&element&&animation.current?.effect&&ball.current)(animation.current.effect as KeyframeEffect).setKeyframes(pinballFlightFrames(active.current,element.clientWidth,element.clientHeight,weeklyRef.current));
+  });
+  if(element)observer.observe(element);
+  return()=>{observer.disconnect();cancelAnimationFrame(frame.current);animation.current?.cancel();active.current=null;};
+ },[]);
  function fire(slot:number){
   if(disabled||launching.current)return;
   sound('button');
-  if(reduced){onMove(slot);return;}
-  launching.current=true;
-  const shot=launchAcorn(board,slot),start=performance.now(),time=Math.min(2700,Math.max(900,shot.path.length*15));
+  if(reduced){move.current(slot);return;}
+  launching.current=true;animation.current?.cancel();animation.current=null;glow(new Set());
+  const shot=launchAcorn(board,slot),duration=pinballFlightDuration(shot);
+  active.current=shot;let start:number|undefined,landed=false;
   const advance=(now:number)=>{
-   const elapsed=now-start,progress=Math.max(0,Math.min(1,elapsed/time)),tick=progress*(shot.path.length-1);
-   if(elapsed<time+240){setFlight({shot,tick,slot,landed:progress===1});frame.current=requestAnimationFrame(advance);return;}
-   launching.current=false;setFlight(null);onMove(slot);
+   const element=ball.current,field=boardHost.current;
+   if(!element||!field){frame.current=requestAnimationFrame(advance);return;}
+   if(start===undefined){
+    start=now;animation.current=element.animate(pinballFlightFrames(shot,field.clientWidth,field.clientHeight,weeklyRef.current),{duration,easing:'linear',fill:'forwards'});
+    animation.current.startTime=now;element.style.visibility='visible';
+   }
+   const elapsed=now-start,tick=Math.min(shot.path.length-1,elapsed/PINBALL_STEP_MS);
+   if(!landed)glow(new Set(shot.hits.filter(hit=>tick>=hit.tick&&tick-hit.tick<12).map(hit=>hit.peg)));
+   if(elapsed>=duration&&!landed){landed=true;setFlight({shot,slot,landed:true});glow(new Set());}
+   if(elapsed<duration+240){frame.current=requestAnimationFrame(advance);return;}
+   active.current=null;launching.current=false;setFlight(null);move.current(slot);
   };
-  setFlight({shot,tick:0,slot,landed:false});frame.current=requestAnimationFrame(advance);
- }
- let ballStyle:CSSProperties|undefined;
- if(flight){
-  const {path}=flight.shot,index=Math.floor(flight.tick),between=flight.tick-index;
-  const from=path[index]!,to=path[index+1]??from;
-  const x=from.x+(to.x-from.x)*between,y=from.y+(to.y-from.y)*between;
-  ballStyle={left:pct(x,PINBALL_WIDTH),top:displayY(y),'--pinball-angle':(x-path[0]!.x)*3+'deg'} as CSSProperties;
+  setFlight({shot,slot,landed:false});frame.current=requestAnimationFrame(advance);
  }
  const remaining=PINBALL_BALLS-actions.length-Number(!!flight);
  return <div className="acorn-pinball arcade-machine">
@@ -161,19 +178,19 @@ export function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{bo
    <span className="pinball-stock" aria-hidden="true">{Array.from({length:PINBALL_BALLS},(_,i)=><img key={i} data-used={i>=remaining} src={arcadeArt.acorn} alt="" draggable={false}/>)}</span>
    <strong>{tr('{0}점',{0:result.score})}</strong>
   </div>
-  <div className="pinball-board" role="group" aria-label={tr('도토리 발사판')}>
+  <div ref={boardHost} className="pinball-board" role="group" aria-label={tr('도토리 발사판')}>
    <div className="pinball-launch-rail" aria-hidden="true"/>
    {PINBALL_LAUNCHES.map((x,slot)=><button key={slot} className="pinball-launch" data-selected={flight?.slot===slot} style={{left:pct(x,PINBALL_WIDTH)}} onClick={()=>fire(slot)} disabled={disabled||!!flight} aria-label={tr('{0}번 위치에서 발사',{0:slot+1})}><span className="pinball-launch-number" aria-hidden="true">{slot+1}</span><img src={arcadeArt.launch} alt="" draggable={false}/></button>)}
-   {board.pegs.map((peg,i)=><img key={i} src={weekly?eventDesignArt.goldPeg:arcadeArt.bumper} alt="" draggable={false} data-lit={flight?.shot.hits.some(hit=>hit.peg===i&&flight.tick>=hit.tick&&flight.tick-hit.tick<12)||undefined} className="pinball-peg" style={{left:pct(peg.x,PINBALL_WIDTH),top:displayY(peg.y),width:pct(peg.r*2*(weekly?1.7:1),PINBALL_WIDTH)}}/>)}
+   {board.pegs.map((peg,i)=><img key={i} src={weekly?eventDesignArt.goldPeg:arcadeArt.bumper} alt="" draggable={false} ref={element=>{pegs.current[i]=element;}} className="pinball-peg" style={{left:pct(peg.x,PINBALL_WIDTH),top:displayY(peg.y),width:pct(peg.r*2*(weekly?1.7:1),PINBALL_WIDTH)}}/>)}
    <div className="pinball-pockets" aria-hidden="true">{Array.from({length:PINBALL_POCKETS},(_,i)=>{
     const target=board.targets.includes(i),hit=result.reached.has(i),catching=flight?.landed&&flight.shot.pocket===i;
     return <div key={i} className="pinball-pocket" data-target={target} data-hit={hit} data-catching={catching||undefined}>
      <img src={arcadeArt.pocket} className="pinball-pocket-body" alt="" draggable={false}/>
-     {(target||hit)&&<span>{hit?<img src={arcadeArt.acorn} alt="" draggable={false}/>:<Icon id="star" size={21}/>}</span>}
-     {weekly&&<b className="weekly-pocket-score">+{target?50:5}</b>}
+     {(target||hit)&&<span>{hit?<img src={arcadeArt.acorn} alt="" draggable={false}/>:<Icon id="coin" size={21}/>}</span>}
+     {weekly&&<b className="weekly-pocket-score">{tr('{0}점',{0:'+'+(target?50:5)})}</b>}
     </div>;
    })}</div>
-   {flight&&<img className="pinball-ball" data-landed={flight.landed} src={arcadeArt.acorn} alt="" draggable={false} style={ballStyle}/>}
+   {flight&&<img ref={ball} className="pinball-ball" data-landed={flight.landed} src={arcadeArt.acorn} alt="" draggable={false} style={{left:0,top:0,visibility:'hidden'}}/>}
   </div>
  </div>;
 }

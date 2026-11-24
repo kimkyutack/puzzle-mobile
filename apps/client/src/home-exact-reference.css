@@ -177,3 +177,10 @@
 .home-command-home .hub-header .hub-counter>.home-dock-face{background:#f7f9fc}
 .home-command-home .home-utility-menu:has(>button:nth-child(6):last-child)::after{background:#cbd6e3;box-shadow:1px 0 #fff}
 .home-command-home .home-streak-rainbow>.home-rainbow-chip>strong{color:var(--home-ink)}
+
+/* Give the weekly name room without breaking the Korean event label. */
+.home-command-home .home-utility-menu:has(>button:nth-child(6):last-child){grid-template-columns:repeat(4,minmax(0,1fr)) 4px minmax(0,.96fr) minmax(0,1.14fr)}
+.home-command-home .home-utility-menu:has(>button:nth-child(6):last-child)>button{min-width:0}
+html[lang="ko"] .home-command-home .home-command-dock .home-utility-menu>[data-weekly-shortcut="acorn-pinball"]>span:not(.reward-dot):not(.raster-frame-face){padding-inline:0;margin-top:0;white-space:nowrap;overflow-wrap:normal;letter-spacing:0}
+
+.home-command-home .home-utility-menu:has(>button:nth-child(6):last-child)::after{left:calc((100% - 4px) * .6557377 + 2px)}

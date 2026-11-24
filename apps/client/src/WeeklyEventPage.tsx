@@ -31,7 +31,7 @@ export function WeeklyEventShortcut({player,onOpen,dock=false}:{player:Player;on
  if(!event.visible)return null;
  const animal=configuredExpeditionRound(data?.settings,now).animal;
  const image=event.id==='animal-expedition'?(dock&&animal==='panda'&&homeIconUrls['home-v76-rescue']||WORLD_ART[EXPEDITION_ANIMALS[animal].itemId]):arcadeIcons[event.id];
- return <button className="hub-weekly-event" aria-label={tr(event.title)} onClick={()=>onOpen(event.id)}>
+ return <button className="hub-weekly-event" data-weekly-shortcut={event.id} aria-label={tr(event.title)} onClick={()=>onOpen(event.id)}>
   <img src={image} data-home-icon={dock&&animal==='panda'&&event.id==='animal-expedition'?'rescue':undefined} alt="" draggable={false}/><small className="hub-menu-time" role="timer" aria-live="off" aria-label={tr('남은 시간')}>{homeCountdown(event.endsAt-now)}</small>
   <span data-frame={dock?undefined:"event_sky_v9"} data-frame-scale={dock?undefined:"0.11"}>{dock?t(event.id==='animal-expedition'?'home.short.rescue':event.id==='acorn-pinball'?'home.short.pinball':'home.short.water'):tr(event.title)}</span>
  </button>;

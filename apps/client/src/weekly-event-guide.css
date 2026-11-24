@@ -15,7 +15,7 @@
 .weekly-guide-illustration>strong{flex:1 0 100%;text-align:center;font-weight:400;color:#1b4a70;font-size:15px;line-height:21px}
 .weekly-event-guide .modal-content :is(.weekly-guide-cap,.weekly-guide-demo-note){margin:7px 0 3px;color:#406781;font-size:11px;line-height:16px;text-align:center}
 .weekly-guide-footer{display:flex;gap:8px;flex:none;margin:6px 5px 0;padding:3px 0 6px}
-.weekly-guide-footer>.game-button{flex:1;min-height:46px;height:46px;margin:0;font-size:21px;padding:3px 8px 9px}
+.weekly-event-guide.modal-layer .weekly-guide-footer>.game-button{flex:1 1 0;min-width:0;min-height:46px;max-height:46px;height:46px;margin:0;box-sizing:border-box;font-size:21px;line-height:24px;padding:3px 8px 9px;align-self:stretch}
 .weekly-guide-practice{min-width:0}
 .weekly-guide-scene{position:relative;width:min(100%,290px);aspect-ratio:1/1.04;margin:auto;overflow:hidden;border:2px solid #ffd559;border-radius:13px;background:#c5e4f3}
 .weekly-guide-mini-stage{position:absolute;top:-28.84615%;left:0;width:100%;height:192.3077%;container-type:size;isolation:isolate}
@@ -33,3 +33,5 @@ html:not([lang="ko"]) .weekly-guide-illustration>strong{font-size:13px;line-heig
 .weekly-guide-scene[data-demo-game="acorn-pinball"] .weekly-guide-mini-stage{top:-33.33333%;height:222.2222%}
 .weekly-event-guide .weekly-guide-mini-stage .water-meter,.weekly-event-guide .weekly-guide-mini-stage .water-meter>span{color:#07515c;--surface-ink:#07515c;text-shadow:none}
 .weekly-event-guide .modal-content .weekly-guide-live-stats{margin:0 0 5px;text-align:center;color:#fff4d0;font-size:13px;line-height:18px}
+
+@media(max-width:370px){.weekly-guide-illustration>.icon{width:76px;height:96px}.weekly-guide-pictures>img{width:60px;height:74px}}
