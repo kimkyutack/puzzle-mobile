@@ -1,5 +1,6 @@
 import GardenVisit from './garden-world/GardenVisit';
-import gardenInviteTicket from '../../../packages/assets/garden-invite-v117/runtime/invite-icon.webp';
+import GuildConversation from './GuildConversation';
+import './guild-conversation.css';
 import './garden-invitation.css';
 import {tr,formatLocale} from "./i18n";
 import { useEffect, useRef, useState } from 'react';
@@ -43,6 +44,7 @@ interface EventState {
   guild:EventProgress;
 }
 interface SupportStatus { heartNextAt:number;itemNextAt:number;heartsSent:number;heartsReceived:number;itemsSent:number;itemsReceived:number;storedHearts:number;nextReset:number }
+interface SupportIntent {kind:'heart'|Booster;nextAt:number;pending:boolean}
 interface GuildView {
   guild:(Guild & {notice:string})|null;
   members:GuildMember[];
@@ -89,6 +91,9 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   const [minLevel,setMinLevel]=useState('5');
   const [emblem,setEmblem]=useState(0);
   const [chatText,setChatText]=useState('');
+  const [showGuildInfo,setShowGuildInfo]=useState(false);
+  const [supportIntents,setSupportIntents]=useState<{scope:string;heart?:SupportIntent;item?:SupportIntent}>({scope:''});
+  const supportPending=useRef(new Set<string>()),supportAlive=useRef(true);
   const [invitedGarden,setInvitedGarden]=useState<string|null>(null);
   useEffect(()=>setInvitedGarden(null),[player.id]);
   const [tab,setTab]=useState<'chat'|'help'|'members'|'manage'>('chat');
@@ -103,6 +108,10 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   const findingGuild=page==='guild/find'&&guildUnlocked&&!player.guildId;
 
   const guildKey=player.id+'/'+player.guildId;
+  const supportOwner=useRef(guildKey);supportOwner.current=guildKey;
+  const localSupport=supportIntents.scope===guildKey?supportIntents:undefined;
+  useEffect(()=>{supportAlive.current=true;return()=>{supportAlive.current=false;};},[]);
+  useEffect(()=>setShowGuildInfo(false),[guildKey]);
   const working=mutationWorking||page==='pass'&&eventConfirmed!==player.id||guildPage&&!!player.guildId&&guildConfirmed!==guildKey;
   useEffect(()=>()=>{eventRead.current++;guildRead.current++;},[]);
   async function perform(fn:()=>Promise<unknown>){
@@ -118,7 +127,12 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   }
   async function loadView(){
     const sequence=++guildRead.current,owner=player.id;setGuildLoading(true);
-    try{const next=await request<GuildView>('/guild');if(eventOwner.current!==owner||sequence!==guildRead.current)return;setView(next);setGuildConfirmed(guildKey);activity.updateData(data=>({...data,notifications:{...data.notifications,guild:next.members.length<30&&next.members.some(member=>member.userId===player.id&&member.role!=='member')?next.applications.length:0}}));setLoadError('');if(!next.guild&&player.guildId)await refresh();}
+    try{const next=await request<GuildView>('/guild');if(eventOwner.current!==owner||sequence!==guildRead.current)return;setView(next);setGuildConfirmed(guildKey);
+      setSupportIntents(old=>old.scope!==guildKey?old:{...old,
+        heart:!old.heart?.pending&&(next.supportStatus?.heartNextAt??0)>serverNow()?undefined:old.heart,
+        item:!old.item?.pending&&(next.supportStatus?.itemNextAt??0)>serverNow()?undefined:old.item,
+      });
+      activity.updateData(data=>({...data,notifications:{...data.notifications,guild:next.members.length<30&&next.members.some(member=>member.userId===player.id&&member.role!=='member')?next.applications.length:0}}));setLoadError('');if(!next.guild&&player.guildId)await refresh();}
     finally{if(eventOwner.current===owner&&sequence===guildRead.current)setGuildLoading(false);}
   }
   async function loadSearch(query:string){
@@ -158,6 +172,29 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
     }).catch(()=>{});
     return()=>{stopped=true;clearInterval(timer);socket?.close();};
   },[page,player.guildId,player.id]);
+
+  async function requestGuildSupport(kind:'heart'|Booster){
+    const channel=kind==='heart'?'heart':'item',scope=guildKey,lock=scope+'/'+channel;
+    const status=view?.supportStatus,confirmed=channel==='heart'?status?.heartNextAt:status?.itemNextAt;
+    if(working||supportPending.current.has(lock)||(confirmed??0)>serverNow()||
+      (localSupport?.[channel]?.nextAt??0)>serverNow()||kind==='heart'&&(status?.storedHearts??0)>=20)return;
+    supportPending.current.add(lock);
+    const update=(intent?:SupportIntent)=>{
+      if(!supportAlive.current||supportOwner.current!==scope)return;
+      setSupportIntents(old=>({...((old.scope===scope)?old:{scope}),[channel]:intent}));
+    };
+    // Render immediately. Polling or a socket refresh cannot undo this local feedback.
+    update({kind,nextAt:serverNow()+14_400_000,pending:true});
+    try{
+      await mutate('/guild/requests',{kind});
+      update({kind,nextAt:serverNow()+14_400_000,pending:false});
+      // A refresh failure must never turn an accepted request back into a retry button.
+      if(supportAlive.current&&supportOwner.current===scope)void loadView().catch(()=>{});
+    }catch(error){
+      update();
+      if(supportAlive.current&&supportOwner.current===scope)notify(error instanceof Error?error.message:tr("잠시 후 다시 시도해 주세요."));
+    }finally{supportPending.current.delete(lock);}
+  }
 
   async function claimEvent(kind:'personal'|'guild'){await mutate('/events/claim',{kind});await loadEvents();notify(tr("정원 활동 보상을 받았어요!"));}
   function openManagement(){
@@ -259,21 +296,24 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   }
   if(!view?.guild)return <div className="guild-initial-loading"><HubLoading reducedMotion={player.settings.reducedMotion} kind="guild" error={loadError} retrying={guildLoading} onRetry={()=>void loadView().catch(error=>setLoadError(error instanceof Error?error.message:tr("길드를 불러오지 못했어요.")))}/></div>;
   const support=view.supportStatus;
+  const heartNextAt=(support?.heartNextAt??0)>serverNow()?support!.heartNextAt:localSupport?.heart?.nextAt??0;
+  const itemNextAt=(support?.itemNextAt??0)>serverNow()?support!.itemNextAt:localSupport?.item?.nextAt??0;
   const tabs=[['chat','mail','대화'],['help','heart','도움'],['members','lumi','멤버'],['manage','settings','관리']] as const;
-  return <div className="guild-layout">
+  return <div className="guild-layout" data-tab={tab}>
     {loadError&&<div className="hub-refresh-notice" role="status"><span>{tr('최신 정보를 확인하지 못했어요.')}</span><Button tone="blue" onClick={()=>void loadView().catch(()=>{})}>{tr('다시 불러오기')}</Button></div>}
-    <section className="guild-banner" data-long-name={view.guild.name.length>12||undefined}><img className="guild-map-joined-art" src={guildJoinedTable} alt="" aria-hidden="true" draggable={false}/><div className="guild-title"><Icon id={guildEmblemIcon(view.guild.emblem)} size={72}/><div><h3 title={view.guild.name}>{view.guild.name}</h3></div></div></section>
-    <section className="guild-summary" aria-label={tr('길드 소개')} data-frame="card_ice_v9" data-frame-scale="0.12">{view.guild.description&&<p title={view.guild.description}>{view.guild.description}</p>}<small>{view.members.length}{tr("/30 · 최소 레벨")}{' '}{view.guild.minLevel}</small></section>
+    <section className="guild-banner" data-long-name={view.guild.name.length>12||undefined}><img className="guild-map-joined-art" src={guildJoinedTable} alt="" aria-hidden="true" draggable={false}/><div className="guild-title"><Icon id={guildEmblemIcon(view.guild.emblem)} size={72}/><div><h3 title={view.guild.name}>{view.guild.name}</h3></div></div>{tab==='chat'&&<button className="guild-info-toggle" aria-expanded={showGuildInfo} onClick={()=>setShowGuildInfo(value=>!value)}>{tr("길드 정보")}<span aria-hidden="true">{showGuildInfo?'⌃':'⌄'}</span></button>}</section>
+    {tab!=='chat'&&<section className="guild-summary" aria-label={tr('길드 소개')} data-frame="card_ice_v9" data-frame-scale="0.12">{view.guild.description&&<p title={view.guild.description}>{view.guild.description}</p>}<small>{view.members.length}{tr("/30 · 최소 레벨")}{' '}{view.guild.minLevel}</small></section>}
     <div className="guild-section-tabs" role="group" aria-label={tr('길드')}>{tabs.filter(([id])=>id!=='manage'||manages).map(([id,icon,label])=><button key={id} aria-pressed={tab===id} data-frame={tab===id?'button_secondary':'card_ice_v9'} data-frame-scale="0.12" onClick={()=>{sound('button');startMusic();if(id==='manage')openManagement();else setTab(id);}}><Icon id={icon} size={28}/><span>{tr(label)}</span></button>)}</div>
-    {view.guild.notice&&<div className="guild-notice"><Row icon="mail" title={tr("길드 공지")}><p className="fine">{view.guild.notice}</p></Row></div>}
-    {tab==='chat'?<Card className="guild-chat-panel" tone="blue"><div className="guild-chat-toolbar"><h3>{tr('길드 대화')}</h3><Button secondary icon="chest" onClick={()=>onPage('gifts')}>{tr('선물함 열기')}</Button></div>
-      <div className="chat-list">{view.messages.length?view.messages.map(message=><div className="chat-message" key={message.id} data-own={message.userId===player.id||undefined} data-frame={message.userId===player.id?'card_ice_v9':undefined}><button className="guild-chat-avatar" onClick={()=>openProfile(message.userId)} aria-label={message.nickname+' '+tr("프로필 보기")}><ProfilePortrait appearance={view.members.find(member=>member.userId===message.userId)?.profileAppearance} size={40}/></button><div className="guild-chat-copy"><button className="guild-profile-link" onClick={()=>openProfile(message.userId)}>{message.nickname}</button>{!message.gardenInvite&&<p>{message.text}</p>}{message.gardenInvite&&<div className="garden-chat-invitation"><img src={gardenInviteTicket} alt=""/><span>{tr("내 정원에 놀러 와!")}</span><Button tone="green" onClick={()=>setInvitedGarden(message.gardenInvite!.ownerId)}>{tr("정원 방문")}</Button></div>}{message.userId!==player.id&&<small><button onClick={()=>void perform(async()=>{await mutate('/guild/block',{userId:message.userId});await loadView();})}>{tr("차단")}</button> · <button onClick={()=>void perform(async()=>{await mutate('/guild/report',{messageId:message.id,reason:tr("사용자 신고")});notify(tr("신고를 접수했어요."));})}>{tr("신고")}</button></small>}</div></div>):<div className="guild-chat-empty"><Icon id="mail" size={54}/><p className="fine">{tr("길드원에게 첫 인사를 건네보세요.")}</p></div>}</div>
-      <div className="chat-composer"><div className="input-frame" data-frame="panel"><input value={chatText} onChange={event=>setChatText(event.target.value)} placeholder={tr("따뜻한 한마디를 남겨주세요")} maxLength={240} aria-label={tr("길드 채팅")} onKeyDown={event=>{if(event.key==='Enter'&&!event.nativeEvent.isComposing)void perform(sendChat);}}/></div><Button icon="mail" tone="green" disabled={working||!chatText.trim()} onClick={()=>void perform(sendChat)}><span className="sr-only">{tr("보내기")}</span></Button></div>
-    </Card>:tab==='help'?<Card title={tr("도움 나누기")} tone="green">
-      <Button disabled={working||(support?.heartNextAt??0)>serverNow()||(support?.storedHearts??0)>=20} icon="heart" onClick={()=>void perform(async()=>{await mutate('/guild/requests',{kind:'heart'});await loadView();})}>{support&&support.heartNextAt>serverNow()?tr("다음 요청 {0}",{0:(duration(support.heartNextAt-serverNow()))}):tr("하트 도움 요청")}</Button>
+    {view.guild.notice&&tab!=='chat'&&<div className="guild-notice"><Row icon="mail" title={tr("길드 공지")}><p className="fine">{view.guild.notice}</p></Row></div>}
+    {tab==='chat'?<GuildConversation messages={view.messages} members={view.members} playerId={player.id} text={chatText} working={working}
+      onText={setChatText} onSend={()=>void perform(sendChat)} onProfile={openProfile} onVisit={setInvitedGarden} onGifts={()=>onPage('gifts')}
+      onBlock={userId=>void perform(async()=>{await mutate('/guild/block',{userId});await loadView();})}
+      onReport={messageId=>void perform(async()=>{await mutate('/guild/report',{messageId,reason:tr("사용자 신고")});notify(tr("신고를 접수했어요."));})}/>
+    :tab==='help'?<Card title={tr("도움 나누기")} tone="green">
+      <Button className="guild-heart-request" disabled={working||heartNextAt>serverNow()||(support?.storedHearts??0)>=20} icon="heart" onClick={()=>void requestGuildSupport('heart')}>{localSupport?.heart?.pending?tr("요청 중"):heartNextAt>serverNow()?tr("다음 요청 {0}",{0:duration(heartNextAt-serverNow())}):tr("하트 도움 요청")}</Button>
       <p className="fine">{tr("오늘 하트 지원")}{' '}{support?.heartsSent??0}{tr("/10 · 수신")}{' '}{support?.heartsReceived??0}/10<br/>{tr("보관한 길드 하트")}{' '}{support?.storedHearts??0}/20</p>
-      {boosters.map(item=><Row key={item} icon={item} title={names[item]}><small>{tr("보유")}{' '}{player.inventory[item].normal+player.inventory[item].bound}{' '}{tr("· 지원 가능")}{' '}{player.inventory[item].normal}</small><Button secondary disabled={working||(support?.itemNextAt??0)>serverNow()} onClick={()=>void perform(async()=>{await mutate('/guild/requests',{kind:item});await loadView();})}>{tr("요청")}</Button></Row>)}
-      <p className="fine">{tr("오늘 아이템 지원")}{' '}{support?.itemsSent??0}{tr("/3 · 수신")}{' '}{support?.itemsReceived??0}/3{support&&support.itemNextAt>serverNow()&&<><br/>{tr("다음 아이템 요청")}{' '}{duration(support.itemNextAt-serverNow())}</>}</p>
+      {boosters.map(item=><Row key={item} icon={item} title={names[item]}><small>{tr("보유")}{' '}{player.inventory[item].normal+player.inventory[item].bound}{' '}{tr("· 지원 가능")}{' '}{player.inventory[item].normal}</small><Button secondary disabled={working||itemNextAt>serverNow()} onClick={()=>void requestGuildSupport(item)}>{localSupport?.item?.pending&&localSupport.item.kind===item?tr("요청 중"):itemNextAt>serverNow()?tr("요청 대기"):tr("요청")}</Button></Row>)}
+      <p className="fine">{tr("오늘 아이템 지원")}{' '}{support?.itemsSent??0}{tr("/3 · 수신")}{' '}{support?.itemsReceived??0}/3{itemNextAt>serverNow()&&<><br/>{tr("다음 아이템 요청")}{' '}{duration(itemNextAt-serverNow())}</>}</p>
       <h3>{tr("길드원이 기다리는 도움")}</h3>{view.requests.length?view.requests.map(r=><Row key={r.id} icon={r.kind==='heart'?'heart':r.kind} title={`${r.nickname} · ${r.received}/${r.maximum}`}><small>{r.kind==='heart'?tr("하트"):names[r.kind]} · {duration(r.expiresAt-serverNow())}</small><Button disabled={working||r.userId===player.id||r.helped||r.received>=r.maximum||(r.kind==='heart'?(support?.heartsSent??0)>=10:(support?.itemsSent??0)>=3||player.inventory[r.kind].normal===0)} onClick={()=>void perform(async()=>{await mutate(`/guild/requests/${r.id}/help`);await loadView();notify(tr("도움을 보냈어요!"));})}>{r.userId===player.id?tr("내 요청"):r.helped?tr("도움 완료"):tr("도와주기")}</Button></Row>):<p className="fine">{tr("아직 기다리는 요청이 없어요.")}</p>}
     </Card>:tab==='manage'&&manages?<Card title={tr("우리 길드 관리")} tone="green">
       <label htmlFor="guild-notice">{tr("길드 공지")}</label><div className="input-frame" data-frame="panel"><textarea id="guild-notice" value={notice} maxLength={240} onChange={event=>setNotice(event.target.value)}/></div>
@@ -288,6 +328,7 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
     </div>}
     {confirmation&&<Card title={tr("길드 변경 확인")}><h3>{confirmation.kind==='transfer'?tr("{0}님에게 길드장을 넘길까요?",{0:(confirmation.member?.nickname)}):confirmation.kind==='kick'?tr("{0}님을 추방할까요?",{0:(confirmation.member?.nickname)}):tr("길드를 떠날까요?")}</h3><p className="fine">{confirmation.kind==='transfer'?tr("위임하면 일반 멤버가 되며, 새 길드장이 길드를 관리해요."):tr("진행 중인 지원 요청이 닫혀요. 이미 도착한 선물은 선물함에 보관돼요.")}</p><Button disabled={working} onClick={()=>void perform(confirmGuildAction)}>{confirmation.kind==='transfer'?tr("길드장 위임 확인"):confirmation.kind==='kick'?tr("추방 확인"):tr("탈퇴 확인")}</Button><Button secondary disabled={working} onClick={()=>setConfirmation(null)}>{tr("돌아가기")}</Button></Card>}
     {tab!=='chat'&&<Button secondary icon="chest" onClick={()=>onPage('gifts')}>{tr("선물함 열기")}</Button>}
+    {showGuildInfo&&tab==='chat'&&<CommerceDialog title={tr('길드 정보')} onClose={()=>setShowGuildInfo(false)}><h3>{view.guild.name}</h3>{view.guild.description&&<p>{view.guild.description}</p>}<p className="fine">{view.members.length}{tr('/30 · 최소 레벨')}{' '}{view.guild.minLevel}</p>{view.guild.notice&&<><h3>{tr('길드 공지')}</h3><p>{view.guild.notice}</p></>}</CommerceDialog>}
     {invitedGarden&&<GardenVisit userId={invitedGarden} reducedMotion={player.settings.reducedMotion} onClose={()=>setInvitedGarden(null)}/>}
   </div>;
 }

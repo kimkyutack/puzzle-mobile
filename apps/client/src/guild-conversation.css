@@ -1,0 +1,47 @@
+/* The conversation owns the remaining viewport; only its message log scrolls. */
+.game-page.guild-map-v109>.page-content:has(.guild-layout[data-tab="chat"]){display:flex;flex-direction:column;overflow:hidden;padding-bottom:6px}
+.guild-map-v109 .guild-layout[data-tab="chat"]{display:flex;flex-direction:column;flex:1;min-height:0}
+.guild-map-v109 .guild-layout[data-tab="chat"]>.guild-banner{display:flex;align-items:center;gap:8px;height:auto;min-height:58px;flex:none;padding:2px 4px}
+.guild-layout[data-tab="chat"] .guild-map-joined-art{display:none}
+.guild-map-v109 .guild-layout[data-tab="chat"] .guild-title{flex:1;min-width:0;flex-direction:row;gap:7px;text-align:left}
+.guild-map-v109 .guild-layout[data-tab="chat"] .guild-title>.icon{width:48px;height:48px;flex:none}
+.guild-layout[data-tab="chat"] .guild-title>div{width:auto;min-width:0;flex:1}
+.game-page.guild-map-v109 .modal-content .guild-layout[data-tab="chat"] .guild-title h3{margin:0;padding:0;min-width:0;max-width:100%;width:auto;font-size:18px;line-height:23px;text-shadow:0 1px 2px #27456d}
+.guild-layout[data-tab="chat"] .guild-title h3::before{display:none}
+.guild-info-toggle{flex:none;display:flex;align-items:center;gap:4px;min-height:40px;padding:4px 6px;border:1px solid #bde4f6;border-radius:9px;background:#d7eff9;color:#214a6c;font:inherit;font-size:12px;white-space:nowrap}
+.guild-info-toggle>span{font-size:21px;line-height:20px}
+.guild-map-v109 .guild-layout[data-tab="chat"]>.guild-section-tabs{flex:none;margin:3px 0 4px}
+.guild-map-v109 .guild-layout[data-tab="chat"]>.guild-section-tabs>button{height:44px;min-height:44px;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;padding:3px 4px 7px;font-size:14px}
+.guild-layout[data-tab="chat"] .guild-section-tabs .icon{width:24px;height:24px}
+.guild-map-v109 .guild-layout[data-tab="chat"]>.guild-chat-panel{position:relative;display:flex;flex-direction:column;flex:1;min-height:0;margin:0;padding:8px 10px 9px}
+.guild-layout[data-tab="chat"] .guild-chat-toolbar{flex:none;padding-bottom:5px;border-bottom:1px solid #92c4e2}
+.guild-map-v109 .guild-layout[data-tab="chat"] .chat-list{flex:1;min-height:0;max-height:none;padding:5px 0;overflow-y:auto;overscroll-behavior:contain;overflow-anchor:none}
+.game-page.guild-map-v109 .guild-layout[data-tab="chat"] .chat-message{align-items:flex-start;gap:6px;padding:6px 0;margin:0;border:0;text-align:left;background:none}
+.guild-map-v109 .guild-layout[data-tab="chat"] .guild-chat-avatar{width:36px;height:36px;margin-top:2px}
+.guild-layout[data-tab="chat"] .guild-message-heading{display:flex;align-items:center;gap:5px;min-height:24px}
+.guild-map-v109 .guild-layout[data-tab="chat"] .guild-profile-link{flex:1;min-width:0;min-height:24px;margin:0;text-align:left;font-size:12px;line-height:18px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.guild-message-heading>time{flex:none;font-family:var(--font-game-number);font-size:10px;color:#547896;white-space:nowrap}
+.game-page.guild-map-v109 .guild-layout[data-tab="chat"] .chat-message p{width:fit-content;max-width:100%;margin:1px 0 0;padding:7px 10px;border-radius:3px 12px 12px;background:#f5fbff;border:1px solid #afcfe2;color:#193b63;font-size:14px;line-height:20px;white-space:pre-wrap}
+.game-page.guild-map-v109 .guild-layout[data-tab="chat"] .chat-message[data-own]{flex-direction:row-reverse;margin:0}
+.guild-layout[data-tab="chat"] .chat-message[data-own] .guild-message-heading{flex-direction:row-reverse}
+.game-page.guild-map-v109 .guild-layout[data-tab="chat"] .chat-message[data-own] .guild-profile-link{flex:0 1 auto;text-align:right}
+.game-page.guild-map-v109 .guild-layout[data-tab="chat"] .chat-message[data-own] p{margin-left:auto;border-color:#96cba4;background:#e3f6d9;border-radius:12px 3px 12px 12px}
+.guild-layout[data-tab="chat"] .chat-message[data-own] .garden-chat-invitation{background:#e3f6d9;border-color:#96cba4}
+.guild-layout[data-tab="chat"] .guild-chat-copy .garden-chat-invitation{display:flex;flex-wrap:nowrap;gap:5px;margin:1px 0 0;padding:5px 6px;border-radius:9px}
+.guild-layout[data-tab="chat"] .garden-chat-invitation>img{width:29px;height:30px;flex:none}
+.guild-layout[data-tab="chat"] .garden-chat-invitation>span{flex:1;min-width:0;font-size:12px;line-height:17px;word-break:keep-all}
+.guild-layout[data-tab="chat"] .guild-chat-copy .garden-chat-invitation>.game-button{flex:none;width:auto;max-width:98px;min-width:0;min-height:34px;height:34px;padding:1px 6px 6px;font-size:12px;line-height:18px;white-space:nowrap}
+.guild-message-actions{flex:none;font-size:12px}
+.guild-message-actions>summary{display:grid;place-items:center;width:28px;min-height:28px;border-radius:7px;list-style:none;cursor:pointer;color:#355b7b;font-size:20px;line-height:20px}
+.guild-message-actions>summary::-webkit-details-marker{display:none}
+.guild-message-actions[open]{align-self:flex-start;border-radius:7px;background:#e8f6ff;border:1px solid #a7cce2}
+.guild-message-actions>div{display:flex;flex-direction:column;gap:2px;padding:2px}
+.guild-message-actions button{min-height:30px;color:#315572;font:inherit;font-size:12px}
+.guild-layout[data-tab="chat"] .chat-composer{flex:none;margin-top:5px;padding-top:5px;border-top:1px solid #92c4e2}
+.guild-map-v109 .guild-layout[data-tab="chat"] .chat-composer>.input-frame{min-width:0;flex:1}
+.guild-layout[data-tab="chat"] .guild-chat-empty{min-height:100%;align-content:center}
+.guild-chat-new{position:relative;align-self:center;flex:none;min-height:32px;margin:3px 0;padding:5px 14px;border:1px solid #a0cae3;border-radius:16px;background:#f0faff;color:#1e5682;font:inherit;font-size:12px;box-shadow:0 2px 5px #34587433}
+html:not([lang="ko"]) .guild-layout[data-tab="chat"] .garden-chat-invitation>span{font-size:11px;line-height:14px}
+
+html:not([lang="ko"]) .guild-layout[data-tab="chat"]>.guild-section-tabs>button{font-size:11px;gap:2px;padding-inline:2px}
+html:not([lang="ko"]) .guild-layout[data-tab="chat"] .guild-section-tabs .icon{width:20px;height:20px}
