@@ -6,7 +6,7 @@ import {weeklyEvent,type WeeklyEventId} from '../../../packages/contracts/src/we
 import {gameEventAvailable,gameEventConfig,type RuntimeSettings} from '../../../packages/contracts/src/operations';
 import {configuredExpeditionRound,EXPEDITION_ANIMALS} from '../../../packages/content/src/animal-expedition';
 import {useOperations} from './OperationsUI';
-import {duration,serverNow} from './api';
+import {serverNow} from './api';
 import {Button} from './ui';
 import {tr,t} from './i18n';
 import {WORLD_ART} from './garden-world/assets';
@@ -42,12 +42,13 @@ export default function WeeklyEventPage({event,player,onPlayer,onHome,onPage}:{e
  return <section className="weekly-event-page weekly-designed" data-weekly-event={event} aria-label={tr(titles[event])}>
   <div className="weekly-event-stage" data-art-root>
   <img className="weekly-event-backdrop" src={scene} alt="" draggable={false}/><ArtSurface/>
-  <nav className="weekly-event-navigation" aria-label={tr('홈으로')}>
-   <Button rasterFrame={false} className="weekly-home" onClick={onHome}>{tr('홈')}</Button>
+  <div className="weekly-event-navigation">
+   <div className="weekly-event-countdown" role="timer" aria-label={tr('남은 시간')} aria-live="off" data-frame="event_sky_v9" data-frame-scale="0.12">
+    <span>{tr('남은 시간')}</span><strong>{available?homeCountdown(current.endsAt-now):tr('이번 회차 종료')}</strong>
+   </div>
    <Button rasterFrame={false} className="weekly-close" onClick={onHome}><img src={eventDesignArt.closeButton} alt={tr('닫기')}/></Button>
-  </nav>
+  </div>
   <h1 className="weekly-scene-title">{tr(titles[event])}</h1>
-  <span className="weekly-event-countdown">{available?duration(current.endsAt-now):tr('이번 회차 종료')}</span>
   <div className="weekly-event-content">
    {available?event==='animal-expedition'
     ?<AnimalExpedition key={current.key} embedded weekly player={player} onPlayer={onPlayer} onClose={onHome} onPage={onPage}/>

@@ -64,5 +64,4 @@ html:not([lang="ko"]) .garden-pass-modal .pass-compact-actions>.game-button{font
 .weekly-game-layout[data-game="acorn-pinball"] .pinball-pocket>span>.icon{width:7cqw!important;height:7cqw!important}
 
 
-html:not([lang="ko"]) .weekly-event-navigation .weekly-home>.button-label{white-space:nowrap;font-size:4cqw;line-height:1}
 html:not([lang="ko"]) [data-weekly-event="greenhouse-water"] .weekly-scene-title{font-size:5.1cqw!important}
