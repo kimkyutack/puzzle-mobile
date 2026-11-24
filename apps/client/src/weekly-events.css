@@ -1,0 +1,298 @@
+.hub-weekly-event>img {
+  width:62px;
+  height:62px;
+  object-fit:contain;
+  filter:drop-shadow(0 3px 2px #17385780);
+}
+
+.weekly-event-page {
+  position:absolute;
+  inset:0;
+  z-index:3;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:radial-gradient(ellipse at 50% 25%,#f4d88b33,transparent 65%),linear-gradient(#455a99,#263c70);
+  color:#fff5d7;
+}
+
+.weekly-event-page[data-weekly-event="animal-expedition"] {
+  background:linear-gradient(#bfe4d9,#6fa989);
+}
+
+.weekly-event-page[data-weekly-event="greenhouse-water"] {
+  background:radial-gradient(ellipse at top,#f6ecb6,#779f76 58%,#275d58);
+}
+
+.weekly-event-backdrop {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  pointer-events:none;
+}
+
+.weekly-event-content {
+  position:relative;
+}
+
+.weekly-event-heading {
+  flex:none;
+  position:relative;
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr) auto;
+  align-items:center;
+  gap:7px;
+  padding:calc(var(--safe-top,0px) + 12px) 12px 14px;
+  background:linear-gradient(#2caacf,#17628f);
+  border-bottom:3px solid #f7cf75;
+  box-shadow:0 4px 12px #13363e55;
+  z-index:4;
+}
+
+.weekly-event-heading h1 {
+  margin:0;
+  font-size:clamp(21px,6vw,30px);
+  text-shadow:0 2px #194a72;
+  line-height:1.1;
+}
+
+.weekly-event-heading>span {
+  padding:6px 8px;
+  border:1px solid #f7df98;
+  border-radius:12px;
+  background:#174d7b;
+  color:#fff5c9;
+  font-size:12px;
+  font-variant-numeric:tabular-nums;
+}
+
+.weekly-event-heading .icon-button {
+  width:40px;
+  height:40px;
+}
+
+.weekly-event-content {
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  padding:14px 14px calc(18px + var(--safe-bottom,0px));
+  scrollbar-width:none;
+}
+
+.weekly-event-ended {
+  padding:30px 12px;
+  text-align:center;
+}
+
+.weekly-event-content .expedition-map-menu {
+  height:100%;
+  min-height:570px;
+}
+
+.weekly-event-content .garden-game {
+  gap:12px;
+  padding:0;
+  max-width:430px;
+  min-height:100%;
+}
+
+.weekly-event-content .garden-game-head {
+  padding:5px 9px 0;
+}
+
+.weekly-event-content .garden-game-head h2 {
+  font-size:18px;
+}
+
+.weekly-event-content .garden-game-head {
+  display:flex;
+  justify-content:center;
+}
+
+.weekly-event-content .garden-game-head :is(img,h2) {
+  display:none;
+}
+
+.weekly-event-content .expedition-map-title {
+  display:none;
+}
+
+.weekly-event-content .expedition-route-map {
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 5px 10px #24493c40;
+  margin-block:auto;
+}
+
+.garden-game-route {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:4px;
+  padding:10px 12px;
+  margin:0;
+  border:2px solid #f7d282;
+  border-radius:24px;
+  background:linear-gradient(#2273a4,#174d7b);
+  box-shadow:inset 0 2px #ffffff30,0 3px 0 #132d5077;
+  list-style:none;
+}
+
+.garden-game-route li {
+  flex:1;
+  max-width:31px;
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#17446a;
+  border:2px solid #6094b4;
+  color:#aad3ec;
+  font-size:13px;
+  box-shadow:inset 0 2px 3px #102c4c;
+}
+
+.garden-game-route li[data-complete=true] {
+  border-color:#f2c66d;
+  background:linear-gradient(#c2ee68,#6fa63c);
+  color:#255725;
+}
+
+.garden-game-route li[aria-current=step] {
+  background:linear-gradient(#fff6a4,#ffbc30);
+  border-color:#fff3b4;
+  color:#7a4b17;
+  box-shadow:0 0 12px #ffdb7d80;
+}
+
+.weekly-event-content .garden-game-hero {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  min-height:270px;
+  padding:15px 20px 20px;
+  border:3px solid #ffe6a3;
+  border-radius:38px 38px 24px 24px;
+  background:radial-gradient(ellipse at 50% 38%,#fff1aa80,transparent 62%),linear-gradient(#14528122,#133457de),var(--arcade-scene) center/cover;
+  box-shadow:inset 0 0 0 3px #7a532e,0 6px 0 #13334d50,0 15px 25px #17305130;
+  text-align:center;
+}
+
+.weekly-event-content .garden-game-prize-art {
+  height:160px;
+  width:65%;
+  filter:drop-shadow(0 10px 8px #17302770);
+  animation:weekly-prize-arrive 450ms ease-out both;
+}
+
+.weekly-event-content .garden-game-hero>div {
+  background:#103858df;
+  border:1px solid #f6d48990;
+  border-radius:18px;
+  padding:10px 14px;
+  width:100%;
+}
+
+.weekly-event-content .garden-game-hero strong {
+  font-size:24px;
+  color:#ffec9e;
+  text-shadow:0 2px #644524;
+}
+
+.weekly-event-content .garden-game-hero p {
+  font-size:13px;
+  line-height:1.5;
+  margin-top:7px;
+}
+
+.weekly-event-content .garden-game-next,.weekly-event-content .garden-game-result {
+  padding:12px 15px;
+  border:2px solid #f6d38a;
+  border-radius:19px;
+  background:linear-gradient(#fff5d7,#f4dcaa);
+  box-shadow:inset 0 2px #fff,0 4px 0 #143d5f55;
+  color:#33556c;
+}
+
+.weekly-event-content .garden-game-next .garden-game-reward,.weekly-event-content .garden-game-result .garden-game-reward {
+  color:#3b5664;
+  justify-content:center;
+  font-size:18px;
+}
+
+.weekly-event-content .garden-game-next>span:first-child {
+  font-size:13px;
+  text-align:center;
+}
+
+.weekly-event-content .garden-game-entry {
+  justify-content:center;
+  flex-wrap:wrap;
+  color:#fff9dd;
+  text-shadow:0 2px #25445f;
+  font-size:14px;
+  gap:6px 14px;
+}
+
+.weekly-event-content .garden-game>.game-button {
+  margin:0 auto;
+  width:min(100%,330px);
+  min-height:56px;
+  font-size:24px;
+}
+
+.weekly-event-content .water-meter>span {
+  border:2px solid #f8d58a;
+  border-radius:15px;
+  background:linear-gradient(#fffbde,#f1d69d);
+  box-shadow:0 3px 0 #254b5155;
+  color:#345a56;
+}
+
+.weekly-event-content .arcade-machine {
+  box-shadow:0 8px 12px #143b4844;
+  border-radius:28px;
+}
+
+@keyframes weekly-prize-arrive {
+  from {
+    transform:translateY(14px) scale(.88);
+    opacity:0;
+  }
+  to {
+    transform:none;
+    opacity:1;
+  }
+}
+
+@media(max-height:760px) {
+  .weekly-event-content {
+    padding-top:8px;
+  }
+  .weekly-event-content .garden-game {
+    gap:8px;
+  }
+  .weekly-event-content .garden-game-hero {
+    min-height:220px;
+    padding:8px 13px 12px;
+  }
+  .weekly-event-content .garden-game-prize-art {
+    height:120px;
+  }
+  .weekly-event-content .garden-game-hero strong {
+    font-size:21px;
+  }
+  .weekly-event-content .garden-game-hero p {
+    font-size:12px;
+    margin-top:3px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .weekly-event-content .garden-game-prize-art {
+    animation:none;
+  }
+}

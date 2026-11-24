@@ -1,0 +1,95 @@
+.event-scene-v65{position:relative;isolation:isolate;container-type:inline-size;width:100%;height:100%;min-height:130cqw;overflow:hidden;color:#203e62}
+.event-scene-v65-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.event-scene-meter{position:relative;isolation:isolate;overflow:hidden;border-radius:999px}
+.event-scene-meter-fill{position:absolute;inset:0 auto 0 0;overflow:hidden;border-radius:inherit}
+.event-scene-meter-fill>img{position:absolute;inset:1px 0;width:100%;height:calc(100% - 2px);object-fit:fill}
+.event-scene-meter>strong{position:relative;z-index:1;display:grid;place-items:center;width:100%;height:100%;font-size:4.5cqw;line-height:1;color:#fffbe8;text-shadow:0 1px 1px #274d1e;font-weight:400}
+/* Shared game button artwork and interaction; only scene-specific sizing lives here. */
+.game-page[data-page="events"] .events-v17 .event-scene-v65-action{position:absolute;left:15%;top:86.5%;width:70%;height:12%;min-height:0!important;padding:6px 10px 12px!important;margin:0;font-size:clamp(18px,6cqw,25px)!important;line-height:1.2}
+.game-page[data-page="events"] .event-scene-v65-action>.button-label{line-height:1.2!important;white-space:normal!important;text-align:center}
+.game-page[data-page="events"] .event-scene-v65-action:disabled>.button-label{font-size:4.8cqw}
+/* Season: two floating gardens, two progress plaques, two live reward cards. */
+.game-page[data-page="events"] .season-scene-clock{position:absolute;left:32.1%;top:4.2%;width:35.9%;height:5.81%;margin:0!important;display:grid;place-items:center;font-size:4.9cqw;line-height:1;color:#203e62!important;white-space:nowrap}
+.game-page[data-page="events"] .season-scene-clock[data-active="false"]{font-size:3.4cqw;line-height:1.05;white-space:normal}
+html[lang="en"] .game-page[data-page="events"] .season-scene-clock{font-size:4.1cqw}
+html[lang="en"] .game-page[data-page="events"] .season-scene-clock[data-active="false"]{font-size:3.2cqw}
+.season-scene-goal{position:absolute;top:44.6%;left:6.5%;width:38.5%;height:37%;margin:0}
+.season-scene-guild{left:55.5%}
+.game-page[data-page="events"] .season-scene-goal>h3{position:absolute;inset:2% 0 auto;display:grid;place-items:center;height:10%;margin:0!important;font-size:4.4cqw;line-height:1;color:#203e62;white-space:nowrap;font-weight:400}
+.season-scene-goal>.event-scene-meter{position:absolute;top:15%;left:7%;width:86%;height:9.5%}
+.season-scene-prize{position:absolute;top:51%;left:-3%;width:106%;height:49%}
+/* Large single rewards and the two-column guild prize follow the selected card. */
+.scene-rewards{display:flex;align-items:center;justify-content:center}
+.scene-reward{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;gap:0}
+.scene-reward>.icon{object-fit:contain}
+.scene-reward>strong{font-family:var(--font-game-ui);font-weight:400;line-height:1;white-space:nowrap}
+.season-scene-prize>.scene-rewards{position:absolute;top:-9%;left:0;width:100%;height:75%;gap:2cqw;color:#203e62}
+.season-scene-prize .scene-reward>.icon{width:16cqw;height:16cqw}
+.season-scene-prize .scene-reward>strong{font-size:6.2cqw}
+.season-scene-prize .scene-rewards[data-count="2"]>.scene-reward{width:45%}
+.season-scene-prize .scene-rewards[data-count="2"] .icon{width:17cqw;height:16cqw}
+.event-scene-meter>.season-scene-meter-level{position:absolute;left:3%;top:3%;width:19%;height:94%;object-fit:contain;z-index:1}
+.season-scene-prize-action{position:absolute;inset:0;font-size:4.9cqw;line-height:1.1;text-align:center;color:#203e62}
+.season-scene-prize-action>span{position:absolute;inset:69% 0 0;display:grid;place-items:center}
+.game-page[data-page="events"] .events-v17 .season-scene-prize-action>.game-button{position:absolute;left:4%;top:65%;width:92%;height:35%;min-height:0!important;padding:2px 4px 7px!important;margin:0;font-size:3.8cqw!important;line-height:1.1}
+.game-page[data-page="events"] .season-scene-prize-action .button-label{line-height:1.1!important;white-space:normal!important;text-align:center}
+.season-scene-check{position:absolute;right:5%;top:0;width:7cqw;height:7cqw;object-fit:contain}
+.season-scene-empty{position:absolute;inset:46% 5% 17%;display:grid;place-items:center;padding:6cqw;text-align:center}
+.game-page[data-page="events"] .season-scene-empty>p{position:relative;margin:0;font-size:5cqw;line-height:1.4;color:#24435f!important}
+/* Tool workshop: positions align with the four authored board cells and five cabinets. */
+:is(.game-page[data-page="events"],.power-festival-modal) .tools-scene-clock{position:absolute;isolation:isolate;z-index:3;top:5.4%;left:24%;width:52%;height:5.3%;min-height:26px;margin:0!important;padding:0 2cqw;display:flex;align-items:center;justify-content:center;gap:2cqw;font-size:4.1cqw;line-height:1;text-align:center;color:#203e62!important;text-shadow:none;white-space:nowrap}
+.tools-scene-clock>span,.tools-scene-clock>strong{position:relative;font-weight:400}
+.tools-scene-clock>strong{font-size:5.5cqw;font-variant-numeric:tabular-nums}
+html:not([lang="ko"]) :is(.game-page[data-page="events"],.power-festival-modal) .tools-scene-clock{left:18%;width:64%;font-size:3.5cqw}
+html:not([lang="ko"]) .tools-scene-clock>strong{font-size:4.6cqw}
+.tools-scene-goals{position:absolute;top:17%;left:30%;width:63%;height:40%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5% 5%}
+.tools-scene-goal{position:relative;min-width:0;margin:0}
+.tools-scene-goal>.icon{position:absolute;top:2%;left:5%;width:90%;height:56%;object-fit:contain}
+:is(.game-page[data-page="events"],.power-festival-modal) .tools-scene-goal>h3{position:absolute;top:59%;left:0;width:100%;margin:0!important;font-size:4.1cqw;line-height:1.05;text-align:center;color:#fff9e9;white-space:nowrap;text-shadow:0 1px #163c6d;font-weight:400}
+.tools-scene-goal>.event-scene-meter{position:absolute;top:77.5%;left:14.7%;width:73.2%;height:17%}
+.tools-scene-goal:nth-child(2)>.event-scene-meter{left:13.5%;width:73.5%}
+.tools-scene-goal:nth-child(3)>.event-scene-meter{top:74.7%;left:17.6%;width:75%}
+.tools-scene-goal:nth-child(4)>.event-scene-meter{top:74.7%;left:12.5%;width:75%}
+.tools-scene-goal .event-scene-meter>strong{font-size:4.1cqw;text-shadow:0 1px #184273}
+:is(.game-page[data-page="events"],.power-festival-modal) .tools-scene-caption{position:absolute;left:23%;top:62.2%;width:54%;height:5%;display:grid;place-items:center;margin:0!important;font-size:5.4cqw;line-height:1.05;text-align:center;white-space:nowrap;color:#203e62!important;font-weight:400}
+:is(.game-page[data-page="events"],.power-festival-modal) .tools-scene-caption[data-feedback="true"]{font-size:3.4cqw;line-height:1.15;white-space:normal}
+.tools-scene-stages{position:absolute;top:69%;left:0;width:100%;height:16.8%;display:block;list-style:none;margin:0;padding:0}
+.tools-scene-stages>li{position:absolute;top:0;height:100%;min-width:0;margin:0;padding:0;text-align:center}
+.tools-scene-stage-number{position:absolute;top:0;left:0;width:100%;height:19%;display:grid;place-items:center;font-size:4cqw;line-height:1;text-align:center;color:#3b3c65;font-weight:400}
+.tools-scene-stages .scene-rewards{position:absolute;top:22%;left:0;width:100%;height:71%;gap:0;color:#fff8e6}
+.tools-scene-stages .scene-reward{width:100%}
+.tools-scene-stages .scene-reward>.icon{width:10.5cqw;height:10.5cqw}
+.tools-scene-stages .scene-reward>strong{font-size:5.1cqw;color:#fff8e6;text-shadow:0 1px 2px #553b2a}
+.tools-scene-stages .scene-rewards[data-count="2"]>.scene-reward{width:50%}
+.tools-scene-stages .scene-rewards[data-count="2"] .icon{width:8.8cqw;height:10.5cqw}
+.tools-scene-stages .scene-rewards[data-count="2"] strong{font-size:4.5cqw}
+.tools-scene-lock{position:absolute;left:28%;top:34%;width:44%;height:44%;object-fit:contain}
+.tools-scene-check{position:absolute;right:0;top:20%;width:6cqw;height:6cqw;object-fit:contain}
+.tools-scene-stages>li[data-claimed="true"] .scene-rewards{opacity:.7}
+html:not([lang="ko"]) :is(.game-page[data-page="events"],.power-festival-modal) .tools-scene-goal>h3{font-size:3.9cqw}
+html:not([lang="ko"]) .events-v17 .event-scene-v65-action{font-size:6cqw!important}
+html:not([lang="ko"]) .season-scene-prize-action{font-size:3.6cqw}
+
+/* Narrow blue cabinets reveal their live rewards on reaching that stage. */
+.tools-scene-stages>li:nth-child(2) .scene-rewards[data-count="2"] .icon,.tools-scene-stages>li:nth-child(4) .scene-rewards[data-count="2"] .icon{width:7cqw;height:10cqw}
+.tools-scene-stages>li:nth-child(2) .scene-rewards[data-count="2"] strong,.tools-scene-stages>li:nth-child(4) .scene-rewards[data-count="2"] strong{font-size:3.5cqw}
+
+html:not([lang="ko"]) .game-page[data-page="events"] .season-scene-goal>h3{font-size:3.5cqw}
+
+.tools-scene-clock-art{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:fill;pointer-events:none;filter:drop-shadow(0 1px 1px #67432277)}
+
+/* Cabinet bounds follow the authored 992px artwork, not equal grid tracks. */
+.tools-scene-stages>li:nth-child(1){left:3.2%;width:18.8%}
+.tools-scene-stages>li:nth-child(2){left:22.4%;width:16.2%}
+.tools-scene-stages>li:nth-child(3){left:39.1%;width:18.8%}
+.tools-scene-stages>li:nth-child(4){left:58.2%;width:15.7%}
+.tools-scene-stages>li:nth-child(5){left:74.6%;width:22.2%}
+.tools-scene-stages .scene-rewards{left:7%;width:86%}
+.tools-scene-stages>li:nth-child(5) .scene-rewards{left:8%;width:84%}
+.tools-scene-stages>li:nth-child(5) .scene-reward>.icon{width:8cqw;height:10cqw}
+.tools-scene-stages>li:nth-child(5) .scene-reward>strong{font-size:4cqw}
+.tools-scene-stage-number>span,.season-scene-clock>span{display:block;transform:translateY(.08em)}
+.tools-scene-clock>span,.tools-scene-clock>strong{transform:translateY(.08em)}
+
+.game-page[data-page="events"] .season-scene-clock{background-size:100% 100%;background-repeat:no-repeat;border-radius:999px;overflow:hidden}
+.season-scene-clock>span{display:grid;place-items:center;width:65%;height:100%;margin-left:28%}

@@ -15,15 +15,44 @@
 .home-hub>.hub-home-shortcuts{top:calc(var(--safe-top) + 78px);width:76px;gap:13px}
 .home-hub>.hub-events-left.hub-home-shortcuts{left:6px}
 .home-hub>.hub-events-right.hub-home-shortcuts{right:6px}
-.hub-home-shortcuts>button{width:76px;min-height:83px;justify-content:flex-start}
+.hub-home-shortcuts>button{width:76px;height:83px;min-height:83px;flex:none;justify-content:flex-start}
 .hub-home-shortcuts>button>.icon{width:61px;height:57px}
 .hub-home-shortcuts>button>span{width:76px;min-height:27px;font-size:10px;line-height:15px;padding:4px 3px 7px}
 .hub-home-shortcuts>.hub-offer-shortcut>.icon{width:69px;height:59px}
 .hub-home-shortcuts .hub-menu-count{position:absolute;right:0;top:0;display:grid;place-items:center;width:25px;height:25px;font-family:var(--font-game-number);font-size:13px;line-height:18px;color:#fff}
 .hub-menu-count>.icon{position:absolute;inset:0;width:25px;height:25px}
 .hub-menu-count>span{position:relative;z-index:1}
-.hub-home-shortcuts .hub-offer-time{position:absolute;left:5px;right:5px;top:43px;min-height:18px;display:grid;place-items:center;margin:0;padding:1px 3px;background:#183d79;border:1px solid #f7c35f;border-radius:7px;color:#fff7d6;font-family:var(--font-game-number);font-size:10px;line-height:14px;pointer-events:none}
-@media(max-height:760px){.home-hub>.hub-home-shortcuts{top:calc(var(--safe-top) + 75px);gap:10px}.hub-home-shortcuts>button{min-height:73px}.hub-home-shortcuts>button>.icon{width:53px;height:49px}.hub-home-shortcuts>.hub-offer-shortcut>.icon{width:61px;height:51px}.hub-home-shortcuts .hub-offer-time{top:36px}}
+/* Timers overlap the icon base within its fixed menu slot, leaving the garden clear. */
+.home-hub>.hub-home-shortcuts>button>.hub-menu-time{position:absolute;z-index:2;top:auto;bottom:23px;right:4px;left:4px;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:68px;height:18px;min-height:18px;margin:0;padding:1px 2px;border:1px solid #ffe4a0;border-radius:6px;background:linear-gradient(#ff6257,#e52b42 55%,#cb173b);box-shadow:0 1px 2px #651b354d,inset 0 1px #ffb0a266;color:#fffbee;text-shadow:0 1px 1px #8c1738;font-family:var(--font-game-number);font-size:10px;font-weight:400;font-variant-numeric:tabular-nums;line-height:14px;white-space:nowrap;pointer-events:none}
+.hub-menu-time>small{display:none}
+.hub-menu-time>strong{font-size:10px;line-height:14px;font-weight:400}
+.hub-home-shortcuts>.hub-weekly-event>img{width:61px;height:57px;flex:none}
+/* Five shortcuts fit above the home actions without reserving space for timers. */
+.home-hub>.hub-events-right:has(>button:nth-of-type(5)){gap:6px}
+.home-hub>.hub-events-right:has(>button:nth-of-type(5))>button{height:73px;min-height:73px}
+.home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>.icon,.home-hub>.hub-events-right:has(>button:nth-of-type(5))>.hub-weekly-event>img{width:53px;height:49px}
+@media(max-height:760px){
+ .home-hub>.hub-home-shortcuts{top:calc(var(--safe-top) + 75px);gap:10px}
+ .hub-home-shortcuts>button{height:73px;min-height:73px}
+ .hub-home-shortcuts>button>.icon,.hub-home-shortcuts>.hub-weekly-event>img{width:53px;height:49px}
+ .hub-home-shortcuts>.hub-offer-shortcut>.icon{width:61px;height:51px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5)){top:calc(var(--safe-top) + 64px);gap:2px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button{height:58px;min-height:58px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>.icon,.home-hub>.hub-events-right:has(>button:nth-of-type(5))>.hub-weekly-event>img{width:45px;height:38px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>span:last-child{min-height:22px;padding-top:1px;padding-bottom:3px;font-size:9px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>.hub-menu-time{bottom:19px}
+}
+
+@media(max-height:680px){
+ .home-hub>.hub-home-shortcuts{top:calc(var(--safe-top) + 64px);gap:2px}
+ .home-hub>.hub-home-shortcuts>button{height:58px;min-height:58px}
+ .home-hub>.hub-home-shortcuts>button>.icon,.home-hub>.hub-home-shortcuts>.hub-weekly-event>img{width:45px;height:38px}
+ .home-hub>.hub-home-shortcuts>button>span:last-child{min-height:22px;padding-top:1px;padding-bottom:3px;font-size:9px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button{height:48px;min-height:48px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>.icon,.home-hub>.hub-events-right:has(>button:nth-of-type(5))>.hub-weekly-event>img{width:37px;height:30px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>span:last-child{min-height:20px;padding-top:0;padding-bottom:2px}
+ .home-hub>.hub-events-right:has(>button:nth-of-type(5))>button>.hub-menu-time{bottom:17px}
+}
 
 /* Icons overlap the short backplates; the backplates stay below the icon silhouettes. */
 .home-hub>.hub-header{grid-template-columns:43px minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,.95fr) 36px}
@@ -38,3 +67,11 @@
 .hub-main-actions:has(>.gold-garden-play){grid-template-columns:repeat(2,minmax(0,1fr))}
 .hub-main-actions[aria-busy="true"]>.hub-play{font-size:16px}
 @media(max-width:370px){.home-hub>.hub-header{grid-template-columns:39px minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,.95fr) 33px}.hub-header .hub-counter{padding-left:23px;padding-right:3px}.hub-header .hub-counter::before{left:0;height:16px;border-radius:4px}.hub-header .hub-counter>.icon{left:-8px;width:30px;height:32px}}
+
+/* Share the main action gutter with the home-only winning gift card. */
+.home-hub{--hub-action-inset:12px}
+.home-hub .hub-main-actions{padding-left:var(--hub-action-inset);padding-right:var(--hub-action-inset)}
+.home-hub .hub-bottom>.streak-gift-summary{width:calc(100% - var(--hub-action-inset)*2);margin:0 var(--hub-action-inset) 6px}
+@media(max-width:370px){.home-hub{--hub-action-inset:10px}}
+
+.hub-header .ops-settings-wrap>.ops-unread{right:-5px}

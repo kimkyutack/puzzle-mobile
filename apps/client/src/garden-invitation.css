@@ -1,0 +1,67 @@
+/* Approved sky-blue invitation concept. Other events and the shared footer retain their art. */
+.game-page[data-page="events"]:has([data-event-panel="garden-invite"]){background:linear-gradient(#9cc5ee,#80a9df);isolation:isolate}
+.game-page[data-page="events"]:has([data-event-panel="garden-invite"]) .events-header-backdrop{visibility:hidden}
+.events-v62>.event-tab-panel[data-event-panel="garden-invite"]{background:transparent;display:block}
+.events-v62:has([data-event-panel="garden-invite"])>.event-tabs-row{background:transparent}
+.event-tabs-row:has(>.event-tab:nth-child(5)):not(:has(>.event-tab:nth-child(6))){gap:4px}
+.event-tabs-row:has(>.event-tab:nth-child(5)):not(:has(>.event-tab:nth-child(6)))>.event-tab{flex:0 0 calc((100% - 16px)/5)}
+.garden-invite-loading{min-height:420px}
+.garden-invitation{--invite-gutter:14px;--surface-ink:#193b63;container-type:inline-size;display:grid;grid-template-rows:auto 25px minmax(190px,1fr) 154px auto 50px;gap:6px;min-height:100%;padding:8px var(--invite-gutter) 12px;color:#193b63;font-family:var(--font-game-ui);background:linear-gradient(#9cc5ee00,#92b8e600)}
+.game-page[data-page="events"] .garden-invitation>h2{margin:0;text-align:center;font-size:clamp(23px,6.7cqw,29px);line-height:1.15;color:#fff;text-shadow:0 2px 1px #335d8f;font-weight:400}
+.garden-invite-status{justify-self:center;display:flex;align-items:center;justify-content:center;gap:5px;margin:0;padding:1px 14px;min-width:160px;border-radius:14px;background:#fff2ce;box-shadow:inset 0 1px #fff,0 2px 2px #6386af66;font-size:15px;line-height:23px}
+.garden-invite-status>img{height:22px;width:27px;object-fit:contain}
+.game-page[data-page="events"] .garden-invite-status{color:#193b63;text-shadow:none}
+.garden-invite-hero{position:relative;min-height:130px;max-height:230px;isolation:isolate;margin:0 calc(-1 * var(--invite-gutter));overflow:hidden}
+.garden-invite-hero>img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:contain;object-position:center bottom;opacity:0;transition:opacity .2s ease}
+.garden-invitation[data-phase="prepare"] [data-hero="prepare"],.garden-invitation[data-phase="share"] [data-hero="share"],.garden-invitation[data-phase="reward"] [data-hero="reward"]{opacity:1}
+.garden-invite-information{min-height:0;padding:8px;background:linear-gradient(#cfedff,#a5d8f2);border:2px solid #f4fbff;border-radius:15px;box-shadow:0 2px 3px #4c70924d,inset 0 -2px #80b7d788}
+.garden-invitation[data-phase="reward"] .garden-invite-information{--surface-ink:#fff7db;color:#fff7db;background:linear-gradient(#197be8,#064aaa);border-color:#ffcb28;box-shadow:inset 0 0 0 1px #fff199,0 2px 3px #4c709266}
+.garden-invite-prize>h3{--surface-ink:#193b63;align-self:center;background:linear-gradient(#fff092,#ffd253);padding:1px 12px;border-radius:7px;box-shadow:0 1px 1px #78540644}
+.garden-invite-objectives{display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:5px;height:100%;padding:0;margin:0;list-style:none}
+.garden-invite-objectives>li{display:grid;grid-template-columns:43px minmax(0,1fr) 24px 40px;align-items:center;gap:5px;border:1px solid #90bfdf;border-radius:8px;background:#dcf2ff;box-shadow:inset 0 1px #fff;padding:2px 5px}
+.garden-invite-objectives img{width:40px;height:34px;object-fit:contain}
+.garden-invite-objectives strong,.garden-invite-objectives b{font-weight:400;font-size:16px;line-height:20px}
+.garden-invite-objectives>li>span{color:#99aebc;font-family:var(--font-game-number);font-size:25px;text-align:center;line-height:25px}
+.garden-invite-objectives>li>.is-complete{color:#68b916;text-shadow:0 1px #fff}
+.garden-invite-milestones{height:100%;display:flex;flex-direction:column;gap:4px}
+.game-page[data-page="events"] .garden-invite-milestones>p{margin:0;text-align:center;font-size:16px;line-height:20px;color:#193b63;text-shadow:none}
+.garden-invite-milestones>progress{display:block;appearance:none;width:100%;height:13px;flex:none;border:2px solid white;border-radius:10px;overflow:hidden;background:#76b3d7}
+.garden-invite-milestones>progress::-webkit-progress-bar{background:#76b3d7}
+.garden-invite-milestones>progress::-webkit-progress-value{background:linear-gradient(#fff59b,#ffcc21);border-radius:8px}
+.garden-invite-milestones>progress::-moz-progress-bar{background:linear-gradient(#fff59b,#ffcc21);border-radius:8px}
+.garden-invite-milestones ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;flex:1;min-height:0;list-style:none;margin:0;padding:0}
+.garden-invite-milestones li{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid transparent;border-radius:10px;min-width:0}
+.garden-invite-milestones li[data-current="true"]{background:linear-gradient(#fff6ba,#ffdf68);border-color:#fff;box-shadow:0 0 4px #ffd335}
+.garden-invite-milestones li>strong{font-size:17px;line-height:20px;font-weight:400}
+.garden-invite-milestones li>img{height:48px;width:68px;object-fit:contain;min-height:0}
+.garden-invite-milestones li>small{font-size:10px;line-height:12px;text-align:center;word-break:keep-all}
+.game-page[data-page="events"] .garden-invite-caption{display:flex;justify-content:center;align-items:center;gap:5px;margin:1px 0;font-size:12px;line-height:16px;text-align:center;color:#fff;text-shadow:0 1px #335580;word-break:keep-all}
+.garden-invite-caption{--surface-ink:#fff}.garden-invite-caption>span{font-size:15px}
+.game-page[data-page="events"] .events-v62 .garden-invite-primary{justify-self:center;width:88%;height:50px;min-height:50px!important;padding:3px 8px 7px!important;margin:0;font-size:22px!important;line-height:28px}
+.garden-invite-prize{height:100%;display:flex;flex-direction:column;gap:4px}
+.game-page[data-page="events"] .garden-invite-prize>h3{margin:0;font-size:18px;line-height:23px;text-align:center;font-weight:400;color:#193b63;text-shadow:none}
+.garden-invite-prize>div{display:flex;flex:1;min-height:0;justify-content:space-evenly;gap:6px;align-items:center}
+.garden-invite-prize>div>span{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.garden-invite-prize img{width:52px;height:52px;object-fit:contain}
+.garden-invite-prize strong{font-size:15px;font-weight:400;line-height:19px;text-align:center}
+.garden-invite-prize .garden-invite-exclusive>img{width:95px;height:75px;filter:drop-shadow(0 0 6px #ffd44f)}
+.garden-invite-exclusive>small{--surface-ink:#193b63;color:#193b63;font-size:10px;padding:1px 8px;background:#ffdf61;border-radius:6px;line-height:13px}
+.garden-invite-notice,.garden-invite-rules{grid-column:1/-1;font-size:12px;line-height:18px}
+.garden-invite-notice{margin:3px 0;padding:8px;background:#e9f5ff;border-radius:8px;text-align:center}
+.garden-invite-notice p{margin:0}
+.garden-invite-rules{align-self:end;color:#254d7c}
+.garden-invite-rules>summary{text-align:center;cursor:pointer}
+.garden-invite-rules p{margin:5px 0}
+.game-page[data-page="events"] .garden-invite-rules p,.game-page[data-page="events"] .garden-invite-notice p{color:#254d7c;text-shadow:none}
+.guild-chat-copy .garden-chat-invitation{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:#d7edff;border:1px solid #88badb;border-radius:10px;padding:8px;margin:5px 0;min-width:0}
+.garden-chat-invitation>img{width:48px;height:42px;object-fit:contain}
+.garden-chat-invitation>span{font-size:15px}
+.guild-chat-copy .garden-chat-invitation>.game-button{height:36px;min-height:36px;margin:0;padding:2px 9px 7px;font-size:14px}
+@media(max-width:350px){.garden-invitation{--invite-gutter:10px;grid-template-rows:auto 25px minmax(130px,1fr) 146px auto 50px}.garden-invite-objectives{gap:3px}.garden-invite-objectives strong,.garden-invite-objectives b{font-size:14px}.garden-invite-caption{font-size:11px}.garden-invite-milestones li>small{font-size:9px}.garden-invite-primary .button-label{font-size:19px}}
+html:not([lang="ko"]) .garden-invite-objectives strong{font-size:12px;line-height:14px}
+html:not([lang="ko"]) .garden-invite-caption{font-size:11px}
+html:not([lang="ko"]) .garden-invite-status{font-size:12px}
+html:not([lang="ko"]) .garden-invite-primary .button-label{font-size:17px}
+@media(prefers-reduced-motion:reduce){.garden-invite-hero>img{transition:none}}
+
+.garden-invitation[data-reduced-motion="true"] .garden-invite-hero>img{transition:none}

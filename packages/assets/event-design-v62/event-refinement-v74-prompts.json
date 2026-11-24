@@ -1,0 +1,106 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "id": "pass",
+      "refs": [
+        "pass-reference.png"
+      ],
+      "alpha": false,
+      "prompt": "Recreate this selected garden-pass mobile game scene as ONE production blank raster backplate, portrait1:2, not a mockup or phone. Preserve the exact sunny blurred greenhouse garden, warm cobblestone foreground, polished blue rounded title plaque near top3-10%, slim blue/gold progress-meter frame at x25-85% y20-23%, and the large physical OPEN REWARD BOOK at x2-98% y26-81%. Book has FIVE equal rows, each with a small blank cream stamp-shaped tier number plaque at far-left, a blue free-reward cell, a gold premium-reward cell. Keep the blue/gold book header tabs at y27-34%, five blue/gold row cells y35-79%. Remove ALL text, numbers, coins, tools, locks, checks, and icons from within these editable regions. No top-left ticket emblem; no close/back controls. Remove the bottom green button entirely and continue matching garden/cobblestone there. Empty title, empty meter without fill, blank reward cells, no UI words. Restrained original reference style, warm ivory pages, clear blue cover, tactile rounded cell frames, no additional ornament or extra props. Keep the book grid carefully regular so real reward controls align.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-d1979f53-f30b-4e72-bfe5-3ac4e49a1785.png",
+      "outputs": [
+        "pass-scene-v74.webp"
+      ],
+      "prep": "Scenes: resize to width1024 with original aspect. Sprite sheets: split equal cells, alpha trim each, resize width192 plants or256 other icons, retain alpha. Summary: alpha trim and resize width1024. WebP quality90 scenes/92 icons."
+    },
+    {
+      "id": "premium",
+      "refs": [
+        "premium-reference.png"
+      ],
+      "alpha": false,
+      "prompt": "Edit this selected premium garden-pass reference into a production blank mobile-game backplate, portrait1:2. Preserve warm peach garden/house background, blank rounded blue title plaque at upper6-13%, the open cream gift box at center upper17-29%, four empty cream reward cells in2x2 grid x7-93% y31-58%, and the rose-covered white garden bench at y63-77%. Remove ALL letters, numbers, reward coins/items/icons, top back/close controls, the gold purchase button and price text. Leave plain peach background in bottom20% for real store buttons/feedback. No new decorative frames. Keep same bright restrained polished gardening puzzle-game art, dimensional gift box and physical reward panel. This is one flat app-owned scene, no device.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-3f1dcb9d-afab-4f72-9960-d0e2c309e163.png",
+      "outputs": [
+        "premium-scene-v74.webp"
+      ],
+      "prep": "Scenes: resize to width1024 with original aspect. Sprite sheets: split equal cells, alpha trim each, resize width192 plants or256 other icons, retain alpha. Summary: alpha trim and resize width1024. WebP quality90 scenes/92 icons."
+    },
+    {
+      "id": "decor",
+      "refs": [
+        "rescue-reference.png",
+        "premium-reference.png"
+      ],
+      "alpha": true,
+      "prompt": "Create a clean transparent UI sprite sheet with FOUR isolated original garden-game assets in an evenly spaced2x2 grid, each entirely within its own square quadrant. Top-left: a small coral-red triangular expedition pennant with a cream paw emblem on a thin dark wood pole, pole about twice flag height. Top-right: a small upright warm honey wooden sign hanging from short posts, blank cream wood center, organic gold-brown bevel/rim, no lettering. Bottom-left: one small simple gold padlock with keyhole, like the premium reward locks in the reference. Bottom-right: one blue round glossy back button with white LEFT arrow and thin gold rim, same restraint and polish as the reference controls. No text/digits. No scene, no other objects. Wide transparent margins between quadrants; no cast shadow crossing cells. All four fully visible and clean alpha outside.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-15b1db88-20f2-41d5-8414-3ad4966a3545.png",
+      "outputs": [
+        "rescue-flag-v74.webp",
+        "rescue-sign-v74.webp",
+        "pass-lock-v74.webp",
+        "pass-arrow-v74.webp"
+      ],
+      "prep": "Scenes: resize to width1024 with original aspect. Sprite sheets: split equal cells, alpha trim each, resize width192 plants or256 other icons, retain alpha. Summary: alpha trim and resize width1024. WebP quality90 scenes/92 icons."
+    },
+    {
+      "id": "plants",
+      "refs": [
+        "water-reference.png"
+      ],
+      "alpha": true,
+      "prompt": "Create ONE transparent sprite sheet of FIVE distinct small potted plants for the greenhouse-game reward shelf in this reference. Arrange five evenly sized isolated assets in a single horizontal row, one in each equal cell, generous transparent gutters. Same warm terracotta pot with gold rim for all, same front-facing three-quarter view and lighting, polished soft3D painted mobile puzzle art. Left to right: fresh small green seedling; delicate white lily-of-the-valley flowers; round violet hydrangea cluster; bright yellow daisy flower; elegant pink orchid. No text, labels, numbers, check marks, wooden shelf, background or extra UI. Match the reference's compact full silhouettes, each plant almost fills its cell. Preserve genuine transparent background.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-fbf7b62a-078d-44d5-b45b-36a8f224158d.png",
+      "outputs": [
+        "plant-green-v74.webp",
+        "plant-white-v74.webp",
+        "plant-purple-v74.webp",
+        "plant-yellow-v74.webp",
+        "plant-pink-v74.webp"
+      ],
+      "prep": "Scenes: resize to width1024 with original aspect. Sprite sheets: split equal cells, alpha trim each, resize width192 plants or256 other icons, retain alpha. Summary: alpha trim and resize width1024. WebP quality90 scenes/92 icons."
+    },
+    {
+      "id": "envelopes",
+      "refs": [
+        "rewards-reference.png"
+      ],
+      "alpha": true,
+      "prompt": "Create ONE transparent sprite sheet of THREE garden-game reward envelopes matching this reference, evenly spaced in a horizontal row with equal cells and no overlap. Left: soft blue envelope with a small round gold leaf seal. Middle: warm blush pink envelope with a tiny pink flower seal. Right: lavender envelope with a small green two-leaf seal. Each is a dimensional closed paper envelope, front-facing with a slight friendly tilt, restrained bevels, warm soft shadows, same scale, same original casual gardening puzzle art. No letters, numbers, text, coins, buttons, cards, rows or backdrop. Preserve transparent margins outside each envelope.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-a17945a3-c974-4974-9b07-f2cfbc6efd50.png",
+      "outputs": [
+        "envelope-blue-v74.webp",
+        "envelope-pink-v74.webp",
+        "envelope-purple-v74.webp"
+      ],
+      "prep": "Scenes: resize to width1024 with original aspect. Sprite sheets: split equal cells, alpha trim each, resize width192 plants or256 other icons, retain alpha. Summary: alpha trim and resize width1024. WebP quality90 scenes/92 icons."
+    },
+    {
+      "id": "summary",
+      "refs": [
+        "rewards-reference.png"
+      ],
+      "alpha": true,
+      "prompt": "Extract/recreate ONLY the lower blue collected-rewards panel from this selected garden-game reference as one reusable blank production asset. Wide horizontal about2.8:1. A pale periwinkle-blue rounded physical panel with thin light blue rim, a small centered protruding blank pale-blue title tab at top edge, and one wide inset warm cream reward area occupying the middle. Remove every word, digit, reward icon and the bottom green button entirely; leave blank pale blue space in the lower third for a real game button. No surrounding wood or foliage, no other objects. Clean transparent background outside the panel. Same restrained soft3D polished mobile puzzle art and rounded corners as source.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-60395c9b-1d34-4bad-a277-7c3f14bc4b80.png",
+      "outputs": [
+        "mail-summary-v74.webp"
+      ],
+      "prep": "Scenes: resize to width1024 with original aspect. Sprite sheets: split equal cells, alpha trim each, resize width192 plants or256 other icons, retain alpha. Summary: alpha trim and resize width1024. WebP quality90 scenes/92 icons."
+    },
+    {
+      "id": "flowerlight-button-removal",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-e0070450-841f-46a4-9067-693475b67355.png",
+      "refs": [
+        "packages/assets/event-design-v62/flowerlight-scene-v64.webp"
+      ],
+      "alpha": false,
+      "prompt": "Edit the provided production flower-garden event artwork. Remove ONLY the large blank green play button along the bottom (approximately x25-88% y85-98%). Reconstruct matching natural garden path, soft foliage and flowers behind that button. Preserve EVERY other element and exact composition unchanged: mascot, flowerbed, petal plaque, three reward cards, flowers, frames and their positions. No text, no new button, no new decorations. Same dimensions and aspect ratio. A live game button will be rendered over the repaired bottom area.",
+      "outputs": [
+        "flowerlight-scene-v74.webp"
+      ],
+      "prep": "Resize generated repair to1024x1396, composite only y1158..1395 onto preserved v64 original, WebP quality92. Upper1158 pixels retain original artwork; originals are preserved."
+    }
+  ]
+}

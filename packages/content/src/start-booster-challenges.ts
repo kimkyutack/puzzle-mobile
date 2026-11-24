@@ -46,7 +46,7 @@ function findBoosterGuide(level:LevelDefinition,requested?:GuidedBooster):StartB
  const targets=level.obstacles
   .filter(obstacle=>!gates.has(obstacle.anchor)&&!obstacle.cover&&obstacle.rule!=='shutter-closed'&&obstacle.rule!=='match-shell'&&
    (!obstacle.chapter||!['guard','thaw','fusion'].includes(obstacle.chapter.kind))&&
-   obstacle.kind!=='windmill'&&(obstacle.kind==='wind-pod'&&goals.has('windmill')||goals.has(obstacle.kind)||(obstacle.contents&&goals.has(obstacle.contents.kind))||(goals.has('seed')&&(obstacle.seeds??0)>0))&&
+   obstacle.kind!=='windmill'&&obstacle.kind!=='sun-gate'&&(obstacle.kind==='wind-pod'&&goals.has('windmill')||obstacle.kind==='petal-launcher'&&goals.has('sun-gate')||goals.has(obstacle.kind)||(obstacle.contents&&goals.has(obstacle.contents.kind))||(goals.has('seed')&&(obstacle.seeds??0)>0))&&
    !['pot','bud','curtain'].includes(obstacle.kind)&&!(obstacle.kind==='cabinet'&&obstacle.color))
   .map(obstacle=>obstacle.endOnly?[obstacle.footprint[0]!,obstacle.footprint.at(-1)!]:obstacle.footprint);
  if(goals.has('frost')){

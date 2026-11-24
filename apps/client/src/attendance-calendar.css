@@ -1,0 +1,52 @@
+/* Coordinates follow the selected 512 × 698 calendar content, inside the existing event shell. */
+.events-v62 [data-event-panel="attendance"]{padding-bottom:0}
+.attendance-calendar{position:relative;isolation:isolate;container-type:inline-size;aspect-ratio:512/698;width:100%;margin:0;overflow:hidden;border-radius:14px;color:#563020}
+.attendance-calendar-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.events-v17 .attendance-calendar-title{position:absolute;top:4.5%;left:5%;width:90%;height:8%;display:grid;place-items:center;margin:0!important;font-size:8cqw;line-height:1.05;color:#fffdf5;text-align:center;font-weight:400;text-shadow:0 2px 2px #224d4d,0 1px #224d4d;white-space:nowrap}
+.attendance-calendar-days{position:absolute;inset:0}
+.attendance-calendar-day{position:absolute;top:22.8%;height:20.2%;width:21.5%;color:#57301e;text-align:center}
+.attendance-calendar-day[data-day="1"]{left:6%}
+.attendance-calendar-day[data-day="2"]{left:29.7%;width:20.5%}
+.attendance-calendar-day[data-day="3"]{left:52.2%;width:20.3%}
+.attendance-calendar-day[data-day="4"]{left:74.7%;width:20.6%}
+.attendance-calendar-day[data-day="5"]{left:6.9%;top:45.8%;height:22%;width:23.5%}
+.attendance-calendar-day[data-day="6"]{left:34.2%;top:45.8%;height:22%;width:24.5%}
+.attendance-calendar-day[data-day="7"]{left:62.1%;top:45.8%;height:22%;width:30.3%}
+.attendance-calendar-day>strong{position:absolute;top:0;left:0;width:100%;height:24%;display:grid;place-items:center;font-size:4.5cqw;font-weight:400;line-height:1;color:#fff9ec;text-shadow:0 1px 1px #9a3b3c;white-space:nowrap}
+.attendance-calendar-day>.resource-amount{position:absolute;top:35%;left:0;width:100%;display:flex;flex-direction:column;gap:0;color:#59311d;font-size:5.5cqw;line-height:1.05}
+.attendance-calendar-day>.resource-amount>.icon{width:11.8cqw;height:11.8cqw;object-fit:contain}
+.attendance-calendar-day>.resource-amount>strong{font-family:var(--font-game-ui);font-size:5.5cqw;font-weight:400;line-height:1.05}
+.attendance-calendar-day:nth-child(n+5)>.resource-amount{top:35%}
+.attendance-calendar-check{position:absolute;top:28%;right:4%;width:7cqw;height:7cqw;object-fit:contain}
+.attendance-calendar-day.is-today:after{content:"";position:absolute;inset:22% 0 1%;border:2px solid #ffd144;border-radius:9px;box-shadow:0 0 0 1px #fff4b2,0 1px 3px #b58640;pointer-events:none}
+.attendance-calendar-bonus{position:absolute;inset:31% 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.attendance-calendar-bonus>.icon{width:14cqw;height:14cqw;object-fit:contain}
+.attendance-calendar-bonus>span{display:flex;align-items:center;justify-content:center;gap:1cqw;font-size:4.6cqw;color:#573024;line-height:1.1;white-space:nowrap}
+.attendance-calendar-bonus .resource-amount{gap:.5cqw;font-size:4.8cqw;color:inherit}
+.attendance-calendar-bonus .resource-amount>.icon{width:4.8cqw;height:4.8cqw}
+.attendance-calendar-bonus .resource-amount>strong{font-family:var(--font-game-ui);font-size:4.8cqw;font-weight:400}
+.attendance-calendar-prize{position:absolute;inset:72% 4.6% 7%;margin:0;padding:0;color:#173e5b}
+.game-page[data-page="events"] .attendance-calendar-prize>h3{position:absolute;left:9%;top:12%;margin:0!important;font-size:5cqw;line-height:1.1;color:#173e5b;white-space:nowrap;font-weight:400}
+.attendance-calendar-prize>.resource-amount{position:absolute;left:6%;top:36%;width:38%;height:52%;display:flex;align-items:center;justify-content:flex-start;gap:2cqw;font-size:8.2cqw;color:#58311c}
+.attendance-calendar-prize>.resource-amount>.icon{width:14cqw;height:14cqw;object-fit:contain;flex:none}
+.attendance-calendar-prize>.resource-amount>strong{font-family:var(--font-game-ui);font-size:8.5cqw;font-weight:400}
+.game-page[data-page="events"] .events-v17 .attendance-calendar-claim{position:absolute;left:50.5%;top:27%;width:48.5%;height:61%;min-height:0!important;margin:0;padding:6px 8px 12px!important;font-size:clamp(18px,5.8cqw,24px)!important;line-height:1.2}
+.game-page[data-page="events"] .attendance-calendar-claim>.button-label{line-height:1.2!important;white-space:normal!important;text-align:center}
+.game-page[data-page="events"] .attendance-calendar-claim:disabled>.button-label{font-size:5.2cqw;line-height:1.1!important;white-space:nowrap!important}
+.game-page[data-page="events"] .attendance-calendar-reset{position:absolute;top:94.5%;left:6%;right:6%;margin:0!important;font-size:clamp(10px,2.8cqw,12px);line-height:1.2;text-align:center;color:#55372c!important;text-shadow:0 1px #ffebd3}
+html:not([lang="ko"]) .attendance-calendar-title{font-size:6.8cqw;white-space:normal}
+html:not([lang="ko"]) .attendance-calendar-prize>h3{font-size:4.3cqw}
+html:not([lang="ko"]) .events-v17 .attendance-calendar-claim{font-size:5.5cqw!important}
+html:not([lang="ko"]) .attendance-calendar-bonus>span{gap:.5cqw;font-size:clamp(11px,3.6cqw,14px)}
+html:not([lang="ko"]) .attendance-calendar-bonus .resource-amount>strong{font-size:clamp(11px,3.6cqw,14px)}
+html:not([lang="ko"]) .attendance-calendar-bonus .resource-amount>.icon{width:3.8cqw;height:3.8cqw}
+
+/* Center Jua’s visible letter shapes within the authored date pills. */
+.attendance-calendar-day>strong>span{display:block;transform:translateY(.1em)}
+
+/* The live reward slot and separator share exact bounds instead of painted coordinates. */
+.attendance-calendar-prize{--attendance-slot-top:36%;--attendance-slot-height:52%;--attendance-slot-center:62%}
+.attendance-calendar-prize::before,.attendance-calendar-prize::after{content:"";position:absolute;top:var(--attendance-slot-top);height:var(--attendance-slot-height);box-sizing:border-box;pointer-events:none}
+.attendance-calendar-prize::before{left:3%;width:43%;border:1px solid #ebc897;border-radius:9px}
+.attendance-calendar-prize::after{left:49%;width:1px;background:#ba8c58}
+.game-page[data-page="events"] .events-v17.events-v62 .attendance-calendar-prize>.attendance-calendar-claim{top:var(--attendance-slot-center)}

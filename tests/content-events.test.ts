@@ -1,3 +1,9 @@
+import {weeklyRoundId,weeklyEvent} from '../packages/contracts/src/weekly-events';
+import {startGardenGame,finishGardenGame} from '../apps/api/src/garden-games';
+import {gardenGameStatus} from '../packages/content/src/garden-games';
+import {profile} from '../apps/api/src/auth';
+import {withAppearance} from '../apps/api/src/profile-appearance';
+import {publicProfile} from '../apps/api/src/friends';
 import {buyDecoration} from '../apps/api/src/garden-world';
 import {DatabaseSync,type SQLInputValue} from 'node:sqlite';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -29,7 +35,7 @@ class Statement {
  async all(){return this.execute()}async run(){return this.execute()}
 }
 let db:DatabaseSync,env:ApiEnv;
-const user='content-events-qa',now=Date.parse('2026-11-09T03:00:00Z');
+const user='7dd72380-6632-4164-8a81-28f48dd21f11',now=Date.parse('2026-11-16T03:00:00Z');
 beforeEach(()=>{
  vi.spyOn(Date,'now').mockReturnValue(now);db=new DatabaseSync(':memory:');
  for(const file of readdirSync('apps/api/migrations').filter(f=>f.endsWith('.sql')).sort())db.exec(readFileSync('apps/api/migrations/'+file,'utf8'));
@@ -79,7 +85,7 @@ describe('level-20 animal expedition',()=>{
   const world=applyTrustedDecorationGrant(createGardenWorld(user),{ownerId:user,grantId:'flowerlight-invitation-v1',itemId:'garden-flowerlight-fountain',source:'event',variant:'classic',instanceIds:['flowerlight-invitation-v1']});
   const data={world,player:newPlayer(user,now)},legacy=compatibleGardenArt(data,false) as typeof data;
   expect(legacy.world.owned['flowerlight-invitation-v1']!.itemId).toBe('garden-fountain');expect(legacy.world.revision).toBe(world.revision);expect(world.owned['flowerlight-invitation-v1']!.itemId).toBe('garden-flowerlight-fountain');expect(compatibleGardenArt(data,true)).toBe(data);
-  expect(gardenArtRequest('/garden/world?shopVersion=2')).toBe('/garden/world?shopVersion=2&gardenArt=garden-v64');expect(gardenArtRequest('/garden/world/commands')).toBe('/garden/world/commands?gardenArt=garden-v64');expect(gardenArtRequest('/flowerlight/restore')).toBe('/flowerlight/restore?gardenArt=garden-v64');expect(gardenArtRequest('/levels/next?engineVersion=1.10.0')).toBe('/levels/next?engineVersion=1.10.0');
+  expect(gardenArtRequest('/garden/world?shopVersion=2')).toBe('/garden/world?shopVersion=2&gardenArt=garden-v117');expect(gardenArtRequest('/garden/world/commands')).toBe('/garden/world/commands?gardenArt=garden-v117');expect(gardenArtRequest('/flowerlight/restore')).toBe('/flowerlight/restore?gardenArt=garden-v117');expect(gardenArtRequest('/levels/next?engineVersion=1.10.0')).toBe('/levels/next?engineVersion=1.10.0');
  });
  it('enforces the unlock on the server, resumes the same attempt, and replaces it only on an explicit matching restart',async()=>{
   const player=await readPlayer(env.DB,user);player.level=19;store(player);await expect(startAnimalExpedition(env,user,{key:'locked-expedition'})).rejects.toMatchObject({code:'EXPEDITION_LOCKED'});
@@ -132,7 +138,7 @@ describe('level-20 animal expedition',()=>{
    expect((await finishAnimalExpedition(env,user,{key:'duplicate-proof-'+stage,attemptId:attempt.id,actions})).granted).toBe(false);
   }
   expect(shapes.size).toBe(10);const final=await readPlayer(env.DB,user);expect(final.inventory.hammer.normal).toBe(original.inventory.hammer.normal);expect(final.animalExpedition!.completedAttempts).toHaveLength(10);
-  const world=JSON.parse((db.prepare('SELECT data FROM garden_worlds WHERE user_id=?').get(user) as {data:string}).data);expect(world.owned['expedition-friend:panda:001']).toMatchObject({itemId:'animal-panda',source:'event'});
+  const world=JSON.parse((db.prepare('SELECT data FROM garden_worlds WHERE user_id=?').get(user) as {data:string}).data);expect(world.owned[('expedition-friend:panda:'+weeklyRoundId('001',Date.now()))]).toMatchObject({itemId:'animal-panda',source:'event'});
   await expect(startAnimalExpedition(env,user,{key:'after-all-complete'})).rejects.toMatchObject({code:'EXPEDITION_COMPLETE'});
  });
  it('retains old operations settings and lets operators pause each new activity independently',()=>{
@@ -170,12 +176,12 @@ describe('expedition daily admission and operations controls',()=>{
   expect(results.filter(result=>result.status==='fulfilled')).toHaveLength(1);expect(results.filter(result=>result.status==='rejected')).toHaveLength(1);expect((await readPlayer(env.DB,user)).animalExpedition!.dailyAttempts?.used).toBe(2);
  });
  it('uses midnight in Korea and keeps a stored puzzle when a new day starts',async()=>{
-  const midnight=Date.parse('2026-11-09T15:00:00Z');vi.mocked(Date.now).mockReturnValue(midnight-1);
+  const midnight=Date.parse('2026-11-16T15:00:00Z');vi.mocked(Date.now).mockReturnValue(midnight-1);
   const first=await startAnimalExpedition(env,user,{key:'quota-before-midnight'}),id=first.player.animalExpedition!.attempt!.id;
-  expect(first.player.animalExpedition!.dailyAttempts).toEqual({day:'d:2026-11-09',used:1});
+  expect(first.player.animalExpedition!.dailyAttempts).toEqual({day:'d:2026-11-16',used:1});
   vi.mocked(Date.now).mockReturnValue(midnight);
   const resumed=await startAnimalExpedition(env,user,{key:'quota-midnight-resume'});expect(resumed.player.animalExpedition!.attempt!.id).toBe(id);expect(expeditionDailyStatus(resumed.player.animalExpedition,midnight).remaining).toBe(3);
-  const retry=await startAnimalExpedition(env,user,{key:'quota-after-midnight',restart:true,attemptId:id});expect(retry.player.animalExpedition!.dailyAttempts).toEqual({day:'d:2026-11-10',used:1});
+  const retry=await startAnimalExpedition(env,user,{key:'quota-after-midnight',restart:true,attemptId:id});expect(retry.player.animalExpedition!.dailyAttempts).toEqual({day:'d:2026-11-17',used:1});
  });
  it('continues old five-stage progress without removing its rabbit and grants the dog only at ten',async()=>{
   const player=await readPlayer(env.DB,user);player.animalExpedition={completedStages:5,completedAttempts:['old-a','old-b','old-c','old-d','old-e']};store(player);
@@ -202,51 +208,102 @@ describe('expedition daily admission and operations controls',()=>{
 });
 function levelOverlap(a:number[],b:number[]){return a.some(cell=>b.includes(cell));}
 
+describe('weekly event rotation and expired progress',()=>{
+ it('saves a custom profile image in the account and returns it with public appearance',async()=>{
+  const customImage='data:image/webp;base64,'+readFileSync('packages/assets/garden-minigame-arcade/runtime/acorn.webp').toString('base64');
+  const appearance={avatar:'lumi' as const,frame:'leaf' as const,backdrop:'greenhouse' as const,customImage};
+  const saved=await profile(env,user,{key:'profile-custom-image',profileAppearance:appearance});
+  expect(saved.player.profileAppearance).toEqual(appearance);
+  expect((await readPlayer(env.DB,user)).profileAppearance).toEqual(appearance);
+  expect((await publicProfile(env,user,user)).profile.profileAppearance).toEqual(appearance);
+  expect(withAppearance({...appearance,nickname:'정원사'})).toEqual({nickname:'정원사',profileAppearance:appearance});
+  await expect(profile(env,user,{key:'profile-external-url',profileAppearance:{...appearance,customImage:'https://example.com/photo.svg'}})).rejects.toThrow();
+  await profile(env,user,{key:'profile-character-again',profileAppearance:{avatar:'rabbit',frame:'leaf',backdrop:'greenhouse'}});
+  expect((await readPlayer(env.DB,user)).profileAppearance?.customImage).toBeUndefined();
+ });
+ it('replaces rescue with pinball at Monday midnight and prevents the old attempt claiming a reward',async()=>{
+  const player=(await startAnimalExpedition(env,user,{key:'weekly-rescue-start'})).player;
+  const attempt=player.animalExpedition!.attempt!;
+  vi.mocked(Date.now).mockReturnValue(weeklyEvent(now).endsAt);
+  const reset=await readPlayer(env.DB,user);
+  expect(reset.animalExpedition).toBeUndefined();
+  expect(reset.coins).toBe(player.coins);
+  await expect(finishAnimalExpedition(env,user,{key:'weekly-expired-rescue',attemptId:attempt.id,actions:winningActions(1)})).rejects.toMatchObject({code:'EVENT_NOT_OPEN'});
+  const status=gardenGameStatus('acorn-pinball',reset,Date.now(),defaultOperationsRuntime());
+  expect(status.canStart).toBe(true);
+  const started=await startGardenGame(env,user,'acorn-pinball',{key:'weekly-pinball-start',roundId:status.roundId,pinballPhysics:2},defaultOperationsRuntime());
+  expect(started.player.gardenGames!['acorn-pinball']!.rounds[status.roundId]!.attempt).toBeTruthy();
+ });
+ it('clears tickets, free-play counters and pending games as the next event starts',async()=>{
+  vi.mocked(Date.now).mockReturnValue(weeklyEvent(now).endsAt);
+  const player=await readPlayer(env.DB,user),settings=defaultOperationsRuntime();
+  settings.gameEvents['acorn-pinball'].roundId='x'.repeat(39)+'A';
+  const status=gardenGameStatus('acorn-pinball',player,Date.now(),settings);
+  const started=await startGardenGame(env,user,'acorn-pinball',{key:'weekly-pinball-entry',roundId:status.roundId,pinballPhysics:2},settings);
+  const attempt=started.player.gardenGames!['acorn-pinball']!.rounds[status.roundId]!.attempt!;
+  vi.mocked(Date.now).mockReturnValue(weeklyEvent(Date.now()).endsAt);
+  const reset=await readPlayer(env.DB,user);
+  expect(reset.gardenGames).toBeUndefined();
+  expect(gardenGameStatus('greenhouse-water',reset,Date.now(),settings)).toMatchObject({canStart:true,completed:0,tickets:0,free:true});
+  await expect(finishGardenGame(env,user,'acorn-pinball',{key:'weekly-pinball-expired',roundId:status.roundId,attemptId:attempt.id,actions:[0],pinballPhysics:2})).rejects.toMatchObject({code:'EVENT_NOT_OPEN'});
+ });
+ it('starts the next rescue from stage one with a different animal',async()=>{
+  const first=(await startAnimalExpedition(env,user,{key:'weekly-first-animal'})).player.animalExpedition!;
+  vi.mocked(Date.now).mockReturnValue(now+21*86400000);
+  const next=(await startAnimalExpedition(env,user,{key:'weekly-second-animal'})).player.animalExpedition!;
+  expect(next.animal).not.toBe(first.animal);
+  expect(next.roundId).not.toBe(first.roundId);
+  expect(next.completedStages).toBe(0);
+  expect(next.attempt!.stage).toBe(1);
+  expect(next.pastRounds).toEqual([]);
+ });
+});
+
 describe('operator-selected exclusive rescue rounds',()=>{
  it('keeps prior saved attempts and shares daily usage when the operator changes animals',async()=>{
-  const settings=defaultOperationsRuntime(),panda=(await startAnimalExpedition(env,user,{key:'round-panda-first',roundId:'panda:001'},settings)).player.animalExpedition!.attempt!;
+  const settings=defaultOperationsRuntime(),panda=(await startAnimalExpedition(env,user,{key:'round-panda-first',roundId:('panda:'+weeklyRoundId('001',Date.now()))},settings)).player.animalExpedition!.attempt!;
   settings.gameEvents.animalExpedition.animal='fox';
-  const fox=await startAnimalExpedition(env,user,{key:'round-fox-first',roundId:'fox:001'},settings);
-  expect(fox.player.animalExpedition).toMatchObject({roundId:'fox:001',animal:'fox',completedStages:0,dailyAttempts:{used:2}});
-  expect(expeditionRound(fox.player.animalExpedition,'panda:001')?.attempt).toEqual(panda);
+  const fox=await startAnimalExpedition(env,user,{key:'round-fox-first',roundId:('fox:'+weeklyRoundId('001',Date.now()))},settings);
+  expect(fox.player.animalExpedition).toMatchObject({roundId:('fox:'+weeklyRoundId('001',Date.now())),animal:'fox',completedStages:0,dailyAttempts:{used:2}});
+  expect(expeditionRound(fox.player.animalExpedition,('panda:'+weeklyRoundId('001',Date.now())))?.attempt).toEqual(panda);
   settings.gameEvents.animalExpedition.endsAt=now;
-  const resumed=await startAnimalExpedition(env,user,{key:'round-panda-resume',roundId:'panda:001'},settings);
+  const resumed=await startAnimalExpedition(env,user,{key:'round-panda-resume',roundId:('panda:'+weeklyRoundId('001',Date.now()))},settings);
   expect(resumed.player.animalExpedition!.attempt).toEqual(panda);expect(resumed.player.animalExpedition!.dailyAttempts?.used).toBe(2);
   const done=await finishAnimalExpedition(env,user,{key:'round-panda-finish',attemptId:panda.id,actions:winningActions(1)});
-  expect(done).toMatchObject({animal:'panda',roundId:'panda:001'});expect(expeditionRound(done.player.animalExpedition,'fox:001')?.attempt?.id).toBe(fox.player.animalExpedition!.attempt!.id);
+  expect(done).toMatchObject({animal:'panda',roundId:('panda:'+weeklyRoundId('001',Date.now()))});expect(expeditionRound(done.player.animalExpedition,('fox:'+weeklyRoundId('001',Date.now())))?.attempt?.id).toBe(fox.player.animalExpedition!.attempt!.id);
   settings.gameEvents.animalExpedition.endsAt=null;settings.gameEvents.animalExpedition.animal='red-panda';
-  const red=await startAnimalExpedition(env,user,{key:'round-red-first',roundId:'red-panda:001'},settings);
+  const red=await startAnimalExpedition(env,user,{key:'round-red-first',roundId:('red-panda:'+weeklyRoundId('001',Date.now()))},settings);
   expect(red.player.animalExpedition!.dailyAttempts?.used).toBe(3);
   settings.gameEvents.animalExpedition.roundId='002';
-  await expect(startAnimalExpedition(env,user,{key:'round-no-quota-reset',roundId:'red-panda:002'},settings)).rejects.toMatchObject({code:'EXPEDITION_DAILY_LIMIT'});
+  await expect(startAnimalExpedition(env,user,{key:'round-no-quota-reset',roundId:('red-panda:'+weeklyRoundId('002',Date.now()))},settings)).rejects.toMatchObject({code:'EXPEDITION_DAILY_LIMIT'});
   expect(expeditionRounds((await readPlayer(env.DB,user)).animalExpedition)).toHaveLength(3);
  });
  it('finishes an archived final stage for its original animal, atomically and only once',async()=>{
-  const settings=defaultOperationsRuntime();let player=(await startAnimalExpedition(env,user,{key:'round-pinned-panda',roundId:'panda:001'},settings)).player;
+  const settings=defaultOperationsRuntime();let player=(await startAnimalExpedition(env,user,{key:'round-pinned-panda',roundId:('panda:'+weeklyRoundId('001',Date.now()))},settings)).player;
   const final={id:'panda-final-archived',stage:10,startedAt:now,variant:0,level:animalExpeditionLevel(10)};
   player.animalExpedition!.completedStages=9;player.animalExpedition!.attempt=final;store(player);
-  settings.gameEvents.animalExpedition.animal='fox';await startAnimalExpedition(env,user,{key:'round-pinned-fox',roundId:'fox:001'},settings);
+  settings.gameEvents.animalExpedition.animal='fox';await startAnimalExpedition(env,user,{key:'round-pinned-fox',roundId:('fox:'+weeklyRoundId('001',Date.now()))},settings);
   const results=await Promise.all(['pinned-claim-one','pinned-claim-two'].map(key=>finishAnimalExpedition(env,user,{key,attemptId:final.id,actions:winningActions(10)})));
   expect(results.filter(result=>result.granted)).toHaveLength(1);
-  player=await readPlayer(env.DB,user);expect(player.animalExpedition!.roundId).toBe('fox:001');expect(expeditionRound(player.animalExpedition,'panda:001')?.completedStages).toBe(10);
+  player=await readPlayer(env.DB,user);expect(player.animalExpedition!.roundId).toBe(('fox:'+weeklyRoundId('001',Date.now())));expect(expeditionRound(player.animalExpedition,('panda:'+weeklyRoundId('001',Date.now())))?.completedStages).toBe(10);
   const world=JSON.parse((db.prepare('SELECT data FROM garden_worlds WHERE user_id=?').get(user) as {data:string}).data);
-  expect(world.owned['expedition-friend:panda:001']).toMatchObject({itemId:'animal-panda',source:'event'});expect(Object.values(world.owned).filter((v:any)=>v.itemId==='animal-fox')).toHaveLength(0);
+  expect(world.owned[('expedition-friend:panda:'+weeklyRoundId('001',Date.now()))]).toMatchObject({itemId:'animal-panda',source:'event'});expect(Object.values(world.owned).filter((v:any)=>v.itemId==='animal-fox')).toHaveLength(0);
  });
  it('gives all three exclusive animals and keeps previous invitations across distinct operator rounds',async()=>{
   for(const [i,animal]of (['panda','fox','red-panda'] as const).entries()){
    vi.mocked(Date.now).mockReturnValue(now+i*86400000);const settings=defaultOperationsRuntime();settings.gameEvents.animalExpedition.animal=animal;
-   let player=(await startAnimalExpedition(env,user,{key:'exclusive-'+animal,roundId:animal+':001'},settings)).player;
+   let player=(await startAnimalExpedition(env,user,{key:'exclusive-'+animal,roundId:animal+':'+weeklyRoundId('001',Date.now())},settings)).player;
    const attempt={id:'exclusive-final-'+animal,stage:10,startedAt:Date.now(),level:animalExpeditionLevel(10)};player.animalExpedition!.completedStages=9;player.animalExpedition!.attempt=attempt;store(player);
    await finishAnimalExpedition(env,user,{key:'exclusive-win-'+animal,attemptId:attempt.id,actions:winningActions(10)});
   }
   const player=await readPlayer(env.DB,user),world=JSON.parse((db.prepare('SELECT data FROM garden_worlds WHERE user_id=?').get(user) as {data:string}).data);
   expect(expeditionRounds(player.animalExpedition).map(r=>r.completedStages)).toEqual([10,10,10]);
-  for(const animal of ['panda','fox','red-panda'] as const)expect(world.owned['expedition-friend:'+animal+':001']).toMatchObject({itemId:EXPEDITION_ANIMALS[animal].itemId,source:'event'});
+  for(const animal of ['panda','fox','red-panda'] as const)expect(world.owned['expedition-friend:'+animal+':'+weeklyRoundId('001',Date.now())]).toMatchObject({itemId:EXPEDITION_ANIMALS[animal].itemId,source:'event'});
  });
  it('rejects a fabricated round, defaults older operator settings to panda, and preserves legacy dog identity',async()=>{
   await expect(startAnimalExpedition(env,user,{key:'fabricated-round',roundId:'fox:hacked'})).rejects.toMatchObject({code:'EXPEDITION_CHANGED'});
   const settings=defaultOperationsRuntime();delete (settings.gameEvents.animalExpedition as Partial<typeof settings.gameEvents.animalExpedition>).animal;delete (settings.gameEvents.animalExpedition as Partial<typeof settings.gameEvents.animalExpedition>).roundId;
-  expect(configuredExpeditionRound(parseRuntime(JSON.stringify(settings)))).toEqual({roundId:'panda:001',animal:'panda'});
+  expect(configuredExpeditionRound(parseRuntime(JSON.stringify(settings)))).toEqual({roundId:('panda:'+weeklyRoundId('001',Date.now())),animal:'panda'});
   const player=await readPlayer(env.DB,user);player.animalExpedition={completedStages:9,completedAttempts:[],attempt:{id:'legacy-dog-final',stage:10,startedAt:now,level:animalExpeditionLevel(10)}};store(player);
   const result=await finishAnimalExpedition(env,user,{key:'legacy-dog-final-reward',attemptId:'legacy-dog-final',actions:winningActions(10)});expect(result).toMatchObject({animal:'dog'});
   const world=JSON.parse((db.prepare('SELECT data FROM garden_worlds WHERE user_id=?').get(user) as {data:string}).data);expect(world.owned[ANIMAL_EXPEDITION_DOG_GRANT_ID].itemId).toBe('animal-dog');

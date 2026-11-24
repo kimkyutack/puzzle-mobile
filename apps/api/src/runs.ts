@@ -14,6 +14,7 @@ import {discoverHiddenPowerMission,recordHiddenPowerMission} from './hidden-powe
 import {recordFlowerlightClear} from './content-events';
 import {recordGardenGameClear} from './garden-games';
 import {prepareRunInitial} from './run-initial';
+import {startGiftPowers,startGiftReached,startGiftStage,START_GIFT_STAGES} from '../../../packages/contracts/src/start-gift';
 
 function active(tx:MutationContext,run:Run,sequence?:number){
   ensure(run.status==='active','RUN_CLOSED','이미 종료된 퍼즐입니다.',409);
@@ -33,7 +34,7 @@ export async function startRun(env:ApiEnv,userId:string,body:Record<string,unkno
     if(existing&&existing.expiresAt>tx.now){ensure(capabilities.supportedEngineVersions.some(version=>version===existing.state.engineVersion),'UPDATE_REQUIRED','앱을 업데이트하면 진행 중인 퍼즐을 이어할 수 있어요.',409);return {player:tx.player,run:existing};}
     if(existing){
       existing.status='expired';
-      if(existing.state.status!=='won'&&existing.state.status!=='error')tx.player.winStreak=0;
+      if(existing.state.status!=='won'&&existing.state.status!=='error'){tx.player.winStreak=0;tx.player.startGiftStreak=0;}
       tx.statements.push(saveRun(tx.db,existing));
     }
     const template=publishedLevel(tx.player.level,clientEngine);
@@ -41,8 +42,9 @@ export async function startRun(env:ApiEnv,userId:string,body:Record<string,unkno
     const learned=randomStart&&template.tutorial&&tx.player.tutorials?.includes(template.tutorial.feature);
     const playable=learned?{...template,tutorial:undefined}:template;
     const attemptTemplate=supportsPowerRainbow(clientEngine)&&powerRainbowUnlocked(tx.player)?{...playable,powerRainbow:true as const}:playable;
-    let prepared;try{prepared=prepareRunInitial(attemptTemplate,preBoosters,randomStart,crypto.getRandomValues(new Uint32Array(1))[0]||1);}catch(e){throw new HttpError('BOOSTER_PLACEMENT',e instanceof Error?e.message:'부스터를 배치할 수 없는 퍼즐입니다.');}
-    const {level,state}=prepared;
+    const giftStage=startGiftStage(tx.player);
+    let prepared;try{prepared=prepareRunInitial(attemptTemplate,preBoosters,randomStart,crypto.getRandomValues(new Uint32Array(1))[0]||1,startGiftPowers(giftStage));}catch(e){throw new HttpError('BOOSTER_PLACEMENT',e instanceof Error?e.message:'부스터를 배치할 수 없는 퍼즐입니다.');}
+    const {level,state,giftPlacements}=prepared;
     ensure(state.status==='playing','INVALID_INITIAL_BOARD','초기 퍼즐 검증에 실패했습니다.',503);
     const unlimited=tx.player.unlimitedUntil>tx.now;
     ensure(unlimited||tx.player.hearts>0,'HEARTS_EMPTY','하트가 부족해요. 다음 회복을 기다리거나 무료 보너스를 확인하세요.',409);
@@ -54,6 +56,7 @@ export async function startRun(env:ApiEnv,userId:string,body:Record<string,unkno
     if(!rush.active)for(const item of preBoosters)if(!usesTrial||item!==freeTrial)spendItem(tx.player,item);
     if(usesTrial)tx.player.usedStartBoosterTrial=true;
     const run:Run={id:uid(),userId,level,state,sequence:0,status:'active',startedAt:tx.now,expiresAt:tx.now+86_400_000,preBoosters,...(rush.active&&preBoosters.length?{startBoosterFreeUntil:rush.endsAt!}:{}),...(usesTrial?{usedStartBoosterTrial:true}:{}),heartSpent:false,heartCharge:unlimited?'protected':'failure',continues:0};
+    if(giftStage>0&&giftPlacements.length)run.startGift={stage:giftStage as 1|2|3,placements:giftPlacements};
     tx.statements.push(sql(tx.db,'INSERT INTO runs VALUES(?,?,?,?,?,?,?)',run.id,userId,JSON.stringify(run),run.status,0,run.expiresAt,operationKey(body)));
     return {player:tx.player,run};
   });
@@ -137,6 +140,7 @@ export async function closeRun(env:ApiEnv,userId:string,runId:string,body:Record
     }
     if((run.status==='lost'||run.status==='abandoned')&&run.state.status!=='error'){
       tx.player.winStreak=0;
+      tx.player.startGiftStreak=0;
       if(run.expiresAt>tx.now&&run.heartCharge==='failure'&&!run.heartSpent&&tx.player.hearts>0)run.heartSpent=consumeHeart(tx.player,tx.now);
     }
     tx.statements.push(saveRun(tx.db,run));return {player:tx.player,run};
@@ -152,8 +156,10 @@ async function rewardWonRun(tx:MutationContext,run:Run,settings?:RuntimeSettings
  ensure(snapshot,'RUN_NOT_FOUND','진행 중인 퍼즐을 찾을 수 없어요.',404);
  if(!snapshot.rewarded){
   const coins=levelClearCoins(run.level),wasUnlocked=powerRainbowUnlocked(tx.player);
+  if(startGiftReached(tx.player))tx.player.startGiftStreak=Math.min(START_GIFT_STAGES,startGiftStage(tx.player)+1);
   if(powerRainbowReached(tx.player))tx.player.winStreak=Math.min(POWER_RAINBOW_WINS,(tx.player.winStreak??0)+1);
   run.reward={coins,stars:1,...(!wasUnlocked&&powerRainbowUnlocked(tx.player)?{powerRainbowUnlocked:true as const}:{})};
+  if(startGiftReached(tx.player))run.reward.startGiftStage=startGiftStage(tx.player);
   if(recordFlowerlightClear(tx,run))run.reward.flowerPetals=1;
   recordActivity(tx,{clears:1,'hard-clears':run.level.difficulty==='normal'?0:1});
   if(settings?.features.missions!==false&&tx.player.level===run.level.id)discoverHiddenPowerMission(tx,run.level.id);

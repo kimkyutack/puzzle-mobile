@@ -1,0 +1,28 @@
+{
+  "width": 581,
+  "height": 648,
+  "groundAnchor": {
+    "x": 290.5,
+    "y": 644
+  },
+  "frames": [
+    {
+      "name": "tree",
+      "alphaBounds": {
+        "left": 4,
+        "top": 4,
+        "width": 573,
+        "height": 640
+      }
+    },
+    {
+      "name": "tree-rear",
+      "alphaBounds": {
+        "left": 5,
+        "top": 4,
+        "width": 570,
+        "height": 640
+      }
+    }
+  ]
+}

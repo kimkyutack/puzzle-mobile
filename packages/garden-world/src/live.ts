@@ -1,6 +1,6 @@
 import {applyFlowerlightGardenGifts} from './flowerlight';
 import {RESTORATIONS} from '../../content/src';
-import {DECORATIONS,GARDEN_MARKET_ITEMS} from './catalog';
+import {DECORATIONS,GARDEN_MARKET_ITEMS,GARDEN_BOTANICAL_ITEMS} from './catalog';
 import {applyGardenCommand,applyTrustedDecorationGrant,applyTrustedRegionUnlock,createGardenWorld,validateGardenPlacement,type GardenWorldState} from './model';
 import {restorationItemId,restorationSite} from './restoration-sites';
 
@@ -20,9 +20,13 @@ export const CLASSIC_GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
  'garden-lotus-pavilion':8000,'garden-aurora-conservatory':10000
 };
 /** The server charges this catalog; the client can only confirm the displayed quote. */
-export const GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
+export const MARKET_GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
  ...CLASSIC_GARDEN_SHOP_PRICES,
  ...Object.fromEntries(GARDEN_MARKET_ITEMS.map(([id,,,,,,price])=>[id,price]))
+};
+export const GARDEN_SHOP_PRICES:Readonly<Record<string,number>>={
+ ...MARKET_GARDEN_SHOP_PRICES,
+ ...Object.fromEntries(GARDEN_BOTANICAL_ITEMS.map(([id,,,,,,price])=>[id,price]))
 };
 export const GARDEN_SHOP_MIN_LEVEL=5;
 export const GARDEN_SHOP_LEVELS:Readonly<Partial<Record<string,number>>>={

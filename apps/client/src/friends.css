@@ -11,12 +11,12 @@
 .friend-list{list-style:none;display:flex;flex-direction:column;gap:7px;margin:0;padding:0}
 .friend-person{position:relative;display:flex;align-items:center;gap:7px;min-width:0;min-height:82px;padding:11px 12px 15px;color:#20335d}
 .friend-person-profile{display:flex;align-items:center;gap:7px;min-width:0;flex:1;min-height:48px;padding:0;text-align:left;color:#20335d}
-.friend-person-profile>span,.friend-gift-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.friend-person-profile>span:not(.profile-portrait),.friend-gift-copy{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
 .friend-person-profile strong,.friend-gift-copy strong{font-size:15px;line-height:21px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .friend-person-profile small,.friend-gift-copy small{font-size:11px;line-height:16px;color:#2c4165;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .friend-person-profile>.icon{flex:none;width:44px;height:48px;object-fit:contain}
 .friend-person-actions{flex:0 0 clamp(72px,21vw,86px);display:flex;flex-direction:column;gap:4px;min-width:0}
-.friends-menu .friend-person .friend-person-actions .game-button{width:100%;min-width:0;min-height:44px;height:44px;margin:0;padding:6px 6px 12px;gap:2px;font-size:13px;line-height:20px;white-space:nowrap}
+.friends-menu .friend-person .friend-person-actions .game-button,.guild-members .friend-person .friend-person-actions .game-button{width:100%;min-width:0;min-height:44px;height:44px;margin:0;padding:6px 6px 12px;gap:2px;font-size:13px;line-height:20px;white-space:nowrap}
 .friend-request-status{display:grid;place-items:center;min-height:44px;color:#244778;text-align:center;font-size:12px;line-height:16px}
 .friend-request-status>span{max-width:100%;padding:4px 6px;border-radius:8px;background:#d7e9f9}
 .friend-person-actions .game-button>.icon{width:21px;height:24px}.friend-connected{display:flex;align-items:center;justify-content:center;gap:3px;font-size:12px;color:#28466d}

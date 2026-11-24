@@ -1,0 +1,402 @@
+{
+  "intro/tea-caddy": [
+    613081,
+    5
+  ],
+  "tea-caddy/0/0": [
+    613081,
+    8
+  ],
+  "tea-caddy/0/1": [
+    614790,
+    7
+  ],
+  "tea-caddy/0/2": [
+    616499,
+    5
+  ],
+  "intro/honeycomb": [
+    613081,
+    5
+  ],
+  "honeycomb/0/0": [
+    613081,
+    8
+  ],
+  "honeycomb/0/1": [
+    614790,
+    7
+  ],
+  "honeycomb/0/2": [
+    616499,
+    5
+  ],
+  "intro/acorn-nest": [
+    613081,
+    3
+  ],
+  "acorn-nest/0/0": [
+    613081,
+    4
+  ],
+  "acorn-nest/0/2": [
+    616499,
+    4
+  ],
+  "acorn-nest/0/1": [
+    614790,
+    3
+  ],
+  "intro/cloud-pillow": [
+    613352,
+    2
+  ],
+  "cloud-pillow/1/0": [
+    613352,
+    7
+  ],
+  "tea-caddy/1/1": [
+    615061,
+    17
+  ],
+  "honeycomb/1/1": [
+    615061,
+    17
+  ],
+  "honeycomb/1/2": [
+    616770,
+    17
+  ],
+  "acorn-nest/1/2": [
+    616770,
+    10
+  ],
+  "acorn-nest/1/0": [
+    613352,
+    7
+  ],
+  "cloud-pillow/1/1": [
+    615061,
+    6
+  ],
+  "tea-caddy/1/2": [
+    616770,
+    17
+  ],
+  "honeycomb/1/0": [
+    613352,
+    12
+  ],
+  "acorn-nest/1/1": [
+    615061,
+    8
+  ],
+  "cloud-pillow/1/2": [
+    616770,
+    8
+  ],
+  "tea-caddy/1/0": [
+    613352,
+    12
+  ],
+  "intro/petal-launcher": [
+    613352,
+    3
+  ],
+  "petal-launcher/1/0": [
+    613352,
+    10
+  ],
+  "petal-launcher/1/1": [
+    615061,
+    7
+  ],
+  "petal-launcher/1/2": [
+    616770,
+    7
+  ],
+  "intro/mushroom-cluster": [
+    613352,
+    3
+  ],
+  "mushroom-cluster/1/0": [
+    613352,
+    7
+  ],
+  "mushroom-cluster/1/2": [
+    616770,
+    8
+  ],
+  "mushroom-cluster/1/1": [
+    615061,
+    14
+  ],
+  "intro/crystal-geode": [
+    613352,
+    6
+  ],
+  "crystal-geode/1/0": [
+    613352,
+    18
+  ],
+  "crystal-geode/1/2": [
+    616770,
+    16
+  ],
+  "crystal-geode/1/1": [
+    615061,
+    15
+  ],
+  "mushroom-cluster/2/0": [
+    613623,
+    8
+  ],
+  "crystal-geode/2/1": [
+    615332,
+    25
+  ],
+  "tea-caddy/2/1": [
+    615332,
+    16
+  ],
+  "tea-caddy/2/2": [
+    617041,
+    7
+  ],
+  "honeycomb/2/2": [
+    617041,
+    7
+  ],
+  "honeycomb/2/0": [
+    613623,
+    15
+  ],
+  "acorn-nest/2/0": [
+    613623,
+    8
+  ],
+  "acorn-nest/2/1": [
+    615332,
+    8
+  ],
+  "cloud-pillow/2/1": [
+    615332,
+    5
+  ],
+  "petal-launcher/2/2": [
+    617041,
+    8
+  ],
+  "crystal-geode/2/0": [
+    613623,
+    28
+  ],
+  "mushroom-cluster/2/2": [
+    617041,
+    3
+  ],
+  "petal-launcher/2/1": [
+    615332,
+    11
+  ],
+  "cloud-pillow/2/0": [
+    613623,
+    5
+  ],
+  "acorn-nest/2/2": [
+    617041,
+    5
+  ],
+  "honeycomb/2/1": [
+    615332,
+    16
+  ],
+  "tea-caddy/2/0": [
+    613623,
+    15
+  ],
+  "crystal-geode/2/2": [
+    617041,
+    21
+  ],
+  "mushroom-cluster/2/1": [
+    615332,
+    5
+  ],
+  "petal-launcher/2/0": [
+    613623,
+    7
+  ],
+  "cloud-pillow/2/2": [
+    617041,
+    3
+  ],
+  "cloud-pillow/3/0": [
+    613894,
+    10
+  ],
+  "petal-launcher/3/1": [
+    615603,
+    9
+  ],
+  "mushroom-cluster/3/1": [
+    615603,
+    8
+  ],
+  "mushroom-cluster/3/2": [
+    617312,
+    8
+  ],
+  "crystal-geode/3/2": [
+    617312,
+    30
+  ],
+  "crystal-geode/3/0": [
+    613894,
+    25
+  ],
+  "tea-caddy/3/0": [
+    613894,
+    23
+  ],
+  "tea-caddy/3/1": [
+    615603,
+    21
+  ],
+  "honeycomb/3/1": [
+    615603,
+    21
+  ],
+  "acorn-nest/3/2": [
+    617312,
+    11
+  ],
+  "petal-launcher/3/0": [
+    613894,
+    14
+  ],
+  "cloud-pillow/3/2": [
+    617312,
+    5
+  ],
+  "acorn-nest/3/1": [
+    615603,
+    5
+  ],
+  "honeycomb/3/0": [
+    613894,
+    23
+  ],
+  "tea-caddy/3/2": [
+    617312,
+    14
+  ],
+  "crystal-geode/3/1": [
+    615603,
+    34
+  ],
+  "mushroom-cluster/3/0": [
+    613894,
+    11
+  ],
+  "petal-launcher/3/2": [
+    617312,
+    9
+  ],
+  "cloud-pillow/3/1": [
+    615603,
+    9
+  ],
+  "acorn-nest/3/0": [
+    613894,
+    12
+  ],
+  "honeycomb/3/2": [
+    617312,
+    14
+  ],
+  "tea-caddy/4/0": [
+    614165,
+    25
+  ],
+  "honeycomb/4/1": [
+    615874,
+    21
+  ],
+  "acorn-nest/4/1": [
+    615874,
+    11
+  ],
+  "acorn-nest/4/2": [
+    617583,
+    10
+  ],
+  "cloud-pillow/4/2": [
+    617583,
+    12
+  ],
+  "cloud-pillow/4/0": [
+    614165,
+    13
+  ],
+  "petal-launcher/4/0": [
+    614165,
+    13
+  ],
+  "petal-launcher/4/1": [
+    615874,
+    10
+  ],
+  "mushroom-cluster/4/1": [
+    615874,
+    9
+  ],
+  "crystal-geode/4/2": [
+    617583,
+    35
+  ],
+  "honeycomb/4/0": [
+    614165,
+    25
+  ],
+  "tea-caddy/4/2": [
+    617583,
+    17
+  ],
+  "crystal-geode/4/1": [
+    615874,
+    26
+  ],
+  "mushroom-cluster/4/0": [
+    614165,
+    10
+  ],
+  "petal-launcher/4/2": [
+    617583,
+    10
+  ],
+  "cloud-pillow/4/1": [
+    615874,
+    12
+  ],
+  "acorn-nest/4/0": [
+    614165,
+    16
+  ],
+  "honeycomb/4/2": [
+    617583,
+    17
+  ],
+  "tea-caddy/4/1": [
+    615874,
+    21
+  ],
+  "crystal-geode/4/0": [
+    614165,
+    28
+  ],
+  "mushroom-cluster/4/2": [
+    617583,
+    5
+  ]
+}

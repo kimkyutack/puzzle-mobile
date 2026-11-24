@@ -1,7 +1,8 @@
+import {mobileObstacleArt} from './mobile-obstacle-art';
 import {Container,Graphics,Sprite} from 'pixi.js';
 import type {GameState,Obstacle} from '@garden/contracts';
 import {lightRay} from '../../../packages/game-core/src/garden-puzzles';
-import {texture} from './assets';
+import {texture,hasArt} from './assets';
 
 type Position=(index:number)=>{x:number;y:number};
 const arrows={right:0,down:Math.PI/2,left:Math.PI,up:-Math.PI/2};
@@ -21,7 +22,7 @@ export function drawGardenPuzzleObstacle(layer:Container,o:Obstacle,s:GameState,
  if(o.kind==='garden-light'&&s.gardenPuzzle?.lightAt===o.anchor){
   layer.addChild(new Graphics().circle(x,y,cell*.43).stroke({color:0xffefa0,width:Math.max(1.5,cell*.046)}));
  }
- if(o.kind==='wire-planter'&&o.wire){
+ if(o.kind==='wire-planter'&&o.wire&&!hasArt(mobileObstacleArt(o)??'')){
   const pot=new Sprite(texture('garden-planter'));pot.anchor.set(.5);pot.position.set(x,y);pot.width=pot.height=cell*.67;layer.addChild(pot);
   const frame=new Graphics(),half=cell*.38;
   for(const offset of [-cell*.16,cell*.16]){

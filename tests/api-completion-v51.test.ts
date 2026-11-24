@@ -112,7 +112,7 @@ describe('power disco ball streak and clear rewards',()=>{
   expect(tenth.state.powerRainbow).toBeUndefined();
   const granted=await runActions(env,user,tenth.id,{key:'tenth-clear-key',sequence:0,actions,finishOnWin:true});
   expect(granted.player.winStreak).toBe(10);
-  expect(granted.run.reward).toEqual({coins:30,stars:1,flowerPetals:1,powerRainbowUnlocked:true});
+  expect(granted.run.reward).toEqual({coins:30,stars:1,flowerPetals:1,powerRainbowUnlocked:true,startGiftStage:1});
   expect(granted.player.inventory['world-bomb'].bound).toBe(0);
   expect((await closeRun(env,user,tenth.id,{key:'tenth-retry-key'})).player.winStreak).toBe(10);
   const next=await startRun(env,user,{key:'first-powered-key',engineVersion:POWER_RAINBOW_ENGINE_VERSION,preBoosters:['rainbow']});

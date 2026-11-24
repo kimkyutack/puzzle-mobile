@@ -1,0 +1,13 @@
+{
+  "width": 128,
+  "height": 128,
+  "hasAlpha": true,
+  "bounds": {
+    "left": 4,
+    "top": 4,
+    "width": 120,
+    "height": 119
+  },
+  "source": "source/home.png",
+  "runtime": "runtime/home.webp"
+}

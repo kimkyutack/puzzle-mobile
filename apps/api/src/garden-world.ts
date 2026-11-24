@@ -1,7 +1,7 @@
 import {z} from 'zod';
 import {applyGardenCommand,applyGardenPlacementBatch,applyGardenExpansion,applyTrustedDecorationGrant,gardenVisitWorld,GARDEN_EXPANSION_COST,GARDEN_EXPANSION_TILES,GardenWorldError,type GardenWorldState,type GardenVisitResponse} from '../../../packages/garden-world/src';
 import type {Player} from '@garden/contracts';
-import {CLASSIC_GARDEN_SHOP_PRICES,GARDEN_SHOP_LEVELS,GARDEN_SHOP_MIN_LEVEL,GARDEN_SHOP_PRICES,LEGACY_GARDEN_SHOP_PRICES,projectLiveGarden} from '../../../packages/garden-world/src/live';
+import {CLASSIC_GARDEN_SHOP_PRICES,MARKET_GARDEN_SHOP_PRICES,GARDEN_SHOP_LEVELS,GARDEN_SHOP_MIN_LEVEL,GARDEN_SHOP_PRICES,LEGACY_GARDEN_SHOP_PRICES,projectLiveGarden} from '../../../packages/garden-world/src/live';
 import {assertSQL,ensure,HttpError,mutate,one,operationKey,readPlayer,spendCoins,sql,type ApiEnv,type MutationContext} from './db';
 import {sha256} from './providers/common';
 import {unblockedSQL} from './friends';
@@ -15,9 +15,9 @@ const commandSchema=z.discriminatedUnion('type',[
  z.object({type:z.literal('paint'),key:id.min(8),expectedRevision:z.number().int().nonnegative(),placements:z.array(z.object({instanceId:id,x:z.number().int(),y:z.number().int(),rotation:z.union([z.literal(0),z.literal(90),z.literal(180),z.literal(270)])}).strict()).min(1).max(100)}).strict()
 ]);
 export async function stored(env:ApiEnv,userId:string){return one<{revision:number;data:string}>(env.DB,'SELECT revision,data FROM garden_worlds WHERE user_id=?',userId);}
-export async function gardenWorld(env:ApiEnv,userId:string,quotedShop=false,marketArt=false){
+export async function gardenWorld(env:ApiEnv,userId:string,quotedShop=false,marketArt=false,botanicalArt=false){
  const [player,row]=await Promise.all([readPlayer(env.DB,userId),stored(env,userId)]);
- const prices=quotedShop?(marketArt?GARDEN_SHOP_PRICES:CLASSIC_GARDEN_SHOP_PRICES):LEGACY_GARDEN_SHOP_PRICES;
+ const prices=quotedShop?(botanicalArt?GARDEN_SHOP_PRICES:marketArt?MARKET_GARDEN_SHOP_PRICES:CLASSIC_GARDEN_SHOP_PRICES):LEGACY_GARDEN_SHOP_PRICES;
  return {world:projectLiveGarden(player,row?JSON.parse(row.data) as GardenWorldState:null),prices,...(quotedShop?{shopVersion:2 as const}:{}),...(marketArt&&quotedShop?{minimumLevels:GARDEN_SHOP_LEVELS}:{}),land:{cost:GARDEN_EXPANSION_COST,tiles:GARDEN_EXPANSION_TILES}};
 }
 export async function visitGarden(env:ApiEnv,userId:string,target:string):Promise<GardenVisitResponse>{
@@ -27,7 +27,7 @@ export async function visitGarden(env:ApiEnv,userId:string,target:string):Promis
  ensure(!row.blocked,'PLAYER_UNAVAILABLE','이 정원사와 교류할 수 없어요.',403);
  const player=JSON.parse(row.data) as Player;
  const world=projectLiveGarden(player,row.garden_data?JSON.parse(row.garden_data) as GardenWorldState:null);
- return {owner:{userId:target,nickname:player.nickname,level:player.level},world:gardenVisitWorld(world)};
+ return {owner:{userId:target,nickname:player.nickname,level:player.level},world:gardenVisitWorld(world),invitationVisits:true};
 }
 export function save(tx:MutationContext,row:{revision:number}|null,world:GardenWorldState){
  // The world and player balance commit together. Separate revision protects simultaneous device edits.

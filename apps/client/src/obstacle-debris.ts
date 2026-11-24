@@ -1,9 +1,10 @@
+import {mobileObstacleFragments} from './mobile-obstacle-art';
 import type {ObstacleKind} from '@garden/contracts';
 import {assetImage} from './assets';
 
 type Point={x:number;y:number};
 type Rect=Point&{width:number;height:number};
-export type DebrisKind=ObstacleKind|'frost'|'garden-gate';
+export type DebrisKind=ObstacleKind|'frost'|'garden-gate'|'rack-frame';
 export type DebrisPose=Point&{art:string;size:number;rotation:number;tilt:number};
 export interface DebrisSurface {
  bounds():Rect;
@@ -17,7 +18,17 @@ const rim='debris-ceramic-rim',ceramic='debris-ceramic-wall',ring='debris-metal-
 const ceramicParts=[rim,ceramic],foliage=[leaves,petal],metal=[ring,plate];
 const lamp=['debris-glass-long',ring,'debris-glass-chip',plate];
 const materials:Record<DebrisKind,readonly string[]>={
- crate:wood, vine:foliage, pot:ceramicParts, moss:[leaves,soil], cabinet:[wood[0]!,wood[1]!,ring,wood[2]!],
+ 'rail-pot':ceramicParts,'boomerang-pod':[petal,ceramic,leaves],'boomerang-bell':[ring,plate,leaves],'linked-crystal':['debris-crystal-long','debris-crystal-chip'],
+ 'shelf-vase':ceramicParts,'canopy-orchid':[petal,leaves],'awning-crank':[cloth,ring],
+ 'journey-vine':[leaves,'debris-stone-carving'],'journey-relic':['debris-crystal-chip',ring,petal],
+ 'seed-cocoon':[cloth,petal,leaves],'dandelion-turret':[petal,leaves,ceramic],
+ 'pottery-nest':['debris-glass-long',rim,ring],'ceramic-pot':ceramicParts,
+ 'thorn-barricade':foliage,'roller-pin':metal,'garden-roller':[plate,wood[2]!,leaves],
+ 'dew-cache':['debris-glass-chip',petal], 'garden-beacon':[ring,'debris-glass-long',petal], 'bloom-bud':[petal,leaves],
+ 'tea-caddy':ceramicParts,honeycomb:[soil,petal], 'acorn-nest':[leaves,wood[2]!], 'cloud-pillow':[cloth,petal],
+ 'petal-launcher':[ring,cloth,petal], 'sun-gate':[plate,'debris-stone-block',ring], 'mushroom-cluster':[petal,soil],
+ 'crystal-geode':['debris-stone-block','debris-crystal-chip'], 'star-core':['debris-crystal-long','debris-crystal-chip'],
+ 'rack-frame':wood,crate:wood, vine:foliage, pot:ceramicParts, moss:[leaves,soil], cabinet:[wood[0]!,wood[1]!,ring,wood[2]!],
  pipe:metal, bud:[petal,leaves], carousel:[rim,ring,ceramic,petal], curtain:[cloth,ring],
  urn:ceramicParts, statue:['debris-stone-carving','debris-stone-block'], 'flower-seal':['debris-stone-carving','debris-petal'], 'supply-crate':wood,
  crystal:['debris-crystal-long','debris-crystal-chip'], 'starlight-lantern':lamp,
@@ -40,7 +51,8 @@ export function createObstacleDebris(surface:DebrisSurface){
  let painted=false;
 
  function burst(kind:DebrisKind,origin:Point,cell:number,hitAt:number,refillAt:number,broken:boolean,seed:number){
-  const rect=surface.bounds(),art=materials[kind];
+  const revised=mobileObstacleFragments(kind),art=revised?.every(id=>!!assetImage(id))?revised:materials[kind];
+  const rect=surface.bounds();
   const count=broken?4:2;
   const sizes=kind==='crate'||kind==='supply-crate'?[.88,.64,.54,.37]:[.74,.59,.45,.32];
   const firstAngle=seed*2.399963;
@@ -93,7 +105,7 @@ export function createObstacleDebris(surface:DebrisSurface){
 
 // The Pixi board is cropped to the playable grid. Project the same coordinates
 // into a transparent game-sized canvas so fragments can fly over its edges.
-export function createDebrisSurface(host:HTMLElement,board:HTMLCanvasElement,boardSize:()=>{width:number;height:number}):DebrisSurface{
+export function createDebrisSurface(host:HTMLElement,board:HTMLElement,boardSize:()=>{width:number;height:number}):DebrisSurface{
  const scene=host.closest<HTMLElement>('.game-shell');
  let canvas:HTMLCanvasElement|undefined,context:CanvasRenderingContext2D|null=null;
  function projection(){

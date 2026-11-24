@@ -3,11 +3,18 @@ import {stateHash,type CascadeFrame} from '@garden/core';
 import type {GameState} from '@garden/contracts';
 import Board,{type BoardProps} from './Board';
 import {effectTiming} from './visual-timing';
+import {FRONTIER_BEATS} from '../../../packages/contracts/src/garden-frontier';
+import {art} from './assets';
+import {t} from './i18n';
+import './journey-transition.css';
 
 interface Playback {frames:readonly CascadeFrame[];at:number;target:string;done:boolean}
 const QUIET_EVENTS:BoardProps['events']=[];
 /** One local action, one input barrier, real refill states between matches. */
 export default function CascadeBoard({frames,onStateShown,...props}:BoardProps&{frames?:readonly CascadeFrame[];onStateShown?:(state:GameState)=>void}){
+ const [gate,setGate]=useState(false),transition=useRef(false),timers=useRef<ReturnType<typeof setTimeout>[]>([]);
+ const cancelGate=()=>{for(const timer of timers.current)clearTimeout(timer);timers.current=[];transition.current=false;};
+ useLayoutEffect(()=>()=>cancelGate(),[]);
  const [playback,setPlayback]=useState<Playback|null>(null),seen=useRef(frames),current=useRef(playback),target=useMemo(()=>stateHash(props.state),[props.state]);
  if(seen.current!==frames){seen.current=frames;setPlayback(frames?.length?{frames:props.reduced?[{state:props.state,events:props.events}]:frames,at:0,target,done:false}:null);}
  current.current=playback;
@@ -19,17 +26,26 @@ export default function CascadeBoard({frames,onStateShown,...props}:BoardProps&{
   const timer=setTimeout(()=>shownCallback.current?.(shown),delay);return()=>clearTimeout(timer);
  },[shown]);
  useLayoutEffect(()=>{
-  if(playback&&!compatible){const authoritative={frames:[{state:props.state,events:QUIET_EVENTS}],at:0,target,done:true};current.current=authoritative;setPlayback(authoritative);props.onVisualSettled?.();}
+  if(playback&&!compatible){cancelGate();setGate(false);const authoritative={frames:[{state:props.state,events:QUIET_EVENTS}],at:0,target,done:true};current.current=authoritative;setPlayback(authoritative);props.onVisualSettled?.();}
  },[props.state,compatible]);
  const settled=()=>{
+  if(transition.current)return;
   if(playback&&!compatible){props.onVisualSettled?.();return;}
   const active=current.current;
   if(!active||active.done){props.onVisualSettled?.();return;}
   const at=active.at+1;
-  if(at<active.frames.length){const next={...active,at};current.current=next;setPlayback(next);}
+  if(at<active.frames.length){
+   const next={...active,at},changed=active.frames[active.at]?.state.journey?.stage===1&&active.frames[at]?.state.journey?.stage===2;
+   if(changed&&!props.reduced){
+    transition.current=true;setGate(true);
+    timers.current.push(setTimeout(()=>{current.current=next;setPlayback(next);},FRONTIER_BEATS.journeySwap));
+    timers.current.push(setTimeout(()=>{transition.current=false;setGate(false);settled();},FRONTIER_BEATS.journeyEnter));
+   }else{current.current=next;setPlayback(next);}
+  }
   else{const next={...active,done:true};current.current=next;setPlayback(next);props.onVisualSettled?.();}
  };
  return <div className="cascade-playback" style={{display:'contents'}} data-cascade-wave={compatible?playback.at+1:0} data-cascade-total={compatible?playback.frames.length:0} data-cascade-playing={compatible&&!playback.done}>
   <Board {...props} state={frame?.state??props.state} events={playback&&!compatible?QUIET_EVENTS:frame?.events??props.events} action={compatible&&playback.at>0?undefined:props.action} continuingCascade={compatible&&playback.at>0} locked={props.locked||compatible&&!playback.done} onVisualSettled={settled}/>
+  {gate&&<div className="journey-transition" role="status" aria-live="polite"><img src={art('siege-journey-gate-2')} alt=""/><div><small>{t('journey.complete')}</small><strong>{t('journey.enter')}</strong></div></div>}
  </div>;
 }

@@ -2,7 +2,7 @@ import {supportsCutoutRefill,supportsSeedDelivery,type GameState,type LevelDefin
 import {seedExitLanes} from './seed-delivery';
 
 const straight=(lane:number[],step:number)=>lane.every((at,index)=>index===0||at===lane[index-1]!+step);
-type GravityBoard=Pick<GameState,'cells'|'width'|'height'|'gravity'|'engineVersion'|'gardenStage'>;
+type GravityBoard=Pick<GameState,'cells'|'width'|'height'|'gravity'|'engineVersion'|'gardenStage'|'siege'>;
 
 export function gravityLanes(level:Pick<LevelDefinition,'gravity'|'width'|'height'|'shape'>):number[][]{
  if(level.gravity)return level.gravity.map(lane=>[...lane]);
@@ -58,14 +58,14 @@ function flowRoutes(s:GravityBoard,direction:1|-1,covered:ReadonlySet<number>){
  const vertical=s.width*direction;
  const eligible=new Set<number>();
  for(const lane of s.gravity)if(straight(lane,vertical))for(const at of lane)eligible.add(at);
- const open=new Set(s.gardenStage?.connected??[]);
+ const open=new Set([...(s.gardenStage?.connected??[]),...(s.siege?.bank??[])]);
  const passable=(at:number)=>eligible.has(at)&&!!s.cells[at]?.exists&&!s.cells[at]!.obstacleId&&!open.has(at);
  const diagonal=(from:number,to:number)=>passable(from)&&passable(to)&&(passable(from+vertical)||passable(to-vertical));
  // All cells in an uninterrupted inlet segment already have direct supply.
  // A shortest-route gradient lets a tile slide the last step beneath a wide
  // roof without oscillating sideways or spawning through the locked roof.
  const distance=new Map<number,number>(),queue:number[]=[],direct=new Set<number>();
- for(const lane of s.gravity){if(covered.has(lane[0]!))continue;for(const at of lane){if(s.cells[at]!.obstacleId)break;if(open.has(at))continue;direct.add(at);if(passable(at)){distance.set(at,0);queue.push(at);}}}
+ for(const lane of s.gravity){if(covered.has(lane[0]!))continue;for(const at of lane){if(s.cells[at]!.obstacleId||s.siege?.bank.includes(at))break;if(open.has(at))continue;direct.add(at);if(passable(at)){distance.set(at,0);queue.push(at);}}}
  for(let cursor=0;cursor<queue.length;cursor++){
   const from=queue[cursor]!,x=from%s.width,targets=[...(x>0?[from-1]:[]),...(x+1<s.width?[from+1]:[]),from+vertical,...(x>0?[from+vertical-1]:[]),...(x+1<s.width?[from+vertical+1]:[])];
   for(const to of targets){if(!passable(to)||distance.has(to))continue;const dx=Math.abs(to%s.width-x),dy=Math.floor(to/s.width)-Math.floor(from/s.width);if(dx&&dy&&!diagonal(from,to))continue;distance.set(to,distance.get(from)!+1);queue.push(to);}

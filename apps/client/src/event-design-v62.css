@@ -1,0 +1,257 @@
+/* Selected weekly artwork is a 1:2 stage. Live text and hit targets share its coordinates. */
+.weekly-event-page.weekly-designed{display:grid;place-items:center;padding:var(--safe-top,0px) 0 var(--safe-bottom,0px);background:#12372a;--weekly-h:calc(100dvh - var(--safe-top,0px) - var(--safe-bottom,0px));}
+.weekly-designed[data-weekly-event="acorn-pinball"]{background:#812b20}
+.weekly-designed[data-weekly-event="greenhouse-water"]{background:#c5e1e8}
+.weekly-event-stage{position:relative;isolation:isolate;width:min(100%,calc(var(--weekly-h) / 2));height:100%;max-height:var(--weekly-h);container-type:size;overflow:hidden}
+.weekly-designed .weekly-event-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:fill}
+.weekly-event-navigation{position:absolute;inset:1% 2% auto;display:flex;justify-content:space-between;align-items:center;z-index:8;height:5.5%}
+.weekly-event-navigation .weekly-home{width:25%;min-height:35px;height:100%;padding:0 1cqw 0 7cqw;font-size:4.5cqw;gap:1px;background:transparent url('../../../packages/assets/event-design-v62/home-back.webp') center/100% 100% no-repeat;color:#fff4d9;text-shadow:0 1px #4b2a16}
+.weekly-designed .weekly-event-navigation .weekly-home{background-image:url('../../../packages/assets/event-design-v62/home-back.webp')!important;background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important}
+.weekly-event-navigation .weekly-home .icon{width:5cqw;height:5cqw}
+.weekly-event-navigation .icon-button{width:12cqw;height:12cqw;min-height:35px;min-width:35px;padding:0}
+.weekly-event-navigation .icon-button .icon{width:100%;height:100%}
+.weekly-event-navigation .weekly-close{position:relative;width:12cqw;height:12cqw;min-width:35px;min-height:35px;padding:0!important;border:0;background:none;box-shadow:none}
+.weekly-event-navigation .weekly-close>.button-label{position:absolute;inset:0;display:block;width:100%!important;height:100%!important;max-width:none;padding:0;transform:none!important}
+.weekly-close img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.weekly-scene-title{position:absolute;z-index:3;top:9.2%;left:18%;width:68%;height:5.5%;display:flex;align-items:center;justify-content:center;margin:0;color:#4d2514;font-size:8.5cqw;line-height:1.05;text-align:center;text-shadow:0 1px #fff2c6;font-weight:400;white-space:nowrap}
+[data-weekly-event="acorn-pinball"] .weekly-scene-title{top:10%;left:17%;width:66%;color:#fff1c0;text-shadow:0 2px #762514;font-size:8cqw}
+[data-weekly-event="greenhouse-water"] .weekly-scene-title{top:11%;left:22%;width:57%;color:#074d55;text-shadow:0 1px #fff;font-size:7.5cqw}
+.weekly-event-countdown{position:absolute;z-index:4;top:6.1%;right:3%;font-size:2.7cqw;color:#fff8d4;text-shadow:0 1px 2px #17354c}
+.weekly-designed .weekly-event-content,.weekly-rescue-layout,.weekly-game-layout{position:absolute;inset:0;width:100%;height:100%;padding:0;margin:0;overflow:visible}
+.weekly-rescue-quota{position:absolute;left:33%;top:16.3%;width:35%;height:2.7%;display:grid;place-items:center;font-size:4.3cqw;line-height:1;color:#5d3117;font-weight:400}
+.weekly-rescue-friend{position:absolute;left:48%;top:21.5%;width:22%;height:9.5%;object-fit:contain}
+.weekly-trail-step{position:absolute;width:22%;height:5%;padding:0;transform:translate(-50%,-50%);background:none;color:#59321b;font-size:5.5cqw;text-shadow:0 1px #fff2c0;white-space:nowrap}
+.weekly-trail-step:disabled{opacity:1;filter:none}
+.trail-step-0{left:58%;top:55%}.trail-step-1{left:67%;top:41.5%}.trail-step-2{left:45%;top:32.5%}
+.weekly-rescue-rewards{position:absolute;inset:68.5% 8% auto;height:17%;display:grid;grid-template-rows:1fr 1fr;gap:2%;color:#52321e}
+.weekly-rescue-rewards>div{display:flex;align-items:center;justify-content:center;gap:2cqw;min-width:0}
+.weekly-rescue-rewards>div>strong{font-size:3.9cqw;line-height:1.1;flex:0 0 25%;font-weight:400}
+.weekly-rescue-rewards .activity-rewards{display:flex;align-items:center;justify-content:center;gap:2cqw;flex:1;margin:0;color:#553421;font-size:4.8cqw;flex-wrap:nowrap}
+.weekly-rescue-rewards .activity-rewards .icon{width:8cqw;height:8cqw}
+.weekly-rescue-rewards .resource-amount{font-size:4.8cqw;gap:0}
+.weekly-rescue-rewards .activity-item-reward strong{font-size:4.7cqw;color:inherit}
+.weekly-rescue-rewards>div>img{width:12cqw;height:12cqw;object-fit:contain}
+.weekly-designed .game-button.weekly-scene-cta{position:absolute;z-index:5;left:18%;top:88%;width:64%;height:7%;min-height:0;padding:0 2cqw 1cqw;margin:0;display:flex;align-items:center;justify-content:center;background:none;border:none;box-shadow:none;color:#fff9db;font-size:6.3cqw;line-height:1.05;text-shadow:0 2px #285615;filter:none;white-space:normal}
+.weekly-designed .weekly-scene-cta .button-label{line-height:1.1;white-space:normal;text-align:center;transform:none}
+.weekly-designed .weekly-scene-cta:disabled{opacity:.7;filter:none}
+.weekly-scene-error,.weekly-scene-message{position:absolute;bottom:1%;left:6%;right:6%;margin:0;padding:3px 6px;background:#fff3dfed;color:#9b2424;border-radius:6px;text-align:center;font-size:3.3cqw;z-index:9}
+.weekly-scene-message{color:#23552e}
+.weekly-event-ended{position:absolute;inset:65% 10% 7%;display:grid;place-content:center;gap:12px;color:#4a2d20;text-align:center}
+.weekly-game-preview{position:absolute;inset:0;pointer-events:none}
+.weekly-game-layout .arcade-machine{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;max-width:none;box-shadow:none;border-radius:0;overflow:visible;background:none}
+.weekly-game-layout .arcade-machine-art{display:none}
+.weekly-game-layout .pinball-board{inset:22% 8% 41%;}
+.weekly-game-layout .pinball-meter{top:18%;left:32%;right:32%;height:3%;color:#fff0ac;font-size:3.6cqw}
+.weekly-game-layout .pinball-stock{width:50%}.weekly-game-layout .pinball-stock img{width:28%}
+.weekly-game-layout .pinball-meter strong{min-width:50%}
+.weekly-game-preview .pinball-meter{visibility:hidden}
+.weekly-game-preview .pinball-launch{display:none}
+.weekly-preview-acorn{position:absolute;left:47%;top:26%;width:8%;height:6%;object-fit:contain;filter:drop-shadow(0 2px 3px #75401c)}
+.weekly-game-layout .pinball-launch-rail{display:none}
+.weekly-game-layout .pinball-launch{height:17%;top:-4%}
+.weekly-game-layout .pinball-launch img{width:68%;height:62%;margin-top:4%}
+.weekly-game-layout .pinball-peg{filter:drop-shadow(0 2px 1px #703a1c)}
+.weekly-game-layout .pinball-pockets{inset:auto -2% 0%;height:22%;}
+.weekly-game-layout .pinball-pocket-body{visibility:hidden}
+.weekly-game-layout .pinball-pocket{height:100%}
+.weekly-game-layout .pinball-pocket span{inset:10% 18% 15%}
+.weekly-game-layout .pinball-pocket[data-target=true]::before{display:none}
+.weekly-game-layout .pinball-pocket .icon{width:8cqw;height:8cqw}
+.weekly-game-layout .weekly-game-ticket{position:absolute;top:60.6%;left:26%;width:49%;height:4%;display:flex;gap:2cqw;align-items:center;justify-content:center;color:#5e311b;font-size:5cqw}
+.weekly-game-ticket>img{width:6cqw;height:6cqw;object-fit:contain}
+.weekly-game-loot{position:absolute;top:67.5%;left:13%;width:74%;height:13%;margin:0;color:#5a2c18;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1cqw}
+.weekly-game-loot>h2{position:absolute;top:-2%;margin:0;font-size:4.5cqw;line-height:1.1;font-weight:400}
+.weekly-game-loot>.garden-game-reward{height:75%;padding-top:4%;justify-content:center;gap:4cqw;font-size:6cqw;color:inherit}
+.weekly-game-loot .garden-game-reward>.span{gap:1cqw}
+.weekly-game-loot .garden-game-reward .icon{width:10cqw;height:10cqw}
+.weekly-game-loot .garden-game-reward img{width:10cqw;height:10cqw}
+.weekly-game-loot .garden-game-reward b{font-size:5.5cqw;font-weight:400}
+.weekly-game-layout[data-game="acorn-pinball"] .weekly-scene-cta{left:27%;top:83.5%;width:47%;height:8%;text-shadow:0 2px #7e251a;font-size:6cqw}
+.weekly-free-note{position:absolute;left:22%;right:22%;top:94.5%;font-size:3.2cqw;text-align:center;color:#fff2c8;text-shadow:0 1px 2px #452414}
+.weekly-game-layout .garden-game-help{position:absolute;top:96%;left:5%;right:5%;font-size:2.7cqw;line-height:1.1;margin:0;color:#fff9df;}
+.weekly-game-layout>.game-button:not(.weekly-scene-cta){position:absolute;left:24%;top:84%;width:54%;min-height:5%;font-size:4cqw}
+.weekly-game-layout .water-meter{position:absolute;top:18.1%;left:11%;width:79%;height:3.4%;gap:5%;font-size:3.8cqw;color:#07515c;z-index:3}
+.weekly-game-layout .water-meter>span{display:flex;align-items:center;justify-content:center;gap:1cqw;min-height:0;padding:0;border:0;background:none;box-shadow:none;line-height:1;white-space:nowrap}
+.weekly-game-layout .water-meter>span>.icon,.weekly-game-layout .water-meter>span>img{width:4cqw;height:4cqw;object-fit:contain}
+.weekly-game-layout .water-grid{inset:25% 15% 41.7%;}
+.weekly-game-layout .water-tile{width:100%;height:100%;opacity:1;filter:none}
+.weekly-game-layout .water-cell[data-wet=true] .water-tile{filter:none}
+.weekly-game-layout .water-arm{width:34%;left:33%}
+.weekly-game-layout .water-joint{inset:31.5%;width:37%;height:37%;filter:none}
+.weekly-game-layout .water-arm:after,.weekly-game-layout .water-pipes:after{display:none!important}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-ticket{top:84.5%;left:20%;width:60%;height:1.5%;font-size:3cqw;line-height:1;color:#145466}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot{top:64.2%;left:11%;width:80%;height:18%;color:#164f51}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot>h2{top:0;font-size:4.4cqw}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot>.garden-game-reward{position:absolute;top:18%;height:27%;padding:0;font-size:4cqw}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot .garden-game-reward .icon{width:6cqw;height:6cqw}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-game-loot .garden-game-reward b{font-size:4cqw}
+.weekly-water-prizes{position:absolute;inset:40% -1% 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3%;align-items:end}
+.weekly-water-prizes>div{display:flex;flex-direction:column;align-items:center;position:relative;min-width:0;color:#4d331d}
+.weekly-water-prizes>div>img{width:90%;height:8cqw;object-fit:contain}
+.weekly-water-prizes b{font-size:3.8cqw;font-weight:400;line-height:1}
+.weekly-water-prizes small{display:flex;align-items:center;font-size:2.8cqw;line-height:1}
+.weekly-water-prizes .icon{width:3.6cqw;height:3.6cqw}
+.weekly-water-prizes [data-complete=true]{filter:brightness(1.12)}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-scene-cta{left:24%;top:87%;width:60%;height:7%;text-shadow:0 2px #086370}
+.weekly-game-layout[data-game="greenhouse-water"] .weekly-free-note{top:96.2%;color:#125467;text-shadow:0 1px #fff}
+html[lang="en"] [data-weekly-event="animal-expedition"] .weekly-scene-title{font-size:5.5cqw;white-space:normal;line-height:1}
+.weekly-ongoing-label{position:absolute;top:84.5%;left:26%;width:49%;height:6%;display:grid;place-items:center;line-height:1.1;font-size:4.6cqw;text-align:center;color:#fff4d9;text-shadow:0 2px #773020;pointer-events:none}
+[data-game="greenhouse-water"] .weekly-ongoing-label{top:87%;left:30%;width:50%;height:6%;text-shadow:0 2px #09616e}
+
+/* The original events header, horizontal tabs and five-item dock remain untouched. */
+.events-v62 .event-tab-panel{padding:3px 0 12px}
+.events-v62 .event-detail-title{font-size:24px!important;margin:6px 0 10px!important}
+.events-v62 .game-button{font-size:20px!important;min-height:49px!important}
+.events-v62 .attendance-v62{background-size:cover;background-position:center;border-radius:16px;box-shadow:none;min-height:100%;padding:7px 7px 12px}
+.attendance-v62 .attendance-scene{height:63px;overflow:visible}
+.events-v62 .attendance-v62 .attendance-scene:after{display:none}
+.attendance-v62 .attendance-scene-copy{position:static;width:100%;padding-top:10px;text-align:center}
+.attendance-v62 .attendance-scene-copy h2{font-size:25px;color:#fff!important;text-shadow:0 2px 2px #345c56;margin:0!important}
+.attendance-v62 .attendance-counter{right:3px;bottom:0;font-size:11px;padding:1px 6px;background:#557b41}
+.attendance-v62 .attendance-content{background:none;padding:12px 0 0}
+.attendance-v62 .attendance-days{gap:7px;margin:0 0 15px}
+.attendance-v62 .attendance-day{position:relative;isolation:isolate;background:none!important;box-shadow:none!important;min-height:99px;justify-content:center;gap:9px;padding:8px 2px 15px;color:#683c37}
+.attendance-v62 .attendance-day>strong{font-size:12px}
+.attendance-v62 .attendance-day-reward{flex-direction:column;gap:2px;min-height:40px}
+.attendance-v62 .attendance-day .resource-amount{flex-direction:column;font-size:20px;line-height:1}
+.attendance-v62 .attendance-day .resource-amount .icon{width:33px;height:33px}
+.attendance-v62 .attendance-day.is-bonus .attendance-day-reward{flex-direction:row;gap:4px}
+.attendance-v62 .attendance-day.is-bonus .attendance-day-reward .resource-amount{font-size:20px}
+.attendance-v62 .attendance-day.is-today:not(.is-claimed){outline:2px solid #ffdc7f;border-radius:13px}
+.attendance-v62 .attendance-day.is-claimed .attendance-day-reward{opacity:.85}
+.attendance-v62 .attendance-stamp{color:#368b3d;right:3px;bottom:6px;font-size:22px}
+.attendance-today-tray{position:relative;isolation:isolate;display:grid;grid-template-columns:1fr 1.3fr;align-items:center;gap:5px;padding:12px 8px;color:#183f5d}
+.attendance-today-tray>div{display:grid;justify-items:center;gap:4px;font-size:13px}
+.attendance-today-tray .resource-amount{font-size:26px}
+.attendance-today-tray .attendance-claim{font-size:17px!important;width:100%;padding-inline:4px!important}
+.attendance-v62 .attendance-reset{font-size:10px!important}
+.events-v62 [data-event-panel="treasure"]{background:#19596a;border-radius:15px;padding:9px 10px}
+.events-v62 .treasure-menu{display:flex;flex-direction:column;gap:9px}
+.events-v62 .treasure-grid{margin:0;gap:7px;order:2}
+.events-v62 .treasure-card{height:clamp(40px,6.5dvh,55px)}
+.events-v62 .treasure-card-back>b{display:none}
+.events-v62 .treasure-card-back{background:#225b92;border-width:2px;box-shadow:inset 0 1px #fff9,0 3px #103456}
+.events-v62 .treasure-card-back>.icon{width:34px;height:34px}
+.events-v62 .treasure-status,.events-v62 .treasure-score{font-size:12px;padding:7px 5px;min-height:30px;order:1}
+.events-v62 .treasure-status>span{font-size:10px}
+.events-v62 .treasure-score{color:#fff4da;padding:4px}
+.events-v62 .treasure-menu>.content-card{order:3;padding:9px 12px;color:#173d5b;min-height:0}
+.events-v62 .treasure-menu>.content-card h3{font-size:14px!important;margin:0!important}
+.events-v62 .treasure-menu>.content-card p{font-size:10px;line-height:1.35;margin:3px 0}
+.events-v62 .treasure-sample-prizes{display:flex;justify-content:center;gap:12px;margin-top:5px}
+.events-v62 .treasure-sample-prizes .icon{width:26px;height:26px}
+.events-v62 .treasure-menu>.game-button,.events-v62 .treasure-menu>.fine,.events-v62 .treasure-menu>.activity-feedback,.events-v62 .treasure-payout{order:4}
+.treasure-potential-prizes{order:3;position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;color:#26405b;gap:8px;font-size:13px}
+.treasure-potential-prizes>div{display:flex;gap:3px}
+.treasure-potential-prizes .icon{width:26px;height:26px}
+.events-v62 .festival-bed-illustration{display:block;width:100%;height:clamp(115px,18dvh,150px);object-fit:cover;object-position:center 48%;border-radius:13px}
+.events-v62 .flowerlight-menu{gap:9px;padding:0!important}
+.events-v62 .festival-gift-track{margin:0;padding:3px 0;gap:5px;min-height:50px;height:50px}
+.events-v62 .festival-gift-track img{width:42px;height:42px}
+.events-v62 .festival-mission-title{background:none!important;margin:1px 0 4px;color:#fff0d5;font-size:16px;min-height:0;height:25px;padding:0;line-height:25px}
+.events-v62 .festival-mission-tray{padding:8px 10px;background:#fff0d9;border-radius:14px;color:#204c49;box-shadow:none;border:0;gap:5px;min-height:85px}
+.events-v62 .festival-mission-tray:before{display:none}
+.events-v62 .festival-mission-reward{min-height:40px}
+.events-v62 .festival-garden-gift img{width:35px;height:35px}
+.events-v62 .festival-garden-gift strong{font-size:12px}
+.events-v62 .content-event-help{font-size:11px!important;line-height:1.5!important;margin:6px 0!important}
+.events-v62 .power-festival-menu{padding:10px 9px 15px;border-radius:15px;background-size:100% 100%;color:#173e5a;gap:8px;min-height:0}
+.events-v62 .event-tab-panel .power-festival-menu .festival-prize{display:none}
+.events-v62 .power-festival-menu:has(.festival-tool-board) .festival-status{display:none}
+.events-v62 .power-festival-menu .festival-clock{background:none;margin:0;font-size:14px;color:#fff0d4;text-shadow:0 1px #123e6b}
+.events-v62 .festival-goals{padding:7px 8px;background:none;box-shadow:none;border:none}
+.events-v62 .festival-goals h3{color:#fff0d4!important;font-size:15px!important;margin:0 0 7px!important;text-align:center}
+.festival-tool-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 22px;padding:4px 25px}
+.festival-tool-board>div{position:relative;display:grid;grid-template-rows:45px 16px 11px 14px;justify-items:center;gap:2px;min-width:0;color:#fff7dd;font-size:12px}
+.festival-tool-board>div>.icon{width:45px!important;height:45px!important}
+.festival-tool-board strong{font-weight:400;font-size:12px}
+.festival-tool-board progress{width:100%;height:11px;accent-color:#ffbb32}
+.festival-tool-board small{font-size:12px}
+.events-v62 .festival-stages{gap:3px;margin:7px 0;padding:5px 2px;align-items:stretch}
+.events-v62 .festival-stages>li{width:auto;height:auto;flex:1;display:flex;flex-direction:column;background:#fff1d9d9;border-radius:7px;position:relative;min-width:0;padding:5px 1px;gap:2px;box-shadow:none;border:0}
+.events-v62 .festival-stages>li>span{position:static;color:#5b361a;font-size:15px}
+.events-v62 .festival-stages .activity-rewards{display:flex;flex-direction:column;gap:2px;font-size:11px;margin:0;color:#20405a}
+.events-v62 .festival-stages .resource-amount,.events-v62 .festival-stages .activity-item-reward{font-size:11px;gap:0}
+.events-v62 .festival-stages .icon{width:20px;height:20px}
+.events-v62 .festival-stages .activity-item-reward strong{font-size:11px;color:#21405a}
+.events-v62 .festival-prize{padding:8px;background:#fff1d9;border-radius:12px;box-shadow:none;border:0;color:#244254;font-size:14px}
+.events-v62 .festival-prize .activity-rewards{margin:3px 0;justify-content:center}
+.events-v62 .power-festival-menu>.fine{display:none}
+.events-v62 .event-season-feature{background:#d9edf9;border-radius:14px;box-shadow:none;padding-bottom:10px}
+.events-v62 .event-season-scene{height:clamp(185px,27dvh,260px)}
+.events-v62 .event-season-scene>img{object-position:center bottom}
+.events-v62 .event-season-scene>img{top:46px;height:calc(100% - 46px);object-position:center 28%}
+.events-v62 .event-season-scene>div{inset:5px 5% auto;width:90%;text-align:center}
+.events-v62 .event-season-scene h2{font-size:24px;margin:0 0 3px;color:#fff;text-shadow:0 2px #507294}
+.events-v62 .event-season-scene p{font-size:10px!important;color:#244b70!important;text-shadow:none!important;margin:0}
+.events-v62 .event-season-goals{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 9px 10px}
+.events-v62 .season-goal{display:flex;flex-direction:column;gap:7px;padding:10px 7px;border:0;border-radius:13px;background:#fff1d8;min-width:0}
+.events-v62 .season-goal>.icon{display:none}
+.events-v62 .season-goal-copy{width:100%}
+.events-v62 .season-goal-copy h3{font-size:14px!important;text-align:center;margin:0 0 5px!important}
+.events-v62 .season-goal-meter{background:#a3b69b;box-shadow:none;height:22px}
+.events-v62 .season-goal-meter>i{background:#69a742;box-shadow:none}
+.events-v62 .season-goal-meter>strong{line-height:22px}
+.events-v62 .season-goal>.resource-amount{font-size:24px;flex-direction:column}
+.events-v62 .season-goal>.resource-amount>.icon{width:38px;height:38px}
+.events-v62 .season-goal-action{min-height:22px;font-size:12px;text-align:center}
+.events-v62 .event-season-feature>.game-button{width:83%;margin:0 auto!important;display:flex}
+.events-v62 .event-rush-panel{padding:5px 10px 12px;border-radius:15px;background:#beded9;color:#174d58;gap:8px;display:flex;flex-direction:column;align-items:center}
+.events-v62 .event-rush-panel .event-detail-title{color:#23536a!important;text-shadow:none!important;font-size:22px!important}
+.events-v62 .event-rush-art{height:140px;display:grid;place-items:center;width:100%}
+.events-v62 .event-rush-art>.icon{width:170px;height:170px}
+.events-v62 .event-rush-art>img{width:auto;max-width:160px;height:100%;max-height:100%;object-fit:contain}
+.event-unlimited-state{display:grid;gap:5px;width:100%;text-align:center;color:#155261;padding:8px 5px;background:#fff1d9;border-radius:13px}
+.event-unlimited-state>strong{font-size:15px;font-weight:400}
+.event-unlimited-state>b{font-family:var(--font-game-number);font-size:28px;line-height:1}
+.event-unlimited-times{display:flex;justify-content:center;gap:7px;font-size:13px}
+.event-unlimited-times>span{padding:3px 7px;background:#e7d2ab;border-radius:8px}
+.events-v62 .event-rush-panel>p{color:#245460!important}
+.events-v62 .event-rush-panel .start-rush-banner{width:100%;min-height:75px;box-shadow:none}
+.events-v62 .event-rush-panel>p{font-size:12px;line-height:1.5;text-align:center;margin:0}
+.events-v62 .event-rush-panel>.game-button{width:92%}
+.event-unlimited-powers{display:flex;gap:13px;justify-content:center}
+.event-unlimited-powers>span{display:flex;flex-direction:column;align-items:center;color:#23536a;font-size:23px}
+.event-unlimited-powers .icon{width:49px;height:49px}
+.event-mailbox{display:flex;flex-direction:column;gap:10px;padding:12px 7px;background:#e4cdb0;border-radius:14px;color:#21475d;min-height:100%}
+.event-mailbox>.icon{margin:0 auto;width:64px;height:64px}
+.events-v62 .event-mailbox .event-detail-title{color:#24465b!important;text-shadow:none!important}
+.event-mailbox .content-card{padding:13px 12px;color:#244154}
+.event-mailbox .content-card h3{font-size:17px!important;color:#244154!important;margin:0 0 8px!important}
+.event-mailbox .operations-rewards{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:20px;color:#173e5a}
+.event-mailbox .operations-notice-body{font-size:12px;line-height:1.5;margin:0 0 6px}
+.event-mailbox .content-card>.game-button{min-height:42px!important;font-size:17px!important}
+
+/* A compact five-row open book; purchases and claims retain the existing handlers. */
+.garden-pass-modal .garden-pass{background:#d6eaf4;color:#214461;gap:7px;padding:9px;border-radius:14px}
+.pass-progress-heading{display:flex;align-items:center;gap:7px;position:relative;min-height:30px;padding:0 7px;color:#24425e}
+.pass-progress-heading progress{width:100%;height:21px;accent-color:#efba46}
+.pass-progress-heading>strong{position:absolute;inset:6px 0 auto;text-align:center;font-size:15px;text-shadow:0 1px #fff}
+.garden-pass .pass-season-line{font-size:10px;line-height:1.3;color:#31546a}
+.garden-pass .pass-tier-picker{margin:0;gap:0}
+.garden-pass .pass-tier-picker>span{display:none}
+.garden-pass .pass-tier-controls{min-height:30px;background:none;border:0;grid-template-columns:28px 1fr 28px}
+.garden-pass .pass-tier-options>button{min-height:30px;font-size:14px;padding:3px}
+.garden-pass .pass-tier-arrow{min-height:30px;height:30px;width:28px;font-size:24px}
+.pass-reward-book{background-size:100% 100%;background-position:center;display:grid;gap:5px;padding:16px 13px 20px;position:relative;color:#244563;min-height:310px}
+.pass-book-head{display:grid;grid-template-columns:1fr 1fr;text-align:center;padding:0 0 5px 19px;gap:15px;font-size:15px}
+.pass-book-head>strong{display:flex;align-items:center;justify-content:center;gap:3px;font-weight:400}
+.pass-book-row{display:grid;grid-template-columns:21px 1fr 1fr;gap:6px;align-items:stretch;min-height:44px}
+.pass-book-number{display:grid;place-items:center;font-family:var(--font-game-number);font-size:19px;color:#7b5628}
+.pass-book-cell{position:relative;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2px 5px;padding:4px 1px 14px;background:#cbe4f47d;color:#244361;border:1px solid #93b6cc55;border-radius:7px;min-width:0;opacity:1!important;filter:none!important}
+.pass-book-cell[data-track=premium]{background:#ffe4a56b;border-color:#d2ad5e5c}
+.pass-book-cell[data-claimable=true]{outline:2px solid #6da83b;outline-offset:-2px}
+.pass-book-cell>span{display:flex;align-items:center;gap:1px}
+.pass-book-cell>span>strong,.pass-book-cell>span>b{font-family:var(--font-game-number);font-size:17px;font-weight:400}
+.pass-book-cell>.icon,.pass-book-cell>span>.icon{width:24px;height:24px}
+.pass-book-cell>small{position:absolute;bottom:2px;font-size:9px;color:#4c654b}
+.pass-book-cell[data-claimed=true]{opacity:.72!important}
+.garden-pass .pass-compact-actions{gap:7px}
+.garden-pass .pass-compact-actions .game-button{font-size:18px!important;min-height:45px!important}
+.garden-pass .pass-claim-state,.garden-pass .pass-owned-state{font-size:12px;color:#2d5666;min-height:25px}
+.premium-purchase-summary{background:#fff0da;color:#244361}
+.premium-purchase-summary>.event-feature-icon{width:65px;height:65px}
+.premium-purchase-summary h3{font-size:18px!important;margin:5px 0!important;color:#244361!important}
+@media(max-width:350px){.events-v62 .attendance-day{min-height:88px}.attendance-v62 .attendance-day-reward{gap:1px}.events-v62 .festival-tool-board{padding-inline:14px;gap:9px}.events-v62 .season-goal-action{font-size:10px}.pass-book-cell>span>strong{font-size:15px}.pass-book-cell>span>.icon{width:20px;height:20px}.pass-reward-book{padding-inline:10px}.pass-book-head{font-size:13px}}
+@media(max-width:350px){.pass-book-cell>span>.icon{width:18px!important;height:18px!important}.pass-book-cell>span>strong,.pass-book-cell>span>b{font-size:14px}}
+@media(max-height:730px){.attendance-v62 .attendance-scene{height:44px}.events-v62 .attendance-day{min-height:82px;gap:3px}.attendance-v62 .attendance-content{padding-top:8px}.attendance-v62 .attendance-days{margin-bottom:9px}.events-v62 .event-rush-art{height:130px}.events-v62 .event-rush-art>.icon{width:125px;height:125px}.pass-reward-book{min-height:280px;padding-block:12px 17px}.pass-book-row{min-height:39px}.pass-book-head{font-size:13px}}

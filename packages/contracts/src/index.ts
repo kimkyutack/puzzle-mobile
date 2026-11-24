@@ -1,3 +1,6 @@
+import type {GardenCircuitBoard,GardenCircuitPiece} from './garden-circuit';
+import type {GardenFrontierBoard,GardenFrontierPiece} from './garden-frontier';
+import type {GardenSiegeBoard,GardenSiegePiece} from './garden-siege';
 import type {GardenStageDefinition,GardenStageState} from './garden-stages';
 import type {FlowerFestivalProgress,AnimalExpeditionProgress} from './content-events';
 import type {CampaignDevice,CampaignDevicesState} from './campaign-devices';
@@ -28,7 +31,13 @@ export const CAMPAIGN_EXPANSION_ENGINE_VERSION = '1.26.0';
 export const CHAPTER_OBSTACLE_ENGINE_VERSION = '1.27.0';
 export const LAYERED_OBSTACLE_ENGINE_VERSION = '1.28.0';
 export const CONTINUOUS_REFILL_ENGINE_VERSION = '1.29.0';
-export const ENGINE_VERSION = CONTINUOUS_REFILL_ENGINE_VERSION;
+export const VARIED_OBSTACLE_ENGINE_VERSION = '1.30.0';
+export const GARDEN_SIEGE_ENGINE_VERSION = '1.31.0';
+export const GARDEN_ASSAULT_ENGINE_VERSION = '1.32.0';
+export const GARDEN_FRONTIER_ENGINE_VERSION = '1.33.0';
+export const GARDEN_CIRCUIT_ENGINE_VERSION = '1.34.0';
+export const MIXED_RAINBOW_ROCKET_ENGINE_VERSION = '1.35.0';
+export const ENGINE_VERSION = MIXED_RAINBOW_ROCKET_ENGINE_VERSION;
 export const FLOW_GRAVITY_ENGINE_VERSION = '1.10.0';
 export const ENDPOINT_PIPE_ENGINE_VERSION = '1.9.0';
 export const IMMEDIATE_GARDEN_STAGE_ENGINE_VERSION = '1.8.0';
@@ -44,11 +53,17 @@ export const GARDEN_ENGINE_VERSION = '1.3.0';
 // negotiate supportedEngineVersions, even when a newer ruleset is published.
 export const LEGACY_HEALTH_ENGINE_VERSION = GARDEN_ENGINE_VERSION;
 // Simulation rules, independent of Worker deployments and content publications.
-export const SUPPORTED_ENGINE_VERSIONS = Object.freeze([ENGINE_VERSION,LAYERED_OBSTACLE_ENGINE_VERSION,CHAPTER_OBSTACLE_ENGINE_VERSION,CAMPAIGN_EXPANSION_ENGINE_VERSION,RISING_CAMPAIGN_ENGINE_VERSION,MATCH_FIRST_ENGINE_VERSION,OBJECTIVE_POWERS_ENGINE_VERSION,VISIBLE_TARGETS_ENGINE_VERSION,CUTOUT_REFILL_ENGINE_VERSION,DENSE_GARDEN_PUZZLE_ENGINE_VERSION,GARDEN_PUZZLE_ENGINE_VERSION,PLANTER_GARDEN_ENGINE_VERSION,POWER_RAINBOW_ENGINE_VERSION,OBSTACLE_GARDEN_ENGINE_VERSION,GREENHOUSE_ENGINE_VERSION,GARDEN_WORKSHOP_ENGINE_VERSION,GLIDER_SWARM_ENGINE_VERSION,CAMPAIGN_DEVICE_ENGINE_VERSION,SEED_DELIVERY_ENGINE_VERSION,FLOW_GRAVITY_ENGINE_VERSION,ENDPOINT_PIPE_ENGINE_VERSION,IMMEDIATE_GARDEN_STAGE_ENGINE_VERSION,OPEN_GARDEN_STAGE_ENGINE_VERSION,GARDEN_STAGE_ENGINE_VERSION,BEEHIVE_ENGINE_VERSION,PERPENDICULAR_ROCKET_ENGINE_VERSION,GARDEN_ENGINE_VERSION,SCULPTED_ENGINE_VERSION,PREVIOUS_ENGINE_VERSION,LEGACY_ENGINE_VERSION]);
+export const SUPPORTED_ENGINE_VERSIONS = Object.freeze([ENGINE_VERSION,GARDEN_CIRCUIT_ENGINE_VERSION,GARDEN_FRONTIER_ENGINE_VERSION,GARDEN_ASSAULT_ENGINE_VERSION,GARDEN_SIEGE_ENGINE_VERSION,VARIED_OBSTACLE_ENGINE_VERSION,CONTINUOUS_REFILL_ENGINE_VERSION,LAYERED_OBSTACLE_ENGINE_VERSION,CHAPTER_OBSTACLE_ENGINE_VERSION,CAMPAIGN_EXPANSION_ENGINE_VERSION,RISING_CAMPAIGN_ENGINE_VERSION,MATCH_FIRST_ENGINE_VERSION,OBJECTIVE_POWERS_ENGINE_VERSION,VISIBLE_TARGETS_ENGINE_VERSION,CUTOUT_REFILL_ENGINE_VERSION,DENSE_GARDEN_PUZZLE_ENGINE_VERSION,GARDEN_PUZZLE_ENGINE_VERSION,PLANTER_GARDEN_ENGINE_VERSION,POWER_RAINBOW_ENGINE_VERSION,OBSTACLE_GARDEN_ENGINE_VERSION,GREENHOUSE_ENGINE_VERSION,GARDEN_WORKSHOP_ENGINE_VERSION,GLIDER_SWARM_ENGINE_VERSION,CAMPAIGN_DEVICE_ENGINE_VERSION,SEED_DELIVERY_ENGINE_VERSION,FLOW_GRAVITY_ENGINE_VERSION,ENDPOINT_PIPE_ENGINE_VERSION,IMMEDIATE_GARDEN_STAGE_ENGINE_VERSION,OPEN_GARDEN_STAGE_ENGINE_VERSION,GARDEN_STAGE_ENGINE_VERSION,BEEHIVE_ENGINE_VERSION,PERPENDICULAR_ROCKET_ENGINE_VERSION,GARDEN_ENGINE_VERSION,SCULPTED_ENGINE_VERSION,PREVIOUS_ENGINE_VERSION,LEGACY_ENGINE_VERSION]);
 export const LEVEL_SCHEMA_VERSION = 1;
 export const supportsEngine = (version:string)=>SUPPORTED_ENGINE_VERSIONS.some(known=>known===version);
 export const commonEngine = (client:readonly string[],server:readonly string[]=SUPPORTED_ENGINE_VERSIONS)=>client.find(version=>server.includes(version));
-export const supportsContinuousRefill = (version:string)=>version===CONTINUOUS_REFILL_ENGINE_VERSION;
+export const supportsMixedRainbowRockets = (version:string)=>version===MIXED_RAINBOW_ROCKET_ENGINE_VERSION;
+export const supportsGardenCircuit = (version:string)=>version===GARDEN_CIRCUIT_ENGINE_VERSION||supportsMixedRainbowRockets(version);
+export const supportsGardenFrontier = (version:string)=>version===GARDEN_FRONTIER_ENGINE_VERSION||supportsGardenCircuit(version);
+export const supportsGardenAssault = (version:string)=>version===GARDEN_ASSAULT_ENGINE_VERSION||supportsGardenFrontier(version);
+export const supportsGardenSiege = (version:string)=>version===GARDEN_SIEGE_ENGINE_VERSION||supportsGardenAssault(version);
+export const supportsVariedObstacles = (version:string)=>version===VARIED_OBSTACLE_ENGINE_VERSION||supportsGardenSiege(version);
+export const supportsContinuousRefill = (version:string)=>version===CONTINUOUS_REFILL_ENGINE_VERSION||supportsVariedObstacles(version);
 export const supportsLayeredObstacles = (version:string)=>version===LAYERED_OBSTACLE_ENGINE_VERSION||supportsContinuousRefill(version);
 export const supportsChapterObstacles = (version:string)=>version===CHAPTER_OBSTACLE_ENGINE_VERSION||supportsLayeredObstacles(version);
 export const supportsCampaignExpansion = (version:string)=>version===CAMPAIGN_EXPANSION_ENGINE_VERSION||supportsChapterObstacles(version);
@@ -90,12 +105,16 @@ export type Item = Booster | PreBooster;
 export type Tile = {id:number; kind:'normal';color:Color} | {id:number;kind:Special} | {id:number;kind:'seed'};
 export type ObstacleKind = 'crate'|'vine'|'pot'|'moss'|'cabinet'|'pipe'|'bud'|'carousel'|'curtain'|BreakableObstacleKind;
 export type ObstacleRule = 'shutter-open'|'shutter-closed'|'regrow'|'match-shell'|'power-shell'|'twin'|'pigment'|'directional'|'fuse';
-export interface Obstacle {id:string;kind:ObstacleKind;hp:number;maxHp:number;anchor:number;footprint:number[];color?:Color;charge?:number;seeds?:number;path?:number[];endOnly?:true;contents?:CrateContents;link?:string;cover?:PlanterCover;storedRocket?:'wind-row'|'wind-column';direction?:GardenDirection;wire?:WireLayers;rule?:ObstacleRule;pair?:number;lastHitColor?:Color;detonateAt?:number;strikeSide?:GardenDirection;chapter?:ChapterObstacle}
+export interface Obstacle {circuit?:GardenCircuitPiece;frontier?:GardenFrontierPiece;siege?:GardenSiegePiece;id:string;kind:ObstacleKind;hp:number;maxHp:number;anchor:number;footprint:number[];color?:Color;charge?:number;seeds?:number;path?:number[];endOnly?:true;contents?:CrateContents;link?:string;cover?:PlanterCover;storedRocket?:'wind-row'|'wind-column';direction?:GardenDirection;wire?:WireLayers;rule?:ObstacleRule;pair?:number;lastHitColor?:Color;detonateAt?:number;strikeSide?:GardenDirection;chapter?:ChapterObstacle}
 export interface Cell {exists:boolean;tile:Tile|null;frost:number;obstacleId?:string;exit?:boolean}
 export interface Goal {kind:Color|ObstacleKind|'frost'|'seed'|'combo'|'special'|'garden-water'|'garden-route'|'device';count:number;remaining:number}
 export type CampaignBeat='introduction'|'practice'|'easy'|'normal'|'hard'|'super'|'celebration';
 export interface CampaignPosition {pack:number;position:number;beat:CampaignBeat;lesson?:ObstacleKind;phase:1|2|3|4|5}
 export interface LevelDefinition {
+ circuit?:GardenCircuitBoard;
+ frontier?:GardenFrontierBoard;
+ journey?:{stage:1|2;next?:LevelDefinition};
+ siege?:GardenSiegeBoard;
  powerRainbow?:true;
  goldGarden?:true;
  gardenStage?:GardenStageDefinition;
@@ -112,6 +131,10 @@ export interface LevelDefinition {
 }
 export interface LevelPreview {schemaVersion:number;contentVersion:string;level:LevelDefinition;levelHash?:string}
 export interface GameState {
+ circuit?:GardenCircuitBoard;
+ frontier?:GardenFrontierBoard;
+ journey?:{stage:1|2;next?:LevelDefinition};
+ siege?:GardenSiegeBoard;
  powerRainbow?:true;
  goldGarden?:{coinCells:number[]};
  gardenStage?:GardenStageState;
@@ -122,12 +145,14 @@ export interface GameState {
  status:'playing'|'won'|'lost'|'error';error?:string;colors:Color[];gravity:number[][];
 }
 export type Action = {type:'swap';from:number;to:number}|{type:'tap';at:number}|{type:'booster';item:Booster;at?:number}|{type:'continue';moves:5};
-export interface GameEvent {type:'swap'|'invalid'|'hit'|'remove'|'spawn'|'fall'|'special'|'shuffle'|'win'|'lose'|'moss'|'error'|'mechanic';cells:number[];kind?:string;effectId?:number;from?:number;to?:number;inlet?:number;localRefill?:true;obstacleId?:string;obstacleAfter?:Obstacle|null;payload?:Special;routes?:number[][];powered?:true}
+export interface GameEvent {chainId?:number;step?:number;type:'swap'|'invalid'|'hit'|'remove'|'spawn'|'fall'|'special'|'shuffle'|'win'|'lose'|'moss'|'error'|'mechanic';cells:number[];kind?:string;effectId?:number;from?:number;to?:number;inlet?:number;localRefill?:true;obstacleId?:string;obstacleAfter?:Obstacle|null;payload?:Special;routes?:number[][];powered?:true}
 export interface ActionResult {state:GameState;events:GameEvent[];accepted:boolean;reason?:string}
 export interface InventoryCount {normal:number;bound:number}
 export const APP_LOCALES = ['ko','en','ja'] as const;
 export type AppLocale = typeof APP_LOCALES[number];
 export interface Player {
+ /** Server-owned three-stage starting gift, independent from the enhanced lantern streak. */
+ startGiftStreak?:number;
  profileAppearance?:ProfileAppearance;
  winStreak?:number;
  usedStartBoosterTrial?:true;
@@ -137,11 +162,12 @@ export interface Player {
  hiddenPowerMission?:HiddenPowerMissionState;
  gardenGames?:Partial<Record<GardenGameId,GardenGameProgress>>;
  id:string;nickname:string;level:number;coins:number;boundCoins:number;stars:number;hearts:number;
- heartAt:number;unlimitedUntil:number;freeClaimAt:number;version:number;
+ heartAt:number;unlimitedUntil:number;freeClaimAt:number;version:number;weeklyEventKey?:string;
  inventory:Record<Item,InventoryCount>;restored:string[];tutorials:string[];settings:{sound:boolean;music:boolean;haptics:boolean;reducedMotion:boolean;language:AppLocale};
  guildId:string|null;passPoints:number;
 }
 export interface Run {
+ startGift?:import('./start-gift').StartGift;
  usedStartBoosterTrial?:true;
  /** Authoritative activation totals, outside the deterministic board state. */
  powerUses?:PowerUseCounts;
@@ -151,7 +177,7 @@ export interface Run {
  heartCharge?:'failure'|'protected';
  /** A server-authorized free starting item window; does not cover in-game tools. */
  startBoosterFreeUntil?:number;
- reward?:{coins:number;stars:number;items?:Partial<Record<Item,number>>;flowerPetals?:number;powerRainbowUnlocked?:true};
+ reward?:{coins:number;stars:number;items?:Partial<Record<Item,number>>;flowerPetals?:number;powerRainbowUnlocked?:true;startGiftStage?:number};
 }
 export interface Envelope<T> {data:T;serverNow:number;stateVersion:number}
 export interface ApiError {error:{code:string;message:string};serverNow:number}
@@ -166,9 +192,9 @@ export function freeStartTrialItem(level:LevelDefinition|undefined,player:Player
 export interface ActionRequest {idempotencyKey:string;sequence:number;actions:Action[]}
 export interface Gift {id:string;senderName:string;kind:'heart'|Item;quantity:number;bound:boolean;createdAt:number}
 export interface Guild {id:string;name:string;description:string;mode:'open'|'approval';minLevel:number;emblem:number;members:number}
-export interface GuildMember {userId:string;nickname:string;role:'leader'|'officer'|'member';level:number;contribution:number}
+export interface GuildMember {userId:string;nickname:string;role:'leader'|'officer'|'member';level:number;contribution:number;profileAppearance?:ProfileAppearance}
 export interface SupportRequest {id:string;userId:string;nickname:string;kind:'heart'|Booster;received:number;maximum:number;expiresAt:number}
-export interface ChatMessage {id:string;userId:string;nickname:string;text:string;createdAt:number}
+export interface ChatMessage {id:string;userId:string;nickname:string;text:string;createdAt:number;gardenInvite?:{ownerId:string}}
 export type AdPlacement = 'heart'|'coin_bonus';
 export interface AdRewardQuota {limit:number;remaining:number;resetsAt:number}
 export type AdRewardQuotas=Record<AdPlacement,AdRewardQuota>;
@@ -196,7 +222,7 @@ export interface FriendsResponse {
 }
 export interface RankingEntry {
  id:string;name:string;rank:number|null;position:number|null;score:number;tied:boolean;isMine:boolean;
- emblem?:number;members?:number;
+ emblem?:number;members?:number;profileAppearance?:ProfileAppearance;
 }
 export interface RankingsResponse {
  scope:RankingScope;metric:'highest_clear'|'member_highest_sum';entries:RankingEntry[];me:RankingEntry|null;
@@ -232,12 +258,14 @@ export interface MissionProgress extends MissionDefinition {progress:number;clai
 export interface MissionWindow {id:string;endsAt:number;missions:MissionProgress[]}
 export interface TreasurePair {first:number;second:number}
 export interface TreasureAttempt {id:string;day:string;deck:Color[];maxTurns:number;startedAt:number;expiresAt:number;status:'playing'|'won'|'lost';reward?:ActivityReward}
-export interface NotificationCounts {flowerlight?:number;expedition?:number;festival?:number;missions:number;events:number;pass:number;gifts:number;friends:number;guild:number;minigame:number;shop:number}
+export interface NotificationCounts {invitation?:number;flowerlight?:number;expedition?:number;festival?:number;missions:number;events:number;pass:number;gifts:number;friends:number;guild:number;minigame:number;shop:number}
+export interface SeasonEventReward extends ActivityReward {stars:number}
+export interface SeasonEventProgress {progress:number;target:number;coins:number;claimed:boolean;reward?:SeasonEventReward}
 export interface EventRewardState {
  daily:{available:boolean;coins:number;nextReset:number};
  season:{id:string;ends_at:number}|null;
- personal:{progress:number;target:number;coins:number;claimed:boolean};
- guild:{progress:number;target:number;coins:number;claimed:boolean};
+ personal:SeasonEventProgress;
+ guild:SeasonEventProgress;
  pass:{points:number;premium:boolean;tiers:Array<{tier:number;points:number;freeClaimed:boolean;premiumClaimed:boolean}>;guildGifts:Array<{seasonId:string;sent:boolean}>};
 }
 export interface ProgressionResponse {

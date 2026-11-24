@@ -1,3 +1,9 @@
+import {gardenCircuitLevel} from '../../../packages/content/src/garden-circuit';
+import {campaignPressureLevel} from '../../../packages/content/src/campaign-pressure';
+import {gardenFrontierLevel} from '../../../packages/content/src/garden-frontier';
+import {gardenAssaultLevel} from '../../../packages/content/src/garden-assault';
+import {gardenSiegeLevel} from '../../../packages/content/src/garden-siege';
+import {variedCampaignLevel} from '../../../packages/content/src/varied-campaign';
 import {midgameBalancedLevel} from '../../../packages/content/src/midgame-balance';
 import {earlyBalancedLevel} from '../../../packages/content/src/early-balance';
 import {earlyMidBalancedLevel} from '../../../packages/content/src/early-mid-balance';
@@ -27,7 +33,7 @@ import {withRefillCorridors} from '../../../packages/content/src/refill-corridor
 import {digest,ensure,HttpError,readPlayer,type ApiEnv} from './db';
 
 const version=z.string().min(1).max(32);
-const capabilities=z.object({engineVersion:version.optional(),supportedEngineVersions:z.array(version).min(1).max(32).optional(),levelHash:z.string().regex(/^[a-f0-9]{64}$/).optional()});
+const capabilities=z.object({engineVersion:version.optional(),supportedEngineVersions:z.array(version).min(1).max(64).optional(),levelHash:z.string().regex(/^[a-f0-9]{64}$/).optional()});
 export function engineRequest(body:Record<string,unknown>){
  const input=capabilities.parse(body),supported=input.supportedEngineVersions;
  const requested=input.engineVersion??LEGACY_ENGINE_VERSION;
@@ -53,6 +59,10 @@ export function publishedLevel(id:number,engineVersion:string){
   level=layeredCampaignLevel(prepared);
   if(level!==prepared)level=startBoosterChallenge(level,true);
   level=withRefillCorridors(level);
+  const revised=variedCampaignLevel(level);
+  if(revised!==level)level=startBoosterChallenge(revised,true);
+  level=gardenCircuitLevel(gardenFrontierLevel(gardenAssaultLevel(gardenSiegeLevel(level))));
+  level=campaignPressureLevel(level);
  }catch(error){
   if(error instanceof Error&&error.message==='LEVEL_CONTENT_PENDING')throw new HttpError('CONTENT_NOT_READY','새 퍼즐을 준비 중이에요. 잠시 후 다시 확인해 주세요.',503);
   if(error instanceof Error&&error.message==='INVALID_LEVEL_ID')throw new HttpError('CAMPAIGN_COMPLETE','모든 퍼즐을 완료했어요!',409);

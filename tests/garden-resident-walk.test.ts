@@ -50,7 +50,7 @@ describe('four diagonal resident walks',()=>{
  it('keeps tall animal artwork at resident scale and anchored at its feet',()=>{
   const bottom={x:140,y:200},tileWidth=64;
   const bounds=residentArtBounds({width:413,height:640},bottom,tileWidth,true);
-  expect(bounds.height).toBeCloseTo(tileWidth*1.02);
+  expect(bounds.height).toBeCloseTo(tileWidth*.465);
   expect(bounds.width/bounds.height).toBeCloseTo(413/640);
   expect(bounds.x+bounds.width/2).toBeCloseTo(bottom.x);
   expect(bounds.y+bounds.height*.98).toBeCloseTo(bottom.y);

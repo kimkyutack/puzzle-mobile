@@ -1,0 +1,6 @@
+Mode: built-in imagegen. Targets: shelf-vase, bloom-bud.
+Edit: remove all backdrop and colored haze around the six sprites and in every gutter. Every exterior pixel exactly alpha zero. Preserve only physical game objects and matching fragments, their colors, shapes, damage states, scale and 3-column x2-row layout. No background, ambient gradient, glow, floor, rectangle, shadow field or casing. Preserve antialiasing only at the physical silhouette.
+
+Rotating-shelf: initial background-removal edit rejected by alpha audit. Regenerated using open-shared-prompt.txt and open-definitions.json subject, with packages/assets/source/pot.png as material-only style reference.
+Additional prompt: NEW six-sprite sheet on completely empty transparent alpha. Background alpha exactly zero, no gradient/glow/background colors/white backdrop. Two circular wooden shelves around a central brass spindle with crank. Only isolated physical object and three broken pieces exist.
+All final sources pass min-alpha, clear-gutter, gutter-alpha and exterior-corner-alpha checks. Keep alpha intact.

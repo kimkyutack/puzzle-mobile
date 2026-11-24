@@ -19,3 +19,9 @@ android/app/build/
 playwright-report/
 test-results/
 hiddenstage-studio/
+
+# Local assistant sessions, attachments and browser verification output
+.claude/
+.codex-attachments/
+.playwright-cli/
+tests/.scratch/

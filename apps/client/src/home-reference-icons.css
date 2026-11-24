@@ -1,0 +1,96 @@
+/* Measured against the selected 390×844 concept, using the shipped Jua/Lilita faces. */
+.home-command-home,.command-navigation{--home-reference-ui:'Jua','Arial Rounded MT Bold',sans-serif;--home-reference-display:'Lilita One','Jua',sans-serif}
+.home-command-home .home-command-dock .home-utility-menu>button{min-height:79px;gap:2px}
+.home-command-home .home-command-dock .home-utility-menu>button>img{width:48px;height:48px;object-fit:contain;margin:0;flex:none}
+.home-command-home .home-command-dock .home-utility-menu>button>img[data-home-icon="unlimited"]{width:38px;height:38px;margin:5px 0}
+.home-command-home .home-command-dock .home-utility-menu>button>img[data-home-icon="rescue"]{width:40px;height:40px;margin:5px 0 3px}
+.home-command-home .home-command-dock .home-utility-menu>button>span:not(.reward-dot):not(.raster-frame-face){font-family:var(--home-reference-ui);font-size:14px;line-height:16px;min-height:28px;letter-spacing:.1px;font-weight:400;color:#183a64;-webkit-text-stroke:.28px #183a64;paint-order:stroke fill;text-shadow:none}
+.home-command-home .home-command-dock .home-utility-menu .hub-menu-time{top:34px;height:13px;min-height:13px;left:1px;right:1px;font-family:var(--font-game-number);font-size:8px;line-height:11px}
+.home-command-home .home-command-dock .home-utility-menu .hub-menu-time>strong{font-size:8px;line-height:11px}
+.home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label{font-family:var(--home-reference-display);font-size:28px;line-height:32px;letter-spacing:.1px;color:#fffefa;-webkit-text-stroke:1px #2c650d;paint-order:stroke fill;text-shadow:0 2px 0 #356d14,0 3px 2px #225b1559;gap:7px}
+.home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label>.icon[data-home-icon="play"]{width:20px;height:24px;object-fit:contain}
+.home-command-home .home-command-dock .hub-main-actions>.hub-build>.button-label{font-family:var(--home-reference-display);font-size:19px;line-height:24px;letter-spacing:.3px;color:#fffefa;-webkit-text-stroke:.9px #a34326;paint-order:stroke fill;text-shadow:0 2px 0 #ae492b,0 3px 2px #7d291638;gap:5px}
+.home-command-home .home-command-dock .hub-build>.button-label>.icon{width:38px;height:39px;object-fit:contain}
+.home-command-home .hub-header .hub-counter strong{font-family:var(--home-reference-display);font-size:18px;line-height:22px;letter-spacing:.1px;font-weight:400}
+.home-command-home .hub-header .hub-counter>.icon{width:31px;height:32px}
+.home-command-home .hub-header .ops-settings-wrap>.icon-button>.icon{width:35px;height:36px;object-fit:contain}
+.home-command-home .hub-avatar>.icon{width:43px;height:43px;object-fit:contain}
+.home-command-home .home-floating-mail>.icon{width:48px;height:46px;object-fit:contain}
+.home-command-home .home-rewards-row .home-gift-chip-title{font-family:var(--home-reference-ui);font-size:10px;line-height:12px;-webkit-text-stroke:.12px #243c63;paint-order:stroke fill}
+.home-command-home .home-rewards-row .home-gift-chip-stage{font-family:var(--home-reference-display);font-size:15px;line-height:18px}
+.home-command-home .home-rewards-row .home-gift-chip>.icon{width:27px;height:29px;object-fit:contain}
+.home-command-home .home-rewards-row .home-rainbow-chip>.icon{width:26px;height:26px}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>.icon{width:32px;height:32px}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>span:not(.raster-frame-face){font-size:12px;line-height:15px;font-family:var(--home-reference-ui);-webkit-text-stroke:.2px #fff;paint-order:stroke fill}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>small{font-size:9px;line-height:12px}
+.home-command-home .home-promotions{flex-direction:column;gap:4px}
+.home-command-home .home-promotions>.home-promotion{width:80px;height:84px;min-height:84px}
+.home-command-home .home-promotions>.home-promotion>.icon{width:80px;height:80px}
+.home-command-home .home-promotions>.home-promotion>.home-promotion-time{top:44px;left:9px;right:9px;height:18px;background:none;font-size:12px;line-height:16px;font-family:var(--home-reference-display);white-space:nowrap;text-shadow:0 1px #9c2348}
+.home-command-home .home-promotions>.home-promotion>span{position:absolute;top:61px;left:0;right:0;min-height:17px;margin:0;font-family:var(--home-reference-ui);font-size:12px;line-height:16px;color:#fffefa;letter-spacing:0;white-space:nowrap;-webkit-text-stroke:.25px #7b174c;paint-order:stroke fill;text-shadow:0 1px 1px #690f4a}
+.command-navigation .hub-footer .hub-nav-item{height:72px;padding-top:3px;padding-bottom:5px;gap:1px}
+.command-navigation .hub-footer .hub-nav-item>.icon{width:46px;height:46px;object-fit:contain}
+.command-navigation .hub-footer .hub-nav-item>span:not(.home-active-tab-face):not(.hub-new-event-label){font-family:var(--home-reference-ui);font-size:14.5px;line-height:18px;font-weight:400;letter-spacing:.1px;color:#183a64;-webkit-text-stroke:.24px #183a64;paint-order:stroke fill;text-shadow:none}
+.command-navigation .hub-footer .hub-nav-home{height:80px;max-width:65px;gap:1px}
+.command-navigation .hub-footer .hub-nav-home>.icon{width:50px;height:50px}
+.command-navigation .hub-footer .hub-nav-home>span:not(.home-active-tab-face){font-size:17px;line-height:20px;color:#fffefa;-webkit-text-stroke:.6px #1662ae;text-shadow:0 1px 1px #1260a5}
+.command-navigation .hub-footer .hub-new-event-label{font-size:10px;line-height:13px}
+@media(max-width:370px){
+ .home-command-home .home-command-dock .home-utility-menu>button>span:not(.reward-dot):not(.raster-frame-face){font-size:11px;line-height:13px;min-height:26px;-webkit-text-stroke:.2px #183a64}
+ .home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label{font-size:24px;line-height:28px;gap:4px;-webkit-text-stroke:.85px #2c650d}
+ .home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label>.icon[data-home-icon="play"]{width:17px;height:20px}
+ .home-command-home .home-command-dock .hub-main-actions>.hub-build>.button-label{font-size:16px;line-height:20px;gap:3px;letter-spacing:.1px;-webkit-text-stroke:.7px #a34326}
+ .home-command-home .home-command-dock .hub-build>.button-label>.icon{width:30px;height:33px}
+ .home-command-home .hub-header .hub-counter strong{font-size:16px;line-height:20px}
+ .home-command-home .hub-header .hub-counter>.icon{width:28px;height:30px}
+ .home-command-home .hub-header .ops-settings-wrap>.icon-button>.icon{width:32px;height:33px}
+ .home-command-home .hub-avatar>.icon{width:37px;height:39px}
+ .home-command-home .home-rewards-row .home-gift-chip-title{font-size:8px;line-height:10px}
+ .home-command-home .home-rewards-row .home-gift-chip-stage{font-size:13px;line-height:16px}
+ .home-command-home .home-rewards-row .home-gift-chip>.icon{width:23px;height:27px}
+ .home-command-home .home-rewards-row .home-rainbow-chip>.icon{width:22px;height:24px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut>.icon{width:25px;height:28px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut>span:not(.raster-frame-face){font-size:10px;line-height:13px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut>small{font-size:7px}
+}
+@media(max-height:760px){
+ .home-command-home .home-command-dock .home-utility-menu>button{min-height:69px}
+ .home-command-home .home-command-dock .home-utility-menu>button>img{width:42px;height:42px}
+ .home-command-home .home-command-dock .home-utility-menu>button>img[data-home-icon="unlimited"]{width:34px;height:34px;margin:4px 0}
+ .home-command-home .home-command-dock .home-utility-menu>button>img[data-home-icon="rescue"]{width:35px;height:35px;margin:5px 0 2px}
+ .home-command-home .home-command-dock .home-utility-menu .hub-menu-time{top:29px;height:12px;min-height:12px;font-size:7px;line-height:10px}
+ .home-command-home .home-command-dock .home-utility-menu .hub-menu-time>strong{font-size:7px;line-height:10px}
+ .command-navigation .hub-footer .hub-nav-item{height:65px}
+ .command-navigation .hub-footer .hub-nav-item>.icon{width:40px;height:40px}
+ .command-navigation .hub-footer .hub-nav-item>span:not(.home-active-tab-face):not(.hub-new-event-label){font-size:12.5px;line-height:16px}
+ .command-navigation .hub-footer .hub-nav-home{height:72px}
+ .command-navigation .hub-footer .hub-nav-home>.icon{width:44px;height:44px}
+ .command-navigation .hub-footer .hub-nav-home>span:not(.home-active-tab-face){font-size:15px;line-height:18px}
+}
+.home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label>.icon[data-home-icon="play"]{width:26px;height:26px}
+.home-command-home .home-command-dock .hub-main-actions[aria-busy="true"]>.hub-play>.button-label{font-size:18px;line-height:22px}
+.home-command-home .home-command-dock .hub-main-actions>.hub-play.is-resume>.button-label{font-size:23px;line-height:27px}
+.home-command-home .hub-avatar>.custom-profile-image{object-fit:cover}
+@media(max-width:370px){
+ .home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label>.icon[data-home-icon="play"]{width:22px;height:22px}
+ .home-command-home .home-command-dock .hub-main-actions[aria-busy="true"]>.hub-play>.button-label{font-size:16px;line-height:20px}
+ .home-command-home .home-command-dock .hub-main-actions>.hub-play.is-resume>.button-label{font-size:20px;line-height:24px}
+}
+
+.home-command-home .home-command-dock .home-utility-menu .home-label-word{display:block;white-space:nowrap;overflow-wrap:normal}
+.home-command-home .home-command-dock .hub-play>.button-label{flex-wrap:nowrap;white-space:nowrap}
+.home-command-home .home-rewards-row .home-gift-chip-title{font-size:9px;white-space:nowrap}
+.home-command-home .home-rewards-row>.home-rainbow-chip{min-width:50px;width:50px}
+.home-command-home .home-rewards-row>.hub-festival-shortcut{flex:none;width:90px}
+@media(max-width:370px){
+ .home-command-home .home-command-dock .hub-main-actions>.hub-play>.button-label{font-size:22px;line-height:26px}
+ .home-command-home .home-rewards-row .home-gift-chip.is-compact{display:grid;grid-template-columns:23px minmax(0,1fr) 20px;grid-template-rows:10px 16px;column-gap:3px;row-gap:1px}
+ .home-command-home .home-rewards-row .home-gift-chip>.icon{grid-column:1;grid-row:1/3}
+ .home-command-home .home-rewards-row .home-gift-chip-title{grid-column:2/4;grid-row:1;font-size:8px;line-height:10px;justify-self:start}
+ .home-command-home .home-rewards-row .home-gift-chip-stage{grid-column:2;grid-row:2;justify-self:start}
+ .home-command-home .home-rewards-row .home-gift-chip>.streak-gift-powers{grid-column:2/4;grid-row:2;justify-self:end}
+ .home-command-home .home-rewards-row>.home-rainbow-chip{min-width:46px;width:46px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut{width:77px}
+}
+.command-navigation .hub-footer .hub-nav-item.hub-nav-home>span:not(.home-active-tab-face):not(.hub-new-event-label){font-size:17px;line-height:20px;color:#fffefa;-webkit-text-stroke:.6px #1662ae;paint-order:stroke fill;text-shadow:0 1px 1px #1260a5}
+@media(max-height:760px){.command-navigation .hub-footer .hub-nav-item.hub-nav-home>span:not(.home-active-tab-face):not(.hub-new-event-label){font-size:15px;line-height:18px}}

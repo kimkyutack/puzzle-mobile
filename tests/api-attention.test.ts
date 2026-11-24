@@ -1,3 +1,4 @@
+import {configuredExpeditionRound} from '../packages/content/src/animal-expedition';
 import {DatabaseSync,type SQLInputValue} from 'node:sqlite';
 import {readFileSync,readdirSync} from 'node:fs';
 import {beforeEach,afterEach,describe,it,expect,vi} from 'vitest';
@@ -16,7 +17,7 @@ class Statement{
  execute(){return {success:true,results:this.db.prepare(this.query).all(...this.args),meta:{changes:0}}}
  async all(){return this.execute()}async run(){return this.execute()}
 }
-const now=Date.parse('2026-11-09T04:00:00Z'),user='attention-api-qa';let db:DatabaseSync,env:ApiEnv,player:Player;
+const now=Date.parse('2026-11-16T04:00:00Z'),user='attention-api-qa';let db:DatabaseSync,env:ApiEnv,player:Player;
 beforeEach(()=>{
  vi.spyOn(Date,'now').mockReturnValue(now);db=new DatabaseSync(':memory:');for(const file of readdirSync('apps/api/migrations').filter(name=>name.endsWith('.sql')).sort())db.exec(readFileSync('apps/api/migrations/'+file,'utf8'));
  env={DB:{prepare:(query:string)=>new Statement(db,query),batch:async(statements:Statement[])=>{db.exec('BEGIN');try{const results=statements.map(s=>s.execute());db.exec('COMMIT');return results}catch(error){db.exec('ROLLBACK');throw error}}}} as unknown as ApiEnv;
@@ -51,7 +52,7 @@ describe('authoritative progression attention with production SQL and migrations
   db.prepare("UPDATE treasure_attempts SET status='lost' WHERE id='attempt-3'").run();result=await progression(env,user);expect(result.notifications.minigame).toBe(0);
  });
  it('keeps partially completed expeditions marked and clears completed or expired content without rewards',async()=>{
-  player.animalExpedition={roundId:'panda:001',animal:'panda',completedStages:2,completedAttempts:[]};player.flowerFestival={id:FLOWERLIGHT_ID,startedAt:now-86400000,endsAt:now-1,petals:0,restoredStages:0};player.powerFestival={id:'ended',day:missionPeriod('daily',now).id,startedAt:now-3600000,endsAt:now-1,counts:emptyPowerUses(),claimedStages:0};save();let result=await progression(env,user);expect(result.notifications).toMatchObject({expedition:1,flowerlight:0,festival:0});
+  player.animalExpedition={roundId:configuredExpeditionRound(undefined,now).roundId,animal:'panda',completedStages:2,completedAttempts:[]};player.flowerFestival={id:FLOWERLIGHT_ID,startedAt:now-86400000,endsAt:now-1,petals:0,restoredStages:0};player.powerFestival={id:'ended',day:missionPeriod('daily',now).id,startedAt:now-3600000,endsAt:now-1,counts:emptyPowerUses(),claimedStages:0};save();let result=await progression(env,user);expect(result.notifications).toMatchObject({expedition:1,flowerlight:0,festival:0});
   player.animalExpedition.completedStages=10;save();result=await progression(env,user);expect(result.notifications.expedition).toBe(0);
  });
  it('provides gift categories so a locally replenished full heart cannot leave a false gift dot',async()=>{

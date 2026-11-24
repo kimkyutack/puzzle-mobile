@@ -2,6 +2,8 @@ import type {RuntimeSettings} from '../../../packages/contracts/src/operations';
 import {shopPrices} from './operations';
 import { PRODUCTS, RESTORATIONS } from '@garden/content';
 import {projectLiveGarden} from '../../../packages/garden-world/src/live';
+import {applyTrustedDecorationGrant} from '../../../packages/garden-world/src';
+import {passPrize,type PassPrize,type PassTrack} from '../../../packages/contracts/src/pass-rewards';
 import {stored as storedGarden,save as saveGarden} from './garden-world';
 import { SHOP_ITEM_MAX_QUANTITY, type Gift, type Item, type Player, type PassClaimAllResponse } from '@garden/contracts';
 import { z } from 'zod';
@@ -9,6 +11,7 @@ import { assertSQL, day, ensure, mutate, one, operationKey, PRICES, readPlayer, 
 import { itemSchema } from './validation';
 import {ATTENDANCE_DAILY_COINS,attendanceProgress} from './attendance';
 import {monthlyBundlePurchase} from './offers';
+import {SEASON_EVENT_GOALS} from '../../../packages/content/src/season-event';
 
 export async function freeUnlimited(env:ApiEnv,userId:string,body:Record<string,unknown>){
   return mutate(env,userId,operationKey(body),'hearts:free',tx=>{
@@ -95,7 +98,7 @@ export async function events(env:ApiEnv,userId:string){
   const premium=season?!!await one(env.DB,'SELECT 1 FROM season_owners WHERE user_id=? AND season_id=?',userId,season.id):false;
   const guildClears=p.guildId&&season?await one<{n:number}>(env.DB,'SELECT count(*) n FROM level_rewards r JOIN guild_members m ON r.user_id=m.user_id WHERE m.guild_id=? AND r.created_at>=MAX(?,m.joined_at) AND r.created_at<?',p.guildId,season.starts_at,season.ends_at):null;
   const vouchers=await rows<{seasonId:string}>(env.DB,"SELECT o.season_id seasonId FROM season_owners o JOIN reward_claims r ON r.user_id=o.user_id AND r.kind='pass:premium' AND r.source_id=o.season_id||':30' WHERE o.user_id=?",userId);
-  return {attendance:attendanceProgress(claims.filter(c=>c.kind==='daily').map(c=>c.source_id),day(now)),dailyClaimed:claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),daily:{available:!claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),coins:ATTENDANCE_DAILY_COINS,nextReset:(day(now)+1)*86_400_000},season,pass:{points:(clears?.n??0)*10,premium,guildGifts:vouchers.map(v=>({seasonId:v.seasonId,item:'hammer',quantityPerMember:1,sent:claims.some(c=>c.kind==='pass:guild-gift'&&c.source_id===v.seasonId)})),tiers:Array.from({length:30},(_,i)=>({tier:i+1,points:(i+1)*10,free:{coins:25},premium:{coins:75,hammer:(i+1)%5===0?1:0,decoration:i===14?{id:'season-gardener',name:'시즌 정원사 문장',asset:'star'}:null,guildGift:i===29?{item:'hammer',quantityPerMember:1}:null},freeClaimed:claims.some(c=>c.kind==='pass:free'&&c.source_id===`${season?.id}:${i+1}`),premiumClaimed:claims.some(c=>c.kind==='pass:premium'&&c.source_id===`${season?.id}:${i+1}`)}))},personal:{progress:clears?.n??0,target:10,coins:300,claimed:claims.some(c=>c.kind==='personal'&&c.source_id===season?.id)},guild:{progress:guildClears?.n??0,target:30,coins:100,claimed:claims.some(c=>c.kind==='guild'&&c.source_id===season?.id)}};
+  return {attendance:attendanceProgress(claims.filter(c=>c.kind==='daily').map(c=>c.source_id),day(now)),dailyClaimed:claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),daily:{available:!claims.some(c=>c.kind==='daily'&&c.source_id===String(day(now))),coins:ATTENDANCE_DAILY_COINS,nextReset:(day(now)+1)*86_400_000},season,pass:{points:(clears?.n??0)*10,premium,guildGifts:vouchers.map(v=>({seasonId:v.seasonId,item:'hammer',quantityPerMember:1,sent:claims.some(c=>c.kind==='pass:guild-gift'&&c.source_id===v.seasonId)})),tiers:Array.from({length:30},(_,i)=>({tier:i+1,points:(i+1)*10,free:passRewardView(i+1,'free',claims,season?.id),premium:passRewardView(i+1,'premium',claims,season?.id),freeClaimed:claims.some(c=>c.kind==='pass:free'&&c.source_id===`${season?.id}:${i+1}`),premiumClaimed:claims.some(c=>c.kind==='pass:premium'&&c.source_id===`${season?.id}:${i+1}`)}))},personal:{progress:clears?.n??0,target:SEASON_EVENT_GOALS.personal.target,coins:SEASON_EVENT_GOALS.personal.reward.coins,reward:SEASON_EVENT_GOALS.personal.reward,claimed:claims.some(c=>c.kind==='personal'&&c.source_id===season?.id)},guild:{progress:guildClears?.n??0,target:SEASON_EVENT_GOALS.guild.target,coins:SEASON_EVENT_GOALS.guild.reward.coins,reward:SEASON_EVENT_GOALS.guild.reward,claimed:claims.some(c=>c.kind==='guild'&&c.source_id===season?.id)}};
 }
 export async function profileDecorations(env:ApiEnv,userId:string){
   const earned=await rows<{seasonId:string}>(env.DB,"SELECT o.season_id seasonId FROM season_owners o JOIN reward_claims r ON r.user_id=o.user_id AND r.kind='pass:premium' AND r.source_id=o.season_id||':15' WHERE o.user_id=? ORDER BY r.created_at DESC",userId);
@@ -129,18 +132,36 @@ export async function passClaim(env:ApiEnv,userId:string,body:Record<string,unkn
     ensure(ev.pass.points>=tier*10,'PASS_POINTS','더 많은 퍼즐을 완료해 주세요.');ensure(track==='free'||ev.pass.premium,'PASS_REQUIRED','유료 보상선은 정원 패스가 필요합니다.');
     const source=`${ev.season.id}:${tier}`;ensure(!await one(tx.db,'SELECT 1 FROM reward_claims WHERE user_id=? AND kind=? AND source_id=?',userId,`pass:${track}`,source),'ALREADY_CLAIMED','이미 받은 보상입니다.',409);
     assertPassEligibility(tx,userId,ev.season,tier,track==='premium');
-    grantPassReward(tx,userId,ev.season.id,tier,track);return {player:tx.player};
+    const world=await grantPassRewards(tx,userId,ev.season.id,[{tier,track}]);return {player:tx.player,...(world?{world}:{})};
   });
 }
 function assertPassEligibility(tx:MutationContext,userId:string,season:Season,tier:number,premium:boolean){
   tx.statements.push(assertSQL(tx.db,'SELECT id=? FROM seasons WHERE starts_at<=? AND ends_at>? ORDER BY starts_at DESC LIMIT 1',season.id,tx.now,tx.now),assertSQL(tx.db,'SELECT count(*)>=? FROM level_rewards WHERE user_id=? AND created_at>=? AND created_at<?',tier,userId,season.starts_at,season.ends_at));
   if(premium)tx.statements.push(assertSQL(tx.db,'SELECT EXISTS(SELECT 1 FROM season_owners WHERE user_id=? AND season_id=?)',userId,season.id));
 }
-function grantPassReward(tx:MutationContext,userId:string,seasonId:string,tier:number,track:'free'|'premium'){
-  const source=`${seasonId}:${tier}`;
-  tx.player.coins+=track==='free'?25:75;if(track==='premium'&&tier%5===0)tx.player.inventory.hammer.normal++;
-  if(track==='premium'&&(tier===15||tier===30))tx.statements.push(sql(tx.db,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),userId,tier===15?'profile:season-gardener':'pass:guild-gift-voucher',1,'pass:claim',source,tx.now));
-  tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:${track}`,source,tx.now));
+function passRewardView(tier:number,track:PassTrack,claims:Array<{kind:string;source_id:string}>,seasonId:string|undefined){
+ const source=`${seasonId}:${tier}`,claimed=claims.some(c=>c.kind===`pass:${track}`&&c.source_id===source),current=!claimed||claims.some(c=>c.kind===`pass:reward-v2:${track}`&&c.source_id===source);
+ const reward:PassPrize=current?passPrize(tier,track):{kind:'coins',quantity:track==='free'?25:75};
+ return {reward,coins:reward.kind==='coins'?reward.quantity:0,hammer:reward.kind==='item'&&reward.item==='hammer'?reward.quantity:!current&&track==='premium'&&tier%5===0?1:0,decoration:reward.kind==='profile'||!current&&track==='premium'&&tier===15?{id:'season-gardener',name:'시즌 정원사 문장',asset:'star'}:null,guildGift:reward.kind==='guild-gift'||!current&&track==='premium'&&tier===30?{item:'hammer' as const,quantityPerMember:1}:null};
+}
+async function grantPassRewards(tx:MutationContext,userId:string,seasonId:string,claims:Array<{tier:number;track:PassTrack}>){
+ const decorations:Array<{itemId:string;grantId:string}>=[];
+ for(const {tier,track}of claims){
+  const source=`${seasonId}:${tier}`,reward=passPrize(tier,track);
+  if(reward.kind==='coins')tx.player.coins+=reward.quantity;
+  else if(reward.kind==='item'){
+   tx.player.inventory[reward.item].normal+=reward.quantity;
+   tx.statements.push(sql(tx.db,'INSERT INTO inventory_lots VALUES(?,?,?,?,?,?,?)',uid(),userId,reward.item,0,reward.quantity,`pass:${source}:${track}`,tx.now));
+  }else if(reward.kind==='decoration')decorations.push({itemId:reward.itemId,grantId:`pass:${source}:${track}`});
+  else tx.statements.push(sql(tx.db,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),userId,reward.kind==='profile'?'profile:season-gardener':'pass:guild-gift-voucher',1,'pass:claim',source,tx.now));
+  tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:${track}`,source,tx.now),sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:reward-v2:${track}`,source,tx.now));
+ }
+ if(decorations.length){
+  const row=await one<{revision:number;data:string}>(tx.db,'SELECT revision,data FROM garden_worlds WHERE user_id=?',userId);
+  let world=projectLiveGarden(tx.player,row?JSON.parse(row.data):null);
+  for(const {itemId,grantId}of decorations)world=applyTrustedDecorationGrant(world,{ownerId:userId,grantId,itemId,variant:'classic',source:'event',instanceIds:[grantId]});
+  saveGarden(tx,row,world);return world;
+ }
 }
 const passClaimAllInput=z.object({key:z.string().optional(),idempotencyKey:z.string().optional()}).strict();
 export async function passClaimAll(env:ApiEnv,userId:string,body:Record<string,unknown>):Promise<PassClaimAllResponse>{
@@ -160,14 +181,18 @@ export async function passClaimAll(env:ApiEnv,userId:string,body:Record<string,u
     if(!claimed.length)return {player:tx.player,claimed,seasonId:season.id,reason:'NOTHING_TO_CLAIM'};
     tx.touch(tx.player);
     assertPassEligibility(tx,userId,season,Math.max(...claimed.map(claim=>claim.tier)),claimed.some(claim=>claim.track==='premium'));
-    for(const claim of claimed)grantPassReward(tx,userId,season.id,claim.tier,claim.track);
-    return {player:tx.player,claimed,seasonId:season.id,reason:'CLAIMED'};
+    const world=await grantPassRewards(tx,userId,season.id,claimed);
+    return {player:tx.player,...(world?{world}:{}),claimed,seasonId:season.id,reason:'CLAIMED'};
   },{touchPlayer:false});
 }
 export async function eventClaim(env:ApiEnv,userId:string,body:Record<string,unknown>){
   const kind=z.enum(['personal','guild']).parse(body.kind);
   return mutate(env,userId,operationKey(body),`event:claim:${kind}`,async tx=>{
     const ev=await events(env,userId);ensure(ev.season,'SEASON_ENDED','진행 중인 이벤트가 없습니다.');const event=ev[kind];ensure(event.progress>=event.target&&!event.claimed,'EVENT_NOT_READY','보상을 아직 받을 수 없어요.');
-    tx.player.coins+=event.coins;tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,kind,ev.season.id,tx.now));return {player:tx.player};
+    const reward=event.reward;tx.player.coins+=reward.coins;tx.player.stars+=reward.stars;
+    for(const [item,quantity] of Object.entries(reward.items) as Array<[Item,number]>)tx.player.inventory[item].bound+=quantity;
+    const assets:[string,number][]=[['coin',reward.coins],['star',reward.stars],...Object.entries(reward.items).map(([item,quantity])=>['bound:'+item,quantity] as [string,number])];
+    for(const [asset,quantity] of assets)if(quantity)tx.statements.push(sql(tx.db,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),userId,asset,quantity,'event:claim:'+kind,ev.season.id,tx.now));
+    tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,kind,ev.season.id,tx.now));return {player:tx.player,reward};
   });
 }

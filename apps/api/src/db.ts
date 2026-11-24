@@ -1,4 +1,6 @@
-import {SHOP_ITEM_PRICES,type Item,type Player,type Run} from '@garden/contracts';
+import {SHOP_ITEM_PRICES,POWER_RAINBOW_LEVEL,type Item,type Player,type Run} from '@garden/contracts';
+import {START_GIFT_STAGES} from '../../../packages/contracts/src/start-gift';
+import {resetWeeklyEvents,weeklyEvent} from '../../../packages/contracts/src/weekly-events';
 
 // Live service bindings can be absent in local and test Workers.
 export type ApiEnv = { [K in keyof Env as K extends 'APPLE_TEAM_ID'|'APPLE_AUTH_KEY_ID'|'AGE_ACCESS_REQUIRED'|'GUARDIAN_EMAIL' ? never : K]: Env[K] extends string ? string : Env[K] } & {
@@ -40,7 +42,10 @@ function playerQuery(db:D1Database,id:string,now:number,withRun=false){
 }
 function playerFromRow(r:PlayerRow|undefined|null,now:number):Player{
   ensure(r,'ACCOUNT_NOT_FOUND','계정을 찾을 수 없습니다.',401);
-  const player=recoverHearts(JSON.parse(r.data) as Player,now);
+  const player=resetWeeklyEvents(recoverHearts(JSON.parse(r.data) as Player,now),now);
+  // Existing tracked wins remain valid; older servers omit this field, so new
+  // clients can hide a gift their server cannot yet grant.
+  player.startGiftStreak??=player.level>=POWER_RAINBOW_LEVEL?Math.min(START_GIFT_STAGES,Math.max(0,player.winStreak??0)):0;
   for(const item of ITEMS)player.inventory[item]??={normal:0,bound:0};
   player.passPoints=r.pass_points;
   return player;
@@ -130,4 +135,4 @@ export async function mutate<T>(env:ApiEnv,userId:string,key:string,fingerprint:
 export function operationKey(body:Record<string,unknown>){return String(body.idempotencyKey??body.key??'');}
 export const ITEMS:Item[]=['hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass','wind-row','bomb','rainbow'];
 export const PRICES:Record<Item,number>=SHOP_ITEM_PRICES;
-export function newPlayer(id:string,now:number):Player{return {id,nickname:`정원사${id.slice(0,4)}`,level:1,coins:500,boundCoins:0,stars:0,hearts:5,heartAt:0,unlimitedUntil:0,freeClaimAt:0,version:1,inventory:Object.fromEntries(ITEMS.map(item=>[item,{normal:item==='world-bomb'?0:2,bound:0}])) as Player['inventory'],restored:[],tutorials:[],settings:{sound:true,music:true,haptics:true,reducedMotion:false,language:'ko'},guildId:null,passPoints:0};}
+export function newPlayer(id:string,now:number):Player{return {id,startGiftStreak:0,weeklyEventKey:weeklyEvent(now).key,nickname:`정원사${id.slice(0,4)}`,level:1,coins:500,boundCoins:0,stars:0,hearts:5,heartAt:0,unlimitedUntil:0,freeClaimAt:0,version:1,inventory:Object.fromEntries(ITEMS.map(item=>[item,{normal:item==='world-bomb'?0:2,bound:0}])) as Player['inventory'],restored:[],tutorials:[],settings:{sound:true,music:true,haptics:true,reducedMotion:false,language:'ko'},guildId:null,passPoints:0};}

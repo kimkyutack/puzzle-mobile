@@ -7,7 +7,7 @@ const {FakeSprite}=vi.hoisted(()=>({FakeSprite:class {textures:unknown[];visible
 vi.mock('pixi.js',()=>({AnimatedSprite:FakeSprite}));
 vi.mock('../apps/client/src/assets',()=>({hasArt:()=>true,texture:(id:string)=>({id,orig:{width:128,height:128}}),tileArt:(kind:string,color?:string)=>kind==='normal'?`tile_${color}`:kind}));
 import {createBoardEffects} from '../apps/client/src/board-effects';
-import {effectTiming} from '../apps/client/src/visual-timing';
+import {effectTiming,VISUAL_BEATS} from '../apps/client/src/visual-timing';
 import {rainbowSelections} from '../apps/client/src/rainbow-selection';
 
 let now=0;beforeEach(()=>{now=0;vi.spyOn(performance,'now').mockImplementation(()=>now);});afterEach(()=>vi.restoreAllMocks());
@@ -68,8 +68,9 @@ describe('imagegen light materials',()=>{
  it('keeps a beam connected to every collected tile until they all break together',()=>{
   for(const power of [false,true]){
    const seen=play(['rainbow'],true,power),targets=[...rainbowSelections(seen.result.events).values()][0]!.targets;
-   // Just before the shared impact (charge 720 ms + travel 1000 ms) every target still has its beam.
-   const lit=seen.connected.get(1700)!;
+   // Sample just before the current shared impact, including the longer charge.
+   const at=VISUAL_BEATS.rainbowCharge+VISUAL_BEATS.rainbowTravel-20;
+   const lit=seen.connected.get(at)!;
    const ends=[...lit].map(key=>key.split(',').map(Number) as [number,number]);
    const missing=targets.filter(at=>{const c=position(at);return !ends.some(([x,y])=>Math.hypot(x-c.x,y-c.y)<2);});
    expect(missing,`power=${power}`).toEqual([]);

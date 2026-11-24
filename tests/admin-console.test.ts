@@ -1,3 +1,5 @@
+import {weeklyRoundId} from '../packages/contracts/src/weekly-events';
+import {configuredExpeditionRound} from '../packages/content/src/animal-expedition';
 import {beforeEach,afterEach,describe,it,expect,vi} from 'vitest';
 vi.mock('../apps/api/src/guild-room',()=>({GuildRoom:class{}}));
 import {DatabaseSync,type SQLInputValue} from 'node:sqlite';
@@ -34,7 +36,7 @@ function gameUser(id='test-player'){const player=newPlayer(id,Date.now());player
 beforeEach(()=>{db=new DatabaseSync(':memory:');for(const name of readdirSync('apps/api/migrations').filter(f=>f.endsWith('.sql')).sort())db.exec(readFileSync('apps/api/migrations/'+name,'utf8'));const binding={prepare:(query:string)=>new Statement(db,query),batch:async(statements:Statement[])=>{db.exec('BEGIN');try{const result=statements.map(s=>s.execute());db.exec('COMMIT');return result}catch(error){db.exec('ROLLBACK');throw error}}};env={DB:binding,ENVIRONMENT:'production',AGE_ACCESS_REQUIRED:'false',CLIENT_ORIGINS:'https://game.test',ADMIN_OWNER_EMAILS:'owner@example.test',ADMIN_BOOTSTRAP_TOKEN:crypto.randomUUID()+crypto.randomUUID(),ADMIN_PASSWORD_PEPPER:crypto.randomUUID()+crypto.randomUUID(),ADMIN_ASSETS:{fetch:async()=>new Response('<!doctype html><title>Admin</title>',{headers:{'Content-Type':'text/html'}})}} as unknown as ApiEnv;session=undefined as unknown as typeof session;});afterEach(()=>{vi.restoreAllMocks();db.close()});
 
 it('earns tickets through a campaign clear and validates minigame rewards, placement and retries through the Worker',async()=>{
- const now=Date.parse('2026-11-16T14:58:00Z');vi.spyOn(Date,'now').mockReturnValue(now);
+ let now=Date.parse('2026-11-23T14:58:00Z');vi.spyOn(Date,'now').mockImplementation(()=>now);let roundId=weeklyRoundId('001',now);
  await setup();
  const settings=defaultRuntime();settings.gameEvents['acorn-pinball'].minLevel=1;settings.gameEvents['greenhouse-water'].minLevel=1;
  settings.gameEvents['greenhouse-water'].grandPrize='animal-fox';
@@ -45,29 +47,29 @@ it('earns tickets through a campaign clear and validates minigame rewards, place
  const run=started.data.run as Run;
  const reward=await request('runs/'+run.id+'/actions',{sequence:0,actions:solutions['1'].actions,finishOnWin:true});
  const earned=reward.data.player as Player;
- expect(earned.gardenGames?.['acorn-pinball']?.rounds['001']?.tickets).toBe(1);
- expect(earned.gardenGames?.['greenhouse-water']?.rounds['001']?.tickets).toBe(1);
+ expect(earned.gardenGames?.['acorn-pinball']?.rounds[roundId]?.tickets).toBe(1);
+ expect(earned.gardenGames?.['greenhouse-water']).toBeUndefined();
  const prep=(game:'acorn-pinball'|'greenhouse-water',completed:number)=>{
   const stored=JSON.parse(String(db.prepare('SELECT data FROM players WHERE id=?').get(earned.id)?.data)) as Player;
-  stored.gardenGames![game]!.rounds['001']!.completed=completed;
+  stored.gardenGames![game]!.rounds[roundId]!.completed=completed;
   db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(stored),earned.id);
  };
  const playPinball=async(completed:number,pinballPhysics?:PinballPhysics)=>{
   prep('acorn-pinball',completed);
-  const roundRequest={roundId:'001',...(pinballPhysics?{pinballPhysics}:{})};
+  const roundRequest={roundId,...(pinballPhysics?{pinballPhysics}:{})};
   const first=await request('minigames/acorn-pinball/start',roundRequest);
   expect(first.response.status).toBe(200);
   const started=(first.data.player as Player).gardenGames!['acorn-pinball']!;
   expect(started.freeDay).toBe(missionPeriod('daily',now).id);
-  const round=started.rounds['001']!,attempt=round.attempt!;
+  const round=started.rounds[roundId]!,attempt=round.attempt!;
   expect(attempt.pinballPhysics).toBe(pinballPhysics);
-  const repeatedStart=await request('minigames/acorn-pinball/start',{roundId:'001',pinballPhysics:PINBALL_PHYSICS_VERSION});
-  expect((repeatedStart.data.player as Player).gardenGames!['acorn-pinball']!.rounds['001']).toEqual(round);
+  const repeatedStart=await request('minigames/acorn-pinball/start',{roundId,pinballPhysics:PINBALL_PHYSICS_VERSION});
+  expect((repeatedStart.data.player as Player).gardenGames!['acorn-pinball']!.rounds[roundId]).toEqual(round);
   const board=pinballBoard(attempt.stage,attempt.seed,attempt.pinballPhysics),paths=PINBALL_LAUNCHES.map((_,slot)=>launchAcorn(board,slot));
   const proof=board.targets.map(target=>paths.findIndex(trajectory=>trajectory.pocket===target));
   if(pinballPhysics){
-   expect((await request('minigames/acorn-pinball/start',{roundId:'001'})).error?.code).toBe('UPDATE_REQUIRED');
-   expect((await request('minigames/acorn-pinball/finish',{roundId:'001',attemptId:attempt.id,actions:proof})).error?.code).toBe('UPDATE_REQUIRED');
+   expect((await request('minigames/acorn-pinball/start',{roundId})).error?.code).toBe('UPDATE_REQUIRED');
+   expect((await request('minigames/acorn-pinball/finish',{roundId,attemptId:attempt.id,actions:proof})).error?.code).toBe('UPDATE_REQUIRED');
   }
   const invalid=await request('minigames/acorn-pinball/finish',{...roundRequest,attemptId:attempt.id,actions:[24]});
   expect(invalid.response.status).toBe(409);
@@ -84,17 +86,23 @@ it('earns tickets through a campaign clear and validates minigame rewards, place
  };
  const midpoint=await playPinball(4);expect(midpoint.round.tickets).toBe(1);expect(midpoint.player.inventory.bomb.bound).toBe(2);
  const final=await playPinball(9,PINBALL_PHYSICS_VERSION);expect(final.round.tickets).toBe(0);
- expect((await request('minigames/acorn-pinball/start',{roundId:'001'})).error?.code).toBe('GARDEN_GAME_COMPLETE');
+ expect((await request('minigames/acorn-pinball/start',{roundId})).error?.code).toBe('GARDEN_GAME_COMPLETE');
  const newWorld=(await request('garden/world?gardenArt=garden-v63')).data.world as {revision:number;owned:Record<string,{itemId:string}>};
- const grant='event-acorn-pinball-001-10';
- expect(newWorld.owned['event-acorn-pinball-001-5']?.itemId).toBe('garden-gazebo');
+ const grant=`event-acorn-pinball-${roundId}-10`;
+ expect(newWorld.owned[`event-acorn-pinball-${roundId}-5`]?.itemId).toBe('garden-gazebo');
  expect(newWorld.owned[grant]?.itemId).toBe('garden-acorn-cottage');
  const legacy=(await request('garden/world?gardenArt=garden-v62')).data.world as typeof newWorld;expect(legacy.owned[grant]?.itemId).toBe('garden-gazebo');
  const place=await call('/api/garden/world/commands?gardenArt=garden-v63',{key:crypto.randomUUID(),type:'place',instanceId:grant,x:12,y:12,rotation:0,expectedRevision:newWorld.revision},'POST',false,headers);
  expect(place.response.status).toBe(200);
 
- const water=await request('minigames/greenhouse-water/start',{roundId:'001'});
- const attempt=(water.data.player as Player).gardenGames!['greenhouse-water']!.rounds['001']!.attempt!;
+ now=Date.parse('2026-11-30T14:58:00Z');roundId=weeklyRoundId('001',now);
+ const refreshed=await call('/api/auth/refresh',{refreshToken:guest.data.refreshToken},'POST',false);
+ expect(refreshed.response.status).toBe(200);headers.Authorization='Bearer '+String(refreshed.data.accessToken);
+ const next=await request('runs/start',{engineVersion:ENGINE_VERSION,preBoosters:[]});
+ const nextRun=next.data.run as Run;
+ expect((await request('runs/'+nextRun.id+'/actions',{sequence:0,actions:solutions[String(nextRun.level.id) as keyof typeof solutions].actions,finishOnWin:true})).response.status).toBe(200);
+ const water=await request('minigames/greenhouse-water/start',{roundId});
+ const attempt=(water.data.player as Player).gardenGames!['greenhouse-water']!.rounds[roundId]!.attempt!;
  const board=waterBoard(attempt.stage,attempt.seed);
  const maskByCell={11:10,12:15,7:5,13:10,17:3,18:12};
  const moves:number[]=[];
@@ -103,18 +111,19 @@ it('earns tickets through a campaign clear and validates minigame rewards, place
   for(let i=0;i<turns&&replayWater(board,moves).status==='playing';i++)moves.push(at);
  }
  expect(replayWater(board,moves).status).toBe('won');
- const done=await request('minigames/greenhouse-water/finish',{roundId:'001',attemptId:attempt.id,actions:moves});
+ const done=await request('minigames/greenhouse-water/finish',{roundId,attemptId:attempt.id,actions:moves});
  expect(done.data.result).toMatchObject({won:true,stage:1,reward:{coins:40,items:{'wind-row':1}}});
 });
 describe('administration boundary',()=>{
  it('publishes game-event schedules and quotas through the authenticated audited runtime endpoint',async()=>{
+  vi.spyOn(Date,'now').mockReturnValue(Date.parse('2026-11-16T03:00:00Z'));
   await setup();const data=defaultRuntime();data.gameEvents.animalExpedition.animal='red-panda';data.gameEvents.animalExpedition.roundId='003';data.gameEvents.animalExpedition.dailyLimit=4;data.gameEvents.animalExpedition.minLevel=25;data.gameEvents.flowerlight.durationDays=10;data.gameEvents.treasure.startsAt=Date.now()+86400000;data.features.powerFestival=false;
   const saved=await call('/api/admin/runtime',{key:crypto.randomUUID(),reason:'원정 횟수와 이벤트 일정 조정',revision:0,data},'PUT');expect(saved.response.status).toBe(200);
   const publicState=await call('/api/operations/bootstrap',undefined,'GET',false),settings=publicState.data.settings as RuntimeSettings;expect(settings.gameEvents).toEqual(data.gameEvents);expect(settings.features.powerFestival).toBe(false);
   const guest=await call('/api/auth/guest',{},'POST',false),token=String(guest.data.accessToken),player=guest.data.player as Player;player.level=24;db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(player),player.id);
   const gameHeaders={Origin:'https://game.test',Authorization:'Bearer '+token};expect((await call('/api/animal-expedition/start',{key:crypto.randomUUID()},'POST',false,gameHeaders)).error?.code).toBe('EXPEDITION_LOCKED');
   player.level=25;db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(player),player.id);const started=await call('/api/animal-expedition/start',{key:crypto.randomUUID()},'POST',false,gameHeaders);expect(started.response.status).toBe(200);
-  expect((started.data.player as Player).animalExpedition).toMatchObject({roundId:'red-panda:003',animal:'red-panda',dailyAttempts:{used:1}});expect((await call('/api/power-festival/start',{key:crypto.randomUUID()},'POST',false,gameHeaders)).error?.code).toBe('FEATURE_PAUSED');expect((await call('/api/minigames/treasure/start',{key:crypto.randomUUID()},'POST',false,gameHeaders)).error?.code).toBe('EVENT_NOT_OPEN');
+  expect((started.data.player as Player).animalExpedition).toMatchObject({roundId:configuredExpeditionRound(settings).roundId,animal:'red-panda',dailyAttempts:{used:1}});expect((await call('/api/power-festival/start',{key:crypto.randomUUID()},'POST',false,gameHeaders)).error?.code).toBe('FEATURE_PAUSED');expect((await call('/api/minigames/treasure/start',{key:crypto.randomUUID()},'POST',false,gameHeaders)).error?.code).toBe('EVENT_NOT_OPEN');
   expect(db.prepare("SELECT reason FROM admin_audit WHERE action='runtime.update'").get()).toEqual({reason:'원정 횟수와 이벤트 일정 조정'});
   const invalid=structuredClone(data);invalid.gameEvents.animalExpedition.dailyLimit=0;expect((await call('/api/admin/runtime',{key:crypto.randomUUID(),reason:'잘못된 횟수 검증',revision:1,data:invalid},'PUT')).response.status).toBe(400);
   invalid.gameEvents.animalExpedition.dailyLimit=3;invalid.gameEvents.animalExpedition.startsAt=200;invalid.gameEvents.animalExpedition.endsAt=100;expect((await call('/api/admin/runtime',{key:crypto.randomUUID(),reason:'잘못된 일정 검증',revision:1,data:invalid},'PUT')).response.status).toBe(400);
@@ -822,4 +831,33 @@ describe('account erasure and statutory retention',()=>{
   expect(new Date(retentionDeadline(Date.parse('2024-02-29T08:30:00Z'),3)).toISOString()).toBe('2027-02-28T08:30:00.000Z');
   expect(new Date(retentionDeadline(Date.parse('2024-02-28T16:30:00Z'),3)).toISOString()).toBe('2027-02-27T16:30:00.000Z');
  });
+});
+
+it('quotes botanical decor only to capable apps and purchases, retries and reloads canonical plants',async()=>{
+ const guest=await call('/api/auth/guest',{},'POST',false),player=guest.data.player as Player;
+ const headers={Origin:'https://game.test',Authorization:'Bearer '+String(guest.data.accessToken)};
+ player.level=20;player.coins=10000;player.boundCoins=0;
+ db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(player),player.id);
+ const currentPath='/api/garden/world?shopVersion=2&gardenArt=garden-v78',oldPath='/api/garden/world?shopVersion=2&gardenArt=garden-v64';
+ const offers=await call(currentPath,undefined,'GET',false,headers),oldOffers=await call(oldPath,undefined,'GET',false,headers);
+ expect(Object.keys(offers.data.prices as object)).toHaveLength(39);
+ expect((oldOffers.data.prices as Record<string,number>)['garden-cherry-tree']).toBeUndefined();
+ expect(offers.data.prices).toMatchObject({'garden-cherry-tree':2400,'garden-pink-flower-bed':180,'garden-yellow-pergola':1800});
+ const body={key:crypto.randomUUID(),itemId:'garden-cherry-tree',quantity:2,expectedUnitPrice:2400};
+ const purchased=await call('/api/garden/shop/buy?gardenArt=garden-v78',body,'POST',false,headers);
+ expect(purchased.response.status).toBe(200);expect(purchased.data).toMatchObject({cost:4800,quantity:2,player:{coins:5200}});
+ expect((await call('/api/garden/shop/buy?gardenArt=garden-v78',body,'POST',false,headers)).data).toEqual(purchased.data);
+ const receipt=purchased.data as {instanceId:string;instanceIds:string[];world:{revision:number}};
+ expect(receipt.instanceIds).toHaveLength(2);
+ const placed=await call('/api/garden/world/commands?gardenArt=garden-v78',{key:crypto.randomUUID(),type:'place',instanceId:receipt.instanceId,x:12,y:12,rotation:90,expectedRevision:receipt.world.revision},'POST',false,headers);
+ expect(placed.response.status).toBe(200);
+ const fresh=await call(currentPath,undefined,'GET',false,headers),legacy=await call(oldPath,undefined,'GET',false,headers);
+ const world=(fresh.data as any).world,oldWorld=(legacy.data as any).world;
+ expect(world.owned[receipt.instanceId].itemId).toBe('garden-cherry-tree');
+ expect(world.placements[receipt.instanceId]).toMatchObject({x:12,y:12,rotation:90});
+ expect(oldWorld.owned[receipt.instanceId].itemId).toBe('garden-tree');
+ expect(oldWorld.placements).toEqual(world.placements);
+ const wrong=await call('/api/garden/shop/buy?gardenArt=garden-v78',{key:crypto.randomUUID(),itemId:'garden-pink-flower-bed',expectedUnitPrice:1},'POST',false,headers);
+ expect(wrong.error?.code).toBe('GARDEN_PRICE_CHANGED');
+ expect((await call('/api/me',undefined,'GET',false,headers)).data.player).toMatchObject({coins:5200});
 });

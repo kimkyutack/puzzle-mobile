@@ -1,3 +1,4 @@
+import {mobileObstacleAlias} from './mobile-obstacle-art';
 import {Rectangle,Texture} from 'pixi.js';
 import {assetImage,hasArt,texture} from './assets';
 
@@ -19,10 +20,12 @@ export function inkBounds(rgba:ArrayLike<number>,width:number,height:number){
  return right<0?undefined:{left,top,right:right+1,bottom:bottom+1};
 }
 
-export function boardTexture(id:string):Texture{
+export function boardTexture(id:string,cropMobile=false):Texture{
  const replacement=replacements[id];
- const art=replacement&&hasArt(replacement)?replacement:id;
+ const revised=mobileObstacleAlias(id);
+ const art=revised&&hasArt(revised)?revised:replacement&&hasArt(replacement)?replacement:id;
  const original=texture(art),known=frames.get(original);
+ if(art.startsWith('mobile-')&&!cropMobile)return original;
  if(known)return known;
  const image=assetImage(art);
  if(!image)return original;
@@ -45,7 +48,7 @@ export function boardTexture(id:string):Texture{
 }
 
 export function boardEffectTexture(id:string):Texture{
- return replacements[id]?boardTexture(id):texture(id);
+ return replacements[id]||mobileObstacleAlias(id)?boardTexture(id):texture(id);
 }
 
 /** Keep some space between rocket tips so their axis is readable on a packed board. */

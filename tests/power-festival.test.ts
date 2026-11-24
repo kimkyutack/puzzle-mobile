@@ -24,7 +24,7 @@ describe('power festival activation rules',()=>{
  it('carries surplus into later stages and requires all four goals for every reward',()=>{
   const total=POWER_FESTIVAL_STAGES.reduce((sum,stage)=>addPowerUses(sum,stage.targets),emptyPowerUses()),e=event();e.counts=total;
   expect(festivalClaimable(e)).toBe(5);e.claimedStages=2;expect(festivalClaimable(e)).toBe(3);expect(festivalStage(total,2).progress).toEqual(POWER_FESTIVAL_STAGES[2]!.targets);
-  e.counts.rainbow=0;expect(festivalClaimable(e)).toBe(0);expect(POWER_FESTIVAL_STAGES.at(-1)!.reward.items['world-bomb']).toBe(1);
+  e.counts.rainbow=0;expect(festivalClaimable(e)).toBe(0);expect(POWER_FESTIVAL_STAGES.at(-1)!.reward.items.rainbow).toBe(1);
  });
  it('predicts only the unsaved delta and preserves the same display after an acknowledgement',()=>{
   const e=event(),state=board(),confirmed={id:'run',state,powerUses:{rocket:4,bomb:1,glider:0,rainbow:0}} as Run,local={...confirmed,powerUses:{rocket:6,bomb:2,glider:1,rainbow:0}};

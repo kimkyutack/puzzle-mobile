@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useRef,useState} from 'react';
+import {profileImage} from './profile-image';
 import {DEFAULT_PROFILE_APPEARANCE,PROFILE_AVATARS,PROFILE_BACKDROPS,PROFILE_FRAMES,type ProfileAppearance} from '@garden/contracts';
 import greenhouse from '../../admin/public/_studio/media/gallery/cloud-garden/lumi-cloud-greenhouse-thumb.webp';
 import flowerlight from '../../admin/public/_studio/media/gallery/cloud-garden/flowerlight-plaza-thumb.webp';
@@ -22,10 +23,16 @@ function GardenerBackdrop({backdrop}:{backdrop:ProfileAppearance['backdrop']}){
  </div>;
 }
 
-export function GardenerAvatar({avatar='lumi',size}:{avatar?:ProfileAppearance['avatar'];size:number}){
+export function GardenerAvatar({avatar='lumi',customImage,size}:{avatar?:ProfileAppearance['avatar'];customImage?:string;size:number}){
+ if(customImage)return <img className="icon custom-profile-image" src={customImage} width={size} height={size} alt="" draggable={false}/>;
  return avatar==='rabbit'
   ? <img className="icon" src={rabbit} width={size} height={size} alt="" draggable={false}/>
   : <Icon id={avatar==='tori'?'tori_v8':'lumi_happy'} size={size}/>;
+}
+
+/** A player's chosen character inside their chosen frame, for lists (ranking, friends, guild). */
+export function ProfilePortrait({appearance=DEFAULT_PROFILE_APPEARANCE,size}:{appearance?:ProfileAppearance;size:number}){
+ return <span className="profile-portrait" data-profile-frame={appearance.frame} style={{width:size,height:size}}><GardenerAvatar avatar={appearance.avatar} customImage={appearance.customImage} size={Math.round(size*.78)}/></span>;
 }
 
 interface CardProps {
@@ -42,7 +49,7 @@ export function GardenerCard({nickname,level,highestClear,appearance=DEFAULT_PRO
  return <section className="gardener-card" aria-label={tr('정원사 프로필')}>
   <GardenerBackdrop backdrop={appearance.backdrop}/>
   <div className="gardener-identity">
-   <div className="gardener-portrait" data-profile-frame={appearance.frame}><GardenerAvatar avatar={appearance.avatar} size={78}/></div>
+   <div className="gardener-portrait" data-profile-frame={appearance.frame}><GardenerAvatar avatar={appearance.avatar} customImage={appearance.customImage} size={78}/></div>
    <div className="gardener-name">
     <span className="gardener-level">{tr('레벨')} {level}</span>
     <h3>{nickname}</h3>
@@ -59,7 +66,16 @@ export function GardenerCard({nickname,level,highestClear,appearance=DEFAULT_PRO
 
 export function GardenerAppearanceEditor({card,working,onCancel,onSave}:{card:CardProps;working:boolean;onCancel:()=>void;onSave:(value:ProfileAppearance)=>void}){
  const [draft,setDraft]=useState<ProfileAppearance>(()=>({...DEFAULT_PROFILE_APPEARANCE,...card.appearance}));
- const [tab,setTab]=useState<keyof ProfileAppearance>('avatar');
+ const [tab,setTab]=useState<keyof typeof tabs>('avatar');
+ const [imageBusy,setImageBusy]=useState(false),[imageError,setImageError]=useState('');
+ const upload=useRef<HTMLInputElement>(null),revision=useRef(0);
+ async function selectImage(file:File|undefined){
+  if(!file)return;
+  const current=++revision.current;setImageBusy(true);setImageError('');
+  try{const image=await profileImage(file);if(current===revision.current)setDraft(previous=>({...previous,customImage:image}));}
+  catch(error){if(current===revision.current)setImageError(tr(error instanceof Error?error.message:'사진을 처리하지 못했어요.'));}
+  finally{if(current===revision.current)setImageBusy(false);}
+ }
  const saved=card.appearance??DEFAULT_PROFILE_APPEARANCE;
  function choose<K extends keyof ProfileAppearance>(kind:K,value:ProfileAppearance[K]){
   setDraft(previous=>({...previous,[kind]:value}));
@@ -70,13 +86,15 @@ export function GardenerAppearanceEditor({card,working,onCancel,onSave}:{card:Ca
    {(['avatar','frame','backdrop'] as const).map(id=><button key={id} aria-pressed={tab===id} disabled={working} onClick={()=>setTab(id)}>{tr(tabs[id])}</button>)}
   </div>
   <div className="gardener-choices" aria-label={tr(tabs[tab])}>
-   {tab==='avatar'&&PROFILE_AVATARS.map(id=><button key={id} aria-pressed={draft.avatar===id} disabled={working} onClick={()=>choose('avatar',id)}><span><GardenerAvatar avatar={id} size={47}/></span>{tr(avatarNames[id])}</button>)}
+   {tab==='avatar'&&<><button className="profile-photo-choice" aria-pressed={!!draft.customImage} disabled={working||imageBusy} onClick={()=>upload.current?.click()}><span>{draft.customImage?<GardenerAvatar customImage={draft.customImage} size={47}/>:<b aria-hidden="true">+</b>}</span>{tr(imageBusy?'사진 처리 중…':'내 사진')}</button>{PROFILE_AVATARS.map(id=><button key={id} aria-pressed={!draft.customImage&&draft.avatar===id} disabled={working||imageBusy} onClick={()=>{revision.current++;setDraft(previous=>({...previous,avatar:id,customImage:undefined}));}}><span><GardenerAvatar avatar={id} size={47}/></span>{tr(avatarNames[id])}</button>)}</>}
    {tab==='frame'&&PROFILE_FRAMES.map(id=><button key={id} aria-pressed={draft.frame===id} disabled={working} onClick={()=>choose('frame',id)}><span className="gardener-frame-option" data-profile-frame={id}/>{tr(frameNames[id])}</button>)}
    {tab==='backdrop'&&PROFILE_BACKDROPS.map(id=><button key={id} aria-pressed={draft.backdrop===id} disabled={working} onClick={()=>choose('backdrop',id)}><GardenerBackdrop backdrop={id}/>{tr(backdropNames[id])}</button>)}
   </div>
+  <input ref={upload} type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" hidden onChange={event=>{void selectImage(event.currentTarget.files?.[0]);event.currentTarget.value='';}}/>
+  {imageError&&<p role="alert" className="profile-image-error">{imageError}</p>}
   <div className="gardener-editor-actions">
    <Button secondary disabled={working} onClick={onCancel}>{tr('취소')}</Button>
-   <Button tone="green" disabled={working||(Object.keys(tabs) as Array<keyof ProfileAppearance>).every(id=>draft[id]===saved[id])} onClick={()=>onSave(draft)}>{tr('꾸미기 저장')}</Button>
+   <Button tone="green" disabled={working||imageBusy||(['avatar','frame','backdrop','customImage'] as const).every(id=>draft[id]===saved[id])} onClick={()=>onSave(draft)}>{tr('꾸미기 저장')}</Button>
   </div>
  </div>;
 }

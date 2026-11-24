@@ -1,6 +1,13 @@
 import type {Action} from '@garden/contracts';
 import {createGame,replay} from '@garden/core';
-import {GOLD_GARDEN_MOVES,GOLD_GARDEN_VERSION,LEGACY_GOLD_GARDEN_VERSION,REFILL_GOLD_GARDEN_VERSION,goldGardenLevel,type GoldGardenVersion} from '../../../packages/content/src/gold-garden';
+import {GOLD_GARDEN_INTERVAL,GOLD_GARDEN_MOVES,GOLD_GARDEN_VERSION,LEGACY_GOLD_GARDEN_VERSION,REFILL_GOLD_GARDEN_VERSION,goldGardenLevel,isGoldGardenMilestone,type GoldGardenVersion} from '../../../packages/content/src/gold-garden';
+
+/** Historical unclaimed bonuses must not replace the next campaign stage. */
+export function pendingGoldGardenMilestone(playerLevel:number,pending:readonly number[],requested?:number){
+ const current=Math.floor((playerLevel-1)/GOLD_GARDEN_INTERVAL)*GOLD_GARDEN_INTERVAL;
+ if(!isGoldGardenMilestone(current)||requested!==undefined&&requested!==current)return undefined;
+ return pending.includes(current)?current:undefined;
+}
 
 export type RefillGoldGardenVersion=Exclude<GoldGardenVersion,typeof LEGACY_GOLD_GARDEN_VERSION>;
 export const isRefillGoldGardenVersion=(version:unknown):version is RefillGoldGardenVersion=>

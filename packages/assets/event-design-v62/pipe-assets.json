@@ -1,0 +1,54 @@
+{
+  "prompts": [
+    {
+      "id": "water-arm-dry",
+      "prompt": "Production sprite for the RIGHT greenhouse pipe puzzle in selected reference. Match smooth warm golden brass, pale reflections, clean premium casualgame3D,no redrust,no heavy dark holes,no text,numbers,UI,sparkles. Transparentbackground. Flat FRONT view with slightupperleft lighting, no isometrictilt. One STRAIGHT VERTICAL BRASS PIPE SEGMENT, portrait512x1024. Tube occupies fullcanvasheight, thicktube diameter90%canvaswidth. Both topandbottom OPEN CONNECTING ENDS EXACTLY touch canvas topandbottom, NO caps,NO gaps,NO protrudingflanges. Seamlesspipepiece from one edgeofinteractivecell to itscenter. Polishedgoldoutertube, uninterruptedtanlightcenterstrip, roundedsidecrosssection; NOTanL, NO joint, NO connectors. Noperspectiveshowingendholes."
+    },
+    {
+      "id": "water-arm-wet",
+      "prompt": "Production sprite for the RIGHT greenhouse pipe puzzle in selected reference. Match smooth warm golden brass, pale reflections, clean premium casualgame3D,no redrust,no heavy dark holes,no text,numbers,UI,sparkles. Transparentbackground. Flat FRONT view with slightupperleft lighting, no isometrictilt. One STRAIGHT VERTICAL WATER-FILLED PIPE SEGMENT, portrait512x1024. Perfectlymatching drygoldbrasspipe but bluewater clearlyvisible down broadcentral channel as glass-coveredpipe, thinbrassgoldedges eachside. Tube occupiesfullcanvasheight,diameter90%canvaswidth. Topandbottomexactlytouchtopandbottomcanvas, noendcaps,nogaps,NO protrudingflanges. Softskybluewaterwithtwoverysmallwhitehighlights, no splashes. NOTanL, nojoint, noendhole."
+    },
+    {
+      "id": "water-joint-dry",
+      "prompt": "Production sprite for the RIGHT greenhouse pipe puzzle in selected reference. Match smooth warm golden brass, pale reflections, clean premium casualgame3D,no redrust,no heavy dark holes,no text,numbers,UI,sparkles. Transparentbackground. Flat FRONT view with slightupperleft lighting, no isometrictilt. One small CIRCULAR GOLD BRASS PIPE JOINT/ELBOW CONNECTOR COVER, square512x512. Smooth pale honeygold circularcap occupying95%canvas, minimalroundedhighlight, no embossedpattern,no screws,nohole,no green,no icons. Designedtooverlayintersectionofbrasspipehalvesandblendseamlessly."
+    },
+    {
+      "id": "water-joint-wet",
+      "prompt": "Production sprite for the RIGHT greenhouse pipe puzzle in selected reference. Match smooth warm golden brass, pale reflections, clean premium casualgame3D,no redrust,no heavy dark holes,no text,numbers,UI,sparkles. Transparentbackground. Flat FRONT view with slightupperleft lighting, no isometrictilt. One small CIRCULAR WATER-FILLED PIPE JOINT/ELBOW CONNECTOR COVER, square512x512. Smooth clearglasscircle with brightsoftbluewater andverythin warmbrassrim, occupying95%canvas, minimalroundedhighlight,no embossedpattern,no screws,nohole,no icons. Designedtooverlayintersectionofwater-filledpipehalvesandblendseamlessly."
+    },
+    {
+      "id": "water-tile",
+      "prompt": "Production square512x512 puzzle TILE BACKGROUND matching pale gray cells in RIGHT greenhouse puzzle reference. Almostfullcanvas single square roundedcorner enamel tile, softcoolivorygray, subtleupperleftlight,verythin darkgrayedge andslight insetbevel. No goldborder,no bolts,lines,metalpattern,texture,rivets,icons,letters,numbers,pipeorUI. Mattecleansimpleplane, transparentoutsidecorners. Front viewflat, notisometric."
+    },
+    {
+      "id": "close-button",
+      "prompt": "Production standalone ROUND RED CLOSE BUTTON matching top-right controls in selected reference. Square512x512transparentbackground. Coralred circularraisedbutton withthincreamrim andsubtlewarmshadow; large clear IVORY WHITE X centeredinside, roundedthickstrokes. Buttontakes95%canvas. ExactlyoneX, noothertext, noextraornament,no glow. FrontviewpremiumcasualmobilegameUI."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "water-arm-dry",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-2036c0cc-9720-44e0-8aad-b72726d3fc8a.png"
+    },
+    {
+      "id": "water-arm-wet",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-de8e8be0-298f-4f50-b541-3f8c201d8781.png"
+    },
+    {
+      "id": "water-joint-dry",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-983893dd-6e40-4a31-ad99-d91cefa26672.png"
+    },
+    {
+      "id": "water-joint-wet",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-26c8dcde-81b8-4d29-be70-16249c08db80.png"
+    },
+    {
+      "id": "water-tile",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-ec1a1a38-3a57-43df-8d55-a95cc5cbfad6.png"
+    },
+    {
+      "id": "close-button",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-812c5c22-16ce-45a0-96dd-a0491fb5f194.png"
+    }
+  ]
+}

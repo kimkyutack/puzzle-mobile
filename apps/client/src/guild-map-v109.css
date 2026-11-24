@@ -1,0 +1,202 @@
+/* Approved map room. Only the unjoined entry uses the vivid mint room. */
+.game-page.guild-map-v109[data-page="guild"]{
+ --guild-ink:#173c68;--surface-ink:var(--guild-ink);--surface-muted:#365c7d;
+ color:var(--guild-ink);font-family:var(--font-game-ui);
+ background:#95bedf url('../../../packages/assets/guild-map-v109/runtime/room-blue.webp') center top/100% auto no-repeat;
+}
+.game-page.guild-map-v109[data-guild-stage="entry"]{background-color:#63dacd;background-image:url('../../../packages/assets/guild-map-v109/runtime/room-mint.webp')}
+.game-page.guild-map-v109>.page-header{position:relative;display:block;height:92px;flex:none;margin:var(--safe-top) 6px 0;padding:0;overflow:visible}
+.guild-map-v109 .guild-map-title-art{position:absolute;width:min(78%,280px);height:auto;bottom:0;left:50%;transform:translateX(-50%);pointer-events:none}
+.guild-map-v109 .guild-map-brand-crest{position:absolute;left:50%;top:-6px;transform:translateX(-50%);pointer-events:none}
+.game-page.guild-map-v109>.page-header>h1{position:absolute;left:45px;right:45px;bottom:12px;margin:0;text-align:center;color:#fffaf0;font:400 29px/34px var(--font-game-ui);text-shadow:0 2px #12366c}
+.game-page.guild-map-v109 .guild-page-back{position:absolute;left:0;top:0;display:grid;place-items:center;width:44px;height:44px;padding:6px 7px 10px;z-index:2}
+.guild-map-v109 .guild-page-back>img{display:block;width:27px;height:27px;object-fit:contain}
+.game-page.guild-map-v109>.page-content{margin:0 7px;padding:0 0 18px;scrollbar-width:none}
+.guild-map-v109 :is(.guild-map-entry-hero,.guild-map-find-hero,.guild-map-create-hero){display:block;width:calc(100% + 14px);max-width:none;height:auto;margin:0 -7px;pointer-events:none;user-select:none}
+.guild-map-v109 .guild-entry{padding-bottom:18px;text-align:center}
+.game-page.guild-map-v109 .guild-entry>h2{margin:12px 0 8px;font-size:24px;line-height:30px;color:var(--guild-ink)}
+.game-page.guild-map-v109 .guild-entry>p{margin:0 0 24px;font-size:15px;color:#24596d}
+.guild-map-v109 .guild-entry-actions{display:grid;grid-template-columns:1fr;gap:16px;min-height:0;padding:0 25px}
+.guild-map-v109 .guild-entry-actions .game-button{width:100%;height:62px;margin:0;font-size:25px;padding:7px 14px 13px}
+.guild-map-v109 .guild-entry-actions .game-button .icon{width:42px;height:42px}
+.game-page.guild-map-v109 .guild-entry-actions p{margin:5px 0 0;color:#24596d;font-size:14px;line-height:20px}
+.guild-map-v109 .guild-find{margin:0}
+.guild-map-v109 .guild-map-find-hero{margin-top:-3px}
+.guild-map-v109 .guild-find>.content-card{margin-top:-1px;padding:12px 12px 16px}
+.guild-map-v109 .guild-find .guild-search-form>.input-frame{height:46px;min-height:46px}
+.guild-map-v109 .guild-find-results{position:relative;isolation:isolate;padding:14px 13px 18px;margin-top:12px}
+.guild-map-v109 :is(.guild-find-results,.content-card)::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;box-sizing:border-box;border:24px solid transparent;border-image:url('../../../packages/assets/friends-sky-v102/runtime/panel.webp') 64 fill / 1 stretch}
+.guild-map-v109 .content-card{isolation:isolate;color:var(--guild-ink)}
+.guild-map-v109 .content-card>[data-local-frame]{display:none}
+.game-page.guild-map-v109 .guild-find-results>h3{font-size:24px;line-height:30px;margin:0 0 8px;text-align:center;color:var(--guild-ink)}
+.guild-map-v109 .guild-find-results>.list-row{padding:10px 0;min-height:74px;flex-wrap:nowrap;border-bottom:1px solid #e9f8ff}
+.guild-map-v109 .guild-find-results>.list-row:last-child{border-bottom:0}
+.guild-map-v109 .guild-find-results>.list-row>[data-local-frame]{display:none}
+.guild-map-v109 .guild-find-results .list-row>.icon{width:57px;height:57px;flex:none}
+.guild-map-v109 .guild-find-results .row-body{flex:1;min-width:0}
+.guild-map-v109 .guild-find-results .row-title{font-size:19px;line-height:24px;color:var(--guild-ink)}
+.guild-map-v109 .guild-find-results .row-meta{justify-content:flex-start;gap:0}
+.game-page.guild-map-v109 .guild-find-results .row-meta small{color:#274b75;font-size:12px;line-height:18px}
+.guild-map-v109 .guild-find-results .row-actions{flex:none;width:91px}
+.guild-map-v109 .guild-find-results .row-actions .game-button{width:100%;min-width:0;min-height:44px;font-size:17px;line-height:22px;padding:4px 4px 10px}
+.guild-map-v109 .guild-map-create-hero{max-height:135px;object-fit:contain;object-position:center bottom}
+.guild-map-v109 .guild-create-card{margin:0;padding:15px 17px 19px}
+.guild-map-v109 .guild-create-form label{font-size:16px;line-height:22px;color:var(--guild-ink)}
+.guild-map-v109 .guild-create-form .input-frame{margin:4px 0 8px;min-height:42px}
+.guild-map-v109 .guild-create-form .input-frame :is(input,textarea,select){font-size:15px;color:var(--guild-ink)}
+.guild-map-v109 .guild-create-form .input-frame textarea{height:49px;min-height:49px}
+.guild-map-v109 .emblem-picker{gap:5px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.guild-map-v109 .emblem-picker>.emblem-choice{min-height:72px;padding:4px 2px 9px}
+.guild-map-v109 .emblem-picker>.emblem-choice>.icon{width:42px;height:42px}
+.guild-map-v109 .emblem-picker>.emblem-choice>small{font-size:10px;line-height:13px}
+.guild-map-v109 .guild-create-form>.game-button{height:54px;font-size:23px}
+.game-page.guild-map-v109[data-guild-stage="joined"]>.page-header{height:57px}
+.guild-map-v109 .guild-banner{height:220px;padding:0;isolation:isolate}
+.guild-map-v109 .guild-map-joined-art{position:absolute;width:calc(100% + 14px);height:auto;left:-7px;bottom:0;z-index:-1;pointer-events:none}
+.guild-map-v109 .guild-banner .guild-title{display:flex;flex-direction:column;gap:3px;margin:0;text-align:center}
+.guild-map-v109 .guild-banner .guild-title>.icon{width:85px;height:85px}
+.guild-map-v109 .guild-title>div{width:100%}
+.game-page.guild-map-v109 .modal-content .guild-title h3{position:relative;isolation:isolate;width:fit-content;max-width:75%;min-width:180px;margin:0 auto;padding:7px 25px;color:#fff;font-size:24px;line-height:30px;text-shadow:0 2px #153a70}
+.guild-map-v109 .guild-title h3::before{content:'';position:absolute;z-index:-1;inset:0;box-sizing:border-box;border:14px solid transparent;border-image:url('../../../packages/assets/guild-map-v109/runtime/title.webp') 64 120 fill / 1 stretch}
+.game-page.guild-map-v109 .modal-content .guild-title p{margin:4px auto;max-width:64%;font-size:13px;line-height:19px;color:var(--guild-ink)}
+.game-page.guild-map-v109 .modal-content .guild-title small{margin:3px 0;color:var(--guild-ink);font-size:12px;line-height:17px}
+.guild-map-v109 .guild-section-tabs{gap:5px;margin:5px 0 8px}
+.guild-map-v109 .guild-section-tabs>button{min-height:59px;padding:3px 2px 8px;font-size:16px}
+.guild-map-v109 .guild-notice .list-row{min-height:39px;padding:5px 11px;gap:7px;flex-wrap:nowrap}
+.guild-map-v109 .guild-notice .list-row>.icon{width:30px;height:30px;flex:none}
+.guild-map-v109 .guild-notice .row-body{display:flex;align-items:center;gap:7px;min-width:0}
+.guild-map-v109 .guild-notice .row-title{font-size:14px;min-width:51px;flex:none}
+.guild-map-v109 .guild-notice .row-meta{min-width:0}
+.game-page.guild-map-v109 .guild-notice .fine{margin:0;text-align:left;font-size:12px;line-height:16px}
+.guild-map-v109 .guild-chat-panel{margin:9px 0 0;padding:10px 12px 13px}
+.guild-map-v109 .guild-chat-toolbar{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.guild-map-v109 .guild-chat-toolbar>h3{font-size:16px;margin:0;color:var(--guild-ink)}
+.guild-map-v109 .guild-chat-toolbar>.game-button{min-height:34px;margin:0;font-size:13px;padding:2px 8px 7px}
+.guild-map-v109 .guild-chat-toolbar>.game-button .icon{width:26px;height:26px}
+.guild-map-v109 .chat-list{max-height:210px;min-height:130px;padding:3px 0;scrollbar-width:thin}
+.guild-map-v109 .chat-message{display:flex;align-items:center;gap:8px;padding:8px 0;margin:0;border-bottom:1px solid #e8f7ff;background:transparent}
+.guild-map-v109 .chat-message:last-child{border-bottom:0}
+.guild-map-v109 .guild-chat-avatar{flex:none;width:44px;height:44px;padding:0;background:none;border:0}
+.guild-map-v109 .guild-chat-copy{flex:1;min-width:0}
+.guild-map-v109 .guild-profile-link{padding:0;min-height:24px;color:var(--guild-ink);font-size:15px;line-height:22px;text-align:left}
+.game-page.guild-map-v109 .chat-message p{font-size:15px;line-height:21px;margin:1px 0;color:var(--guild-ink)}
+.game-page.guild-map-v109 .chat-message small{display:block;font-size:11px;line-height:17px}
+.game-page.guild-map-v109 .chat-message small button{min-height:22px;padding:0 2px}
+.guild-map-v109 .chat-message[data-own]{margin:5px 0 3px 30px;padding:8px 10px;flex-direction:row-reverse;text-align:right}
+.guild-map-v109 .chat-message[data-own] .guild-profile-link{color:#21694d;text-align:right}
+.guild-map-v109 .chat-composer{margin-top:7px;gap:6px}
+.guild-map-v109 .chat-composer>.input-frame{min-height:44px;margin:0}
+.guild-map-v109 .chat-composer input{font-size:14px;color:var(--guild-ink)}
+.guild-map-v109 .chat-composer>.game-button{min-height:44px;height:44px}
+.guild-map-v109 .guild-members .guild-leave{background:#315c83;color:#fff}
+.guild-map-v109 :is(button,input,textarea,select):focus-visible{outline:3px solid #ffe16a;outline-offset:2px}
+@media(min-width:560px){
+ .game-page.guild-map-v109[data-page="guild"]{background-size:auto 100%}
+ .game-page.guild-map-v109>.page-header,.game-page.guild-map-v109>.page-content{width:390px;max-width:calc(100% - 14px);margin-inline:auto}
+}
+@media(max-width:370px){
+ .game-page.guild-map-v109>.page-header{height:80px}
+ .guild-map-v109 .guild-map-brand-crest{top:-7px}.guild-map-v109 .guild-map-brand-crest>.icon{width:51px;height:51px}
+ .game-page.guild-map-v109>.page-header>h1{font-size:25px;bottom:10px}
+ .guild-map-v109 .guild-entry-actions{padding-inline:15px}
+ .game-page.guild-map-v109 .guild-entry>h2{font-size:21px;line-height:26px}
+ .game-page.guild-map-v109 .guild-entry>p{font-size:13px}
+ .guild-map-v109 .guild-find-results{padding-inline:10px}
+ .guild-map-v109 .guild-find-results .list-row>.icon{width:47px;height:47px}
+ .guild-map-v109 .guild-find-results .row-title{font-size:16px;line-height:21px}
+ .game-page.guild-map-v109 .guild-find-results .row-meta small{font-size:10px}
+ .guild-map-v109 .guild-find-results .row-actions{width:79px}
+ .guild-map-v109 .guild-find-results .row-actions .game-button{font-size:15px}
+ .guild-map-v109 .guild-banner{height:204px}
+ .guild-map-v109 .guild-create-card{padding-inline:12px}
+}
+/* Comparison pass: compact the room chrome and preserve the source's readable rows. */
+.game-page.guild-map-v109>.page-header{height:74px}
+.guild-map-v109 .guild-map-title-art{width:min(75%,270px)}
+.guild-map-v109 .guild-map-brand-crest{top:-21px}
+.guild-map-v109 .guild-map-brand-crest>.icon{width:86px!important;height:86px!important}
+.game-page.guild-map-v109>.page-header>h1{bottom:10px}
+.guild-map-v109 .guild-map-create-hero{max-height:96px}
+.guild-map-v109 .guild-find-results>.list-row{display:flex;gap:10px;min-height:75px;padding:8px 0}
+.guild-map-v109 .guild-find-results .row-title{font-size:20px;line-height:25px}
+.guild-map-v109 .guild-create-form label{margin:0}
+.guild-map-v109 .guild-create-form .input-frame{margin:4px 0 8px}
+.guild-map-v109 .emblem-picker>.emblem-choice{min-height:78px}
+.guild-map-v109 .emblem-picker>.emblem-choice>.icon{width:48px;height:48px}
+.game-page.guild-map-v109[data-guild-stage="joined"]>.page-header{height:42px}
+.guild-map-v109[data-guild-stage="joined"] .guild-map-title-art{width:200px}
+.guild-map-v109 .guild-banner{height:204px}
+.guild-map-v109 .guild-banner .guild-title>.icon{width:100px;height:100px}
+.game-page.guild-map-v109 .modal-content .guild-title h3{color:#fff!important}
+.guild-map-v109 .guild-chat-toolbar>h3{white-space:nowrap;font-size:15px}
+.guild-map-v109 .guild-chat-toolbar>.game-button{width:auto;min-width:116px;flex:none}
+.guild-map-v109 .guild-notice .list-row{display:flex}
+.guild-map-v109 .guild-notice .row-body{flex:1}
+@media(max-width:370px){
+ .game-page.guild-map-v109>.page-header{height:72px}
+ .guild-map-v109 .guild-map-brand-crest{top:-19px}
+ .guild-map-v109 .guild-map-brand-crest>.icon{width:80px!important;height:80px!important}
+ .guild-map-v109 .guild-find-results .row-title{font-size:16px;line-height:21px}
+}
+/* Keep the crest above live title copy, and bound artwork to the scroll viewport. */
+.game-page.guild-map-v109>.page-header{height:92px}
+.guild-map-v109 .guild-map-brand-crest{top:-13px}
+.guild-map-v109 .guild-map-brand-crest>.icon{width:64px!important;height:64px!important}
+.guild-map-v109 :is(.guild-map-entry-hero,.guild-map-find-hero,.guild-map-create-hero){width:100%;margin-inline:0}
+.guild-map-v109 .guild-map-find-hero{height:111px;object-fit:contain;object-position:center bottom}
+.guild-map-v109 .guild-find-results .list-row>.icon{width:65px;height:65px}
+.game-page.guild-map-v109 .guild-find-results .row-title{font-size:20px;line-height:25px}
+.guild-map-v109 .guild-find-results>.list-row{min-height:77px;padding:5px 0}
+.guild-map-v109 .guild-banner{height:230px}
+.guild-map-v109 .guild-banner .guild-title>.icon{width:90px;height:90px}
+.guild-map-v109 .chat-list{max-height:190px}
+.guild-map-v109 .chat-message{padding:5px 0}
+@media(max-width:370px){
+ .game-page.guild-map-v109>.page-header{height:86px}
+ .guild-map-v109 .guild-map-brand-crest{top:-12px}
+ .guild-map-v109 .guild-map-brand-crest>.icon{width:58px!important;height:58px!important}
+ .game-page.guild-map-v109 .guild-find-results .row-title{font-size:16px;line-height:21px}
+ .guild-map-v109 .guild-find-results .list-row>.icon{width:49px;height:49px}
+}
+.guild-map-v109 .guild-map-create-hero{height:110px;max-height:110px;object-fit:contain}
+.guild-map-v109 .guild-map-joined-art{left:0;width:100%}
+.guild-map-v109 .guild-create-card{padding:12px}
+.guild-map-v109 .guild-create-form .input-frame{margin:2px 0 6px}
+.guild-map-v109 .emblem-picker>.emblem-choice{min-height:72px}
+.game-page.guild-map-v109 .emblem-picker>.emblem-choice[aria-pressed="true"]>small{color:#fff!important}
+.guild-map-v109 .guild-banner{height:218px}
+.guild-map-v109 .guild-chat-panel{padding-bottom:9px}
+.guild-map-v109 .chat-list{max-height:208px}
+.guild-map-v109 .chat-message{padding:4px 0}
+.guild-map-v109 .guild-profile-link{min-height:22px;line-height:20px}
+.game-page.guild-map-v109 .chat-message p{line-height:20px}
+.game-page.guild-map-v109 .chat-message small button{min-height:20px}
+.game-page.guild-map-v109 .guild-entry>h2{font-size:28px;line-height:34px;margin-top:18px}
+.game-page.guild-map-v109 .guild-entry>p{font-size:16px}
+.guild-map-v109 .guild-entry-actions .game-button{height:76px;font-size:30px}
+.guild-map-v109 .guild-entry-actions .game-button .icon{width:50px;height:50px}
+@media(max-width:370px){
+ .game-page.guild-map-v109 .guild-entry>h2{font-size:22px;line-height:28px}
+ .game-page.guild-map-v109 .guild-entry>p{font-size:13px}
+ .guild-map-v109 .guild-entry-actions .game-button{height:66px;font-size:26px}
+}
+.guild-map-v109 .guild-profile-link{display:block}
+.guild-map-v109 .chat-message[data-own] .guild-profile-link{margin-left:auto}
+.game-page.guild-map-v109 .chat-message small{display:flex;align-items:center;gap:3px;height:20px}
+.guild-map-v109 .emblem-picker>.emblem-choice{padding:3px 2px 6px;gap:2px}
+.guild-map-v109 .emblem-picker>.emblem-choice>.icon{width:46px;height:46px}
+.guild-map-v109 .emblem-picker>.emblem-choice>small{font-size:11px;line-height:14px}
+/* Player-authored identity can wrap without covering the map or controls. */
+.guild-map-v109 .guild-banner{height:auto;min-height:218px;padding-bottom:32px}
+.game-page.guild-map-v109 .modal-content .guild-title h3{max-width:90%;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.game-page.guild-map-v109 .modal-content .guild-title p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+/* Older alternating-row card padding must not reappear inside the new chat list. */
+.game-page.guild-map-v109 .chat-message:not([data-own]){padding:3px 0;margin:0}
+.guild-map-v109 .guild-chat-panel{padding:6px 12px 5px}
+.guild-map-v109 .chat-list{max-height:216px}
+/* Identity copy is its own opaque panel, below the illustrated map. */
+.guild-map-v109 .guild-banner{min-height:210px;padding-bottom:72px}
+.guild-map-v109 .guild-summary{position:relative;isolation:isolate;margin:4px 0 7px;padding:8px 12px 10px;text-align:center;color:var(--guild-ink)}
+.game-page.guild-map-v109 .modal-content .guild-summary>p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin:0 0 3px;color:#173c68;font-size:14px;line-height:20px;overflow-wrap:anywhere}
+.game-page.guild-map-v109 .modal-content .guild-summary>small{display:block;color:#173c68;font-size:13px;line-height:18px}
+.guild-map-v109 .guild-banner[data-long-name]{padding-bottom:94px}

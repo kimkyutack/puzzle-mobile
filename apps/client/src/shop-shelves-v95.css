@@ -1,0 +1,107 @@
+/* Approved v94: one long shop; repeating tool shelves, separate coin bundles.
+   All rules stay inside this page. Shared navigation and portal modals stay intact. */
+.game-page.shop-shelves-v95[data-page="shop"]{
+ background:#8abfc4 url('../../../packages/assets/shop-shelves-v95/runtime/garden-backdrop.webp') center/cover no-repeat;
+}
+.game-page.shop-shelves-v95>.page-header{
+ height:84px;margin:calc(var(--safe-top) + 1px) 10px 0;padding:0;
+ grid-template-columns:minmax(0,1fr) auto;gap:4px;overflow:visible;
+}
+.shop-shelves-v95 .shop-brand{position:relative;isolation:isolate;width:158px;height:84px}
+.shop-shelves-v95 .shop-hanging-sign{
+ position:absolute;left:0;top:-10px;width:158px;height:96px;z-index:-1;pointer-events:none;
+ background:url('../../../packages/assets/shop-shelves-v95/runtime/hanging-sign.webp') center/contain no-repeat;
+}
+.shop-shelves-v95 .shop-brand-content{
+ position:absolute;inset:31px 10px auto;height:42px;display:flex;align-items:center;justify-content:center;gap:5px;
+}
+.shop-shelves-v95 .shop-brand-content>.icon{width:32px;height:34px;flex:none}
+.game-page.shop-shelves-v95 .shop-brand-content>h1{
+ position:relative;top:5px;margin:0;width:max-content;font:400 25px/30px var(--shop-font);color:#fff;text-shadow:0 2px 0 #173a73;-webkit-text-stroke:0;
+}
+.game-page.shop-shelves-v95>.page-header>.resource-amount{
+ align-self:center;top:14px;min-width:111px;padding:2px 10px 2px 5px;
+ font-size:21px;line-height:28px;
+}
+.game-page.shop-shelves-v95>.page-content{margin:0;width:100%;max-width:none}
+.shop-shelves-v95 .shop-content{padding:0 0 30px}
+.shop-shelves-v95 .shop-bundles{margin:0 10px 0}
+.game-page.shop-shelves-v95 .shop-bundle-track .catalog-bundle.sale-poster{aspect-ratio:1.95;padding:9px 12px 11px;border:1px solid #ffe69d}
+.shop-shelves-v95 .commerce-section:has(>.tool-shelf){margin-bottom:0}
+.game-page.shop-shelves-v95 .commerce-shop .tool-shelf{display:flex;flex-direction:column;gap:0}
+.shop-shelves-v95 .shop-tool-row{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:7px;
+ position:relative;isolation:isolate;min-height:150px;padding:7px 17px 37px;
+}
+.shop-shelves-v95 .shop-tool-row::before{
+ content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:url('../../../packages/assets/shop-shelves-v95/runtime/shelf-row.webp') center/100% 100% no-repeat;
+}
+.game-page.shop-shelves-v95 .commerce-shop .tool-select-card{
+ min-height:120px;padding:5px 5px 7px;gap:0;align-self:stretch;
+}
+.shop-shelves-v95 .tool-select-card>[data-local-frame]{
+ background-image:url('../../../packages/assets/shop-shelves-v95/runtime/tool-card.webp');filter:none;
+}
+.game-page.shop-shelves-v95 .commerce-shop .tool-product.tool-select-card>.icon{width:45px;height:45px}
+.shop-shelves-v95 .tool-card-name{font-size:15px;line-height:18px;min-height:18px}
+.shop-shelves-v95 .tool-card-price{min-height:33px;width:min(100%,94px);margin-top:2px}
+.shop-shelves-v95 .shop-coin-section{display:flex;flex-direction:column;padding:13px 14px 22px;margin:0}
+.game-page.shop-shelves-v95 .commerce-shop .shop-coin-section>.commerce-store-note{
+ order:2;margin:10px 0 0;color:#183a64!important;text-shadow:0 1px 0 #ffffffb3;font-size:11px;line-height:16px;
+}
+.game-page.shop-shelves-v95 .shop-coin-section>.commerce-section-title{
+ position:relative;min-height:52px;height:52px;margin:0 auto 5px;padding:0;width:235px;max-width:100%;
+ background:url('../../../packages/assets/shop-shelves-v95/runtime/coin-heading.webp') center/contain no-repeat;
+}
+.game-page.shop-shelves-v95 .shop-coin-section>.commerce-section-title>.icon{display:none}
+.game-page.shop-shelves-v95 .commerce-shop .shop-coin-section>.commerce-section-title h3{
+ color:#fff!important;font:400 24px/30px var(--shop-font);text-shadow:0 2px 0 #15376f;margin:0!important;
+}
+.game-page.shop-shelves-v95 .commerce-shop .coin-shelf{order:1;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px;padding-top:8px}
+.shop-shelves-v95 .coin-product{min-height:150px;padding:0 9px 10px;gap:1px;overflow:visible}
+.shop-shelves-v95 .coin-product>[data-local-frame]{
+ background:none;border-style:solid!important;border-color:transparent!important;border-width:22px 24px!important;
+ border-image-source:url('../../../packages/assets/shop-shelves-v95/runtime/tool-card.webp')!important;
+ border-image-slice:80 fill!important;border-image-width:1!important;border-image-repeat:stretch!important;
+ filter:hue-rotate(38deg) saturate(1.2);
+}
+.shop-shelves-v95 .coin-pack-art,.shop-shelves-v95 .coin-product>.icon{
+ display:block;align-self:center;width:100%;height:74px;object-fit:contain;object-position:center;flex:none;margin:0 auto;pointer-events:none;user-select:none;
+}
+.shop-shelves-v95 .coin-product>.resource-amount{gap:3px;font:400 22px/27px var(--shop-font)}
+.shop-shelves-v95 .coin-product>.resource-amount>strong{font:inherit}
+.shop-shelves-v95 .coin-product>.resource-amount>.icon{width:24px;height:24px}
+.game-page.shop-shelves-v95 .commerce-shop .coin-product>.commerce-buy{
+ position:relative;isolation:isolate;
+ min-height:36px;height:36px;margin:auto 0 0;padding:2px 5px 7px;
+ font:400 17px/22px var(--shop-font);-webkit-text-stroke:.4px #356714;text-shadow:0 1px 0 #356714;
+}
+.shop-shelves-v95 .coin-product>.commerce-buy>.button-label{font:inherit;transform:none}
+.shop-shelves-v95 .tool-purchase-dock{margin:4px 10px 8px}
+.shop-shelves-v95 .tool-select-card[aria-pressed="true"]::after{inset:1px;border-width:2px;border-radius:13px}
+@media(min-width:560px){
+ .game-page.shop-shelves-v95>.page-header{width:calc(100% - 28px);max-width:480px;margin-left:auto;margin-right:auto}
+ .game-page.shop-shelves-v95>.page-content{width:100%;max-width:500px;margin-left:auto;margin-right:auto}
+ .shop-shelves-v95 .coin-product>[data-local-frame]{border-inline-width:30px!important}
+}
+@media(max-width:370px){
+ .game-page.shop-shelves-v95>.page-header{height:79px;gap:3px;margin-inline:8px}
+ .shop-shelves-v95 .shop-brand{width:144px;height:79px}
+ .shop-shelves-v95 .shop-hanging-sign{top:-8px;width:144px;height:88px}
+ .shop-shelves-v95 .shop-brand-content{top:29px;height:40px;gap:4px}
+ .shop-shelves-v95 .shop-brand-content>.icon{width:29px;height:31px}
+ .game-page.shop-shelves-v95 .shop-brand-content>h1{font-size:22px;line-height:28px}
+ .game-page.shop-shelves-v95>.page-header>.resource-amount{top:12px;min-width:99px;font-size:19px}
+ .shop-shelves-v95 .shop-bundles{margin-inline:8px}
+ .game-page.shop-shelves-v95 .shop-bundle-track .catalog-bundle.sale-poster{aspect-ratio:1.8;grid-template-columns:44% minmax(0,1fr);padding:8px 10px 10px}
+ .shop-shelves-v95 .shop-tool-row{padding:6px 13px 37px;gap:5px;min-height:146px}
+ .game-page.shop-shelves-v95 .commerce-shop .tool-select-card{min-height:116px;padding:5px 3px 7px}
+ .game-page.shop-shelves-v95 .commerce-shop .tool-product.tool-select-card>.icon{width:41px;height:41px}
+ .shop-shelves-v95 .tool-card-name{font-size:13px;line-height:17px}
+ .shop-shelves-v95 .shop-coin-section{padding-inline:9px}
+ .shop-shelves-v95 .coin-product{padding-inline:6px}
+ .shop-shelves-v95 .coin-product>[data-local-frame]{border-inline-width:20px!important}
+ .shop-shelves-v95 .coin-product>.resource-amount{font-size:20px}
+ .game-page.shop-shelves-v95 .commerce-shop .coin-product>.commerce-buy{font-size:15px}
+}

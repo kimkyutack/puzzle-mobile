@@ -190,5 +190,20 @@
   "item.urn": "つぼ",
   "item.statue": "ウサギ像",
   "item.supply-crate": "荷箱",
-  "item.crystal": "水晶"
+  "item.crystal": "水晶",
+  "startGift.name": "ルミの連勝ギフト",
+  "startGift.first": "1回勝つとギフトがもらえます",
+  "startGift.ready": "次のパズルに無料配置",
+  "startGift.next": "次のパズルのギフト",
+  "startGift.stage": "ステージ{count}",
+  "startGift.wins": "{count}連勝",
+  "startGift.help": "連勝でギフトが豪華に！",
+  "startGift.keep": "3連勝以降も毎回もらえます。",
+  "startGift.reset": "このパズルを諦めると連勝ギフトがリセットされます。",
+  "startGift.continue": "続けて勝つと連勝ギフトをキープできます。",
+  "startGift.free": "持ち物は減りません。",
+  "startGift.arrived": "ルミのギフトが届いたよ！",
+  "startGift.info": "連勝ギフトについて",
+  "startGift.unlock": "レベル{level}から、1勝ごとに強化",
+  "startGift.resetRule": "失敗・リタイアでリセット。"
 }

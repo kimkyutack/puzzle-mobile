@@ -1,0 +1,16 @@
+import passScene from '../../../packages/assets/event-design-v62/pass-scene-v74.webp';
+import premiumScene from '../../../packages/assets/event-design-v62/premium-scene-v74.webp';
+import flag from '../../../packages/assets/event-design-v62/rescue-flag-v74.webp';
+import sign from '../../../packages/assets/event-design-v62/rescue-sign-v74.webp';
+import lock from '../../../packages/assets/event-design-v62/pass-lock-v74.webp';
+import arrow from '../../../packages/assets/event-design-v62/pass-arrow-v74.webp';
+import green from '../../../packages/assets/event-design-v62/plant-green-v74.webp';
+import white from '../../../packages/assets/event-design-v62/plant-white-v74.webp';
+import purple from '../../../packages/assets/event-design-v62/plant-purple-v74.webp';
+import yellow from '../../../packages/assets/event-design-v62/plant-yellow-v74.webp';
+import pink from '../../../packages/assets/event-design-v62/plant-pink-v74.webp';
+import blueEnvelope from '../../../packages/assets/event-design-v62/envelope-blue-v74.webp';
+import pinkEnvelope from '../../../packages/assets/event-design-v62/envelope-pink-v74.webp';
+import purpleEnvelope from '../../../packages/assets/event-design-v62/envelope-purple-v74.webp';
+import mailSummary from '../../../packages/assets/event-design-v62/mail-summary-v74.webp';
+export const refinedEventArt={passScene,premiumScene,flag,sign,lock,arrow,plants:[green,white,purple,yellow,pink],envelopes:[blueEnvelope,pinkEnvelope,purpleEnvelope],mailSummary};

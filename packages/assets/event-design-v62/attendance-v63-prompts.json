@@ -1,0 +1,20 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "output/playwright/attendance-comparison/selected-content-source.png",
+  "assets": [
+    {
+      "file": "attendance-calendar-v63.webp",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-0eec083b-164e-4b19-9855-927be03b46d4.png",
+      "prompt": "Use case: precise-object-edit. This is a PRODUCTION UI BACKPLATE extraction, not a redesign. Edit this exact 512x698 portrait attendance calendar content reference. Preserve all positions, proportions, colors, paper shading, envelope silhouettes, garden/gingham background and lower foliage EXACTLY. Keep the SAME 4 envelopes top row, 2 narrow plus 1 wide lilac envelope bottom row, SAME colored pill date-label bases and SAME cream bottom reward tray with vertical divider and green rounded button. Only remove ALL editable UI foregrounds: remove title lettering, every day number/word, every coin, all amount numbers, hammer artwork, all green checkmarks, bottom reward label and button text. Smoothly reconstruct blank paper underneath. ALL seven envelopes must be completely blank but retain their triangle folded flaps, shadows, and red/purple blank pill bases. Remove the yellow active-day border from envelope6, make envelope6 the same cream envelope as ordinary days. Keep envelope7 lilac. Keep blank lower green button and tray. No letters, numerals, symbols, coins, reward icons or checkmarks anywhere. Preserve the original visual layout at exact same aspect ratio. Do not add new props, no redesign, no extra border, no transparency. Dynamic text, OUR OWN existing coin and hammer assets, checks and active-day highlight will be rendered by the real game above these exact coordinates.",
+      "preparation": "Trim 12/1024 right-edge white export padding, resize to1024x1396, WebP quality92. No source overwritten."
+    },
+    {
+      "file": "attendance-check-v63.webp",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-580c225e-b966-4374-baea-123b17443aa0.png",
+      "prompt": "Use case: background-extraction. Asset type: transparent game UI checkmark. Recreate ONE of the small green checkmarks visible on envelopes1-5 of this reference as an isolated high-resolution raster icon on a truly TRANSPARENT background. Same softly rounded lime green tick, dark forest green outline and slim cream outer rim, slight small embossed highlight. Exactly one upright checkmark, no circle, no text, no coin, no envelope, no drop shadow blob, no border tile, no other objects. It will render at about24x24px, so keep a bold clear silhouette. Fit the artwork with ~5% transparent margin on all sides.",
+      "preparation": "Trim alpha padding, resize width128, preserve alpha, WebP quality94."
+    }
+  ],
+  "coin": "Existing application Icon id coin; no coin was generated or replaced.",
+  "rewards": "Live daily.coins and attendance.bonusQuantity; amounts unchanged."
+}

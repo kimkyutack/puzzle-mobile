@@ -1,13 +1,22 @@
+import GardenVisit from './garden-world/GardenVisit';
+import gardenInviteTicket from '../../../packages/assets/garden-invite-v117/runtime/invite-icon.webp';
+import './garden-invitation.css';
 import {tr,formatLocale} from "./i18n";
 import { useEffect, useRef, useState } from 'react';
-import type { Booster, ChatMessage, Guild, GuildMember, Player, SupportRequest, PassClaimAllResponse } from '@garden/contracts';
+import type { Booster, ChatMessage, Guild, GuildMember, Player, SupportRequest, PassClaimAllResponse, SeasonEventProgress } from '@garden/contracts';
 import { duration, request, serverNow } from './api';
 import {guildSocketUrl} from './api-endpoint';
-import { Button, Icon, Row, Card, Amount, Poster, LinkAction, names } from './ui';
+import { Button, Icon, IconButton, Row, Card, Amount, Poster, LinkAction, names } from './ui';
+import {ProfilePortrait} from './GardenerProfile';
+import './friends.css';
 import PassActions from './PassActions';
-import PassRewards,{type PassTier} from './PassRewards';
+import CommerceDialog from './CommerceDialog';
+import PassRewards,{PassProgress,type PassTier} from './PassRewards';
 import type {AttendanceState} from './AttendancePanel';
-import EventsContent from './EventsContent';
+import EventsContent,{EventsLoadingContent,type EventsContentProps} from './EventsContent';
+import type {EventTabId} from './event-tabs';
+import {usePageSnapshot} from './page-snapshots';
+import HubLoading from './HubLoading';
 import {useActivity} from './Activity';
 import {useOperations} from './OperationsUI';
 import {useFriendProfiles} from './FriendProfiles';
@@ -15,10 +24,15 @@ import {sound,startMusic} from './sound';
 import {guildEmblemIcon,guildEmblems} from './guild-emblems';
 import {isGuildSubpage} from './HubNavigation';
 import './guild-layout.css';
+import guildEntryHero from '../../../packages/assets/guild-map-v109/runtime/entry-hero.webp';
+import guildCreateHero from '../../../packages/assets/guild-map-v109/runtime/create-hero.webp';
+import guildFindHero from '../../../packages/assets/guild-map-v109/runtime/find-hero.webp';
+import guildJoinedTable from '../../../packages/assets/guild-map-v109/runtime/joined-table.webp';
+import './event-design-v62.css';
 
 type Mutate = (path:string,body?:Record<string,unknown>,method?:string)=>Promise<unknown>;
 interface Props { page:string; player:Player; mutate:Mutate; refresh:()=>Promise<void>; notify:(message:string)=>void; onPage:(page:string)=>void }
-interface EventProgress { progress:number; target:number; coins:number; claimed:boolean }
+type EventProgress=SeasonEventProgress;
 interface EventState {
   dailyClaimed:boolean;
   attendance?:AttendanceState;
@@ -43,7 +57,7 @@ function EmblemPicker({value,onChange,disabled}:{value:number;onChange:(value:nu
  return <div className="emblem-picker" role="group" aria-label={tr("길드 문장 선택")}>
   {guildEmblems.map((item,index)=>{
    const selected=value===index,label=tr(item.label);
-   return <button type="button" key={item.icon} className="emblem-choice" data-frame={selected?'card_green_v4':'card_blue_v4'}
+   return <button type="button" key={item.icon} className="emblem-choice" data-frame={selected?'button_secondary':'card_ice_v9'}
     aria-label={label+(selected?tr(" · 선택"):'')} aria-pressed={selected} disabled={disabled} onClick={()=>onChange(index)}>
     <Icon id={item.icon} size={46}/><small>{label}</small>{selected&&<b aria-hidden="true">✓</b>}
    </button>;
@@ -54,15 +68,19 @@ function EmblemPicker({value,onChange,disabled}:{value:number;onChange:(value:nu
 export default function CommunityMenus({page,player,mutate,refresh,notify,onPage}:Props){
   const {openProfile}=useFriendProfiles();
   const activity=useActivity(),operations=useOperations();
-  const [events,setEvents]=useState<EventState|null>(null);
+  const [events,setEvents]=usePageSnapshot<EventState>(player.id,'events');
+  const [eventTab,setEventTab]=useState<EventTabId>('attendance'),[eventConfirmed,setEventConfirmed]=useState(''),[eventLoading,setEventLoading]=useState(false);
+  const eventRead=useRef(0),eventOwner=useRef(player.id);eventOwner.current=player.id;
   const [loadError,setLoadError]=useState('');
-  const [working,setWorking]=useState(false);
+  const [mutationWorking,setWorking]=useState(false),[guildConfirmed,setGuildConfirmed]=useState(''),[guildLoading,setGuildLoading]=useState(false);
+  const guildRead=useRef(0);
+  const [showPassGifts,setShowPassGifts]=useState(false);
   const busy=useRef(false);
   const [guilds,setGuilds]=useState<Guild[]>([]);
   const [searching,setSearching]=useState(true);
   const [searchError,setSearchError]=useState('');
   const searchSequence=useRef(0);
-  const [view,setView]=useState<GuildView|null>(null);
+  const [view,setView]=usePageSnapshot<GuildView>(player.id,'guild/'+(player.guildId??'none'));
   const [search,setSearch]=useState('');
   const [guildName,setGuildName]=useState('');
   const [description,setDescription]=useState('');
@@ -71,6 +89,8 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   const [minLevel,setMinLevel]=useState('5');
   const [emblem,setEmblem]=useState(0);
   const [chatText,setChatText]=useState('');
+  const [invitedGarden,setInvitedGarden]=useState<string|null>(null);
+  useEffect(()=>setInvitedGarden(null),[player.id]);
   const [tab,setTab]=useState<'chat'|'help'|'members'|'manage'>('chat');
   const [pendingJoins,setPendingJoins]=useState<string[]>([]);
   const [confirmation,setConfirmation]=useState<{kind:'transfer'|'kick'|'leave';member?:GuildMember}|null>(null);
@@ -82,13 +102,25 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   const guildUnlocked=player.level>=5;
   const findingGuild=page==='guild/find'&&guildUnlocked&&!player.guildId;
 
+  const guildKey=player.id+'/'+player.guildId;
+  const working=mutationWorking||page==='pass'&&eventConfirmed!==player.id||guildPage&&!!player.guildId&&guildConfirmed!==guildKey;
+  useEffect(()=>()=>{eventRead.current++;guildRead.current++;},[]);
   async function perform(fn:()=>Promise<unknown>){
-    if(busy.current)return;busy.current=true;setWorking(true);
+    if(busy.current||page==='pass'&&eventConfirmed!==player.id||guildPage&&!!player.guildId&&guildConfirmed!==guildKey)return;busy.current=true;setWorking(true);
     try{await fn();}catch(error){notify(error instanceof Error?error.message:tr("잠시 후 다시 시도해 주세요."));}
     finally{busy.current=false;setWorking(false);}
   }
-  async function loadEvents(){try{const next=await request<EventState>('/events');setEvents(next);activity.updateData(data=>({...data,eventRewards:next}));setLoadError('');}catch(error){setLoadError(error instanceof Error?error.message:tr("연결을 확인해 주세요."));throw error;}}
-  async function loadView(){const next=await request<GuildView>('/guild');setView(next);activity.updateData(data=>({...data,notifications:{...data.notifications,guild:next.members.length<30&&next.members.some(member=>member.userId===player.id&&member.role!=='member')?next.applications.length:0}}));setLoadError('');if(!next.guild&&player.guildId)await refresh();}
+  async function loadEvents(){
+    const sequence=++eventRead.current,owner=player.id;setEventLoading(true);
+    try{const next=await request<EventState>('/events');if(eventOwner.current!==owner||sequence!==eventRead.current)return;setEvents(next);activity.updateData(data=>({...data,eventRewards:next}));setEventConfirmed(owner);setLoadError('');}
+    catch(error){if(eventOwner.current===owner&&sequence===eventRead.current){setEventConfirmed('');setLoadError(error instanceof Error?error.message:tr("연결을 확인해 주세요."));}throw error;}
+    finally{if(eventOwner.current===owner&&sequence===eventRead.current)setEventLoading(false);}
+  }
+  async function loadView(){
+    const sequence=++guildRead.current,owner=player.id;setGuildLoading(true);
+    try{const next=await request<GuildView>('/guild');if(eventOwner.current!==owner||sequence!==guildRead.current)return;setView(next);setGuildConfirmed(guildKey);activity.updateData(data=>({...data,notifications:{...data.notifications,guild:next.members.length<30&&next.members.some(member=>member.userId===player.id&&member.role!=='member')?next.applications.length:0}}));setLoadError('');if(!next.guild&&player.guildId)await refresh();}
+    finally{if(eventOwner.current===owner&&sequence===guildRead.current)setGuildLoading(false);}
+  }
   async function loadSearch(query:string){
     const sequence=++searchSequence.current;
     setSearching(true);setSearchError('');
@@ -104,8 +136,8 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
   }
   useEffect(()=>{
     setLoadError('');setConfirmation(null);
-    if(page==='events'||page==='pass')void loadEvents().catch(()=>{});
-    if(guildPage&&guildUnlocked&&player.guildId)void loadView().catch(error=>setLoadError(error instanceof Error?error.message:tr("길드를 불러오지 못했어요.")));
+    if(page==='events'||page==='pass'){setEventConfirmed('');void loadEvents().catch(()=>{});}
+    if(guildPage&&guildUnlocked&&player.guildId){setGuildConfirmed('');void loadView().catch(error=>setLoadError(error instanceof Error?error.message:tr("길드를 불러오지 못했어요.")));}
   },[page,guildUnlocked,player.guildId,player.id]);
   useEffect(()=>{
     if(!findingGuild)return;
@@ -141,17 +173,20 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
 
   if(page==='events'||page==='pass'){
     if(page==='pass'&&operations.data?.settings.features.pass===false)return <p>{tr('잠시 쉬어가는 기능이에요. 나중에 다시 확인해 주세요.')}</p>;
-    if(!events)return <div className="empty"><Icon id="chest" size={90}/><p role="status">{loadError||tr("정원 소식을 불러오는 중…")}</p>{loadError&&<Button disabled={working} onClick={()=>void perform(loadEvents)}>{tr("다시 불러오기")}</Button>}</div>;
+    if(page==='events'){
+      const preview:Pick<EventsContentProps,'daily'|'season'|'personal'|'guild'|'attendance'>|null=events??activity.data?.eventRewards??null;
+      if(!preview)return <EventsLoadingContent player={player} selected={eventTab} onSelect={setEventTab} error={loadError} retrying={eventLoading} onRetry={()=>void loadEvents().catch(()=>{})}/>;
+      return <EventsContent initialTab={eventTab} onTabChange={setEventTab} refreshError={loadError} revalidating={eventLoading} onRetry={()=>void loadEvents().catch(()=>{})} player={player} mutate={mutate} daily={preview.daily} attendance={preview.attendance} season={preview.season} personal={preview.personal} guild={preview.guild} hasGuild={!!player.guildId} working={working||eventConfirmed!==player.id} onPage={onPage} onClaimSeason={kind=>{if(eventConfirmed===player.id)void perform(()=>claimEvent(kind));}} onClaim={()=>{if(eventConfirmed===player.id)void perform(async()=>{await mutate('/events/daily');await loadEvents();notify(tr("출석 선물을 받았어요!"));});}}/>;
+    }
+    if(!events)return <HubLoading reducedMotion={player.settings.reducedMotion} kind="pass" error={loadError} retrying={eventLoading} onRetry={()=>void loadEvents().catch(()=>{})}/>;
     const guildGiftPanel=events.pass.guildGifts.length>0&&<><h3>{tr("함께 나누는 패스 선물")}</h3>{events.pass.guildGifts.map(gift=><Row key={gift.seasonId} icon="guild" title={tr("길드 선물권")}><small>{tr("현재 길드원 모두에게 망치")}{' '}{gift.quantityPerMember}{tr("개씩")}</small>{gift.sent?<Button disabled>{tr("선물 전달 완료")}</Button>:player.guildId?<Button attention={1} disabled={working} onClick={()=>void perform(async()=>{await mutate('/pass/guild-gift',{seasonId:gift.seasonId});await loadEvents();notify(tr("길드원들의 선물함에 망치를 보냈어요!"));})}>{tr("길드원에게 선물 보내기")}</Button>:<Button secondary onClick={()=>onPage('guild')}>{tr("가입 후 선물 보내기")}</Button>}</Row>)}<p className="fine">{tr("선물권은 보관돼요. 보낼 때 같은 길드에 있는 모두의 선물함에 한 번씩 도착해요.")}</p></>;
-    if(page==='events')return <EventsContent player={player} mutate={mutate} daily={events.daily} attendance={events.attendance} season={events.season} personal={events.personal} guild={events.guild} hasGuild={!!player.guildId} working={working} onPage={onPage} onClaimSeason={kind=>void perform(()=>claimEvent(kind))} onClaim={()=>void perform(async()=>{await mutate('/events/daily');await loadEvents();notify(tr("출석 선물을 받았어요!"));})}/>;
+
     if(player.level<5)return <div className="empty"><Icon id="star" size={90}/><h3>{tr("차곡차곡 자라는 정원")}</h3><p>{tr("4판을 완료하면 정원 패스를 확인할 수 있어요.")}<br/>{tr("이미 모은 진행은 그대로 이어져요.")}</p></div>;
     if(!events.season||serverNow()>=events.season.ends_at)return <div className="empty"><Icon id="star" size={90}/><h3>{tr("다음 정원 시즌을 준비 중이에요")}</h3><p>{tr("새 시즌이 열리면 여기에서 보상을 확인할 수 있어요.")}</p>{guildGiftPanel}</div>;
     const end=new Date(events.season.ends_at);
     return <>
       <div className="garden-pass">
-        <Poster id="poster_gift_v5" className="garden-pass-cover" label={tr('꽃과 보물이 가득한 정원 패스')}>
-          <figcaption className="poster-caption" data-frame="event_badge" data-frame-scale="0.1">{tr('{0}점',{0:events.pass.points})}</figcaption>
-        </Poster>
+        <PassProgress pass={events.pass}/>
         <div className="pass-season-line">
           <span><Icon id="star" size={20}/>{tr('새 레벨 +10점')}</span>
           <span>{tr('시즌 종료')} <time dateTime={end.toISOString()}>{end.toLocaleString(formatLocale(),{month:'numeric',day:'numeric',hour:'numeric',minute:'2-digit'})}</time></span>
@@ -161,21 +196,23 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
         })}/>
         <PassActions player={player} seasonId={events.season.id} seasonEndsAt={events.season.ends_at} pass={events.pass} working={working} perform={perform} onPage={onPage} onReload={async()=>{await refresh();await loadEvents();}} onClaimAll={()=>void perform(async()=>{const result=await mutate('/pass/claim-all') as PassClaimAllResponse;await loadEvents();notify(result.reason==='CLAIMED'&&result.claimed.length?tr("선물 {0}개를 모두 받았어요!",{0:(result.claimed.length)}):tr("현재 받을 수 있는 선물을 모두 받았어요."));})}/>
       </div>
-      {guildGiftPanel}
+      {guildGiftPanel&&<div className="pass-guild-gifts-open"><IconButton id="guild" label={tr('길드 선물권')} onClick={()=>setShowPassGifts(true)}/></div>}
+      {showPassGifts&&guildGiftPanel&&<CommerceDialog title={tr('함께 나누는 패스 선물')} onClose={()=>{if(!working)setShowPassGifts(false);}}>{guildGiftPanel}</CommerceDialog>}
     </>;
   }
 
   if(!guildUnlocked)return <div className="empty"><Icon id="guild" size={110}/><h3>{tr("함께 가꾸면 더 즐거워요")}</h3><p>{tr("4판을 완료하면 길드가 열려요.")}</p></div>;
   if(!player.guildId){
     if(findingGuild)return <div className="guild-find">
-      <Card tone="gold">
+      <img className="guild-map-find-hero" src={guildFindHero} alt="" aria-hidden="true" draggable={false}/>
+      <Card tone="blue">
         <form className="guild-search-form" onSubmit={event=>{event.preventDefault();if(!searching&&!busy.current)void loadSearch(search);}}>
           <div className="input-frame" data-frame="panel"><input value={search} onChange={event=>setSearch(event.target.value)} placeholder={tr('길드 이름 검색')} aria-label={tr('길드 이름 검색')} maxLength={24} enterKeyHint="search"/></div>
           <Button type="submit" tone="blue" disabled={working||searching}>{tr('검색')}</Button>
         </form>
         {searching?<p role="status" className="fine">{tr('길드를 찾는 중…')}</p>:searchError?<p role="status" className="fine">{tr(searchError)}</p>:!guilds.length&&<p role="status" className="fine">{tr('검색 결과가 없어요.')}</p>}
       </Card>
-      {!searching&&!searchError&&guilds.map(g=>{
+      {!searching&&!searchError&&guilds.length>0&&<section className="guild-find-results" aria-label={tr('길드 목록')}><h3>{tr('길드 목록')}</h3>{guilds.map(g=>{
         const pending=pendingJoins.includes(g.id),full=g.members>=30,locked=player.level<g.minLevel,approval=g.mode==='approval';
         const joinLabel=pending?tr('승인 대기'):full?tr('인원 가득'):locked?tr('레벨 부족'):approval?tr('가입 신청'):tr('가입');
         return <Row key={g.id} icon={guildEmblemIcon(g.emblem)} title={g.name}>
@@ -186,11 +223,11 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
             else notify(tr('길드에 오신 것을 환영해요!'));
           })}>{joinLabel}</Button>
         </Row>;
-      })}
+      })}</section>}
     </div>;
     if(page==='guild/create'){
       const canCreate=guildName.trim().length>=2&&validMinimum;
-      return <Card className="guild-create-card" tone="green">
+      return <div className="guild-create"><img className="guild-map-create-hero" src={guildCreateHero} alt="" aria-hidden="true" draggable={false}/><Card className="guild-create-card" tone="blue">
         <form className="guild-create-form" onSubmit={event=>{
           event.preventDefault();
           if(!canCreate)return;
@@ -213,26 +250,24 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
           <EmblemPicker value={emblem} onChange={setEmblem} disabled={working}/>
           <Button type="submit" tone="green" disabled={working||!canCreate}>{tr('길드 창설')}</Button>
         </form>
-      </Card>;
+      </Card></div>;
     }
-    return <div className="guild-entry-actions">
-      <button type="button" data-frame="card_ice_v9" data-frame-scale="0.18" onClick={()=>onPage('guild/find')}>
-        <Icon id="guild" size={96}/><span>{tr('길드 찾기')}</span>
-      </button>
-      <button type="button" data-frame="card_lavender_v9" data-frame-scale="0.18" onClick={()=>onPage('guild/create')}>
-        <Icon id={guildEmblemIcon(0)} size={96}/><span>{tr('길드 창설')}</span>
-      </button>
-    </div>;
+    return <div className="guild-entry"><img className="guild-map-entry-hero" src={guildEntryHero} alt="" aria-hidden="true" draggable={false}/><h2>{tr('함께할 길드를 만나보세요')}</h2><p>{tr('길드원과 하트를 나누고 함께 즐겨요.')}</p><div className="guild-entry-actions">
+      <div><Button tone="green" icon="guild" onClick={()=>onPage('guild/find')}>{tr('길드 찾기')}</Button><p>{tr('좋은 길드에 가입해요.')}</p></div>
+      <div><Button tone="blue" icon={guildEmblemIcon(0)} onClick={()=>onPage('guild/create')}>{tr('길드 창설')}</Button><p>{tr('나만의 길드를 만들어요.')}</p></div>
+    </div></div>;
   }
-  if(!view?.guild)return <div className="empty"><Icon id="guild" size={80}/><p role="status">{loadError||tr("길드 정원을 불러오는 중…")}</p>{loadError&&<Button onClick={()=>void perform(loadView)}>{tr("다시 불러오기")}</Button>}</div>;
+  if(!view?.guild)return <div className="guild-initial-loading"><HubLoading reducedMotion={player.settings.reducedMotion} kind="guild" error={loadError} retrying={guildLoading} onRetry={()=>void loadView().catch(error=>setLoadError(error instanceof Error?error.message:tr("길드를 불러오지 못했어요.")))}/></div>;
   const support=view.supportStatus;
   const tabs=[['chat','mail','대화'],['help','heart','도움'],['members','lumi','멤버'],['manage','settings','관리']] as const;
   return <div className="guild-layout">
-    <section className="guild-banner" data-frame="card_peach_v9" data-frame-scale="0.16"><div className="guild-title"><Icon id={guildEmblemIcon(view.guild.emblem)} size={68}/><div><h3>{view.guild.name}</h3><p>{view.guild.description}</p><small>{view.members.length}{tr("/30 · 최소 레벨")}{' '}{view.guild.minLevel}</small></div></div></section>
-    {view.guild.notice&&<Row icon="mail" title={tr("길드 공지")}><p className="fine">{view.guild.notice}</p></Row>}
-    <div className="guild-section-tabs" role="group" aria-label={tr('우리 길드')}>{tabs.filter(([id])=>id!=='manage'||manages).map(([id,icon,label])=><button key={id} aria-pressed={tab===id} data-frame={tab===id?'button_mint_v6':'card_sage_v6'} data-frame-scale="0.12" onClick={()=>{sound('button');startMusic();if(id==='manage')openManagement();else setTab(id);}}><Icon id={icon} size={32}/><span>{tr(label)}</span></button>)}</div>
-    {tab==='chat'?<Card title={tr("길드 대화")} tone="green">
-      <div className="chat-list">{view.messages.length?view.messages.map(message=><div className="chat-message" key={message.id} data-frame={message.userId===player.id?'card_green_v4':'card_gold_v4'}><button className="guild-profile-link" onClick={()=>openProfile(message.userId)} aria-label={message.nickname+' '+tr("프로필 보기")}>{message.nickname}</button><p>{message.text}</p>{message.userId!==player.id&&<small><button onClick={()=>void perform(async()=>{await mutate('/guild/block',{userId:message.userId});await loadView();})}>{tr("차단")}</button> · <button onClick={()=>void perform(async()=>{await mutate('/guild/report',{messageId:message.id,reason:tr("사용자 신고")});notify(tr("신고를 접수했어요."));})}>{tr("신고")}</button></small>}</div>):<div className="guild-chat-empty"><Icon id="mail" size={54}/><p className="fine">{tr("길드원에게 첫 인사를 건네보세요.")}</p></div>}</div>
+    {loadError&&<div className="hub-refresh-notice" role="status"><span>{tr('최신 정보를 확인하지 못했어요.')}</span><Button tone="blue" onClick={()=>void loadView().catch(()=>{})}>{tr('다시 불러오기')}</Button></div>}
+    <section className="guild-banner" data-long-name={view.guild.name.length>12||undefined}><img className="guild-map-joined-art" src={guildJoinedTable} alt="" aria-hidden="true" draggable={false}/><div className="guild-title"><Icon id={guildEmblemIcon(view.guild.emblem)} size={72}/><div><h3 title={view.guild.name}>{view.guild.name}</h3></div></div></section>
+    <section className="guild-summary" aria-label={tr('길드 소개')} data-frame="card_ice_v9" data-frame-scale="0.12">{view.guild.description&&<p title={view.guild.description}>{view.guild.description}</p>}<small>{view.members.length}{tr("/30 · 최소 레벨")}{' '}{view.guild.minLevel}</small></section>
+    <div className="guild-section-tabs" role="group" aria-label={tr('길드')}>{tabs.filter(([id])=>id!=='manage'||manages).map(([id,icon,label])=><button key={id} aria-pressed={tab===id} data-frame={tab===id?'button_secondary':'card_ice_v9'} data-frame-scale="0.12" onClick={()=>{sound('button');startMusic();if(id==='manage')openManagement();else setTab(id);}}><Icon id={icon} size={28}/><span>{tr(label)}</span></button>)}</div>
+    {view.guild.notice&&<div className="guild-notice"><Row icon="mail" title={tr("길드 공지")}><p className="fine">{view.guild.notice}</p></Row></div>}
+    {tab==='chat'?<Card className="guild-chat-panel" tone="blue"><div className="guild-chat-toolbar"><h3>{tr('길드 대화')}</h3><Button secondary icon="chest" onClick={()=>onPage('gifts')}>{tr('선물함 열기')}</Button></div>
+      <div className="chat-list">{view.messages.length?view.messages.map(message=><div className="chat-message" key={message.id} data-own={message.userId===player.id||undefined} data-frame={message.userId===player.id?'card_ice_v9':undefined}><button className="guild-chat-avatar" onClick={()=>openProfile(message.userId)} aria-label={message.nickname+' '+tr("프로필 보기")}><ProfilePortrait appearance={view.members.find(member=>member.userId===message.userId)?.profileAppearance} size={40}/></button><div className="guild-chat-copy"><button className="guild-profile-link" onClick={()=>openProfile(message.userId)}>{message.nickname}</button>{!message.gardenInvite&&<p>{message.text}</p>}{message.gardenInvite&&<div className="garden-chat-invitation"><img src={gardenInviteTicket} alt=""/><span>{tr("내 정원에 놀러 와!")}</span><Button tone="green" onClick={()=>setInvitedGarden(message.gardenInvite!.ownerId)}>{tr("정원 방문")}</Button></div>}{message.userId!==player.id&&<small><button onClick={()=>void perform(async()=>{await mutate('/guild/block',{userId:message.userId});await loadView();})}>{tr("차단")}</button> · <button onClick={()=>void perform(async()=>{await mutate('/guild/report',{messageId:message.id,reason:tr("사용자 신고")});notify(tr("신고를 접수했어요."));})}>{tr("신고")}</button></small>}</div></div>):<div className="guild-chat-empty"><Icon id="mail" size={54}/><p className="fine">{tr("길드원에게 첫 인사를 건네보세요.")}</p></div>}</div>
       <div className="chat-composer"><div className="input-frame" data-frame="panel"><input value={chatText} onChange={event=>setChatText(event.target.value)} placeholder={tr("따뜻한 한마디를 남겨주세요")} maxLength={240} aria-label={tr("길드 채팅")} onKeyDown={event=>{if(event.key==='Enter'&&!event.nativeEvent.isComposing)void perform(sendChat);}}/></div><Button icon="mail" tone="green" disabled={working||!chatText.trim()} onClick={()=>void perform(sendChat)}><span className="sr-only">{tr("보내기")}</span></Button></div>
     </Card>:tab==='help'?<Card title={tr("도움 나누기")} tone="green">
       <Button disabled={working||(support?.heartNextAt??0)>serverNow()||(support?.storedHearts??0)>=20} icon="heart" onClick={()=>void perform(async()=>{await mutate('/guild/requests',{kind:'heart'});await loadView();})}>{support&&support.heartNextAt>serverNow()?tr("다음 요청 {0}",{0:(duration(support.heartNextAt-serverNow()))}):tr("하트 도움 요청")}</Button>
@@ -248,10 +283,11 @@ export default function CommunityMenus({page,player,mutate,refresh,notify,onPage
       <EmblemPicker value={emblem} onChange={setEmblem} disabled={working}/><Button disabled={working||!validMinimum} onClick={()=>void perform(async()=>{await mutate('/guild',{notice,description,mode,minLevel:Number(minLevel),emblem},'PATCH');await loadView();notify(tr("길드 정보를 저장했어요."));})}>{tr("길드 정보 저장")}</Button>
       <h3>{tr("가입 신청")}</h3>{view.applications.length?view.applications.map(applicant=><Row key={applicant.userId} onProfile={()=>openProfile(applicant.userId)} icon="lumi" title={tr("{0} · 레벨 {1}",{0:(applicant.nickname),1:(applicant.level)})}><Button disabled={working||view.members.length>=30} onClick={()=>void perform(async()=>{await mutate('/guild/approve',{userId:applicant.userId});await loadView();})}>{tr("가입 승인")}</Button></Row>):<p className="fine">{tr("대기 중인 가입 신청이 없어요.")}</p>}
     </Card>:<div className="guild-members">
-      {view.members.map(member=><Row key={member.userId} onProfile={()=>openProfile(member.userId)} icon="lumi" title={`${member.nickname} · ${tr(roleNames[member.role])}`}><small>{tr("레벨")}{' '}{member.level}{' '}{tr("· 도움")}{' '}{member.contribution}</small>{ownRole==='leader'&&member.userId!==player.id&&<><Button secondary disabled={working} onClick={()=>void perform(async()=>{await mutate('/guild/role',{userId:member.userId,role:member.role==='officer'?'member':'officer'});await loadView();})}>{member.role==='officer'?tr("일반 멤버로"):tr("운영진 임명")}</Button><Button secondary disabled={working} onClick={()=>setConfirmation({kind:'transfer',member})}>{tr("길드장 위임")}</Button></>}{manages&&member.userId!==player.id&&member.role!=='leader'&&(ownRole==='leader'||member.role==='member')&&<Button secondary disabled={working} onClick={()=>setConfirmation({kind:'kick',member})}>{tr("추방")}</Button>}</Row>)}
+      <ul className="friend-list">{view.members.map(member=><li key={member.userId} className="friend-person" data-frame="card_ice_v9" data-content-group><button className="friend-person-profile" onClick={()=>openProfile(member.userId)} aria-label={member.nickname+' '+tr('프로필 보기')}><ProfilePortrait appearance={member.profileAppearance} size={48}/><span><strong>{member.nickname} · {tr(roleNames[member.role])}</strong><small>{tr("레벨")}{' '}{member.level}{' '}{tr("· 도움")}{' '}{member.contribution}</small></span></button>{(ownRole==='leader'||manages)&&member.userId!==player.id&&<div className="friend-person-actions">{ownRole==='leader'&&member.userId!==player.id&&<><Button secondary disabled={working} onClick={()=>void perform(async()=>{await mutate('/guild/role',{userId:member.userId,role:member.role==='officer'?'member':'officer'});await loadView();})}>{member.role==='officer'?tr("일반 멤버로"):tr("운영진 임명")}</Button><Button secondary disabled={working} onClick={()=>setConfirmation({kind:'transfer',member})}>{tr("길드장 위임")}</Button></>}{manages&&member.userId!==player.id&&member.role!=='leader'&&(ownRole==='leader'||member.role==='member')&&<Button secondary disabled={working} onClick={()=>setConfirmation({kind:'kick',member})}>{tr("추방")}</Button>}</div>}</li>)}</ul>
       <LinkAction className="guild-leave" disabled={working} onClick={()=>setConfirmation({kind:'leave'})}>{tr("길드 탈퇴")}</LinkAction>
     </div>}
     {confirmation&&<Card title={tr("길드 변경 확인")}><h3>{confirmation.kind==='transfer'?tr("{0}님에게 길드장을 넘길까요?",{0:(confirmation.member?.nickname)}):confirmation.kind==='kick'?tr("{0}님을 추방할까요?",{0:(confirmation.member?.nickname)}):tr("길드를 떠날까요?")}</h3><p className="fine">{confirmation.kind==='transfer'?tr("위임하면 일반 멤버가 되며, 새 길드장이 길드를 관리해요."):tr("진행 중인 지원 요청이 닫혀요. 이미 도착한 선물은 선물함에 보관돼요.")}</p><Button disabled={working} onClick={()=>void perform(confirmGuildAction)}>{confirmation.kind==='transfer'?tr("길드장 위임 확인"):confirmation.kind==='kick'?tr("추방 확인"):tr("탈퇴 확인")}</Button><Button secondary disabled={working} onClick={()=>setConfirmation(null)}>{tr("돌아가기")}</Button></Card>}
-    <Button secondary icon="chest" onClick={()=>onPage('gifts')}>{tr("선물함 열기")}</Button>
+    {tab!=='chat'&&<Button secondary icon="chest" onClick={()=>onPage('gifts')}>{tr("선물함 열기")}</Button>}
+    {invitedGarden&&<GardenVisit userId={invitedGarden} reducedMotion={player.settings.reducedMotion} onClose={()=>setInvitedGarden(null)}/>}
   </div>;
 }

@@ -1,0 +1,121 @@
+{
+  "source": "packages/garden-world/art/home-v78/source/selected-original.png",
+  "normalizedPixels": [
+    780,
+    1688
+  ],
+  "records": [
+    {
+      "name": "gift-capsule",
+      "rect": [
+        7,
+        546,
+        224,
+        38
+      ],
+      "left": 6,
+      "right": 5,
+      "method": "Original perimeter retained; editable foreground cleared from source material rows."
+    },
+    {
+      "name": "festival-capsule",
+      "rect": [
+        292,
+        545,
+        94,
+        40
+      ],
+      "left": 8,
+      "right": 5,
+      "method": "Original perimeter retained; editable foreground cleared from source material rows."
+    },
+    {
+      "name": "active-home",
+      "rect": [
+        154,
+        751,
+        82,
+        78
+      ],
+      "left": 14,
+      "right": 14,
+      "method": "Original perimeter retained; editable foreground cleared from source material rows."
+    },
+    {
+      "name": "festival",
+      "rect": [
+        300,
+        551,
+        30,
+        29
+      ],
+      "body": [
+        54,
+        51
+      ],
+      "packed": [
+        120,
+        113
+      ],
+      "method": "Background-connected pixels matted; original icon pixels retained."
+    },
+    {
+      "name": "gift",
+      "rect": [
+        13,
+        548,
+        31,
+        33
+      ],
+      "body": [
+        60,
+        66
+      ],
+      "packed": [
+        109,
+        120
+      ],
+      "method": "Background-connected pixels matted; original icon pixels retained."
+    },
+    {
+      "name": "command-ivory",
+      "rect": [
+        3,
+        576,
+        385,
+        205
+      ],
+      "method": "Clean source backdrop edge samples; no foreground content."
+    },
+    {
+      "name": "footer-ivory",
+      "rect": [
+        3,
+        751,
+        385,
+        93
+      ],
+      "method": "Clean source backdrop edge samples; no foreground content."
+    },
+    {
+      "name": "lime-button",
+      "rect": [
+        10,
+        668,
+        193,
+        72
+      ],
+      "method": "Source face with its original soft shadow decontaminated against the source backdrop."
+    },
+    {
+      "name": "coral-button",
+      "rect": [
+        208,
+        668,
+        174,
+        72
+      ],
+      "method": "Source face with its original soft shadow decontaminated against the source backdrop."
+    }
+  ]
+}

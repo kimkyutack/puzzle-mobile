@@ -16,7 +16,11 @@ async function initialize() {
   if(initialized) return;
   const options:InitializeOptions={};
   if(import.meta.env.VITE_GOOGLE_WEB_CLIENT_ID) options.google={webClientId:import.meta.env.VITE_GOOGLE_WEB_CLIENT_ID,iOSClientId:import.meta.env.VITE_GOOGLE_IOS_CLIENT_ID,mode:'online'};
-  options.apple={clientId:import.meta.env.VITE_APPLE_SERVICE_ID,redirectUrl:Capacitor.getPlatform()==='ios'?'':import.meta.env.VITE_APPLE_REDIRECT_URL,useProperTokenExchange:true};
+  // Android signs in to Apple through its own browser flow (appleAndroid), never through the plugin, and the
+  // plugin's Android initialize rejects the whole call (Google included) when Apple has no Services ID.
+  const platform=Capacitor.getPlatform();
+  if(platform==='ios'||(platform!=='android'&&import.meta.env.VITE_APPLE_SERVICE_ID&&import.meta.env.VITE_APPLE_REDIRECT_URL))
+    options.apple={clientId:import.meta.env.VITE_APPLE_SERVICE_ID,redirectUrl:platform==='ios'?'':import.meta.env.VITE_APPLE_REDIRECT_URL,useProperTokenExchange:true};
   await SocialLogin.initialize(options);initialized=true;
 }
 /** Request challenge from POST /api/auth/challenge first. Nonce is one-use and server-owned. */
@@ -28,7 +32,8 @@ export async function signIn(provider:SignInProvider,nonce:string,challengeId:st
   }
   await initialize();
   const response=provider==='google'
-    ?await SocialLogin.login({provider:'google',options:{nonce,scopes:['openid','email','profile'],forcePrompt:true,prompt:'select_account'}})
+    // Android already asks for openid/email/profile and rejects explicit scopes unless MainActivity is modified.
+    ?await SocialLogin.login({provider:'google',options:{nonce,...(Capacitor.getPlatform()==='android'?{}:{scopes:['openid','email','profile']}),forcePrompt:true,prompt:'select_account'}})
     :await SocialLogin.login({provider:'apple',options:{nonce,state:challengeId,scopes:['email','name']}});
   const result=response.result;
   if(!('idToken'in result)||!result.idToken) throw new Error(tr("계정 인증 토큰이 반환되지 않았습니다."));

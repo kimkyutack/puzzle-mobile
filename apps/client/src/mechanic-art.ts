@@ -1,6 +1,8 @@
-import {Container,Graphics,NineSliceSprite,Sprite} from 'pixi.js';
+import {pipeRibbon} from './pipe-ribbon';
+import {mobileObstacleArt} from './mobile-obstacle-art';
+import {Container,Graphics,Mesh,MeshGeometry,NineSliceSprite,Rectangle,Sprite,Texture} from 'pixi.js';
 import type {Obstacle} from '@garden/contracts';
-import {texture,tileArt} from './assets';
+import {texture,tileArt,hasArt} from './assets';
 import {boardSpriteSize,boardTexture} from './board-sprite-art';
 
 import {mechanicArtId} from './mechanic-ids';
@@ -25,7 +27,16 @@ function drawPipe(layer:Container,o:Obstacle,cell:number,position:(i:number)=>{x
  stroke(.51,magnet?0x377dd9:0x60aa99,-.016,-.065);
  stroke(.25,magnet?0x57a1f4:0x90d4bc,-.021,-.12);
  layer.addChild(g);
+ const raster=hasArt('mobile-pipe-0');
+ if(raster){
+  const body=boardTexture('mobile-pipe-0',true),f=body.frame;
+  const middle=new Texture({source:body.source,frame:new Rectangle(f.x+f.width*.35,f.y,f.width*.30,f.height)});
+  const data=pipeRibbon(rail,cell),geometry=new MeshGeometry(data),mesh=new Mesh({geometry,texture:middle});mesh.label='mobile-pipe-ribbon';layer.addChild(mesh);
+  mesh.on('destroyed',()=>{middle.destroy(false);geometry.destroy(true);});
+ }
  for(const {tip,out} of rail.ends){
+  if(raster){const cap=new Sprite(boardTexture('mobile-pipe-2',true));cap.anchor.set(.80,.5);cap.position.set(tip.x,tip.y);cap.rotation=Math.atan2(out.y,out.x);cap.width=cell*.72;cap.height=cell*.97;cap.label='mobile-pipe-cap';layer.addChild(cap);continue;}
+
   const cap=new Graphics();cap.label=magnet?'magnet-rail-tip':'pipe-cap';
   cap.position.set(tip.x,tip.y);cap.rotation=Math.atan2(out.y,out.x);
   cap.roundRect(-.165*cell,-.482*cell,.348*cell,.964*cell,.075*cell).fill(magnet?0x142b55:0x493224);
@@ -39,6 +50,7 @@ function drawPipe(layer:Container,o:Obstacle,cell:number,position:(i:number)=>{x
 /** Endpoint pipes follow one continuous path through their occupied cells. */
 export function drawMechanicArt(layer:Container,o:Obstacle,cell:number,position:(i:number)=>{x:number;y:number}):boolean {
  const id=mechanicArtId(o.kind);if(!id)return false;
+ const mobile=mobileObstacleArt(o);if(o.kind!=='pipe'&&mobile&&hasArt(mobile))return false;
  if(o.kind==='pipe'){drawPipe(layer,o,cell,position);return true;}
  const points=o.footprint.map(position),xs=points.map(p=>p.x),ys=points.map(p=>p.y),cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;
  const face=boardTexture(id),width=Math.max(...xs)-Math.min(...xs)+cell,height=Math.max(...ys)-Math.min(...ys)+cell;

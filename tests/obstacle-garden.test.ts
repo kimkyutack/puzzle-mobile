@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {COLORS,ENGINE_VERSION,GREENHOUSE_ENGINE_VERSION,OBSTACLE_GARDEN_ENGINE_VERSION,SUPPORTED_ENGINE_VERSIONS,type Action,type GameState,type LevelDefinition,type Obstacle} from '@garden/contracts';
+import {COLORS,CONTINUOUS_REFILL_ENGINE_VERSION,ENGINE_VERSION,GREENHOUSE_ENGINE_VERSION,OBSTACLE_GARDEN_ENGINE_VERSION,SUPPORTED_ENGINE_VERSIONS,type Action,type GameState,type LevelDefinition,type Obstacle} from '@garden/contracts';
 import {actionWithFrames,applyAction,createGame,targetCells,validateLevel} from '@garden/core';
 import {impactOverlays} from '../apps/client/src/impact-overlays';
 import {effectTiming,WIND_SEED_FLIGHT} from '../apps/client/src/visual-timing';
@@ -44,7 +44,7 @@ describe('obstacle garden',()=>{
   }
   expect(count).toBe(1782);
   for(const id of [227,327,427]){
-   const level=publishedLevel(id,ENGINE_VERSION),prepared=prepareRunInitial(level,['wind-row','bomb','rainbow'],true,4211+id);
+   const level=publishedLevel(id,CONTINUOUS_REFILL_ENGINE_VERSION),prepared=prepareRunInitial(level,['wind-row','bomb','rainbow'],true,4211+id);
    expect(level.campaign?.beat).toBe('introduction');
    expect(prepared.state.status).toBe('playing');
   }

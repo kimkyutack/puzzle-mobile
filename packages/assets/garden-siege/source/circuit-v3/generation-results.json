@@ -1,0 +1,38 @@
+[
+  {
+    "id": "rail-pot",
+    "count": 3,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-50d5ee15-9208-4a29-b24d-20b2f2e136a7.png"
+  },
+  {
+    "id": "boomerang-pod",
+    "count": 3,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-b534fcf4-070b-48e1-88dc-be107c9b4253.png"
+  },
+  {
+    "id": "boomerang-bell",
+    "count": 3,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-39e1a19d-bcd4-4e83-a43a-90ce59309480.png"
+  },
+  {
+    "id": "linked-crystal",
+    "count": 3,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-3a60428e-6fe9-4c71-8632-616cc70236e0.png"
+  },
+  {
+    "id": "rail-deck",
+    "count": 1,
+    "frameSize": 512,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-7d4146c3-3f34-4535-a36b-a7c2a2086e72.png"
+  },
+  {
+    "id": "petal-boomerang",
+    "count": 1,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-c28f1d9b-6ae1-4518-9f1b-647b0e2aaa2b.png"
+  },
+  {
+    "id": "crystal-link",
+    "count": 1,
+    "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-07c224a3-073a-4d3a-93ff-2a307413d102.png"
+  }
+]

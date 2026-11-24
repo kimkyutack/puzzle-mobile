@@ -1,0 +1,24 @@
+/* Event contents occupy the complete area between the preserved tabs and dock. */
+.game-page[data-page="events"]>.page-content:has(>.events-v62){margin:0;padding:0}
+.events-v17.events-v45.events-v62{gap:0}
+.events-v62>.event-tabs-row{padding-left:10px;padding-right:10px}
+.events-v62>.event-tab-panel{container-type:inline-size;padding:0!important;border-radius:0;background:#19596a}
+.events-v62>.event-tab-panel[data-event-panel="attendance"],
+.events-v62>.event-tab-panel[data-event-panel="flowerlight"]{background:#d1e4bc}
+.events-v62>.event-tab-panel>.attendance-calendar,
+.events-v62>.event-tab-panel>.flowerlight-scene-v64{height:100%;min-height:130cqw;aspect-ratio:auto;border-radius:0}
+.events-v62>.event-tab-panel[data-event-panel="treasure"]{display:flex;flex-direction:column;background:#19596a;padding:0 10px 12px!important}
+.events-v62>.event-tab-panel[data-event-panel="treasure"]>.treasure-menu{flex:1;min-height:0}
+.events-v62 [data-event-panel="treasure"] .treasure-grid{flex:1;grid-template-rows:repeat(4,minmax(44px,1fr))}
+.events-v62 [data-event-panel="treasure"] .treasure-card{height:100%;min-height:44px}
+.events-v62>.event-tab-panel[data-event-panel="power-festival"]{display:flex;flex-direction:column;background:#315779}
+.events-v62>.event-tab-panel>.power-festival-menu{flex:1;min-height:0;border-radius:0}
+.events-v62>.event-tab-panel[data-event-panel="season"]{background:#d9edf9}
+.events-v62>.event-tab-panel>.event-season-feature{min-height:100%;border-radius:0;display:flex;flex-direction:column}
+.events-v62 .event-season-feature>.event-season-scene{flex:1;min-height:230px}
+.events-v62 .event-season-feature>.game-button{margin-bottom:18px!important;flex:none}
+.events-v62>.event-tab-panel[data-event-panel="start-rush"]{background:#beded9}
+.events-v62>.event-tab-panel>.event-rush-panel{min-height:100%;border-radius:0}
+.events-v62 .event-rush-panel>.event-rush-art{flex:1;min-height:140px}
+.events-v62>.event-tab-panel[data-event-panel="live-events"]{background:#e4cdb0}
+.events-v62>.event-tab-panel>.event-mailbox{min-height:100%;border-radius:0}

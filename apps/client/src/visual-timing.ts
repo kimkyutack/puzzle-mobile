@@ -1,9 +1,14 @@
+import {CIRCUIT_BEATS} from '../../../packages/contracts/src/garden-circuit';
+import {FRONTIER_BEATS} from '../../../packages/contracts/src/garden-frontier';
+import {ASSAULT_BEATS} from '../../../packages/contracts/src/garden-assault';
+import {isSiegeObstacle,SIEGE_BEATS} from '../../../packages/contracts/src/garden-siege';
 import {COLORS,type Action,type GameEvent,type GameState} from '@garden/contracts';
+import {isVariedObstacle} from '../../../packages/contracts/src/varied-obstacles';
 import {combinationParts} from './special-combination';
 import {rainbowSelections,rainbowArrival} from './rainbow-selection';
 import {MATCH_RELEASE,MATCH_SQUEEZE} from './tile-impact';
 import {BEE_BEATS} from './bee-motion';
-export const VISUAL_BEATS={fusion:520,charge:360,rainbowCharge:720,rainbowHold:300,gliderFlight:740,windTravel:420,rainbowTravel:1000,rainbowCascadeTravel:640,pop:180,normalPop:110,fall:320,maxChainStart:1100} as const;
+export const VISUAL_BEATS={fusion:520,charge:360,rainbowCharge:1050,rainbowHold:450,gliderFlight:740,windTravel:420,rainbowTravel:1450,rainbowCascadeTravel:1000,pop:180,normalPop:110,fall:320,maxChainStart:1100} as const;
 export const CROSS_ROCKET_BEATS={fusion:400,travel:VISUAL_BEATS.windTravel,relay:65,afterglow:330} as const;
 /** Two bombs fused by the player squash, swell and tremble for `charge`, then hold a white hit-stop for `ignition`. */
 export const BOMB_BEATS={ignition:90,step:75,charge:500} as const;
@@ -37,7 +42,7 @@ export const PLANTER_REVEAL_TRAVEL=280;
 export const DOMINO_BEAT=76;
 export const SOIL_SPLIT_TRAVEL=235;
 const WIND_SEED_SPACING=105;
-export interface VisualTiming {delays:number[];firstRemovalAt:Map<number,number>;activationAt:Map<number,number>;fusionAt:Map<number,number>;conversionAt:Map<number,number>;rocketLaunches:Map<number,number>;rocketContacts:Map<number,number>;directMatchImpacts:ReadonlyMap<number,number>;settleAt:number;special:boolean;toolImpact:number;primaryImpactAt:number;heroBombs:Set<number>}
+export interface VisualTiming {circuitEnd?:number;delays:number[];firstRemovalAt:Map<number,number>;activationAt:Map<number,number>;fusionAt:Map<number,number>;conversionAt:Map<number,number>;rocketLaunches:Map<number,number>;rocketContacts:Map<number,number>;directMatchImpacts:ReadonlyMap<number,number>;settleAt:number;special:boolean;toolImpact:number;primaryImpactAt:number;heroBombs:Set<number>}
 /** Pure presentation schedule. Chain launches overlap after 1.1 s; each flight/impact keeps its full duration. */
 export function effectTiming(events:readonly GameEvent[],state?:Pick<GameState,'width'|'height'|'cells'>,action?:Action):VisualTiming{
  const width=state?.width??7,height=state?.height??7,cellCount=state?.cells.length??width*height;
@@ -165,13 +170,81 @@ export function effectTiming(events:readonly GameEvent[],state?:Pick<GameState,'
  const dominoAt=new Map<number,number>(),dominoHits=new Map<number,number>();
  const soilBreaks=new Map<number,number>(),soilArrivals=new Map<number,number>();
  const crateReveals=new Map<number,number>();
+ const variedHits=new Map<string,number>(),variedCellHits=new Map<number,number>(),burstImpacts=new Map<number,number>(),releasedPowers=new Map<number,number>();
+ const rollStarts=new Map<number,number>(),pulseStarts=new Map<number,{start:number;from:number}>(),chargeArrivals=new Map<string,number>();
+ const rollerEnds=new Map<number,number>();
+ const canopyArrivals=new Map<number,number>();
+ const seedLandings=new Map<number,number>(),seedLaunches=new Map<number,number>(),lastSeedLandings=new Map<number,number>();
+ const boomerangEnds=new Map<number,number>(),boomerangImpacts=new Map<number,number>(),boomerangTargets=new Map<number,number>(),crystalStarts=new Map<number,{start:number;from:number}>();
+ let circuitEnd=0;
+ let siegeBarrier=0;
  let lastImpact=0,firstWaveLast=0;
  const delays=events.map((event,index)=>{
   const aftershock=event.effectId===undefined?undefined:aftershocks.get(event.effectId);
   if(event.kind==='power-rainbow-aftershock')return aftershock??base(index);
-  if(event.type==='special'||event.kind==='echo-pulse')return starts.get(index)??base(index);
+  if(event.type==='special'||event.kind==='echo-pulse'){
+   const original=starts.get(index)??base(index),start=Math.max(original,siegeBarrier),shift=start-original;
+   if(shift&&event.effectId!==undefined){
+    for(const map of [beeImpacts,gliderImpacts])if(map.has(event.effectId))map.set(event.effectId,map.get(event.effectId)!+shift);
+    const shot=rocketShots.get(event.effectId);if(shot)shot.launch+=shift;
+    if(rocketLaunches.has(index))rocketLaunches.set(index,rocketLaunches.get(index)!+shift);
+   }
+   return start;
+  }
   let delay=base(index);
-  if(event.kind==='wind-seed-flight'&&event.from!==undefined&&event.to!==undefined&&event.effectId!==undefined){
+  if(event.kind==='petal-boomerang-flight'&&event.chainId!==undefined&&event.effectId!==undefined&&event.from!==undefined&&event.to!==undefined){
+   const duration=event.step===0?CIRCUIT_BEATS.firstFlight:CIRCUIT_BEATS.nextFlight;
+   const earliest=event.step===0?(variedCellHits.get(event.from)??delay)+120:(boomerangEnds.get(event.chainId)??delay)+CIRCUIT_BEATS.pause;
+   const arrival=Math.max(earliest+duration,(boomerangTargets.get(event.to)??-Infinity)+CIRCUIT_BEATS.spacing);
+   boomerangEnds.set(event.chainId,arrival);boomerangImpacts.set(event.effectId,arrival);boomerangTargets.set(event.to,arrival);circuitEnd=Math.max(circuitEnd,arrival);
+   return arrival-duration;
+  }
+  if(event.kind==='petal-boomerang-return'&&event.chainId!==undefined){
+   const start=(boomerangEnds.get(event.chainId)??delay)+CIRCUIT_BEATS.pause;circuitEnd=Math.max(circuitEnd,start+CIRCUIT_BEATS.returnFlight);return start;
+  }
+  if(event.kind==='crystal-chain'&&event.type==='mechanic'&&event.effectId!==undefined&&event.from!==undefined){
+   const start=(variedCellHits.get(event.from)??delay)+95;crystalStarts.set(event.effectId,{start,from:event.from});return start;
+  }
+  if((event.kind==='canopy-open'||event.kind==='canopy-unlock')&&event.from!==undefined){
+   const arrival=(variedCellHits.get(event.from)??delay)+FRONTIER_BEATS.unroll;
+   for(const at of event.cells)canopyArrivals.set(at,arrival);
+   lastImpact=Math.max(lastImpact,arrival);if(event.kind==='canopy-unlock')siegeBarrier=Math.max(siegeBarrier,arrival+80);
+   return event.kind==='canopy-open'?arrival-FRONTIER_BEATS.unroll:arrival;
+  }
+  if(event.kind==='shelf-collapse'&&event.from!==undefined){
+   const impact=variedCellHits.get(event.from)??delay;lastImpact=Math.max(lastImpact,impact+FRONTIER_BEATS.shelfCollapse);return impact;
+  }
+  if(event.kind==='dandelion-seed-flight'&&event.from!==undefined&&event.to!==undefined&&event.effectId!==undefined){
+   const launch=Math.max((variedCellHits.get(event.from)??delay)+140,(seedLaunches.get(event.from)??-Infinity)+ASSAULT_BEATS.seedSpacing,
+    (lastSeedLandings.get(event.to)??-Infinity)+ASSAULT_BEATS.seedSpacing-ASSAULT_BEATS.seedFlight);
+   const arrival=launch+ASSAULT_BEATS.seedFlight;seedLaunches.set(event.from,launch);seedLandings.set(event.effectId,arrival);lastSeedLandings.set(event.to,arrival);
+   return launch;
+  }
+  if(event.kind==='roller-pin-flight'&&event.from!==undefined&&event.effectId!==undefined){
+   const launch=Math.max((variedCellHits.get(event.from)??delay)+35,(rollerEnds.get(event.to??-1)??0)-SIEGE_BEATS.collect);
+   rollStarts.set(event.effectId,launch+SIEGE_BEATS.collect);
+   rollerEnds.set(event.to??-1,launch+SIEGE_BEATS.collect+SIEGE_BEATS.roll+80);return launch;
+  }
+  if(event.kind==='roller-roll'&&event.effectId!==undefined){
+   const start=rollStarts.get(event.effectId)??delay;siegeBarrier=Math.max(siegeBarrier,start+SIEGE_BEATS.roll+80);return start;
+  }
+  if((event.kind==='beacon-charge'||event.kind==='bloom-unlock')&&event.from!==undefined&&event.obstacleId){
+   const travel=event.kind==='beacon-charge'?SIEGE_BEATS.collect:SIEGE_BEATS.unlock;
+   const arrival=Math.max((variedCellHits.get(event.from)??delay)+travel+35,(chargeArrivals.get(event.obstacleId)??-Infinity)+SIEGE_BEATS.spacing);
+   chargeArrivals.set(event.obstacleId,arrival);lastImpact=Math.max(lastImpact,arrival);
+   if(event.kind==='bloom-unlock'||event.obstacleAfter?.charge===event.obstacleAfter?.siege?.capacity)siegeBarrier=Math.max(siegeBarrier,arrival+80);
+   return arrival;
+  }
+  if(event.kind==='beacon-pulse'&&event.from!==undefined&&event.effectId!==undefined){
+   const start=(variedCellHits.get(event.from)??delay)+150;
+   pulseStarts.set(event.effectId,{start,from:event.from});lastImpact=Math.max(lastImpact,start+SIEGE_BEATS.pulse);return start;
+  }
+
+  if(event.kind==='mushroom-pulse'&&event.from!==undefined&&event.effectId!==undefined){
+   const impact=(variedCellHits.get(event.from)??delay)+80;
+   burstImpacts.set(event.effectId,impact);return impact;
+  }
+  if((event.kind==='wind-seed-flight'||event.kind==='petal-disc-flight')&&event.from!==undefined&&event.to!==undefined&&event.effectId!==undefined){
    const launch=Math.max((clearedPods.get(event.from)??delay)+40,
     (lastWindLanding.get(event.to)??-Infinity)+WIND_SEED_SPACING-WIND_SEED_FLIGHT);
    const landing=launch+WIND_SEED_FLIGHT;
@@ -202,7 +275,7 @@ export function effectTiming(events:readonly GameEvent[],state?:Pick<GameState,'
   if(action?.type==='booster'&&action.item==='color-magnet'&&event.type==='remove'&&waves[index]===0)delay=350;
   if(event.type==='remove'||event.type==='hit'){
    const matchImpact=event.effectId===undefined?undefined:directMatchImpacts.get(event.effectId);
-   const flightImpact=event.effectId===undefined?undefined:(beeImpacts.get(event.effectId)??gliderImpacts.get(event.effectId)??windLandings.get(event.effectId));
+   const flightImpact=event.effectId===undefined?undefined:(beeImpacts.get(event.effectId)??gliderImpacts.get(event.effectId)??windLandings.get(event.effectId)??burstImpacts.get(event.effectId)??seedLandings.get(event.effectId)??boomerangImpacts.get(event.effectId));
    const shot=event.effectId===undefined?undefined:rocketShots.get(event.effectId);
    const contact=shot?rocketContact(shot,event.cells,width,height):undefined;
    if(matchImpact!==undefined)delay=matchImpact;
@@ -210,12 +283,33 @@ export function effectTiming(events:readonly GameEvent[],state?:Pick<GameState,'
    else if(flightImpact!==undefined)delay=flightImpact;
    else if(firstBee>=0&&index>firstBee&&!event.cells.some(at=>activationAt.has(at)&&event.type==='remove'))delay=Math.max(delay,beeBarrier);
   }
+  if(event.type==='hit'&&event.kind==='canopy-orchid')for(const at of event.cells)delay=Math.max(delay,(canopyArrivals.get(at)??-Infinity)+90);
+  if(event.type==='hit'&&event.effectId!==undefined){
+   const crystal=crystalStarts.get(event.effectId);if(crystal)delay=crystal.start+(Math.abs(event.cells[0]!%width-crystal.from%width)+Math.abs(Math.floor(event.cells[0]!/width)-Math.floor(crystal.from/width)))*CIRCUIT_BEATS.crystalStep;
+   const roll=rollStarts.get(event.effectId),pulse=pulseStarts.get(event.effectId);
+   if(roll!==undefined){
+    const command=events.find(e=>e.kind==='roller-roll'&&e.effectId===event.effectId)!;
+    const columns=[...new Set(command.cells.map(at=>at%width))].sort((a,b)=>Math.abs(a-(command.from!%width))-Math.abs(b-(command.from!%width)));
+    delay=roll+(event.kind==='garden-roller'?SIEGE_BEATS.roll:140+140*columns.indexOf(event.cells[0]!%width));
+   }
+   if(pulse)delay=pulse.start+160+Math.hypot(event.cells[0]!%width-pulse.from%width,Math.floor(event.cells[0]!/width)-Math.floor(pulse.from/width))*24;
+   if(event.kind==='garden-beacon'&&event.obstacleId)delay=Math.max(delay,(chargeArrivals.get(event.obstacleId)??-Infinity)+100);
+  }
   if(aftershock!==undefined)delay=Math.max(delay,aftershock);
+  if(event.type==='hit'&&event.kind&&(isVariedObstacle(event.kind)||isSiegeObstacle(event.kind))&&event.obstacleId){
+   delay=Math.max(delay,(variedHits.get(event.obstacleId)??-Infinity)+90);
+   variedHits.set(event.obstacleId,delay);
+   for(const at of event.cells)variedCellHits.set(at,delay);
+   if((event.kind==='acorn-nest'||event.kind==='cloud-pillow')&&event.obstacleAfter===null)releasedPowers.set(event.cells[0]!,delay+100);
+  }
+  if(event.type==='spawn'&&releasedPowers.has(event.cells[0]!)){
+   delay=Math.max(delay,releasedPowers.get(event.cells[0]!)!);lastImpact=Math.max(lastImpact,delay);
+  }
   if(event.type==='hit'&&event.kind==='starlight-lantern'&&event.obstacleId){
    delay=Math.max(delay,(lanternHits.get(event.obstacleId)??-Infinity)+125);
    lanternHits.set(event.obstacleId,delay);
   }
-  if(event.type==='hit'&&event.kind==='wind-pod'&&event.obstacleAfter===null)clearedPods.set(event.cells[0]!,delay);
+  if(event.type==='hit'&&(event.kind==='wind-pod'&&event.obstacleAfter===null||event.kind==='petal-launcher'))clearedPods.set(event.cells[0]!,delay);
   if(event.type==='hit'&&['greenhouse-sluice','vine-knot','rotating-shelf'].includes(event.kind??''))struckOpeners.set(event.cells[0]!,delay);
   const reveal=event.effectId===undefined?undefined:planterReveals.get(event.effectId);
   if(reveal!==undefined){
@@ -232,8 +326,8 @@ export function effectTiming(events:readonly GameEvent[],state?:Pick<GameState,'
   }
   if(event.type==='hit'){
    for(const at of event.cells)delay=Math.max(delay,(crateReveals.get(at)??-Infinity)+85);
-   if(event.kind==='supply-crate'&&event.cells.length>1&&event.obstacleAfter===null){
-    for(const at of event.cells)crateReveals.set(at,delay+100);
+   if((event.kind==='supply-crate'||event.kind==='pottery-nest')&&event.cells.length>1&&event.obstacleAfter===null){
+    for(const at of event.cells)crateReveals.set(at,delay+(event.kind==='pottery-nest'?ASSAULT_BEATS.reveal:100));
    }
   }
   if(event.kind==='crate-pieces-reveal'){
@@ -250,10 +344,15 @@ export function effectTiming(events:readonly GameEvent[],state?:Pick<GameState,'
  const clearsColor=events.some(event=>event.type==='remove'&&COLORS.some(color=>color===event.kind));
  // Ordinary matches release the board as soon as the tile body is gone. Crumbs keep moving during refill.
  const refillDelay=special?VISUAL_BEATS.pop:clearsColor&&!formsItem?MATCH_RELEASE:VISUAL_BEATS.normalPop;
- const settleAt=events.some(event=>event.type==='remove'||event.type==='hit'||event.kind==='cart-push')?Math.max(lastImpact,lastGliderLanding)+refillDelay:0;
+ // Remote cocoons occupy a decorative bank and never feed normal tiles. Their
+ // projectile/overlay can finish while ordinary tiles already fall into place.
+ const refillImpact=events.some(event=>event.kind==='dandelion-seed-flight'||event.kind==='petal-boomerang-flight')
+  ?Math.max(0,...events.flatMap((event,index)=>(event.type==='remove'||event.type==='hit')&&!['seed-cocoon','boomerang-bell'].includes(event.kind??'')?[delays[index]!]:[]))
+  :lastImpact;
+ const settleAt=events.some(event=>event.type==='remove'||event.type==='hit'||event.kind==='cart-push')?Math.max(refillImpact,lastGliderLanding)+refillDelay:0;
  const firstSpecial=events.findIndex(event=>event.type==='special'&&!['glider-flight','bee-flight'].includes(event.kind??''));let primaryImpactAt=toolImpact;
  if(!primaryImpactAt&&firstSpecial>=0){const kind=events[firstSpecial]!.kind??'',start=delays[firstSpecial]!,replacement=selections.get(firstSpecial)?.replacement;primaryImpactAt=replacement?start+VISUAL_BEATS.rainbowCharge+rainbowTravelTime(start)+VISUAL_BEATS.rainbowHold+specialCharge(replacement)+(replacement==='bomb'?BOMB_BEATS.ignition:replacement==='glider'?VISUAL_BEATS.gliderFlight:replacement==='beehive'?BEE_BEATS.flight:0):start+(heroBombs.has(firstSpecial)?BOMB_BEATS.charge:specialCharge(kind))+(kind.includes('rainbow')?rainbowTravelTime(start):kind.includes('glider')?VISUAL_BEATS.gliderFlight:kind.includes('bomb')&&!kind.includes('wind')?BOMB_BEATS.ignition:0);}
  if(rocketLaunches.has(firstSpecial))primaryImpactAt=Math.min(...[...rocketContacts.keys()].map(index=>delays[index]!),rocketLaunches.get(firstSpecial)!+CROSS_ROCKET_BEATS.travel);
  if(firstSpecial>=0&&events[firstSpecial]!.kind?.includes('beehive')&&firstBee>=0)primaryImpactAt=delays[firstBee]!+BEE_BEATS.flight;
- return {delays,firstRemovalAt,activationAt,fusionAt,conversionAt,rocketLaunches,rocketContacts,directMatchImpacts,settleAt,special,toolImpact,primaryImpactAt,heroBombs};
+ return {...(circuitEnd?{circuitEnd}:{}),delays,firstRemovalAt,activationAt,fusionAt,conversionAt,rocketLaunches,rocketContacts,directMatchImpacts,settleAt,special,toolImpact,primaryImpactAt,heroBombs};
 }

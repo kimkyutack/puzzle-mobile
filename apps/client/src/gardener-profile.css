@@ -13,7 +13,7 @@
 [data-backdrop="terrace"] .gardener-landscape { object-position:center 45%; }
 .gardener-fountain { position:absolute;height:90%;max-width:55%;object-fit:contain;bottom:5%;right:21%; }
 .gardener-identity { display:flex; position:relative; align-items:flex-start; gap:13px; padding:0 14px 12px; }
-.gardener-portrait, .gardener-frame-option {
+.gardener-portrait, .gardener-frame-option, .profile-portrait {
  --portrait-rim:#e4af52;
  --portrait-shade:#a16b30;
  --portrait-bg:#224460;
@@ -56,3 +56,9 @@
  .gardener-records{gap:7px;padding-inline:9px}
  .gardener-records strong{font-size:21px}
 }
+
+.profile-portrait { flex:none; border-width:3px; overflow:hidden; }
+.profile-portrait .icon { display:block; object-fit:contain; }
+.custom-profile-image{object-fit:cover!important;border-radius:50%}
+.profile-photo-choice b{font-size:38px;color:#3b6a73}
+.profile-image-error{color:#9c3439;font-size:13px}

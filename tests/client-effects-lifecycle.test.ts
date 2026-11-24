@@ -11,7 +11,7 @@ import {tileVisualSize} from '../apps/client/src/tile-visuals';
 import type {DebrisPose} from '../apps/client/src/obstacle-debris';
 const {FakeSprite}=vi.hoisted(()=>({FakeSprite:class {textures:unknown[];visible=false;destroyed=false;x=0;y=0;rotation=0;alpha=1;tint=0xffffff;blendMode='normal';width=0;height=0;loop=false;eventMode='none';anchor={set:()=>{}};scale={x:1,y:1,set:(x:number,y=x)=>{this.scale.x=x;this.scale.y=y;}};position={set:(x:number,y:number)=>{this.x=x;this.y=y;}};constructor(textures:unknown[]){this.textures=textures;}gotoAndStop(){}stop(){}destroy(){this.destroyed=true;}}}));
 vi.mock('pixi.js',()=>({AnimatedSprite:FakeSprite}));
-vi.mock('../apps/client/src/assets',()=>({hasArt:()=>true,texture:(id:string)=>({id,orig:{width:128,height:128}}),tileArt:(kind:string)=>kind}));
+vi.mock('../apps/client/src/assets',()=>({assetImage:()=>undefined,hasArt:()=>true,texture:(id:string)=>({id,orig:{width:128,height:128}}),tileArt:(kind:string)=>kind}));
 import {createBoardEffects} from '../apps/client/src/board-effects';
 let now=0;beforeEach(()=>{now=0;vi.spyOn(performance,'now').mockImplementation(()=>now);});afterEach(()=>vi.restoreAllMocks());
 function harness(shards?:Parameters<typeof createBoardEffects>[2]['shards']){const callbacks=new Set<()=>void>(),children:InstanceType<typeof FakeSprite>[]=[],impacts:Array<{at:number;strength:number}>=[],shade:number[]=[];let debris:readonly DebrisPose[]=[];const fx=createBoardEffects({ticker:{add:(fn:()=>void)=>callbacks.add(fn),remove:(fn:()=>void)=>callbacks.delete(fn)}} as unknown as Application,{addChild:(sprite:InstanceType<typeof FakeSprite>)=>children.push(sprite)} as unknown as Container,{cellSize:()=>50,position:index=>({x:(index%7+.5)*50,y:(Math.floor(index/7)+.5)*50}),frames:()=>[] as Texture[],shards,debris:{bounds:()=>({x:-28,y:-165,width:406,height:705}),paint:pieces=>{debris=pieces;},destroy:()=>{}},shade:alpha=>shade.push(alpha),impulse:strength=>impacts.push({at:now,strength})});return {fx,children,impacts,shade,callbacks,get debris(){return debris;},tick:(time:number)=>{now=time;for(const callback of callbacks)callback();}};}
@@ -68,14 +68,15 @@ describe('bounded sprite choreography and cleanup',()=>{
   const action={type:'swap',from:24,to:25} as const,result=applyAction(before,action),plan=effectTiming(result.events,result.state,action),selection=[...rainbowSelections(result.events).values()][0]!,h=harness();
   const duration=h.fx.play(result.events,before,result.state,false,action,plan),convertedAt=Math.max(...selection.targets.map(at=>plan.conversionAt.get(at)!))+100;
   for(let ms=0;ms<convertedAt;ms+=16)h.tick(ms);h.tick(convertedAt);
-  const items=h.children.filter(s=>s.visible&&(s.textures[0] as {id:string}).id===partner);expect(items).toHaveLength(selection.targets.length);expect(items.length).toBeGreaterThan(12);
+  const convertedIds=partner.startsWith('wind-')?['wind-row','wind-column']:[partner];
+  const items=h.children.filter(s=>s.visible&&convertedIds.includes((s.textures[0] as {id:string}).id));expect(items).toHaveLength(selection.targets.length);expect(items.length).toBeGreaterThan(12);
   const release=plan.delays[[...selection.children.keys()][0]!]!+VISUAL_BEATS.charge,launchedAt=release+(partner==='bomb'?120:200);
   h.tick(release-85);
   const burning=h.children.filter(s=>s.visible&&(s.textures[0] as {id:string}).id==='fx_starburst');
   expect(burning).toHaveLength(selection.targets.length);
   for(let ms=release-69;ms<launchedAt;ms+=16)h.tick(ms);h.tick(launchedAt);
   const id=partner==='bomb'?'bomb_open':partner==='glider'?'glider_flight':partner;
-  expect(h.children.filter(s=>s.visible&&(s.textures[0] as {id:string}).id===id).length).toBeGreaterThanOrEqual(selection.targets.length);
+  expect(h.children.filter(s=>s.visible&&(partner.startsWith('wind-')?convertedIds:[id]).includes((s.textures[0] as {id:string}).id)).length).toBeGreaterThanOrEqual(selection.targets.length);
   expect(h.children.length).toBeLessThanOrEqual(180);h.tick(duration+1);expect(h.fx.activeCount).toBe(0);h.fx.destroy();
  });
  it('draws both actual ingredients moving together before the combined blast, with no replay-state changes',()=>{

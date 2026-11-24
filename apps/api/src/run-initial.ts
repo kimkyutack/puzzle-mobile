@@ -1,6 +1,7 @@
 import type {Color,LevelDefinition,PreBooster,Tile} from '@garden/contracts';
-import {createGame} from '@garden/core';
+import {createGame,findMatches} from '@garden/core';
 import {layeredCampaignOpening} from '../../../packages/content/src/layered-campaign';
+import type {StartGiftPower} from '../../../packages/contracts/src/start-gift';
 
 const hasAuthoredOpening=(level:LevelDefinition)=>!!level.tutorial||
  level.campaign?.beat==='introduction'&&(level.strategy?.id.startsWith('layered-campaign/intro/')||
@@ -29,14 +30,43 @@ export function randomAttemptLevel(template:LevelDefinition,seed:number):LevelDe
  return {...structuredClone(template),seed:(seed>>>0)||1,initial};
 }
 
-export function prepareRunInitial(template:LevelDefinition,preBoosters:PreBooster[],randomStart:boolean,seed:number){
- if(!randomStart||hasAuthoredOpening(template))return {level:template,state:createGame(template,preBoosters)};
+function withStartingGift(level:LevelDefinition,preBoosters:PreBooster[],powers:readonly StartGiftPower[]){
+ const purchased=createGame(level,preBoosters),giftPlacements:{at:number;kind:StartGiftPower}[]=[];
+ if(!powers.length)return {level,state:purchased,giftPlacements};
+ const base=preBoosters.length?createGame(level):purchased,protectedCells=new Set(level.protectedCells??[]);
+ if(level.tutorial){
+  const {from,to}=level.tutorial;protectedCells.add(from);protectedCells.add(to);
+  const demonstration=structuredClone(base);
+  [demonstration.cells[from]!.tile,demonstration.cells[to]!.tile]=[demonstration.cells[to]!.tile,demonstration.cells[from]!.tile];
+  for(const match of findMatches(demonstration))for(const at of match.cells)protectedCells.add(at);
+ }
+ if(level.startBoosterGuide)protectedCells.add(level.startBoosterGuide.cell);
+ const colorGoals=new Set(level.goals.map(goal=>goal.kind));
+ // Reserve every purchased placement before adding gifts. Leave authored
+ // specials, obstacles, seeds, ice, exits and tutorial swaps untouched.
+ const eligible=base.cells.flatMap((cell,at)=>cell.exists&&cell.tile?.kind==='normal'&&purchased.cells[at]?.tile?.kind==='normal'&&!cell.obstacleId&&!cell.frost&&!cell.exit&&!protectedCells.has(at)?[at]:[]);
+ const hash=(at:number)=>{let n=(level.seed^Math.imul(at+1,0x9e3779b1))>>>0;n^=n>>>16;return Math.imul(n,0x85ebca6b)>>>0;};
+ eligible.sort((a,b)=>Number(colorGoals.has((base.cells[a]!.tile as Extract<Tile,{kind:'normal'}>).color))-Number(colorGoals.has((base.cells[b]!.tile as Extract<Tile,{kind:'normal'}>).color))||hash(a)-hash(b));
+ const initial=base.cells.map(cell=>structuredClone(cell.tile));
+ for(const kind of powers){
+  const at=eligible.shift();if(at===undefined)break;
+  // Keep the normal tile's ID so replay allocates the same IDs to purchased
+  // boosters. Never bake already purchased boosters into level.initial twice.
+  initial[at]={id:initial[at]!.id,kind};giftPlacements.push({at,kind});
+ }
+ if(!giftPlacements.length)return {level,state:purchased,giftPlacements};
+ const gifted={...structuredClone(level),initial};
+ return {level:gifted,state:createGame(gifted,preBoosters),giftPlacements};
+}
+
+export function prepareRunInitial(template:LevelDefinition,preBoosters:PreBooster[],randomStart:boolean,seed:number,powers:readonly StartGiftPower[]=[]){
+ if(!randomStart||hasAuthoredOpening(template))return withStartingGift(template,preBoosters,powers);
  // Bounded validation covers automatic matches, deadlocks, fixed special/seed
  // cells and booster placement. No solver or extra database round trip at start.
  for(let attempt=0;attempt<16;attempt++){
   const attemptSeed=(seed+attempt*104729)>>>0;
   const level=(attempt<2?layeredCampaignOpening(template,attemptSeed):undefined)??randomAttemptLevel(template,attemptSeed);
-  try{return {level,state:createGame(level,preBoosters)};}catch(error){
+  try{return withStartingGift(level,preBoosters,powers);}catch(error){
    if(!(error instanceof Error)||!['INITIAL_AUTO_MATCH','INITIAL_DEADLOCK','PREBOOSTER_PLACEMENT_UNAVAILABLE'].includes(error.message))throw error;
   }
  }

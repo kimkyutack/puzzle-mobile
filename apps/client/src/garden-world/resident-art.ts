@@ -1,5 +1,6 @@
 import type {GardenPoint,GardenRotation} from '../../../../packages/garden-world/src';
 import type {GardenResident} from './residents';
+import {GARDEN_RESIDENT_SCALE} from './art-scale';
 
 /** Each animated front/rear view has its own leg cycle and a mirrored companion. */
 export function residentDirectionArt<T>(images:Record<string,T>,actor:Pick<GardenResident,'art'|'pose'|'frame'|'rear'|'facing'>){
@@ -16,7 +17,7 @@ export function placedAnimalArt<T>(images:Record<string,T>,itemId:string,rotatio
 }
 
 export function residentArtBounds(art:{width:number;height:number},bottom:GardenPoint,tileWidth:number,animal:boolean){
- const width=tileWidth*(animal?1.02:.91)*art.width/Math.max(art.width,art.height);
+ const width=tileWidth*(animal?GARDEN_RESIDENT_SCALE.animal:GARDEN_RESIDENT_SCALE.visitor)*art.width/Math.max(art.width,art.height);
  const height=width*art.height/art.width;
  return {width,height,x:bottom.x-width/2,y:bottom.y-height*.98};
 }

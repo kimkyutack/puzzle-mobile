@@ -3,6 +3,8 @@ import type {GardenWorldState} from './model';
 export interface GardenVisitResponse {
  owner:{userId:string;nickname:string;level:number};
  world:GardenWorldState;
+ /** Absent on older servers, which cannot acknowledge invitation visits. */
+ invitationVisits?:true;
 }
 
 /** A display snapshot contains placed objects only, never the bag or grant/command receipts. */

@@ -1,17 +1,23 @@
 import festivalArch from '../../../../packages/assets/garden-v51/runtime/festival-arch.webp';
 import lotusPavilion from '../../../../packages/garden-world/art/runtime/showcase/lotus-pavilion.webp';
 import auroraConservatory from '../../../../packages/garden-world/art/runtime/showcase/aurora-conservatory.webp';
+import starlightPavilion from '../../../../packages/assets/garden-invite-v117/runtime/pavilion.webp';
+import starlightSparkle from '../../../../packages/assets/effects/runtime/fx_star.png';
 import festivalArchRear from '../../../../packages/assets/garden-v51/runtime/festival-arch-rear.webp';
 import flowerlight from '../../../../packages/assets/flowerlight-v42/flowerlight-fountain.png';
 import flowerlightRear from '../../../../packages/assets/flowerlight-v42/flowerlight-fountain-rear.png';
-import ground from '../../../../packages/garden-world/art/runtime/ground.png';
-import path from '../../../../packages/garden-world/art/runtime/path.png';
+import ground from '../../../../packages/garden-world/art/home-v78/runtime/ground.webp';
+import path from '../../../../packages/garden-world/art/home-v78/runtime/path-paving.webp';
 import fountain from '../../../../packages/garden-world/art/runtime/fountain.png';
 import greenhouse from '../../../../packages/garden-world/art/runtime/greenhouse.png';
 import bench from '../../../../packages/garden-world/art/runtime/bench.png';
 import planter from '../../../../packages/garden-world/art/runtime/planter.png';
-import lamp from '../../../../packages/garden-world/art/runtime/lamp.png';
-import tree from '../../../../packages/garden-world/art/runtime/tree.png';
+import lamp from '../../../../packages/garden-world/art/home-v77/runtime/lamp.webp';
+import lampRear from '../../../../packages/garden-world/art/home-v77/runtime/lamp-rear.webp';
+import tree from '../../../../packages/garden-world/art/home-v77/runtime/tree.webp';
+import treeRear from '../../../../packages/garden-world/art/home-v77/runtime/tree-rear.webp';
+import fence from '../../../../packages/garden-world/art/home-v77/runtime/fence.webp';
+import fenceRear from '../../../../packages/garden-world/art/home-v77/runtime/fence-rear.webp';
 import roseArch from '../../../../packages/garden-world/art/runtime/rose-arch.png';
 import gazebo from '../../../../packages/garden-world/art/runtime/gazebo.png';
 import pond from '../../../../packages/garden-world/art/runtime/pond.png';
@@ -54,6 +60,8 @@ WORLD_ART['garden-flowerlight-fountain']=flowerlight;WORLD_ART['garden-flowerlig
 WORLD_ART['garden-gate']=gate;WORLD_ART['garden-telescope']=telescope;
 WORLD_ART['garden-lotus-pavilion']=lotusPavilion;WORLD_ART['garden-aurora-conservatory']=auroraConservatory;
 WORLD_ART['garden-acorn-cottage']=acornCottage;WORLD_ART['garden-waterwork-pavilion']=waterworkPavilion;
+WORLD_ART['garden-starlight-wish-pavilion']=starlightPavilion;
+WORLD_ART['invite-starlight-sparkle']=starlightSparkle;
 const marketFiles=import.meta.glob<string>('../../../../packages/garden-world/art/runtime/market-v64/*.webp',{eager:true,import:'default',query:'?url'});
 for(const [path,url]of Object.entries(marketFiles)){
  const id=path.match(/\/([^/]+)\.webp$/)![1]!;
@@ -100,13 +108,20 @@ for(const animal of ['panda','fox','red-panda']){
  for(const [i,n]of [0,1,2,3,4,5].entries())WORLD_ART[`resident:${id}:${i}`]=frame(n);
  for(let i=0;i<4;i++){WORLD_ART[`resident-walk:${id}:front:${i}`]=frame(6+i);WORLD_ART[`resident-walk:${id}:rear:${i}`]=frame(11+i);}
 }
+WORLD_ART['garden-lamp:rear']=lampRear;
+WORLD_ART['garden-tree:rear']=treeRear;
+WORLD_ART['garden-wood-fence']=fence;WORLD_ART['garden-wood-fence:rear']=fenceRear;
+const botanicalFiles=import.meta.glob<string>('../../../../packages/garden-world/art/home-v78/runtime/*.webp',{eager:true,import:'default',query:'?url'});
+for(const [path,url]of Object.entries(botanicalFiles)){
+ const match=path.match(/\/([^/]+?)(-rear)?\.webp$/)!;if(['ground','path','path-paving'].includes(match[1]!))continue;
+ WORLD_ART['garden-'+match[1]+(match[2]?':rear':'')]=url;
+}
 export const UI_ART={play,secondary,amber,plate,dock,lumi,home,shop,close,hammer,inventory,ice,peach,lavender};
 export interface LoadedArt {image:HTMLImageElement|HTMLCanvasElement;alpha:Uint8ClampedArray;width:number;height:number}
 // Measured slopes of the supports or the longest ground edge in the source sprites.
 const groundSlopes:Readonly<Partial<Record<string,number>>>={
  'garden-flowerlight-arch':-.18,'garden-flowerlight-arch:rear':.18,
  'garden-pond':-.33,'garden-pond:rear':-.34,
- 'garden-wood-fence':.26,'garden-wood-fence:rear':-.26,
  'garden-swing':.22,'garden-swing:rear':-.22,
  'garden-stone-bridge':.30,'garden-stone-bridge:rear':-.30,
  'garden-lantern-arcade':.31,'garden-lantern-arcade:rear':.31

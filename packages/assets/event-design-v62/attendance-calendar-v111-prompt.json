@@ -1,0 +1,9 @@
+{
+  "editTarget": "attendance-calendar-v110.webp",
+  "change": "Remove only the left inset outline and central divider inside the bottom cream tray. Preserve outer tray and all other image regions. Runtime CSS draws aligned slot and separator using shared top/height tokens.",
+  "export": {
+    "width": 1024,
+    "height": 1396,
+    "quality": 92
+  }
+}

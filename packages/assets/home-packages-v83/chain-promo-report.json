@@ -1,0 +1,23 @@
+{
+  "width": 128,
+  "height": 128,
+  "hasAlpha": true,
+  "bounds": {
+    "left": 10,
+    "top": 4,
+    "width": 107,
+    "height": 120
+  },
+  "overlayCenters": {
+    "timer": {
+      "x": 64,
+      "y": 85
+    },
+    "caption": {
+      "x": 64,
+      "y": 110
+    }
+  },
+  "source": "source/chain-promo.png",
+  "runtime": "runtime/chain-promo.webp"
+}

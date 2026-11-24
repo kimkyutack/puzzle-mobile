@@ -1,0 +1,9 @@
+{
+  "runtime": "runtime/path.webp",
+  "width": 256,
+  "height": 128,
+  "nonzeroAlpha": 17379,
+  "alphaDifferences": 0,
+  "bytes": 20742,
+  "mask": "../runtime/path.png"
+}

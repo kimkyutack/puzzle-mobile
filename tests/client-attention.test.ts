@@ -35,8 +35,8 @@ describe('menu attention uses actionable state instead of unrelated or stale agg
   f.data.minigame.active.status='won';expect(f.state().footer.events).toBe(0);
   f.data.minigame.active.status='playing';f.data.minigame.active.expiresAt=now;expect(f.state().counts.minigame).toBe(0);
  });
- it('uses the same expedition progress in the home shortcut, event tab total and footer',()=>{
-  const f=fixture();f.player.animalExpedition!.completedStages=2;expect(f.state().contentEvents).toBe(1);expect(f.state().counts.expedition).toBe(1);expect(f.state().footer.events).toBe(1);
+ it('keeps weekly home expeditions out of the event tab total and footer',()=>{
+  const f=fixture();f.player.animalExpedition!.completedStages=2;expect(f.state().contentEvents).toBe(0);expect(f.state().counts.expedition).toBe(0);expect(f.state().footer.events).toBe(0);
   f.player.animalExpedition!.completedStages=10;expect(f.state().contentEvents).toBe(0);
   f.player.level=19;f.player.animalExpedition=undefined;expect(f.state().counts.expedition).toBe(0);
  });
@@ -46,7 +46,7 @@ describe('menu attention uses actionable state instead of unrelated or stale agg
  });
  it('marks power festival start/continuation and earned expired gifts, but clears the completed current day',()=>{
   const f=fixture();expect(powerFestivalCanStart(f.player,now)).toBe(false);expect(f.state().counts.festival).toBe(0);
-  f.player.powerFestival=undefined;expect(f.state().counts.festival).toBe(1);
+  f.player.powerFestival=undefined;expect(f.state().counts.festival).toBe(1);expect(f.state().footer.home).toBe(1);expect(f.state().footer.events).toBe(0);
   f.player.powerFestival={id:'active',day:missionPeriod('daily',now).id,startedAt:now-1000,endsAt:now+1000,counts:emptyPowerUses(),claimedStages:0};expect(f.state().counts.festival).toBe(1);
   f.player.powerFestival.endsAt=now;expect(f.state().counts.festival).toBe(0);
   f.player.powerFestival.counts=addPowerUses(emptyPowerUses(),POWER_FESTIVAL_STAGES[0]!.targets);expect(f.state().counts.festival).toBe(1);
@@ -78,8 +78,8 @@ describe('menu attention uses actionable state instead of unrelated or stale agg
   const f=fixture(),event={id:'ops',title:'선물',description:'',kind:'reward' as const,status:'published' as const,startsAt:now-1,endsAt:now+1,imageUrl:'',reward:{coins:10,stars:0,hearts:0,items:{}},revision:1,claimed:false};f.operations.events=[event];expect(f.state().liveEvents).toBe(1);expect(f.state().footer.events).toBe(1);
   event.claimed=true;expect(f.state().liveEvents).toBe(0);event.claimed=false;event.endsAt=now;expect(f.state().liveEvents).toBe(0);event.endsAt=now+1;event.reward.coins=0;expect(f.state().liveEvents).toBe(0);
  });
- it('includes the limited start-item window in the event footer and clears it at the boundary',()=>{
-  const f=fixture();f.operations.settings.startBoosterRush={enabled:true,dailyTimes:['13:00']};expect(f.state().footer.events).toBe(1);
+ it('keeps the home-only start-item window out of the event footer',()=>{
+  const f=fixture();f.operations.settings.startBoosterRush={enabled:true,dailyTimes:['13:00']};expect(f.state().footer.events).toBe(0);
   expect(attentionState(f.player,f.data,f.operations,now+600000).footer.events).toBe(0);
  });
  it('ignores cached rewards and requests belonging to another account',()=>{

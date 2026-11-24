@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cherry-tree",
+    "canvas": {
+      "width": 640,
+      "height": 640
+    },
+    "anchor": {
+      "x": 320,
+      "y": 628
+    },
+    "body": {
+      "width": 582,
+      "height": 592,
+      "left": 29,
+      "top": 36
+    },
+    "alphaBounds": {
+      "x": 29,
+      "y": 36,
+      "width": 582,
+      "height": 592
+    },
+    "bytes": 110954
+  },
+  {
+    "id": "cherry-tree-rear",
+    "canvas": {
+      "width": 640,
+      "height": 640
+    },
+    "anchor": {
+      "x": 320,
+      "y": 628
+    },
+    "body": {
+      "width": 582,
+      "height": 592,
+      "left": 29,
+      "top": 36
+    },
+    "alphaBounds": {
+      "x": 29,
+      "y": 36,
+      "width": 582,
+      "height": 592
+    },
+    "bytes": 101870
+  }
+]

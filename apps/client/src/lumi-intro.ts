@@ -66,8 +66,9 @@ export function playLumiIntro(app:Application,layer:Container,layout:LumiIntroLa
 }
 
 /** Where createGame put the chosen start boosters: they are the newest special tiles of those kinds. */
-export function startBoosterCells(state:{turn:number;cells:ReadonlyArray<{tile?:{id:number;kind:string}|null}>},preBoosters:readonly string[]):number[]{
- if(state.turn!==0||!preBoosters.length)return [];
- return state.cells.flatMap((cell,at)=>cell.tile&&preBoosters.includes(cell.tile.kind)?[{at,id:cell.tile.id}]:[])
-  .sort((a,b)=>b.id-a.id).slice(0,preBoosters.length).map(item=>item.at).sort((a,b)=>a-b);
+export function startBoosterCells(state:{turn:number;cells:ReadonlyArray<{tile?:{id:number;kind:string}|null}>},preBoosters:readonly string[],gifts:readonly {at:number;kind:string}[]=[]):number[]{
+ if(state.turn!==0)return [];
+ const purchased=state.cells.flatMap((cell,at)=>cell.tile&&preBoosters.includes(cell.tile.kind)?[{at,id:cell.tile.id}]:[])
+  .sort((a,b)=>b.id-a.id).slice(0,preBoosters.length).map(item=>item.at);
+ return [...new Set([...purchased,...gifts.filter(gift=>state.cells[gift.at]?.tile?.kind===gift.kind).map(gift=>gift.at)])].sort((a,b)=>a-b);
 }

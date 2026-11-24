@@ -1,5 +1,5 @@
 import {t,tr,formatLocale} from "./i18n";
-import {useEffect,useRef,useState,type UIEvent} from 'react';
+import {useEffect,useLayoutEffect,useRef,useState,type UIEvent} from 'react';
 import {SHOP_ITEM_MAX_QUANTITY,SHOP_ITEM_PRICES,type Item,type MonthlyBundleStatus,type Player,type Product} from '@garden/contracts';
 import {ApiFailure,request,key,serverNow} from './api';
 import {purchases} from './platform';
@@ -13,9 +13,14 @@ import {useShopOffers} from './shop-offers';
 import './commerce-v7.css';
 import './commerce-actions.css';
 import './shop-posters-v11.css';
+import starterBanner from '../../../packages/assets/shop-reference-v91/runtime/starter-banner.webp';
+import {shopCoinArt} from './shop-shelf-art';
+import {usePageSnapshot} from './page-snapshots';
+import HubLoading from './HubLoading';
 
 type Mutate=(path:string,body?:Record<string,unknown>,method?:string)=>Promise<unknown>;
 interface Props {player:Player;mutate:Mutate;refresh:()=>Promise<void>;notify:(message:string)=>void;onPage:(page:string)=>void}
+interface ShopCatalog {products:Product[];prices:Record<Item,number>;season:{endsAt:number}|null;monthlyBundle?:MonthlyBundleStatus|null}
 interface ToolPurchase {item:Item;quantity:number}
 const tools=['hammer','sweep-row','sweep-column','shuffle','sweep-border','cross-firework','color-magnet',
  'move-hourglass','wind-row','bomb','rainbow','world-bomb'] as const;
@@ -23,11 +28,11 @@ const title=(product:Product)=>product.offer?tr(product.offer.title):product.kin
 const stateText:Record<string,string>={loading:'상품 확인 중',ready:'구매 준비 완료',purchasing:'스토어에서 구매 진행 중',pending:'스토어 승인 대기 중',verifying:'구매 확인 중',complete:'꾸러미를 받았어요!',cancelled:'구매를 취소했어요',error:'구매 내역을 다시 확인해 주세요',unavailable:'스토어 연결이 필요해요'};
 
 export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
- const [toolPrices,setToolPrices]=useState<Record<Item,number>>(SHOP_ITEM_PRICES);
- const [products,setProducts]=useState<Product[]>([]),[prices,setPrices]=useState<Record<string,string>>({});
- const [monthlyBundle,setMonthlyBundle]=useState<MonthlyBundleStatus|null>(null);
- const [seasonEndsAt,setSeasonEndsAt]=useState<number|null>(null);
- const [busy,setBusy]=useState(false),[error,setError]=useState(''),[status,setStatus]=useState(''),[loaded,setLoaded]=useState(false);
+ const [catalog,setCatalog]=usePageSnapshot<ShopCatalog>(player.id,'shop');
+ const toolPrices={...SHOP_ITEM_PRICES,...catalog?.prices},products=catalog?.products??[],monthlyBundle=catalog?.monthlyBundle??null,seasonEndsAt=catalog?.season?.endsAt??null,loaded=!!catalog;
+ const [prices,setPrices]=useState<Record<string,string>>({}),[catalogConfirmed,setCatalogConfirmed]=useState('');
+ const [busy,setBusy]=useState(false),[error,setError]=useState(''),[status,setStatus]=useState('');
+ const catalogRead=useRef(0),catalogOwner=useRef(player.id);catalogOwner.current=player.id;
  const [checkingPrices,setCheckingPrices]=useState(false),[selectedProduct,setSelectedProduct]=useState<Product|null>(null);
  const guard=useRef(false);
  const toolsSection=useRef<HTMLElement>(null);
@@ -49,7 +54,13 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
   return offer?[offer.product]:[];
  });
  const bundles=[...(showCatalog?products.filter(product=>product.kind!=='coins'):[]),...featuredOffers];
+ const listedTools=tools.filter(item=>toolPrices[item]>0);
+ const toolRows=Array.from({length:Math.ceil(listedTools.length/3)},(_,row)=>listedTools.slice(row*3,row*3+3));
  const currentBundle=Math.max(0,Math.min(bundleIndex,bundles.length-1));
+ // Products and offers load separately; when the list fills in, the browser would keep the slide it was showing.
+ // Always open (and re-open after the list changes) on the first slide.
+ const bundleKeys=bundles.map(product=>product.offer?.kind??product.id).join('|');
+ useLayoutEffect(()=>{const track=bundleTrack.current;if(track)track.scrollLeft=0;setBundleIndex(0);},[bundleKeys]);
  const loadPrices=async(base:Product[])=>{
   setPrices({});setCheckingPrices(purchases.available());
   if(!purchases.available())return;
@@ -58,15 +69,14 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
   finally{setCheckingPrices(false);}
  };
  const load=async()=>{
-  const catalog=await request<{products:Product[];prices:Record<Item,number>;season:{endsAt:number}|null;monthlyBundle?:MonthlyBundleStatus|null}>('/catalog');
-  setToolPrices({...SHOP_ITEM_PRICES,...catalog.prices});
-  setMonthlyBundle(catalog.monthlyBundle??null);
-  const base=catalog.products.filter(product=>!product.offer);
-  setSeasonEndsAt(catalog.season?.endsAt??null);
-  setProducts(base);setLoaded(true);setError('');
+  const sequence=++catalogRead.current,owner=player.id;
+  const result=await request<ShopCatalog>('/catalog');
+  if(catalogOwner.current!==owner||sequence!==catalogRead.current)return;
+  const base=result.products.filter(product=>!product.offer);
+  setCatalog({...result,products:base});setCatalogConfirmed(owner);setError('');
   if(!restricted)void loadPrices(base);
  };
- useEffect(()=>{void load().catch(error=>setError(error instanceof Error?error.message:tr("상품을 불러오지 못했어요.")));},[player.id,restricted]);
+ useEffect(()=>{setCatalogConfirmed('');void load().catch(error=>setError(error instanceof Error?error.message:tr("상품을 불러오지 못했어요.")));return()=>{catalogRead.current++;};},[player.id,restricted]);
  async function perform(work:()=>Promise<unknown>){
   if(guard.current)return;guard.current=true;setBusy(true);
   try{await work();}catch(error){notify(error instanceof Error?error.message:tr("구매를 확인하지 못했어요."));}
@@ -74,14 +84,14 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
  }
  const monthlySold=(product:Product)=>monthlyBundle?.productId===product.id&&monthlyBundle.purchased&&monthlyBundle.resetsAt>serverNow();
  async function buy(product:Product){
-  if(!prices[product.id]||!purchases.available()||monthlySold(product))return;
+  if(catalogConfirmed!==player.id||!prices[product.id]||!purchases.available()||monthlySold(product))return;
   await perform(async()=>{
    await purchases.buy(product,player.id,{prepare:productId=>request('/purchases/prepare',{key:key(),productId}),verify:input=>request('/purchases/verify',input),cancel:id=>request('/purchases/intents/'+id+'/cancel',{key:key()}),pending:id=>request('/purchases/intents/'+id+'/pending',{key:key()})},value=>{setStatus(tr(stateText[value]||''));if(value==='complete')setSelectedProduct(null);});
    await refresh();
    if(product.monthlyLimit)await load();
   });
  }
- function chooseProduct(product:Product){if(!guard.current){setStatus('');setSelectedProduct(product);}}
+ function chooseProduct(product:Product){if(!guard.current&&catalogConfirmed===player.id){setStatus('');setSelectedProduct(product);}}
  function closeProduct(){if(!guard.current)setSelectedProduct(null);}
  function onBundleScroll(event:UIEvent<HTMLDivElement>){
   const track=event.currentTarget;
@@ -96,7 +106,7 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
   track.scrollTo({left:slide.offsetLeft,behavior:reducedMotion?'instant':'smooth'});
  }
  function selectTool(item:Item){
-  if(guard.current||selectedToolRef.current)return;
+  if(guard.current||catalogConfirmed!==player.id||selectedToolRef.current)return;
   sound('button');setActiveTool(item);
  }
  function onShopScroll(event:UIEvent<HTMLDivElement>){
@@ -105,7 +115,7 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
   if(tools.bottom<=view.top||tools.top>=view.bottom)setActiveTool(null);
  }
  function chooseTool(item:Item,quantity:number){
-  if(guard.current||selectedToolRef.current)return;
+  if(guard.current||catalogConfirmed!==player.id||selectedToolRef.current)return;
   const selection={item,quantity};
   selectedToolRef.current=selection;
   setSelectedTool(selection);setToolError('');
@@ -116,7 +126,7 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
  }
  async function confirmTool(){
   const selected=selectedToolRef.current;
-  if(!selected||guard.current)return;
+  if(!selected||guard.current||catalogConfirmed!==player.id)return;
   const {item,quantity}=selected;
   const expectedCost=toolPrices[item]*quantity;
   if(expectedCost<=0)return;
@@ -139,13 +149,13 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
     {bundles.map(product=>{
      const offer=product.offer,sold=monthlySold(product);
      return <article key={offer?.kind??product.id} className={`catalog-bundle sale-poster kind-${product.kind}`} aria-label={title(product)}>
-      <SalePosterArt id={bundlePoster(product)}/>
+      {bundlePoster(product)==='poster_starter_v11'?<img className="sale-poster-art" src={starterBanner} alt="" aria-hidden="true" draggable={false}/>:<SalePosterArt id={bundlePoster(product)}/>}
       <div className="catalog-bundle-head sale-poster-copy">
        <h3>{title(product)}</h3>
        {product.kind==='pass'?<><p>{tr("프리미엄 보상 30단계")}</p><LinkAction icon="star" onClick={()=>onPage('pass')}><FrameFace id="button_blue_v9"/>{tr("패스 보상 보기")}</LinkAction></>:<ProductContents product={product}/>}
-       <Button className="catalog-bundle-buy" tone="green" rasterFrame={false} disabled={busy||sold}
+       <Button className="catalog-bundle-buy" tone="green" disabled={busy||sold}
         onClick={()=>offer?onPage('offers-'+offer.kind):chooseProduct(product)}>
-        <FrameFace id="button_lime_v9"/>{offer?tr("꾸러미 보기"):sold?tr("이번 달 구매 완료"):prices[product.id]||tr("구매하기")}
+        {offer?tr("꾸러미 보기"):sold?tr("이번 달 구매 완료"):prices[product.id]||tr("구매하기")}{offer&&<Icon id="home-v76-play" size={14}/>}
        </Button>
       </div>
      </article>;
@@ -156,21 +166,22 @@ export default function ShopMenu({player,mutate,refresh,notify,onPage}:Props){
    </div>}
   </section>}
   <section className="commerce-section" ref={toolsSection} aria-labelledby="tools-title"><header className="commerce-section-title" data-frame="chrome_teal_v6" data-frame-scale="0.1"><Icon id="hammer" size={28}/><h3 id="tools-title">{tr("정원 도구")}</h3></header>
-   <div className="tool-shelf">{tools.filter(item=>toolPrices[item]>0).map(item=>{
+   <div className="tool-shelf">{toolRows.map(row=><div className="shop-tool-row" key={row[0]} data-shelf-row>{row.map(item=>{
     const stock=(player.inventory[item]?.normal||0)+(player.inventory[item]?.bound||0);
-    return <button type="button" key={item} className="tool-product tool-select-card" data-frame="card_ice_v9" data-frame-scale="0.16" aria-pressed={activeTool===item} disabled={busy} onClick={()=>selectTool(item)}>
+    return <button type="button" key={item} className="tool-product tool-select-card" data-shop-item={item} data-frame="card_ice_v9" data-frame-scale="0.16" aria-pressed={activeTool===item} disabled={busy||catalogConfirmed!==player.id} onClick={()=>selectTool(item)}>
      <Icon id={item} size={58}/>
      <span className="tool-card-name">{names[item]}</span>
      <span className="commerce-stock">{tr("보유")}{' '}{stock}</span>
      <span className="tool-card-price" data-frame="button_lime_v9" data-frame-scale="0.1"><Amount kind="coin" value={toolPrices[item]}/></span>
     </button>;
-   })}</div>
+   })}</div>)}</div>
   </section>
   {showCatalog&&
-   <section className="commerce-section" aria-labelledby="coins-title"><header className="commerce-section-title" data-frame="chrome_teal_v6" data-frame-scale="0.1"><Icon id="coin" size={28}/><h3 id="coins-title">{tr("코인")}</h3></header>
+   <section className="commerce-section shop-coin-section" aria-labelledby="coins-title"><header className="commerce-section-title" data-frame="chrome_teal_v6" data-frame-scale="0.1"><Icon id="coin" size={28}/><h3 id="coins-title">{tr("코인")}</h3></header>
     {!purchases.available()&&<p className="commerce-store-note">{tr("스토어 연결 후 구매할 수 있어요.")}</p>}
-    {error?<Card><p role="alert">{tr(error)}</p><Button onClick={()=>void load().catch(error=>notify(error.message))}>{tr("다시 불러오기")}</Button></Card>:!loaded?<p role="status" className="commerce-store-note">{tr("상품을 진열하고 있어요.")}</p>:<div className="coin-shelf">{products.filter(product=>product.kind==='coins').map(product=><article key={product.id} className="coin-product" data-content-group data-frame="card_peach_v9" aria-label={tr("{0} 코인",{0:(product.coins.toLocaleString(formatLocale()))})}>
-     <Icon id="bundle_coins_v7" size={88}/><Amount kind="coin" value={product.coins}/><Button className="commerce-buy" tone="blue" disabled={busy} onClick={()=>chooseProduct(product)}>{prices[product.id]||tr("구매하기")}</Button>
+    {error&&<Card><p role="alert">{tr(error)}</p><Button onClick={()=>void load().catch(error=>notify(error.message))}>{tr("다시 불러오기")}</Button></Card>}
+    {!loaded?(!error&&<HubLoading reducedMotion={player.settings.reducedMotion} kind="shop"/>):<div className="coin-shelf">{products.filter(product=>product.kind==='coins').map(product=><article key={product.id} className="coin-product" data-coin-pack={product.coins} data-content-group data-frame="card_peach_v9" aria-label={tr("{0} 코인",{0:(product.coins.toLocaleString(formatLocale()))})}>
+     {shopCoinArt(product.coins)?<img className="coin-pack-art" src={shopCoinArt(product.coins)} alt="" draggable={false}/>:<Icon id="bundle_coins_v7" size={88}/>}<Amount kind="coin" value={product.coins}/><Button className="commerce-buy" tone="green" disabled={busy||catalogConfirmed!==player.id} onClick={()=>chooseProduct(product)}>{prices[product.id]||tr("구매하기")}</Button>
     </article>)}</div>}
    </section>}
   {status&&<p className="commerce-message" role="status">{tr(status)}</p>}

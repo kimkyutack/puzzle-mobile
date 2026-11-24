@@ -1,0 +1,27 @@
+/* Keep the garden visible during fetch/decode; live titles use the shared blue/gold plaque. */
+.game-page[data-page="events"]>.events-header-backdrop{overflow:hidden;background:#88c7dc}
+.events-header-backdrop>.events-header-image{position:absolute;inset:0 0 auto;width:100%;height:calc(210px + var(--safe-top));object-fit:cover;object-position:center;visibility:hidden;opacity:0;pointer-events:none}
+.game-page[data-page="events"]:not(:has(.event-tab-panel)) .events-header-image[data-event-header="attendance"],
+.game-page[data-page="events"]:has([data-event-panel="attendance"]) .events-header-image[data-event-header="attendance"],
+.game-page[data-page="events"]:has([data-event-panel="flowerlight"]) .events-header-image[data-event-header="flowerlight"],
+.game-page[data-page="events"]:has([data-event-panel="treasure"]) .events-header-image[data-event-header="treasure"],
+.game-page[data-page="events"]:has([data-event-panel="power-festival"]) .events-header-image[data-event-header="power-festival"],
+.game-page[data-page="events"]:has([data-event-panel="season"]) .events-header-image[data-event-header="season"],
+.game-page[data-page="events"]:has([data-event-panel="live-events"]) .events-header-image[data-event-header="live-events"]{visibility:visible}
+
+.events-header-backdrop::before{content:'';position:absolute;inset:0 0 auto;height:calc(210px + var(--safe-top));background-image:var(--events-header-preview);background-position:center;background-size:cover;pointer-events:none}
+.events-header-backdrop>.events-header-image[data-ready="true"]{opacity:1}
+.game-page.events-header-v112[data-page="events"]>.page-header{display:flex;align-items:center;justify-content:center;height:72px;margin:var(--safe-top) 8px 0;padding:0}
+.events-header-v112 .events-brand{position:relative;display:grid;place-items:center;width:min(300px,100%);height:68px;isolation:isolate}
+.events-header-v112 .events-title-plaque{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+.events-header-v112 .events-brand-icon{position:absolute;left:25px;top:50%;transform:translateY(-50%);display:block;width:43px;height:43px;pointer-events:none}
+.events-header-v112 .events-brand-icon>.icon{display:block;width:43px;height:43px;object-fit:contain;filter:drop-shadow(0 2px 1px #133b6d66)}
+.game-page.events-header-v112 .events-brand>h1{position:relative;margin:0 58px;padding:0;color:#fffdf1;font:400 30px/38px var(--font-game-ui);text-align:center;white-space:nowrap;text-shadow:0 2px 0 #143d78;-webkit-text-stroke:0}
+@media(max-width:370px){
+ .game-page.events-header-v112[data-page="events"]>.page-header{height:68px}
+ .events-header-v112 .events-brand{width:272px;height:62px;max-width:100%}
+ .events-header-v112 .events-brand-icon{left:23px;width:38px;height:38px}
+ .events-header-v112 .events-brand-icon>.icon{width:38px;height:38px}
+ .game-page.events-header-v112 .events-brand>h1{font-size:27px;line-height:34px;margin-inline:54px}
+}
+@media(max-height:650px){.game-page.events-header-v112[data-page="events"]>.page-header{height:64px}}

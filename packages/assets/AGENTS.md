@@ -1,0 +1,7 @@
+# Production obstacle artwork
+
+The user requires every production obstacle design to include matching raster fragments for its hit/break effects. Create the debris together with the parent artwork; keep material, palette and broken edges consistent. Register the fragments in the client effect selector and verify them during an actual hit.
+
+Use the bright mobile puzzle art direction in `obstacle-redesign/style.md`. Do not add a decorative square frame, socket, backing card or tray to standalone objects. A functional container is appropriate only when the object actually stores multiple contents, such as a cupboard or shelf. A pot's own rim, a crate's own construction and a machine's actual chassis are parts of that object, not a separate tile frame. Inspect the specific reference before deciding. Fit the silhouette to its occupied area without inventing a casing. Transparent overlays such as ice and vines must leave the underlying colored tile visible. Preserve gameplay rules and hit counts when the request is for artwork only.
+
+Match the obstacle's actual game states; this project's current sprite sets use three body/state or connected-geometry frames and three isolated debris pieces. Do not invent additional gameplay layers to fit an art template. `tests/obstacle-redesign.test.ts` checks complete catalogue coverage. Retain original source sheets and the prompts used to make them.

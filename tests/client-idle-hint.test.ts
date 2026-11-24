@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest';
 import {createGame,applyAction,stateHash,legalActions} from '@garden/core';
 import {getLevel} from '@garden/content';
-import {createIdleHintClock,IDLE_HINT_DELAY_MS,HINT_ROTATE_MS,hintRotation,nextBoardHint,hintCells,rankedBoardHints} from '../apps/client/src/idle-hint';
+import {createIdleHintClock,IDLE_HINT_DELAY_MS,HINT_ROTATE_MS,HINT_FADE_IN_MS,HINT_NUDGE_CYCLE_MS,hintRotation,nextBoardHint,hintCells,rankedBoardHints,hintVisibility,hintNudge,matchOutline} from '../apps/client/src/idle-hint';
 
 describe('idle hint delay and playable moves',()=>{
  it('waits five uninterrupted seconds and restarts after player input',()=>{
@@ -56,5 +56,29 @@ describe('ranked, rotating hints',()=>{
    for(const plan of plans)for(const at of new Set([...plan.group,...hintCells(plan.action)])){expect(seen.has(at),`level ${level}`).toBe(false);seen.add(at);}
   }
   expect(rotating).toBeGreaterThan(30);expect(HINT_ROTATE_MS).toBeGreaterThan(2000);
+ });
+});
+
+describe('hint presentation',()=>{
+ it('holds each move for several nudges and fades out before the next one appears',()=>{
+  expect(HINT_ROTATE_MS).toBeGreaterThanOrEqual(8000);expect(HINT_ROTATE_MS).toBeLessThanOrEqual(10000);
+  expect(Math.floor((HINT_ROTATE_MS-HINT_FADE_IN_MS)/HINT_NUDGE_CYCLE_MS)).toBeGreaterThanOrEqual(3);
+  expect(hintVisibility(0,true)).toBe(0);expect(hintVisibility(HINT_ROTATE_MS/2,true)).toBe(1);
+  expect(hintVisibility(HINT_ROTATE_MS-200,true)).toBeLessThan(.5);expect(hintVisibility(HINT_ROTATE_MS,true)).toBe(0);
+  // A single available move simply stays.
+  expect(hintVisibility(HINT_ROTATE_MS*3,false)).toBe(1);
+ });
+ it('nudges the tile toward its target twice per cycle and then rests at home',()=>{
+  const peaks=[];for(let ms=0;ms<HINT_FADE_IN_MS+HINT_NUDGE_CYCLE_MS;ms+=10){const v=hintNudge(ms);expect(v).toBeGreaterThanOrEqual(0);expect(v).toBeLessThanOrEqual(1);peaks.push(v);}
+  expect(Math.max(...peaks)).toBeGreaterThan(.95);
+  expect(hintNudge(0)).toBe(0);expect(hintNudge(HINT_FADE_IN_MS+HINT_NUDGE_CYCLE_MS-100)).toBe(0);
+ });
+ it('traces a match as one outline instead of a frame per tile',()=>{
+  // Three in a row on a 7-wide board: one rectangle with four corners.
+  expect(matchOutline([22,23,24],7)).toEqual([[[1,3],[4,3],[4,4],[1,4]]]);
+  // An L (three across, two more down from the right end): one loop with six corners.
+  const loops=matchOutline([22,23,24,31,38],7);expect(loops).toHaveLength(1);expect(loops[0]).toHaveLength(6);
+  // Cells in the last column never join cells wrapped onto the next row.
+  expect(matchOutline([6,7],7)).toHaveLength(2);
  });
 });

@@ -1,0 +1,57 @@
+.events-v62>.event-tab-panel[data-event-panel="treasure"]:has(>.treasure-scene-v72){padding:0!important;display:block}
+.treasure-scene-v72{position:relative;isolation:isolate;container-type:inline-size;width:100%;height:100%;min-height:130cqw;overflow:hidden;color:#203b5f}
+.treasure-scene-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:-1}
+.game-page[data-page="events"] .treasure-scene-title{position:absolute;top:2.7%;left:10%;width:80%;height:7%;display:grid;place-items:center;margin:0!important;font-size:8cqw;line-height:1;font-weight:400;color:#fff9ee;text-shadow:0 2px 2px #164650}
+.treasure-scene-status{position:absolute;top:11.5%;left:8%;width:84%;height:6.6%;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:2cqw;isolation:isolate;padding:0 3cqw;color:#203b5f}
+.treasure-scene-status>span:not(.raster-frame-face){display:flex;align-items:center;justify-content:center;min-width:0;gap:1cqw;font-size:4cqw;line-height:1.2;white-space:nowrap}
+.treasure-scene-status .icon{flex:none;width:6cqw;height:6cqw;object-fit:contain}
+.treasure-scene-status b{font-weight:400;font-variant-numeric:tabular-nums;font-size:4.4cqw}
+.treasure-scene-grid{position:absolute;left:8.3%;top:20.5%;width:83.4%;height:47.2%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:1.5cqw 2cqw;perspective:900px}
+.treasure-scene-card{position:relative;display:block;width:100%;height:100%;min-height:44px;padding:0;border:0;background:none!important;box-shadow:none!important;isolation:isolate;opacity:1!important;filter:none!important;cursor:pointer}
+.treasure-scene-card>span{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:hidden;transition:transform .24s cubic-bezier(.2,.7,.3,1);transform-style:preserve-3d}
+.treasure-scene-card>span>img:not(.icon){position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.treasure-scene-card-back{transform:rotateY(0)}
+.treasure-scene-card-face{transform:rotateY(-180deg)}
+.treasure-scene-card[data-shown="true"]>.treasure-scene-card-back{transform:rotateY(180deg)}
+.treasure-scene-card[data-shown="true"]>.treasure-scene-card-face{transform:rotateY(0)}
+.treasure-scene-card-face>.icon{position:relative;width:10cqw;height:10cqw;object-fit:contain}
+.treasure-scene-matched{position:absolute;top:2%;right:1%;width:4.5cqw;height:4.5cqw;object-fit:contain;pointer-events:none}
+.treasure-scene-card:focus-visible{outline:3px solid #fff3af;outline-offset:2px;border-radius:8px}
+.treasure-scene-reward{position:absolute;top:71.5%;left:6%;width:88%;height:24%;isolation:isolate;display:flex;flex-direction:column;align-items:center;padding:2.4cqw 3cqw 10cqw;gap:1cqw}
+.game-page[data-page="events"] .treasure-scene-reward>h3{margin:0!important;font-size:5cqw;line-height:1.1;color:#203b5f;font-weight:400}
+.treasure-scene-prizes{display:flex;align-items:center;justify-content:center;gap:5cqw;min-height:10cqw;width:100%}
+.treasure-scene-prizes>span{display:flex;align-items:center;justify-content:center;gap:1.3cqw;min-width:0;white-space:nowrap}
+.treasure-scene-prizes .icon{width:10cqw;height:10cqw;object-fit:contain}
+.treasure-scene-prizes strong{font-size:5cqw;line-height:1;font-weight:400}
+.treasure-scene-prizes>span:nth-child(2)>strong{font-size:4.3cqw}
+.game-page[data-page="events"] .treasure-scene-reward>p{margin:0!important;width:100%;font-size:2.9cqw;line-height:1.2;text-align:center;color:#6c5134!important}
+.game-page[data-page="events"] .events-v17 .treasure-scene-action{position:absolute;top:90%;left:16%;width:68%;height:max(44px,9%);min-height:0!important;margin:0;padding:0 2cqw 1cqw!important;font-size:6.4cqw!important;line-height:1}
+.treasure-scene-action>.button-label{transform:translateY(.08em);line-height:1.1}
+.game-page[data-page="events"] .treasure-scene-guide{position:absolute;top:89.7%;left:5%;width:90%;margin:0!important;text-align:center;font-size:5cqw;line-height:1;color:#203b5f!important;text-shadow:none}
+.game-page[data-page="events"] .treasure-scene-feedback{position:absolute;z-index:3;top:68.1%;left:6%;width:88%;margin:0!important;text-align:center;font-size:3.1cqw;line-height:1.1;color:#fff9e8!important;text-shadow:0 1px #123f4c}
+html:not([lang="ko"]) .treasure-scene-status>span:not(.raster-frame-face){font-size:3.2cqw}
+html:not([lang="ko"]) .treasure-scene-status b{font-size:3.9cqw}
+html:not([lang="ko"]) .treasure-scene-prizes>span:nth-child(2)>strong{font-size:3.6cqw}
+html:not([lang="ko"]) .game-page[data-page="events"] .events-v17 .treasure-scene-action{font-size:5.3cqw!important}
+@media(prefers-reduced-motion:reduce){.treasure-scene-card>span{transition:none}}
+[data-reduced-motion="true"] .treasure-scene-card>span{transition:none}
+
+.treasure-scene-status,.treasure-scene-reward{border:9px solid transparent;border-image-source:url('../../../packages/assets/event-design-v62/reward-postcard-v71.webp');border-image-slice:48 fill;border-image-width:1}
+.treasure-scene-status{border-width:4px;padding:0 1cqw}
+.treasure-scene-reward{border-width:12px;padding-top:.3cqw;padding-left:1cqw;padding-right:1cqw}
+
+/* Keep reward copy and the CTA in separate flow rows at every viewport height. */
+.game-page[data-page="events"] .events-v17.events-v62 .treasure-scene-v72{
+ display:grid;grid-template-areas:"title" "status" "cards" "feedback" "reward" "action";
+ grid-template-rows:auto auto minmax(calc(176px + 4.5cqw),1fr) auto auto auto;
+ gap:1.5cqw;padding:3cqw 6% 2cqw;min-height:max(130cqw,440px);
+}
+.game-page[data-page="events"] .treasure-scene-v72>.treasure-scene-title{grid-area:title;position:relative;inset:auto;width:100%;height:9cqw;min-height:28px}
+.treasure-scene-v72>.treasure-scene-status{grid-area:status;position:relative;inset:auto;width:100%;height:calc(6cqw + 10px);min-height:28px}
+.treasure-scene-v72>.treasure-scene-grid{grid-area:cards;position:relative;inset:auto;width:100%;height:100%;min-height:0}
+.treasure-scene-v72>.treasure-scene-reward{grid-area:reward;position:relative;inset:auto;width:100%;height:auto;padding:.5cqw 1cqw 1cqw;gap:1cqw}
+.game-page[data-page="events"] .events-v17.events-v62 .treasure-scene-v72>.treasure-scene-action{
+ grid-area:action;position:relative;inset:auto;justify-self:center;width:80%!important;
+}
+.game-page[data-page="events"] .treasure-scene-v72>.treasure-scene-guide{grid-area:action;position:relative;inset:auto;display:grid;place-items:center;width:100%;min-height:44px}
+.game-page[data-page="events"] .treasure-scene-v72>.treasure-scene-feedback{grid-area:feedback;position:relative;inset:auto;width:100%}

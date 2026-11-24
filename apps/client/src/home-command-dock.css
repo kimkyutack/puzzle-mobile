@@ -1,0 +1,139 @@
+/* Selected home concept: open live garden, compact command row, ivory game surfaces. */
+.home-dock-face{position:absolute;inset:0;z-index:-1;box-sizing:border-box;pointer-events:none;border:solid transparent;border-width:16px 20px;border-image-slice:96 fill;border-image-width:1;border-image-repeat:stretch}
+.home-command-home .hub-header{left:10px;right:10px;grid-template-columns:43px minmax(0,1.25fr) minmax(0,1fr) minmax(0,.9fr) 36px;gap:5px;padding:2px 0;height:52px}
+.home-command-home .hub-header .hub-counter{isolation:isolate;height:44px;padding:0 3px 0 22px;gap:1px}
+.home-command-home .hub-counter::before{display:none}
+.home-command-home .hub-header .hub-counter>.home-dock-face{position:absolute;inset:10px 0;z-index:-1;border-width:8px 12px}
+.home-command-home .hub-header .hub-counter>.icon{left:-7px;width:29px;height:30px}
+.home-command-home .hub-counter strong{font-size:17px;line-height:20px;color:#20375b;text-shadow:none}
+.home-command-home .hub-counter small{font-size:8px;line-height:9px}
+.home-command-home .hub-hearts>span:not(.raster-frame-face){flex-direction:row;gap:2px}
+.home-command-home .ops-settings-wrap>.icon-button{width:36px;min-width:36px;height:44px;padding:0}
+.home-command-home .ops-settings-wrap>.icon-button>.icon{width:33px;height:36px}
+.home-command-home .ops-settings-wrap>.ops-unread{right:-2px;top:0}
+.home-command-home .home-command-dock{bottom:calc(76px + var(--safe-bottom));padding:13px 10px 5px;isolation:isolate}
+.home-command-home .home-command-dock>.home-dock-face{position:absolute;inset:0;z-index:-1}
+.home-command-home .home-command-dock>.art-surface{z-index:0}
+.home-command-home .home-rewards-row{display:flex;align-items:center;gap:4px;min-width:0;margin:-19px 2px 7px;min-height:43px}
+.home-command-home .home-gift-chip.is-compact{position:relative;flex:2.1;min-width:0;min-height:42px;height:42px;margin:0;padding:4px 7px;gap:4px;color:#243c63;text-shadow:none}
+.home-command-home .home-gift-chip>.icon{width:26px;height:28px}
+.home-command-home .home-gift-chip-copy{display:flex;flex-direction:column;min-width:0;gap:2px}
+.home-command-home .home-gift-chip-copy>strong{font-size:10px;line-height:12px;white-space:nowrap}
+.home-command-home .home-gift-chip-copy>span{display:flex;align-items:center;gap:5px;min-width:0}
+.home-command-home .home-gift-chip-copy b{font-family:var(--font-game-number);font-size:13px;line-height:16px}
+.home-command-home .home-gift-chip .streak-gift-powers{gap:2px}
+.home-command-home .home-gift-chip .streak-gift-powers .icon{width:15px;height:15px}
+.home-command-home .home-rainbow-chip{display:flex;flex:0 0 43px;flex-direction:column;justify-content:center;align-items:center;gap:0;min-width:43px;min-height:44px;color:#20375b;padding:0}
+.home-command-home .home-rainbow-chip>.icon{width:25px;height:25px}
+.home-command-home .home-rainbow-chip>strong{font-family:var(--font-game-number);font-size:9px;line-height:12px;white-space:nowrap}
+.home-command-home .home-rewards-row>.hub-festival-shortcut{position:relative;isolation:isolate;display:grid;grid-template-columns:29px minmax(0,1fr);grid-template-rows:16px 14px;align-items:center;justify-items:center;flex:1;min-width:86px;height:41px;min-height:41px;padding:4px 5px;gap:0;color:#fff;text-shadow:0 1px 1px #1e4e89}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>.icon{grid-row:1/3;width:28px;height:29px}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>span:not(.raster-frame-face){font-size:10px;line-height:13px;white-space:nowrap}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>small{font-family:var(--font-game-number);font-size:8px;line-height:11px;white-space:nowrap}
+.home-command-home .home-rewards-row>.hub-festival-shortcut>.raster-frame-face{inset:0}
+.home-command-home .home-utility-menu{display:flex;align-items:flex-start;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;padding:1px 0 5px;margin:0 0 3px}
+.home-command-home .home-utility-menu::-webkit-scrollbar{display:none}
+.home-command-home .home-utility-menu>button{position:relative;display:flex;flex:1 0 44px;min-width:44px;max-width:76px;min-height:65px;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;padding:0;isolation:isolate;color:#203b67;text-shadow:none}
+.home-command-home .home-utility-menu>button>.icon,.home-command-home .home-utility-menu>button>img{width:39px;height:38px;flex:none;object-fit:contain}
+.home-command-home .home-utility-menu>button>span:not(.reward-dot):not(.raster-frame-face){position:static;display:block;max-width:100%;min-height:26px;font-size:11px;line-height:13px;padding:0;text-align:center;white-space:normal;overflow-wrap:anywhere;color:#203b67;text-shadow:none;-webkit-text-stroke:0}
+.home-command-home .home-utility-menu>button>.reward-dot{position:absolute;top:0;right:0}
+.home-command-home .home-utility-menu .hub-menu-time{position:absolute;top:27px;left:1px;right:1px;z-index:2;display:flex;align-items:center;justify-content:center;height:14px;min-height:14px;margin:0;padding:0 1px;background-image:url('../../../packages/assets/home-dock-v75/runtime/coral-button.webp');background-size:100% 100%;font-family:var(--font-game-number);font-size:8px;line-height:12px;white-space:nowrap;color:#fff;text-shadow:0 1px #9b3042;pointer-events:none}
+.home-command-home .home-utility-menu .hub-menu-time>strong{font-size:8px;line-height:12px}
+.home-command-home .home-utility-menu .hub-menu-time>small{display:none}
+.home-command-home .hub-main-actions{grid-template-columns:1.1fr 1fr;gap:8px;padding:0 1px 4px}
+.home-command-home .hub-main-actions>.game-button{position:relative;isolation:isolate;height:65px;min-height:65px;margin:0;padding:4px 9px 8px;border:0;background:transparent;box-shadow:none}
+.home-command-home .hub-main-actions>.hub-play{font-size:27px}
+.home-command-home .hub-main-actions>.hub-build{font-size:16px;line-height:20px}
+.home-command-home .hub-build>.button-label{flex-wrap:nowrap;gap:3px}
+.home-command-home .hub-build>.button-label>.icon{width:31px;height:34px}
+.home-command-home .hub-build>.button-label>span{white-space:nowrap}
+.home-command-home .hub-main-actions .button-label{color:#fff;text-shadow:0 2px 1px #2145206b;-webkit-text-stroke:0}
+.home-command-home .home-promotions{position:absolute;top:calc(var(--safe-top) + 73px);right:9px;z-index:10;display:flex;gap:5px;align-items:flex-start}
+.home-command-home .home-promotion{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;width:64px;min-height:85px;padding:0;color:#fff;text-shadow:0 1px 2px #173e39,1px 0 #173e39,-1px 0 #173e39}
+.home-command-home .home-promotion>.icon{width:58px;height:57px}
+.home-command-home .home-promotion>span{font-size:10px;line-height:13px;margin-top:1px;white-space:nowrap}
+.home-command-home .home-promotion-time{position:absolute;top:40px;left:0;right:0;z-index:2;display:grid;place-items:center;height:18px;background-image:url('../../../packages/assets/home-dock-v75/runtime/coral-button.webp');background-size:100% 100%;font-family:var(--font-game-number);font-size:9px;line-height:14px;color:#fff;text-shadow:0 1px #a32f38;pointer-events:none}
+.home-command-home .home-floating-mail{position:absolute;right:12px;bottom:calc(286px + var(--safe-bottom));z-index:11;width:45px;height:46px;padding:0}
+.home-command-home .home-floating-mail>.icon{width:43px;height:43px}
+.command-navigation{isolation:isolate;height:calc(76px + var(--safe-bottom))}
+.command-navigation>.home-dock-face{z-index:-1;border-width:12px 16px}
+.command-navigation .hub-footer{height:calc(76px + var(--safe-bottom));padding:3px 8px var(--safe-bottom);gap:5px;align-items:center}
+.command-navigation .hub-nav-item{height:65px;padding:3px 2px 5px;color:#203b67;text-shadow:none;min-width:0}
+.command-navigation .hub-nav-item>.icon{width:38px;height:38px;object-fit:contain}
+.command-navigation .hub-nav-item>span{font-size:12px;line-height:15px;color:#203b67;text-shadow:none}
+.command-navigation .hub-nav-home{height:71px;max-width:70px;justify-self:center;width:100%;padding:3px 3px 5px;color:#fff}
+.command-navigation .hub-nav-home>.icon{width:43px;height:43px}
+.command-navigation .hub-nav-home>span{color:#fff}
+.command-navigation .hub-nav-home>.raster-frame-face{inset:0;z-index:-1}
+.command-navigation .hub-new-event-label{top:-3px;right:0;max-width:60px;font-size:9px;line-height:13px}
+.home-command-home .live-garden{background:#bdd27e}
+@media(max-width:370px){
+ .home-command-home .hub-header{left:8px;right:8px;grid-template-columns:37px minmax(0,1.2fr) minmax(0,.9fr) minmax(0,.85fr) 32px;gap:3px}
+ .home-command-home .hub-avatar{width:37px;height:40px}
+ .home-command-home .hub-header .hub-counter{padding-left:19px}
+ .home-command-home .hub-header .hub-counter>.icon{width:26px;height:28px;left:-7px}
+ .home-command-home .hub-counter strong{font-size:15px}
+ .home-command-home .ops-settings-wrap>.icon-button{width:32px;min-width:32px}
+ .home-command-home .ops-settings-wrap>.icon-button>.icon{width:30px;height:33px}
+ .home-command-home .hub-build>.button-label>.icon{width:25px;height:29px}
+ .home-command-home .hub-main-actions>.hub-build{font-size:14px}
+ .home-command-home .hub-main-actions>.hub-play{font-size:23px}
+ .home-command-home .home-gift-chip.is-compact{padding-inline:5px;gap:3px}
+ .home-command-home .home-gift-chip>.icon{width:22px;height:25px}
+ .home-command-home .home-gift-chip-copy>strong{font-size:8px;line-height:11px}
+ .home-command-home .home-gift-chip .streak-gift-powers .icon{width:12px;height:13px}
+ .home-command-home .home-gift-chip-copy b{font-size:12px}
+ .home-command-home .home-rainbow-chip{flex-basis:37px;min-width:37px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut{min-width:77px;grid-template-columns:24px minmax(0,1fr);padding-inline:3px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut>.icon{width:24px;height:26px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut>span:not(.raster-frame-face){font-size:9px}
+ .home-command-home .home-rewards-row>.hub-festival-shortcut>small{font-size:7px}
+}
+@media(max-height:760px){
+ .home-command-home .home-command-dock{bottom:calc(68px + var(--safe-bottom));padding-top:10px}
+ .home-command-home .home-utility-menu>button{min-height:59px}
+ .home-command-home .home-utility-menu>button>.icon,.home-command-home .home-utility-menu>button>img{width:33px;height:33px}
+ .home-command-home .home-utility-menu .hub-menu-time{top:23px;height:13px}
+ .home-command-home .home-utility-menu>button>span:not(.reward-dot):not(.raster-frame-face){font-size:10px;line-height:12px;min-height:24px}
+ .home-command-home .hub-main-actions>.game-button{height:57px;min-height:57px}
+ .home-command-home .home-floating-mail{bottom:calc(264px + var(--safe-bottom))}
+ .home-command-home .home-rewards-row{margin-top:-17px;margin-bottom:4px}
+ .command-navigation,.command-navigation .hub-footer{height:calc(68px + var(--safe-bottom))}
+ .command-navigation .hub-nav-item{height:60px}
+ .command-navigation .hub-nav-home{height:66px}
+ .command-navigation .hub-nav-item>.icon{width:35px;height:35px}
+ .command-navigation .hub-nav-home>.icon{width:40px;height:40px}
+}
+
+.home-command-home .hub-main-actions>.hub-play>.button-label{font-size:25px;line-height:29px}
+.home-command-home .hub-main-actions>.hub-build>.button-label{font-size:16px;line-height:20px}
+.home-command-home .home-gift-chip .streak-gift-home-frame{border-width:7px 10px}
+@media(max-width:370px){.home-command-home .hub-main-actions>.hub-play>.button-label{font-size:22px}.home-command-home .hub-main-actions>.hub-build>.button-label{font-size:14px}}
+
+.command-navigation .home-active-tab-face{position:absolute;inset:0;z-index:-1;pointer-events:none;box-sizing:border-box;border:10px solid transparent;border-image-slice:64 fill;border-image-width:1;border-image-repeat:stretch}
+.command-navigation .hub-nav-home{max-width:60px}
+
+.home-command-home .home-command-dock>.home-dock-face{border-width:30px}
+.command-navigation>.home-dock-face{border-width:25px}
+.command-navigation .home-active-tab-face{border-width:16px}
+.home-command-home .home-gift-chip-title{flex:1;min-width:0;font-size:9px;line-height:11px;color:#243c63}
+.home-command-home .home-gift-chip-stage{font-family:var(--font-game-number);font-size:14px;line-height:17px;flex:none}
+.home-command-home .home-gift-chip .streak-gift-powers{flex:none}
+.home-command-home .home-rainbow-chip{flex-basis:56px;min-width:56px;flex-direction:row;gap:1px}
+.home-command-home .home-rainbow-chip>.icon{width:23px;height:25px}
+.home-command-home .home-rainbow-chip>strong{font-size:8px}
+.home-command-home .home-utility-menu .hub-menu-time{top:24px;height:13px;min-height:13px}
+@media(max-width:370px){
+ .home-command-home .home-gift-chip-title{font-size:8px;line-height:10px}
+ .home-command-home .home-gift-chip-stage{font-size:12px}
+ .home-command-home .home-rainbow-chip{flex-basis:46px;min-width:46px}
+ .home-command-home .home-rainbow-chip>.icon{width:20px;height:23px}
+ .home-command-home .home-rainbow-chip>strong{font-size:7px}
+}
+@media(max-height:760px){
+ .home-command-home .home-utility-menu .hub-menu-time{top:20px;height:12px;min-height:12px}
+}
+
+.home-command-home .home-gift-chip>.streak-gift-home-frame{border-width:20px 23px;border-image-slice:118 130 118 130 fill}
+/* Override the legacy home gutter inside the new dock's own 10px inset. */
+.home-command-home .home-command-dock .hub-main-actions{padding-left:1px;padding-right:1px}

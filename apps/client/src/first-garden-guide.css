@@ -1,0 +1,10 @@
+.first-garden-home{display:contents}
+.first-garden-guide .first-garden-guide-art{display:flex;align-items:center;justify-content:center;gap:16px;margin:8px 0 14px}
+.first-garden-guide .content-card{text-align:center}
+.first-garden-guide .content-card h3{margin:0 0 8px;font-size:21px;line-height:27px}
+.first-garden-guide .content-card p{font-size:16px;line-height:24px;margin:6px 0 10px;text-wrap:balance}
+.first-garden-guide .resource-amount{justify-content:center}
+.first-garden-guide .first-garden-restore{width:100%;min-height:54px;font-size:23px}
+.first-garden-building{position:absolute;inset:0;z-index:60;display:flex;align-items:flex-start;justify-content:center;padding:calc(var(--safe-top) + 64px) 15px 0;pointer-events:auto}
+.first-garden-building p{margin:0;padding:10px 16px;border-radius:12px;background:#e2f4ff;color:#173c68;font-size:17px;line-height:24px;box-shadow:0 2px 8px #173c6833}
+@media(max-width:350px){.first-garden-guide .first-garden-guide-art>.icon{width:80px;height:80px}.first-garden-guide .content-card p{font-size:14px;line-height:21px}}

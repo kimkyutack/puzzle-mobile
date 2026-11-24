@@ -4,11 +4,11 @@ export const POWER_FESTIVAL_MIN_LEVEL=5;
 export const POWER_FESTIVAL_DURATION=30*60*1000;
 export const POWER_USE_KINDS=['rainbow','glider','bomb','rocket'] as const;
 export const POWER_FESTIVAL_STAGES:ReadonlyArray<{targets:PowerUseCounts;reward:ActivityReward}>=[
- {targets:{rainbow:1,glider:4,bomb:3,rocket:6},reward:{coins:100,items:{hammer:1}}},
+ {targets:{rainbow:1,glider:4,bomb:3,rocket:6},reward:{coins:100,items:{}}},
  {targets:{rainbow:1,glider:5,bomb:4,rocket:8},reward:{coins:150,items:{'sweep-row':1}}},
- {targets:{rainbow:2,glider:6,bomb:5,rocket:10},reward:{coins:200,items:{'cross-firework':1}}},
+ {targets:{rainbow:2,glider:6,bomb:5,rocket:10},reward:{coins:0,items:{hammer:1}}},
  {targets:{rainbow:2,glider:8,bomb:6,rocket:12},reward:{coins:250,items:{rainbow:1}}},
- {targets:{rainbow:3,glider:10,bomb:8,rocket:15},reward:{coins:500,items:{'world-bomb':1}}},
+ {targets:{rainbow:3,glider:10,bomb:8,rocket:15},reward:{coins:500,items:{rainbow:1}}},
 ];
 export const emptyPowerUses=():PowerUseCounts=>({rocket:0,bomb:0,glider:0,rainbow:0});
 export function addPowerUses(a:PowerUseCounts=emptyPowerUses(),b:PowerUseCounts=emptyPowerUses()):PowerUseCounts{return Object.fromEntries(POWER_USE_KINDS.map(kind=>[kind,a[kind]+b[kind]])) as PowerUseCounts;}

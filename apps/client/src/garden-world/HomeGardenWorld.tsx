@@ -1,5 +1,6 @@
 import {FLOWERLIGHT_GARDEN_GIFTS,flowerlightGiftInstanceIds} from '../../../../packages/content/src/flowerlight';
 import {expeditionRounds,expeditionGrantId,ANIMAL_EXPEDITION_STAGES} from '../../../../packages/content/src/animal-expedition';
+import {GARDEN_HOME_ZOOM} from './art-scale';
 import {useCallback,useEffect,useMemo,useRef,useState,type CSSProperties} from 'react';
 import type {Player,GardenStyle,StoryState} from '@garden/contracts';
 import {AREAS,RESTORATIONS} from '@garden/content';
@@ -18,7 +19,7 @@ import {restorationSite} from '../../../../packages/garden-world/src/restoration
 import type {GardenTask,RestorationVisual} from '../GardenScene';
 import './live-world.css';
 
-interface Props {openBag?:boolean;styles?:StoryState['styles'];onStyle:(taskId:string,style:GardenStyle)=>void;styleBusy:boolean;styleReady:boolean;player:Player;editing:boolean;area:number;onArea:(area:number)=>void;onClose:()=>void;onEdit:()=>void;onPlayer:(player:Player)=>void;onRestore:(task:GardenTask)=>void;restoreBusy:boolean;restoring:boolean;visual?:RestorationVisual|null;confirmedWorld?:GardenWorldState|null}
+interface Props {onReadyChange?:(ready:boolean)=>void;homeInsets?:{top:number;bottom:number};openBag?:boolean;styles?:StoryState['styles'];onStyle:(taskId:string,style:GardenStyle)=>void;styleBusy:boolean;styleReady:boolean;player:Player;editing:boolean;area:number;onArea:(area:number)=>void;onClose:()=>void;onEdit:()=>void;onPlayer:(player:Player)=>void;onRestore:(task:GardenTask)=>void;restoreBusy:boolean;restoring:boolean;visual?:RestorationVisual|null;confirmedWorld?:GardenWorldState|null}
 type ShopCatalog={prices:Readonly<Record<string,number>>;minimumLevels?:Readonly<Partial<Record<string,number>>>;shopVersion?:2};
 const emptyShop:ShopCatalog={prices:{}};
 export default function HomeGardenWorld(p:Props){
@@ -33,6 +34,8 @@ export default function HomeGardenWorld(p:Props){
  const map=useRef<MapHandle>(null),pending=useRef<{signature:string;key:string}|null>(null),guard=useRef(false),alive=useRef(true),worldRef=useRef(world);worldRef.current=world;
  useEffect(()=>{alive.current=true;return()=>{alive.current=false}},[]);
  const restored=p.player.restored.join('|');
+ const mapReady=!!world&&world.ownerId===p.player.id&&!!images;
+ useEffect(()=>{p.onReadyChange?.(mapReady);return()=>p.onReadyChange?.(false);},[mapReady,p.onReadyChange]);
  useEffect(()=>{if(p.editing&&p.openBag){setTab('bag');setCategory('all');setSelected(null);setPreview(null);}},[p.editing,p.openBag]);
  const eventGrants=[...FLOWERLIGHT_GARDEN_GIFTS.slice(0,p.player.flowerFestival?.restoredStages??0).flatMap(flowerlightGiftInstanceIds),...expeditionRounds(p.player.animalExpedition).filter(round=>round.completedStages>=ANIMAL_EXPEDITION_STAGES.length).map(expeditionGrantId)].join('|');
  useEffect(()=>{if(!world||!eventGrants.split('|').some(id=>id&&!world.owned[id]))return;let live=true;void request<{world:GardenWorldState}>('/garden/world').then(result=>{if(live)acceptWorld(result.world)},()=>{});return()=>{live=false}},[p.player.id,eventGrants,!!world]);
@@ -101,7 +104,7 @@ export default function HomeGardenWorld(p:Props){
  if(tab==='shop')catalog.sort((a,b)=>minimumLevel(a.id)-minimumLevel(b.id)||shop.prices[a.id]!-shop.prices[b.id]!);
  const style={'--live-plate':`url(${UI_ART.plate})`,'--live-dock':`url(${UI_ART.dock})`,'--live-card':`url(${UI_ART.ice})`,'--live-green':`url(${UI_ART.play})`,'--live-blue':`url(${UI_ART.secondary})`,'--live-amber':`url(${UI_ART.amber})`} as CSSProperties;
  return <div className={'live-garden'+(p.editing?' is-editing':'')} style={style} data-live-garden="true">
-  {world&&world.ownerId===p.player.id&&images?<WorldMap ref={map} world={painted!} images={images} restoration={p.visual} preview={preview} previewValid={!invalid} editable={p.editing} expansionPreview={p.editing&&tab==='expand'?landPlot:null} expansionValid={!!expandedLand||landValid} expansionOptions={p.editing&&tab==='expand'&&!landConfirm&&!expandedLand?landOptions:undefined} onExpansionPreview={p.editing&&tab==='expand'&&!busy&&!landConfirm&&!expandedLand&&!landPan?moveLand:undefined} paint={!!paintItem&&!paintPan&&!busy} onPaint={paint} onSelect={id=>{if(!busy&&!p.restoring&&!paintItem&&(!p.editing||tab!=='expand'))select(id)}} onPreview={point=>{if(!busy)movePreview(point)}}/>:<div className="live-load" role="status"><img src={UI_ART.lumi} alt=""/><p>{error||tr('나의 정원을 펼치는 중…')}</p>{error&&<Button onClick={()=>setRetry(n=>n+1)}>{tr('다시 불러오기')}</Button>}</div>}
+  {world&&world.ownerId===p.player.id&&images?<WorldMap ref={map} initialZoom={GARDEN_HOME_ZOOM} overviewInsets={!p.editing?p.homeInsets:undefined} world={painted!} images={images} restoration={p.visual} preview={preview} previewValid={!invalid} editable={p.editing} expansionPreview={p.editing&&tab==='expand'?landPlot:null} expansionValid={!!expandedLand||landValid} expansionOptions={p.editing&&tab==='expand'&&!landConfirm&&!expandedLand?landOptions:undefined} onExpansionPreview={p.editing&&tab==='expand'&&!busy&&!landConfirm&&!expandedLand&&!landPan?moveLand:undefined} paint={!!paintItem&&!paintPan&&!busy} onPaint={paint} onSelect={id=>{if(!busy&&!p.restoring&&!paintItem&&(!p.editing||tab!=='expand'))select(id)}} onPreview={point=>{if(!busy)movePreview(point)}}/>:<div className="live-load" role="status"><img src={UI_ART.lumi} alt=""/><p>{error||tr('나의 정원을 펼치는 중…')}</p>{error&&<Button onClick={()=>setRetry(n=>n+1)}>{tr('다시 불러오기')}</Button>}</div>}
   {p.editing&&<>
    <div className="live-edit-tabs has-expansion" data-art-root><Button secondary icon="hammer" disabled={busy} onClick={()=>switchTab('restore')}>{tr('복원')}</Button><Button secondary icon="chest" disabled={busy} onClick={()=>switchTab('bag')}>{tr('보관함')}</Button><Button tone="gold" icon="shop" disabled={busy} onClick={()=>switchTab('shop')}>{tr('상점')}</Button><Button tone="gold" icon="home" disabled={busy||!landConfig} onClick={()=>switchTab('expand')}>{tr('확장')}</Button><button className="live-close" aria-label={tr('정원 꾸미기 닫기')} disabled={busy} onClick={p.onClose}><img src={UI_ART.close} alt=""/></button></div>
    <section className="live-sheet" data-art-root aria-label={tr(paintItem?(paintingGround?'산책로 이어 깔기':'장식 연속 배치'):tab==='expand'?'정원 확장':purchase?'구매 확인':definition?'선택한 정원 물건':tab==='shop'?'정원 상점':tab==='bag'?'정원 보관함':'정원 복원')}>

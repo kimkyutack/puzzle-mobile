@@ -1,7 +1,10 @@
+import {advanceObstacleRails,releaseRail,validateCircuitPiece} from './garden-circuit';
+import {frontierAfterBreak,validateFrontierPiece} from './garden-frontier';
+import {siegeCanHit,siegePriority,validateGardenSiege,validateSiegePiece} from './garden-siege';
 import {coveredGravityInlets,gravityFlow,gravityLanes as lanesFor} from './gravity-flow';
 import {validateGardenStage,createGardenStage,advanceGardenStage} from './garden-stages';
 export {connectedGardenCells,gardenStageGoal} from './garden-stages';
-import { COLORS, LEGACY_ENGINE_VERSION, supportsEngine, supportsPowerRainbow, supportsGardenMechanics, supportsBeehive, supportsOpenGardenStages, supportsImmediateGardenStages, supportsFlowGravity, supportsSeedDelivery, supportsGliderSwarm, supportsVisibleTargets, supportsObjectivePowers, supportsMatchFirst, supportsChapterObstacles, supportsContinuousRefill, perpendicularRockets, type Action, type ActionResult, type Color, type GameEvent, type GameState, type Goal, type LevelDefinition, type Obstacle, type PreBooster, type Special, type Tile } from '@garden/contracts';
+import { COLORS, LEGACY_ENGINE_VERSION, supportsEngine, supportsPowerRainbow, supportsGardenMechanics, supportsBeehive, supportsOpenGardenStages, supportsImmediateGardenStages, supportsFlowGravity, supportsSeedDelivery, supportsGliderSwarm, supportsVisibleTargets, supportsObjectivePowers, supportsMatchFirst, supportsMixedRainbowRockets, supportsChapterObstacles, supportsContinuousRefill, perpendicularRockets, type Action, type ActionResult, type Color, type GameEvent, type GameState, type Goal, type LevelDefinition, type Obstacle, type PreBooster, type Special, type Tile } from '@garden/contracts';
 import {perimeterCells} from './perimeter';
 import {endpointPipe,pipeEnd,struckPipeEnd} from './endpoint-pipe';
 import {beeObstacle,type BeeFocus} from './beehive';
@@ -29,7 +32,7 @@ const unique = (cells:number[]) => [...new Set(cells)].sort(ascending);
 const valid = (s:GameState, at:number):boolean => Number.isInteger(at) && at>=0 && at<s.cells.length && s.cells[at]!.exists;
 const neighbors = (s:GameState,at:number):number[] => [at-s.width,at-1,at+1,at+s.width].filter(i=>valid(s,i) && Math.abs(i%s.width-at%s.width)+Math.abs(Math.floor(i/s.width)-Math.floor(at/s.width))===1).sort(ascending);
 const obstacleAt = (s:GameState,i:number) => s.cells[i]?.obstacleId ? s.obstacles[s.cells[i]!.obstacleId!] : undefined;
-const blocked = (s:GameState,i:number) => {const o=obstacleAt(s,i);return !!o && o.kind!=='vine'||supportsOpenGardenStages(s.engineVersion)&&!!s.gardenStage?.connected.includes(i);};
+const blocked = (s:GameState,i:number) => {const o=obstacleAt(s,i);return !!o && o.kind!=='vine'||!!s.siege?.bank.includes(i)||supportsOpenGardenStages(s.engineVersion)&&!!s.gardenStage?.connected.includes(i);};
 const movable = (s:GameState,i:number) => valid(s,i) && !!s.cells[i]!.tile && !obstacleAt(s,i);
 function next(s:GameState):number {let x=s.rng>>>0;x^=x<<13;x^=x>>>17;x^=x<<5;s.rng=x>>>0;return s.rng;}
 function tile(s:GameState):Tile {
@@ -46,8 +49,11 @@ function hitFrost(ctx:Context,at:number,effectId?:number):void{
  if(effectId!==undefined||supportsVisibleTargets(s.engineVersion))ctx.events.push({type:'hit',cells:[at],kind:'frost',effectId});
 }
 export function validateLevel(level:LevelDefinition):string[] {
- const errors=[...validateGardenStage(level),...validateDevices(level),...validatePlanterGarden(level),...validateGardenPuzzle(level)]; const n=level.width*level.height;
+ const errors=[...validateGardenSiege(level),...validateGardenStage(level),...validateDevices(level),...validatePlanterGarden(level),...validateGardenPuzzle(level)]; const n=level.width*level.height;
  if(!supportsEngine(level.engineVersion))errors.push('ENGINE_VERSION');
+ if(level.journey&&level.frontier?.kind!=='expedition')errors.push('FRONTIER_JOURNEY');
+ if(level.circuit&&!['rail','boomerang','crystal'].includes(level.siege?.kind??''))errors.push('CIRCUIT_ENGINE');
+ if(level.journey?.next&&!errors.includes('FRONTIER_JOURNEY')&&!errors.includes('FRONTIER_ENGINE'))errors.push(...validateLevel(level.journey.next).map(error=>'JOURNEY_'+error));
  if(level.powerRainbow&&!supportsPowerRainbow(level.engineVersion))errors.push('POWER_RAINBOW_ENGINE');
  if(!Number.isInteger(level.width)||!Number.isInteger(level.height)||level.width<3||level.width>9||level.height<3||level.height>10||level.shape.length!==n)errors.push('BOARD_SHAPE');
  if(level.colors.length<3||level.colors.length>6||new Set(level.colors).size!==level.colors.length||level.colors.some(c=>!COLORS.includes(c)))errors.push('COLORS');
@@ -60,6 +66,9 @@ export function validateLevel(level:LevelDefinition):string[] {
  if(new Set(level.obstacles.map(o=>o.id)).size!==level.obstacles.length)errors.push('OBSTACLE_ID');
  const occupied=new Set<number>();
  for(const o of level.obstacles){
+  if(o.circuit)errors.push(...validateCircuitPiece(level,o));
+  if(o.frontier)errors.push(...validateFrontierPiece(level,o));
+  if(o.siege)errors.push(...validateSiegePiece(level,o));
   if(o.chapter)errors.push(...validateChapterObstacle(level,o));
   if(o.rule!==undefined||o.pair!==undefined||o.lastHitColor!==undefined||o.detonateAt!==undefined||o.strikeSide!==undefined)errors.push(...validateObstacleRule(level,o));
   if(isBreakableObstacle(o.kind)||o.contents||o.link!==undefined)errors.push(...validateBreakable(level,o));
@@ -74,7 +83,7 @@ export function validateLevel(level:LevelDefinition):string[] {
   if(!Number.isInteger(o.hp)||!Number.isInteger(o.maxHp)||o.hp<1||o.hp>o.maxHp||!o.footprint.includes(o.anchor))errors.push('OBSTACLE_HP');
   for(const i of o.footprint){if(!level.shape[i]||occupied.has(i))errors.push('OBSTACLE_FOOTPRINT');occupied.add(i);}
  }
- if(level.obstacles.some(o=>o.kind==='windmill'||o.kind==='wind-pod'))errors.push(...validateWindLinks(level.obstacles));
+ if(level.obstacles.some(o=>o.kind==='windmill'||o.kind==='wind-pod'||o.kind==='petal-launcher'||o.kind==='sun-gate'))errors.push(...validateWindLinks(level.obstacles));
  if(level.goldGarden&&(!level.obstacles.length||level.obstacles.some(o=>o.kind!=='crate'||o.hp!==1||o.maxHp!==1||o.footprint.length!==1)||
   !level.shape.some((exists,at)=>exists&&!occupied.has(at))||level.initial?.some(t=>t&&!goldGardenPowers.some(kind=>kind===t.kind))))errors.push('GOLD_GARDEN_LAYOUT');
  if(level.obstacles.some(o=>o.rule==='twin'))errors.push(...validateTwinPairs(level.obstacles));
@@ -124,6 +133,10 @@ export function createGame(level:LevelDefinition,preBoosters:PreBooster[]=[]):Ga
  const errors=validateLevel(level);if(errors.length)throw new Error(`INVALID_LEVEL:${errors.join(',')}`);
  if(new Set(preBoosters).size!==preBoosters.length||preBoosters.some(b=>!['wind-row','bomb','rainbow'].includes(b)))throw new Error('INVALID_PREBOOSTERS');
  const s:GameState={engineVersion:level.engineVersion,levelId:level.id,width:level.width,height:level.height,cells:level.shape.map((exists,i)=>({exists,tile:null,frost:level.frost?.[i]??0,...(level.exits?.includes(i)?{exit:true}:{})})),obstacles:Object.fromEntries(level.obstacles.map(o=>[o.id,copy(o)])),goals:copy(level.goals),moves:level.moves,turn:0,rng:level.seed>>>0,nextTileId:1,effectSequence:0,status:'playing',colors:[...level.colors],gravity:lanesFor(level)};
+ if(level.siege)s.siege=copy(level.siege);
+ if(level.circuit)s.circuit=copy(level.circuit);
+ if(level.frontier)s.frontier=copy(level.frontier);
+ if(level.journey)s.journey=copy(level.journey);
  if(level.powerRainbow)s.powerRainbow=true;
  if(level.goldGarden)s.goldGarden={coinCells:level.obstacles.map(coin=>coin.anchor)};
  if(level.gardenStage)s.gardenStage=createGardenStage(level.gardenStage,level.width);
@@ -203,7 +216,8 @@ export function targetCells(s:GameState,excluded:Set<number>=new Set(),fusion=fa
   const c=s.cells[i]!,o=obstacleAt(s,i),t=c.tile;
   const ice=c.frost&&active.has('frost')?400+c.frost:0;
   // The glider can chip the ice even under a piece it normally cannot remove.
-  if(t?.kind==='seed'||(o&&(o.cover||!chapterCanTarget(s,o,fusion)||!canHitObstacleRule(o,'glider-impact')||o.kind==='pot'||o.kind==='bud'||o.kind==='curtain'||o.kind==='windmill'||(o.kind==='cabinet'&&o.color)||endpointPipe(o,s.engineVersion)&&!pipeEnd(o,i)||s.gardenPuzzle&&!canHitPuzzleObstacle(s,o,'glider-impact',lit))))return prioritizeFrost&&ice?ice:-1;
+  if(t?.kind==='seed'||(o&&(o.cover||!siegeCanHit(o)||!chapterCanTarget(s,o,fusion)||!canHitObstacleRule(o,'glider-impact')||o.kind==='pot'||o.kind==='bud'||o.kind==='curtain'||(o.kind==='windmill'||o.kind==='sun-gate')||(o.kind==='cabinet'&&o.color)||endpointPipe(o,s.engineVersion)&&!pipeEnd(o,i)||s.gardenPuzzle&&!canHitPuzzleObstacle(s,o,'glider-impact',lit))))return prioritizeFrost&&ice?ice:-1;
+  if(o&&siegePriority(s,o))return 600+siegePriority(s,o)*10+o.hp;
   if(s.gardenStage?.blocked.includes(i))return 480;
   if(o&&(active.has(o.kind)||(o.contents&&active.has(o.contents.kind))))return 500+o.hp;
   if(ice&&(t||directFrost))return ice;
@@ -217,9 +231,9 @@ export function targetCells(s:GameState,excluded:Set<number>=new Set(),fusion=fa
 }
 interface GliderFlight {from:number;exclude:number[]}
 interface Swarm {cells:Set<number>;obstacles:Set<string>;flights:GliderFlight[]}
-interface Effect extends ChapterImpact {id:number;frostHandled?:readonly number[];delivery?:{from:number;targetId:string};adjacent?:boolean;allowPot?:boolean;bee?:{from:number;focus:BeeFocus;payload?:Special};glider?:GliderFlight&{swarm?:Swarm};power?:Special;openedPlanters?:Obstacle[];puzzle?:PuzzleImpact;dominoFrom?:number;obstacleTargetId?:string;family?:Set<string>}
+interface Effect extends ChapterImpact {id:number;boomerangFrom?:number;crystalGroup?:string;crystalFrom?:number;assaultFrom?:number;siegeTarget?:string;siegeFrom?:number;frostHandled?:readonly number[];delivery?:{from:number;targetId:string};adjacent?:boolean;allowPot?:boolean;bee?:{from:number;focus:BeeFocus;payload?:Special};glider?:GliderFlight&{swarm?:Swarm};power?:Special;openedPlanters?:Obstacle[];puzzle?:PuzzleImpact;dominoFrom?:number;obstacleTargetId?:string;family?:Set<string>}
 type CascadeCapture=(state:GameState,events:GameEvent[])=>void;
-interface Context extends ChapterTurn {family?:Set<string>;familyTiles?:Map<number,Set<string>>;s:GameState;events:GameEvent[];queue:Effect[];protected:Set<number>;triggered:Set<number>;mossHit:boolean;effects:number;capture?:CascadeCapture;updraft?:boolean;directMatches?:ReadonlySet<number>;twinHits?:Set<string>;chapterRules?:Set<string>}
+interface Context extends ChapterTurn {crystalGroups?:Set<string>;family?:Set<string>;familyTiles?:Map<number,Set<string>>;s:GameState;events:GameEvent[];queue:Effect[];protected:Set<number>;triggered:Set<number>;mossHit:boolean;effects:number;capture?:CascadeCapture;updraft?:boolean;directMatches?:ReadonlySet<number>;twinHits?:Set<string>;chapterRules?:Set<string>}
 function excludeStruckTwins(ctx:Context,excluded:Set<number>):void{
  for(const id of ctx.twinHits??[]){const obstacle=ctx.s.obstacles[id];if(obstacle)excluded.add(obstacle.anchor);}
 }
@@ -366,10 +380,17 @@ function combineInto(ctx:Context,at:number,a:Special,b:Special,other:number):voi
  if(a==='rainbow'||b==='rainbow'){
   const replacement=a==='rainbow'?b:a,colors=rainbowColors(s);
   const targets=s.cells.flatMap((c,i)=>c.tile?.kind==='normal'&&colors.includes(c.tile.color)&&!blocked(s,i)?[i]:[]);
-  for(const i of targets){
+  const rockets:Special[]|undefined=targets.length&&wind(replacement)&&supportsMixedRainbowRockets(s.engineVersion)?[]:undefined;
+  if(rockets){
+   // Balance both directions, then shuffle with the replay's RNG. Two or more conversions always mix.
+   const directions=['wind-row','wind-column'] as const,offset=next(s)%2;
+   for(let i=0;i<targets.length;i++)rockets.push(directions[(i+offset)%2]!);
+   for(let i=rockets.length-1;i>0;i--){const j=next(s)%(i+1);[rockets[i],rockets[j]]=[rockets[j]!,rockets[i]!];}
+  }
+  for(const [index,i] of targets.entries()){
    const tile=s.cells[i]!.tile;
    if(tile?.kind==='normal')goal(s,tile.color);
-   s.cells[i]!.tile={id:s.nextTileId++,kind:replacement};
+   s.cells[i]!.tile={id:s.nextTileId++,kind:rockets?.[index]??replacement};
    if(ctx.family)(ctx.familyTiles??=new Map()).set(s.cells[i]!.tile!.id,ctx.family);
   }
   enqueue(ctx,targets,`rainbow+${replacement}`);
@@ -402,16 +423,17 @@ function damageObstacle(ctx:Context,id:string,effect:Effect,touched:Set<string>)
  const s=ctx.s,o=s.obstacles[id];if(!o||touched.has(id))return false;
  if(isDeviceGate(s.devices?.steps,o.anchor))return false;
  if(!canHitObstacleRule(o,effect.kind))return false;
+ if(!siegeCanHit(o,effect.kind))return false;
  if(effect.kind==='match'&&!matchCanHitRule(s,o,effect.cells,effect.color))return false;
  if(o.chapter&&!chapterCanTakeHit(s,o,effect,ctx))return false;
  if(o.cover||effect.kind==='match'&&isGardenOpener(o.kind))return false;
  if(o.kind==='crystal'&&effect.kind==='match')return false;
- if(o.kind==='windmill'&&effect.delivery?.targetId!==id)return false;
+ if((o.kind==='windmill'||o.kind==='sun-gate')&&effect.delivery?.targetId!==id)return false;
  if((o.kind==='pot'||o.kind==='bud'||o.kind==='curtain')&&!effect.allowPot&&effect.color!==o.color)return false;
  if(o.kind==='cabinet'&&o.color&&!effect.allowPot&&effect.color!==o.color)return false;
  const end=endpointPipe(o,s.engineVersion)?struckPipeEnd(o,effect.cells,s.width,effect.adjacent):undefined;
  if(endpointPipe(o,s.engineVersion)&&!end)return false;
- const damage=isGardenPuzzleObstacle(o.kind)?puzzleDamage(s,o,effect.kind,effect.puzzle??={}):o.kind==='curtain'&&effect.kind==='match'?effect.cells.length:1;
+ const damage=o.kind==='linked-crystal'&&effect.kind==='crystal-chain'?o.hp:isGardenPuzzleObstacle(o.kind)?puzzleDamage(s,o,effect.kind,effect.puzzle??={}):o.kind==='curtain'&&effect.kind==='match'?effect.cells.length:1;
  if(!damage)return false;
  if(o.rule==='twin'&&effect.kind!=='twin-release'){
   const seen=ctx.twinHits??=new Set();
@@ -433,12 +455,18 @@ function damageObstacle(ctx:Context,id:string,effect:Effect,touched:Set<string>)
  const slid=o.chapter?.kind==='slide'&&o.anchor!==hitCells[0];
  ctx.events.push({type:'hit',cells:hitCells,kind:o.kind,effectId:effect.id,
   ...(slid?{from:hitCells[0],to:o.anchor}:{}),...(authored?{obstacleId:id,obstacleAfter:o.hp>0?copy(o):revealed.length===1?revealed[0]!:null}:{})});
+ if(o.kind==='petal-launcher'&&o.link){
+  const target=s.obstacles[o.link];
+  if(target)ctx.queue.push({id:++s.effectSequence,cells:[target.anchor],kind:'petal-disc-impact',delivery:{from:o.anchor,targetId:o.link}});
+ }
+ if(o.kind==='dandelion-turret')ctx.queue.push({id:++s.effectSequence,cells:[],kind:'dandelion-seed-impact',assaultFrom:o.anchor});
  if(o.kind==='soil-chip')goal(s,'soil-chip',damage);
  if(o.hp<=0){if(o.kind!=='soil-chip')goal(s,o.kind);
   if(revealed.length===1){s.obstacles[id]=revealed[0]!;return true;}
   if(revealed.length>1){
    delete s.obstacles[id];
    for(const piece of revealed){
+    if(o.kind==='pottery-nest')touched.add(piece.id);
     s.obstacles[piece.id]=piece;
     s.cells[piece.anchor]!.obstacleId=piece.id;
     ctx.events.push({type:'mechanic',kind:'crate-pieces-reveal',cells:[piece.anchor],obstacleId:piece.id,obstacleAfter:copy(piece),effectId:effect.id});
@@ -446,6 +474,13 @@ function damageObstacle(ctx:Context,id:string,effect:Effect,touched:Set<string>)
    return true;
   }
   for(const i of o.footprint)delete s.cells[i]!.obstacleId;delete s.obstacles[id];
+  if(o.circuit)releaseRail(s,o,ctx.events,effect.id);
+  if(o.kind==='boomerang-pod')ctx.queue.push({id:++s.effectSequence,kind:'petal-return-impact',cells:[],boomerangFrom:o.anchor});
+  if(o.kind==='linked-crystal'&&effect.kind!=='crystal-chain'&&o.circuit?.group){
+   const active=ctx.crystalGroups??=new Set<string>(),group=o.circuit.group;
+   if(!active.has(group)){active.add(group);ctx.queue.push({id:++s.effectSequence,kind:'crystal-chain',cells:[],crystalGroup:group,crystalFrom:o.anchor});}
+  }
+  if(o.frontier)frontierAfterBreak(s,o,ctx.events,effect.id);
   if(o.chapter){
    const matchColor=effect.kind==='match'?effect.color:undefined;
    if(o.chapter.kind==='compost')enqueue(ctx,[o.anchor],'chapter-compost',matchColor);
@@ -455,6 +490,26 @@ function damageObstacle(ctx:Context,id:string,effect:Effect,touched:Set<string>)
     followUp.obstacleTargetId=reaction.targetId;
     ctx.events.push({type:'mechanic',kind:reaction.kind,from:o.anchor,cells:reaction.cells,effectId:followUp.id});
    }
+  }
+  if(o.kind==='roller-pin'&&o.link){
+   const host=s.obstacles[o.link];
+   if(host)ctx.queue.push({id:++s.effectSequence,kind:'roller-roll',cells:[...(host.path??[])],siegeTarget:host.id,siegeFrom:o.anchor});
+  }
+  if(o.kind==='dew-cache'&&o.link)ctx.queue.push({id:++s.effectSequence,kind:'beacon-charge',cells:[],siegeTarget:o.link,siegeFrom:o.anchor});
+  if(o.kind==='garden-beacon'){
+   const targets=Object.values(s.obstacles).filter(target=>target.kind==='thorn-barricade').map(target=>target.anchor);
+   const pulse=enqueue(ctx,targets,'beacon-pulse');
+   ctx.events.push({type:'mechanic',kind:'beacon-pulse',from:o.anchor,cells:targets,effectId:pulse.id});
+  }
+  if(o.kind==='bloom-bud'&&o.link)ctx.queue.push({id:++s.effectSequence,kind:'bloom-unlock',cells:[],siegeTarget:o.link,siegeFrom:o.anchor});
+  if(o.kind==='acorn-nest'||o.kind==='cloud-pillow'){
+   const kind=o.kind==='acorn-nest'?'beehive':'glider';
+   s.cells[o.anchor]!.tile={id:s.nextTileId++,kind};
+   ctx.events.push({type:'spawn',cells:[o.anchor],kind});
+  }
+  if(o.kind==='mushroom-cluster'&&effect.kind!=='mushroom-pulse'){
+   const blast=enqueue(ctx,area(s,o.anchor,1).filter(at=>at!==o.anchor),'mushroom-pulse',undefined,false,true);
+   ctx.events.push({type:'mechanic',kind:'mushroom-pulse',from:o.anchor,cells:blast.cells,effectId:blast.id});
   }
   if(o.rule==='fuse'){
    const blast=enqueue(ctx,area(s,o.anchor,1).filter(at=>at!==o.anchor),'fuse-blast');
@@ -493,10 +548,55 @@ function processQueue(ctx:Context,s:GameState):void {
    }
    continue;
   }
+  if(effect.boomerangFrom!==undefined){
+   const seen=new Set<string>();let from=effect.boomerangFrom;
+   for(let step=0;step<3;step++){
+    const live=Object.values(s.obstacles).filter(o=>o.kind==='boomerang-bell');
+    const target=live.sort((a,b)=>Number(seen.has(a.id))-Number(seen.has(b.id))||a.hp-b.hp||a.anchor-b.anchor)[0];if(!target)break;
+    const id=++s.effectSequence;ctx.events.push({type:'mechanic',kind:'petal-boomerang-flight',from,to:target.anchor,cells:[target.anchor],effectId:id,chainId:effect.id,step});
+    damageObstacle(ctx,target.id,{...effect,id},new Set<string>());seen.add(target.id);from=target.anchor;
+   }
+   ctx.events.push({type:'mechanic',kind:'petal-boomerang-return',from,to:effect.boomerangFrom,cells:[],chainId:effect.id});
+   continue;
+  }
+  if(effect.crystalGroup!==undefined){
+   const from=effect.crystalFrom!,targets=Object.values(s.obstacles).filter(o=>o.kind==='linked-crystal'&&o.circuit?.group===effect.crystalGroup)
+    .sort((a,b)=>Math.abs(a.anchor%s.width-from%s.width)+Math.abs(Math.floor(a.anchor/s.width)-Math.floor(from/s.width))-Math.abs(b.anchor%s.width-from%s.width)-Math.abs(Math.floor(b.anchor/s.width)-Math.floor(from/s.width))||a.anchor-b.anchor);
+   if(targets.length)ctx.events.push({type:'mechanic',kind:'crystal-chain',from,cells:targets.map(o=>o.anchor),effectId:effect.id});
+   for(const target of targets)damageObstacle(ctx,target.id,effect,touched);
+   continue;
+  }
+  if(effect.assaultFrom!==undefined){
+   // Choose at arrival processing time, so simultaneous salvos never waste seeds on an already broken cocoon.
+   const target=Object.values(s.obstacles).filter(o=>o.kind==='seed-cocoon').sort((a,b)=>a.hp-b.hp||a.anchor-b.anchor)[0];
+   if(target){
+    ctx.events.push({type:'mechanic',kind:'dandelion-seed-flight',from:effect.assaultFrom,to:target.anchor,cells:[target.anchor],effectId:effect.id});
+    damageObstacle(ctx,target.id,effect,touched);
+   }
+   continue;
+  }
+  if(effect.siegeTarget){
+   const host=s.obstacles[effect.siegeTarget];if(!host)continue;
+   if(effect.kind==='beacon-charge'){
+    host.charge=Math.min(host.siege!.capacity!,(host.charge??0)+1);
+    ctx.events.push({type:'mechanic',kind:'beacon-charge',from:effect.siegeFrom,to:host.anchor,cells:[...host.footprint],effectId:effect.id,obstacleId:host.id,obstacleAfter:copy(host)});
+    continue;
+   }
+   if(effect.kind==='bloom-unlock'){
+    if(host.siege)delete host.siege.shielded;
+    ctx.events.push({type:'mechanic',kind:'bloom-unlock',from:effect.siegeFrom,to:host.anchor,cells:[host.anchor],effectId:effect.id,obstacleId:host.id,obstacleAfter:copy(host)});
+    continue;
+   }
+   if(effect.kind==='roller-roll'){
+    ctx.events.push({type:'mechanic',kind:'roller-pin-flight',from:effect.siegeFrom,to:host.anchor,cells:[...host.footprint],effectId:effect.id});
+    ctx.events.push({type:'mechanic',kind:'roller-roll',from:host.anchor,cells:[...effect.cells],effectId:effect.id,obstacleAfter:copy(host)});
+    damageObstacle(ctx,host.id,{...effect,kind:'roller-release'},touched);
+   }
+  }
   if(effect.delivery){
    const {from,targetId}=effect.delivery,windmill=s.obstacles[targetId];
    if(windmill){
-    ctx.events.push({type:'mechanic',kind:'wind-seed-flight',cells:[from,windmill.anchor],from,to:windmill.anchor,effectId:effect.id});
+    ctx.events.push({type:'mechanic',kind:effect.kind==='petal-disc-impact'?'petal-disc-flight':'wind-seed-flight',cells:[from,windmill.anchor],from,to:windmill.anchor,effectId:effect.id});
     damageObstacle(ctx,targetId,effect,touched);
    }
    continue;
@@ -593,7 +693,7 @@ function laneGravity(ctx:Context,covered:ReadonlySet<number>):void {
    }
    segment=[];
   };
-  for(const i of lane){if(supportsOpenGardenStages(s.engineVersion)&&s.gardenStage?.connected.includes(i))continue;if(obstacleAt(s,i)){settle();refill=false;}else segment.push(i);}settle();
+  for(const i of lane){if(supportsOpenGardenStages(s.engineVersion)&&s.gardenStage?.connected.includes(i))continue;if(obstacleAt(s,i)||s.siege?.bank.includes(i)){settle();refill=false;}else segment.push(i);}settle();
  }
 }
 /** Unanchored boxes occupy the vacancy before pieces can refill it. Move
@@ -817,7 +917,8 @@ function resolveAction(input:GameState,action:Action,capture?:CascadeCapture):Ac
     if(cell.tile?.kind==='seed')return invalid('SEED_NOT_REMOVABLE');
     if(obstacle&&endpointPipe(obstacle,s.engineVersion)&&!pipeEnd(obstacle,at))return invalid('PIPE_END_REQUIRED');
     if(obstacle&&(obstacle.kind==='pot'||obstacle.kind==='bud'||obstacle.kind==='curtain'||(obstacle.kind==='cabinet'&&obstacle.color)))return invalid('COLOR_CHARGE_REQUIRED');
-    if(obstacle?.kind==='windmill')return invalid('WIND_SEED_REQUIRED');
+    if(obstacle?.kind==='windmill'||obstacle?.kind==='sun-gate')return invalid('WIND_SEED_REQUIRED');
+    if(obstacle&&!siegeCanHit(obstacle))return invalid('NO_EFFECTIVE_TARGET');
     if(obstacle?.cover)return invalid('PLANTER_COVERED');
     if(obstacle?.chapter&&(chapterGuarded(s,obstacle)||obstacle.chapter.kind==='fusion'))return invalid('NO_EFFECTIVE_TARGET');
     if(isDeviceGate(s.devices?.steps,at))return invalid('DEVICE_GATE_REQUIRED');
@@ -826,7 +927,7 @@ function resolveAction(input:GameState,action:Action,capture?:CascadeCapture):Ac
    const effective=targets.some(i=>{
     if(strikeFrost&&s.cells[i]!.frost)return true;
     const o=obstacleAt(s,i),t=s.cells[i]!.tile;
-    return o?!o.cover&&canHitObstacleRule(o,action.item)&&o.kind!=='pot'&&o.kind!=='bud'&&o.kind!=='curtain'&&o.kind!=='windmill'&&!(o.kind==='cabinet'&&o.color)&&(!s.gardenPuzzle||canHitPuzzleObstacle(s,o,action.item)):!!t&&t.kind!=='seed';
+    return o?!o.cover&&siegeCanHit(o)&&canHitObstacleRule(o,action.item)&&o.kind!=='pot'&&o.kind!=='bud'&&o.kind!=='curtain'&&o.kind!=='windmill'&&o.kind!=='sun-gate'&&!(o.kind==='cabinet'&&o.color)&&(!s.gardenPuzzle||canHitPuzzleObstacle(s,o,action.item)):!!t&&t.kind!=='seed';
    });
    if(!effective)return invalid('NO_EFFECTIVE_TARGET');
    enqueue(ctx,targets,action.item);
@@ -881,6 +982,17 @@ function resolveAction(input:GameState,action:Action,capture?:CascadeCapture):Ac
   // Newly created runs also recover a pouch if any other board mechanic removes it.
   if(repairSeeds)restoreMissingSeeds(ctx,missingSeedCount(s));
   if(usesMove&&!s.goals.every(g=>g.remaining===0)&&Object.values(s.obstacles).some(o=>o.rule!==undefined))advanceObstacleRules(s,events);
+  if(usesMove&&!s.goals.every(g=>g.remaining===0))advanceObstacleRails(s,events);
+  if(s.goals.every(g=>g.remaining===0)&&s.journey?.stage===1&&s.journey.next){
+   ctx.capture?.(s,events);
+   const incoming=createGame(s.journey.next),offset=s.nextTileId;
+   for(const cell of incoming.cells)if(cell.tile)cell.tile.id+=offset;
+   const moves=s.moves,turn=s.turn,effectSequence=s.effectSequence,power=s.powerRainbow;
+   for(const key of ['siege','frontier','circuit','journey','gardenStage','gardenPuzzle','devices','goldGarden'] as const)delete s[key];
+   Object.assign(s,incoming,{moves,turn,effectSequence,nextTileId:incoming.nextTileId+offset});
+   if(power)s.powerRainbow=true;
+   events.push({type:'mechanic',kind:'journey-transition',cells:[],from:1,to:2});
+  }
   if(s.goals.every(g=>g.remaining===0)||s.goldGarden&&s.moves===0){s.status='won';events.push({type:'win',cells:[]});}
   else {if(usesMove)growMoss(ctx);if(s.goals.every(g=>g.remaining===0)){s.status='won';events.push({type:'win',cells:[]});}else if(s.moves===0){s.status='lost';events.push({type:'lose',cells:[]});}else if(!legalActions(s).length&&!reshuffle(s,events))throw new Error('UNRECOVERABLE_DEADLOCK');}
   return {state:s,events,accepted:true};
@@ -894,12 +1006,22 @@ export interface CascadeFrame {state:GameState;events:GameEvent[]}
 export function actionWithFrames(input:GameState,action:Action):ActionResult&{frames:CascadeFrame[]}{
  const frames:CascadeFrame[]=[];let cursor=0;
  const result=resolveAction(input,action,(state,events)=>{
-  if(frames.length>=12||events.length===cursor)return;
+  if(events.length===cursor)return;
+  if(frames.length>=12){
+   // Keep the completed entrance even when a very long cascade exhausts the presentation budget.
+   if(state.journey?.stage===1&&state.goals.every(g=>g.remaining===0)){
+    const last=frames.at(-1)!;last.state=copy(state);last.events.push(...copy(events.slice(cursor)));cursor=events.length;
+   }
+   return;
+  }
   frames.push({state:copy(state),events:copy(events.slice(cursor))});cursor=events.length;
  });
  if(!result.accepted||result.state.status==='error')return {...result,frames:[]};
  if(!frames.length)frames.push({state:result.state,events:result.events});
- else{const last=frames.at(-1)!;last.state=result.state;last.events.push(...copy(result.events.slice(cursor)));}
+ else{const last=frames.at(-1)!;
+  if(last.state.journey?.stage!==result.state.journey?.stage&&result.events.some(event=>event.kind==='journey-transition'))frames.push({state:result.state,events:copy(result.events.slice(cursor))});
+  else{last.state=result.state;last.events.push(...copy(result.events.slice(cursor)));}
+ }
  return {...result,frames};
 }
 export function replay(level:LevelDefinition,actions:Action[],preBoosters:PreBooster[]=[]):ActionResult {

@@ -35,6 +35,18 @@ export const GARDEN_WORLD:GardenDefinition={
 
 /** New shop art and corresponding footprints for older clients. */
 export const GARDEN_MARKET_ART='garden-v64';
+export const GARDEN_BOTANICAL_ART='garden-v78';
+export const GARDEN_INVITE_ART='garden-v117';
+/** Source-matched garden plants, with footprint-compatible art for older installed apps. */
+export const GARDEN_BOTANICAL_ITEMS=[
+ ['garden-cherry-tree','분홍 벚꽃나무',2,2,'decoration','object',2400,5,'garden-tree'],
+ ['garden-yellow-pergola','노란 꽃 벤치 아치',2,2,'decoration','object',1800,5,'garden-tree'],
+ ['garden-pink-flower-bed','분홍 꽃밭',1,1,'decoration','object',180,5,'garden-planter'],
+ ['garden-daisy-bed','햇살 데이지',1,1,'decoration','object',180,5,'garden-planter'],
+ ['garden-blue-hydrangea','파란 수국 무리',1,1,'decoration','object',480,5,'garden-planter'],
+ ['garden-potted-flowers','작은 꽃화분 세트',1,1,'decoration','object',240,5,'garden-planter'],
+ ['garden-small-cypress','작은 초록 나무',1,1,'decoration','object',600,5,'garden-lamp'],
+] as const;
 export const GARDEN_MARKET_ITEMS=[
  ['garden-brick-path','벽돌 산책로',1,1,'decoration','ground',100,5,'garden-path-stone'],
  ['garden-wood-fence','나무 울타리',2,1,'decoration','object',220,5,'garden-bench'],
@@ -67,6 +79,7 @@ export const DECORATIONS:readonly DecorationDefinition[]=[
  {id:'garden-aurora-conservatory',name:'오로라 온실',category:'building',width:3,height:3,layer:'object',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:true},
  {id:'garden-acorn-cottage',name:'도토리 오두막',category:'building',width:3,height:3,layer:'object',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:false},
  {id:'garden-waterwork-pavilion',name:'샘물 정원관',category:'building',width:3,height:3,layer:'object',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:false},
+ {id:'garden-starlight-wish-pavilion',name:'별빛 소원 정자',category:'building',width:3,height:3,layer:'object',rotations:[0],variants:['classic'],role:'decoration',futureShop:false},
  {id:'garden-gazebo',name:'꽃그늘 정자',category:'building',width:3,height:3,layer:'object',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:true},
  {id:'garden-pond',name:'수련 연못',category:'decoration',width:3,height:2,layer:'object',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:true},
  {id:'garden-picnic',name:'피크닉 테이블',category:'decoration',width:2,height:2,layer:'object',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:true},
@@ -86,5 +99,6 @@ export const DECORATIONS:readonly DecorationDefinition[]=[
   ['post-office','바람 우체국',4,3],['mailbox','빨간 우편함',1,1],['willow','반딧불 버드나무',3,3],['jetty','물가 관찰 나루',3,2],['forest-station','숲속 기차역',4,3],['carriage','꽃빛 객차',3,2]
  ].map(([id,name,width,height])=>({id:'garden-'+id,name:name as string,width:width as number,height:height as number,category:'building' as const,layer:'object' as const,rotations:GARDEN_ROTATIONS,variants:['classic'],role:'landmark' as const,futureShop:false})),
  {id:'garden-rail',name:'정원 열차 선로',width:1,height:1,category:'decoration',layer:'ground',rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:false},
- ...GARDEN_MARKET_ITEMS.map(([id,name,width,height,category,layer]):DecorationDefinition=>({id,name,width,height,category,layer,rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:true}))
+ ...GARDEN_MARKET_ITEMS.map(([id,name,width,height,category,layer]):DecorationDefinition=>({id,name,width,height,category,layer,rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration',futureShop:true})),
+ ...GARDEN_BOTANICAL_ITEMS.map(([id,name,width,height,category,layer])=>({id,name,width,height,category,layer,rotations:GARDEN_ROTATIONS,variants:['classic'],role:'decoration' as const,futureShop:true}))
 ];

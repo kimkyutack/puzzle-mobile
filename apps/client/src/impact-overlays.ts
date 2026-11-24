@@ -40,10 +40,11 @@ export function impactOverlays(before:GameState,after:GameState,events:readonly 
   const authored=events.flatMap((event,index)=>{
    if(event.obstacleId!==id||event.obstacleAfter===undefined)return [];
    const phaseGap=old.kind==='pipe'?(event.effectId!==undefined&&swarmEffects.has(event.effectId)?16:220):isBreakableObstacle(old.kind)?85:0;
+   const siege=event.kind==='beacon-charge'||event.kind==='bloom-unlock'||event.kind==='canopy-unlock';
    const reseal=event.kind==='chapter-reseal',fall=event.kind==='crate-fall';
    const startsNow=reseal||event.kind==='cart-push';
-   const delay=Math.max(previousDelay+(authoredHits>0?phaseGap:0),travelEnds,startsNow?0:event.type==='mechanic'?timing.settleAt:timing.delays[index]!);authoredHits++;
-   previousDelay=delay;if(event.type==='mechanic'&&!reseal)travelEnds=delay+(fall?220:event.kind==='cart-push'?220:320);
+   const delay=Math.max(previousDelay+(authoredHits>0?phaseGap:0),travelEnds,startsNow?0:event.type==='mechanic'&&!siege?timing.settleAt:timing.delays[index]!);authoredHits++;
+   previousDelay=delay;if(event.type==='mechanic'&&!reseal&&!siege)travelEnds=delay+(fall?220:event.kind==='cart-push'?220:320);
    reportDamage(index,delay,previous,event.obstacleAfter);previous=event.obstacleAfter;
    return [{delay,kind:'obstacle' as const,id,value:event.obstacleAfter,...(fall?{fallFrom:event.from}:{})}];
   });
@@ -74,6 +75,9 @@ export function impactOverlays(before:GameState,after:GameState,events:readonly 
   const delay=Math.max(timing.delays[index]!,(pieceDelays.get(id)??-85)+85);
   reportDamage(index,delay,pieces.get(id)??null,event.obstacleAfter);pieces.set(id,event.obstacleAfter);
   steps.push({delay,kind:'obstacle',id,value:event.obstacleAfter,...(event.kind==='crate-fall'?{fallFrom:event.from}:{})});pieceDelays.set(id,delay);
+ }
+ for(const [index,event]of events.entries())if(event.kind==='roller-roll'&&event.obstacleAfter){
+  steps.push({delay:timing.delays[index]!,kind:'obstacle',id:event.obstacleAfter.id,value:null});
  }
  const coinOrigins=after.goldGarden?goldRefillOrigins(before,after):undefined;
  for(const [id,value]of Object.entries(after.obstacles))if(!before.obstacles[id]&&!emerging.has(id)){

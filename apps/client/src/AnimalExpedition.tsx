@@ -1,3 +1,5 @@
+import {refinedEventArt} from './event-refinement-art';
+import './event-refinement-v74.css';
 import {useEffect,useRef,useState} from 'react';
 import {createPortal} from 'react-dom';
 import type {Action,ActivityReward,AnimalExpeditionAttempt,GameEvent,Player,ExpeditionAnimal} from '@garden/contracts';
@@ -17,7 +19,7 @@ import {request,key,serverNow,duration,ApiFailure} from './api';
 import {Button,Icon,Modal,Poster,names} from './ui';
 import {sound} from './sound';
 import './expedition-map.css';
-interface Props {player:Player;onPlayer:(player:Player)=>void;onClose:()=>void;onPage:(page:string)=>void;embedded?:boolean}
+interface Props {player:Player;onPlayer:(player:Player)=>void;onClose:()=>void;onPage:(page:string)=>void;embedded?:boolean;weekly?:boolean}
 interface ExpeditionReceipt {stage:number;reward:ActivityReward;friend:boolean;animal:ExpeditionAnimal}
 function ExpeditionRewards({reward,friend=false,animal='panda'}:{reward:ActivityReward;friend?:boolean;animal?:ExpeditionAnimal}){
  const friendInfo=EXPEDITION_ANIMALS[animal];
@@ -29,7 +31,7 @@ function ExpeditionRewards({reward,friend=false,animal='panda'}:{reward:Activity
 }
 export default function AnimalExpedition(props:Props){
  const {player}=props;
- const {data:operations}=useOperations(),config=gameEventConfig('animalExpedition',operations?.settings),configured=configuredExpeditionRound(operations?.settings);
+ const {data:operations}=useOperations(),config=gameEventConfig('animalExpedition',operations?.settings),configured=configuredExpeditionRound(operations?.settings,serverNow());
  const [selectedRound,setSelectedRound]=useState<string|null>(null),rounds=expeditionRounds(player.animalExpedition),known=expeditionRound(player.animalExpedition,selectedRound??configured.roundId);
  const progress=known??{...configured,completedStages:0,completedAttempts:[]},attempt=progress.attempt,completed=progress.completedStages,animal=progress.animal,friendInfo=EXPEDITION_ANIMALS[animal];
  const now=serverNow(),daily=expeditionDailyStatus(player.animalExpedition,now,config.dailyLimit),available=gameEventAvailable('animalExpedition',operations?.settings,now),resumable=expeditionCanResume(player,progress.roundId);
@@ -50,7 +52,7 @@ export default function AnimalExpedition(props:Props){
   attempt?tr('재시도'):tr('{0}단계 시작',{0:completed+1});
  const startDisabled=busy||(!resumable&&(player.level<config.minLevel||!available||daily.remaining===0));
  const begin=()=>void start(!!attempt&&!resumable);
- const earlierRounds=rounds.filter(round=>round.roundId!==configured.roundId);
+ const earlierRounds:typeof rounds=[];
  const roundsLabel=tr(friendInfo.name)+' · '+tr('이번 원정');
  const courses=showCourses?<Modal title={tr('원정 코스')} onClose={()=>setShowCourses(false)} wide>
   <p className="intro">{tr('하트와 보유 도구를 쓰지 않아요. 완료한 코스는 나갔다 와도 유지돼요.')}</p>
@@ -60,6 +62,19 @@ export default function AnimalExpedition(props:Props){
    {i===completed&&<ActivityRewards reward={stage.reward}/>}
   </li>)}</ol>
  </Modal>:null;
+ if(props.weekly)return <div ref={menuHost} className="weekly-rescue-layout">
+  <strong className="weekly-rescue-quota">{tr('오늘 도전 {0} / {1}',{0:daily.remaining,1:daily.maximum})}</strong>
+  <div className="weekly-rescue-sign"><img src={refinedEventArt.sign} alt=""/><span>{tr(friendInfo.name)}<br/>{tr("구출!")}</span></div><span className="weekly-rescue-log">{tr("탐험 기록")}</span>
+  <img className="weekly-rescue-friend" src={WORLD_ART[friendInfo.itemId]} alt={tr(friendInfo.name)}/>
+  {[completed+1<=3?completed+1:1,completed+1>=4&&completed+1<=7?completed+1:5,completed+1>=8?Math.min(stageCount,completed+1):stageCount].map((stage,i)=><button key={i} className={'weekly-trail-step trail-step-'+i} disabled={stage!==completed+1||startDisabled} aria-label={tr('{0}단계 시작',{0:stage})} onClick={begin}><img className="weekly-trail-flag" src={refinedEventArt.flag} alt=""/>{tr('{0}단계',{0:stage})}</button>)}
+  <section className="weekly-rescue-rewards" aria-label={tr('구출 보상')}>
+   <div><strong>{nextCourse?tr('{0}단계 보상',{0:completed+1}):tr('구출 완료')}</strong>{nextCourse&&<ActivityRewards reward={nextCourse.reward}/>}</div>
+   <div><strong>{tr('완주 보상')}</strong><img src={WORLD_ART[friendInfo.itemId]} alt={tr(friendInfo.name)}/><ActivityRewards reward={ANIMAL_EXPEDITION_STAGES.at(-1)!.reward}/></div>
+  </section>
+  <Button rasterFrame={false} className="weekly-scene-cta" disabled={nextCourse?startDisabled:false} onClick={nextCourse?begin:()=>props.onPage('garden-bag')}>{nextCourse?startLabel:tr('정원에 초대하기')}</Button>
+  {error&&<p className="weekly-scene-error" role="alert">{error}</p>}
+  {received&&<p className="weekly-scene-message" role="status">{tr('{0}코스 보상을 받았어요!',{0:received.stage})}</p>}
+ </div>;
  const content=<div ref={menuHost} className="expedition-menu expedition-map-menu">
   {received&&<section className="expedition-reward-summary expedition-receipt" data-frame="card_ice_v9" data-frame-scale="0.13" role="status"><h3>{tr('{0}코스 보상을 받았어요!',{0:received.stage})}</h3><ExpeditionRewards reward={received.reward} friend={received.friend} animal={received.animal}/></section>}
   <header className="expedition-map-heading">

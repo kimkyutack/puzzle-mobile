@@ -1,0 +1,51 @@
+.events-v62 [data-event-panel="flowerlight"]{padding-bottom:0}
+.flowerlight-scene-v64{position:relative;isolation:isolate;container-type:inline-size;aspect-ratio:512/698;width:100%;margin:0;overflow:hidden;border-radius:14px;color:#563024}
+.flowerlight-scene-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.flowerlight-scene-progress{position:absolute;left:40.5%;top:5.5%;width:34%;height:7.5%;display:grid;place-items:center;color:#fff7ec;text-shadow:0 2px 1px #71364e;white-space:nowrap}
+.flowerlight-scene-progress>strong{font-size:6.8cqw;line-height:1;font-weight:400}
+/* Reuse the season scene's authored cream clock plaque (320,185,356,85 in 992×1462). */
+.game-page[data-page="events"] .flowerlight-scene-time{position:absolute;left:32%;top:13.5%;width:36%;height:5.8%;margin:0!important;padding:0;border:0;border-radius:999px;background-size:100% 100%;background-position:center;background-repeat:no-repeat;overflow:hidden;display:grid;place-items:center;font-size:4.9cqw;line-height:1;text-align:center;color:#203e62!important;text-shadow:none;white-space:nowrap;pointer-events:none}
+.flowerlight-scene-time>span{display:grid;place-items:center;width:64%;height:100%;margin-left:28%;font-variant-numeric:tabular-nums}
+.game-page[data-page="events"] .flowerlight-scene-time[data-active="false"]{font-size:3.4cqw;line-height:1.05;white-space:normal}
+html[lang="en"] .game-page[data-page="events"] .flowerlight-scene-time{font-size:4.1cqw}
+html[lang="en"] .game-page[data-page="events"] .flowerlight-scene-time[data-active="false"]{font-size:3.2cqw}
+.game-page[data-page="events"] .flowerlight-scene-receipt{position:absolute;left:5%;right:5%;top:57.3%;margin:0!important;font-size:clamp(10px,3cqw,12px);line-height:1.2;text-align:center;color:#244b44!important;text-shadow:0 1px #ecf1d8}
+.flowerlight-scene-rewards{position:absolute;inset:63.5% 0 16.5%;display:block;list-style:none;margin:0;padding:0}
+.flowerlight-scene-rewards>li{position:absolute;top:0;height:100%;min-width:0;margin:0;padding:0;text-align:center}
+.game-page[data-page="events"] .flowerlight-scene-rewards h3{position:absolute;top:1.1%;left:0;width:100%;height:23%;display:grid;place-items:center;margin:0!important;font-size:4.9cqw;line-height:1;color:#fff6e9;white-space:nowrap;font-weight:400;text-shadow:0 1px #87444e}
+.flowerlight-scene-gift{position:absolute;top:23%;left:0;width:100%;height:49%;display:flex;align-items:center;justify-content:center}
+.flowerlight-scene-gift>img{width:18cqw;height:15cqw;object-fit:contain}
+.flowerlight-scene-gift>strong{position:absolute;right:4%;bottom:4%;font-size:3.7cqw;line-height:1;font-weight:400;color:#553725;text-shadow:0 1px #fff0d0}
+.flowerlight-scene-rewards .activity-rewards{position:absolute;top:75%;left:-6%;width:112%;display:flex;align-items:center;justify-content:center;gap:1cqw;margin:0;color:#553121;font-size:4cqw;line-height:1;flex-wrap:nowrap}
+.flowerlight-scene-rewards .activity-rewards .resource-amount,.flowerlight-scene-rewards .activity-item-reward{display:flex;align-items:center;gap:0;font-size:4cqw;line-height:1;white-space:nowrap;color:#553121}
+.flowerlight-scene-rewards .activity-rewards .icon{width:5.7cqw;height:5.7cqw;object-fit:contain}
+.flowerlight-scene-rewards .activity-rewards strong{font-family:var(--font-game-ui);font-weight:400;font-size:4cqw;color:#553121}
+.flowerlight-scene-check{position:absolute;top:25%;right:0;width:6cqw;height:6cqw;object-fit:contain}
+.flowerlight-scene-rewards>li[data-claimed="true"] .flowerlight-scene-gift,.flowerlight-scene-rewards>li[data-claimed="true"] .activity-rewards{opacity:.72}
+.game-page[data-page="events"] .events-v17 .flowerlight-scene-action{position:absolute;left:15.5%;top:85%;width:70%;height:13%;min-height:0!important;padding:6px 10px 12px!important;margin:0;font-size:clamp(18px,6cqw,25px)!important;line-height:1.2}
+.game-page[data-page="events"] .flowerlight-scene-action>.button-label{line-height:1.2!important;white-space:normal!important;text-align:center}
+.game-page[data-page="events"] .flowerlight-scene-error{position:absolute;bottom:1%;left:3%;right:3%;z-index:2;margin:0!important;padding:4px;border-radius:7px;background:#fff0de;color:#9d2424!important;font-size:3.5cqw;line-height:1.2;text-align:center}
+.flowerlight-scene-dialogue{position:absolute;inset:62% 5% 15%;display:flex;align-items:center;gap:2cqw;padding:3cqw;color:#4c3525}
+.flowerlight-scene-dialogue>.icon{width:17cqw;height:17cqw;object-fit:contain;flex:none}
+.game-page[data-page="events"] .flowerlight-scene-dialogue>p{position:relative;margin:0!important;font-size:3.7cqw;line-height:1.35;color:#4c3525!important}
+html:not([lang="ko"]) .flowerlight-scene-progress>strong{font-size:5.8cqw}
+html[lang="en"] .flowerlight-scene-progress>strong{font-size:5cqw}
+html:not([lang="ko"]) .events-v17 .flowerlight-scene-action{font-size:6.1cqw!important}
+
+.flowerlight-scene-rewards>li:nth-child(1){left:8%;width:26.5%}
+.flowerlight-scene-rewards>li:nth-child(2){left:36.7%;width:27%}
+.flowerlight-scene-rewards>li:nth-child(3){left:65.8%;width:26.5%}
+.flowerlight-scene-progress>strong>span,.flowerlight-scene-rewards h3>span{display:block;transform:translateY(.08em)}
+.flowerlight-scene-time>span{transform:translateY(.08em)}
+
+/* The illustrated reward panel ends before the separate action row starts. */
+.game-page[data-page="events"] .events-v17.events-v62 .flowerlight-scene-v64{
+ display:grid;grid-template-rows:minmax(0,1fr) auto;gap:3cqw;padding-bottom:2cqw;
+ background:url('../../../packages/assets/event-design-v62/flowerlight-scene-v74.webp') center bottom/200% auto no-repeat;
+ min-height:calc(115cqw + clamp(44px,14cqw,58px) + 5cqw);
+}
+.flowerlight-scene-content{position:relative;isolation:isolate;min-height:115cqw;width:100%}
+.game-page[data-page="events"] .events-v17.events-v62 .flowerlight-scene-v64>.flowerlight-scene-action{
+ position:relative;inset:auto;justify-self:center;align-self:end;width:70%!important;
+}
+.game-page[data-page="events"] .flowerlight-scene-v64>.flowerlight-scene-error{position:relative;inset:auto;margin:0 3cqw!important}

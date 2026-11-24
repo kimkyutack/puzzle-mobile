@@ -2,8 +2,12 @@ import type {Action,GameState,Special} from '@garden/contracts';
 import {findMatches,legalActions} from '@garden/core';
 
 export const IDLE_HINT_DELAY_MS=5000;
-/** After a hint has played for this long, the next-best different move takes its place. */
-export const HINT_ROTATE_MS=3200;
+/** Each hint plays for this long (several nudges) before the next different move takes its place. */
+export const HINT_ROTATE_MS=9000;
+/** The outline fades in, and fades out before the next move appears, so hints never jump. */
+export const HINT_FADE_IN_MS=350,HINT_FADE_OUT_MS=550;
+/** One nudge cycle: the tile to move bumps twice toward its target, then rests. */
+export const HINT_NUDGE_CYCLE_MS=1800;
 export type BoardHint=Extract<Action,{type:'swap'|'tap'}>;
 /** A suggested move plus the tiles it would clear, so the board can outline the whole match. */
 export interface HintPlan {action:BoardHint;group:number[];forms?:Special}
@@ -63,4 +67,40 @@ export function hintCells(hint:BoardHint):number[]{return hint.type==='swap'?[hi
 export function createIdleHintClock(delay=IDLE_HINT_DELAY_MS){
  let dueAt:number|null=null;
  return {reset(){dueAt=null;},due(now:number,eligible:boolean){if(!eligible){dueAt=null;return false;}dueAt??=now+delay;return now>=dueAt;}};
+}
+
+/** How visible a hint is `ms` after it appeared: fades in, holds, and (when another move follows) fades out. */
+export function hintVisibility(ms:number,rotates:boolean){
+ const fadeIn=Math.min(1,Math.max(0,ms/HINT_FADE_IN_MS));
+ return rotates?fadeIn*Math.min(1,Math.max(0,(HINT_ROTATE_MS-ms)/HINT_FADE_OUT_MS)):fadeIn;
+}
+/** How far (0..1 of the nudge reach) the tile to move leans toward its target: two quick bumps, then a rest. */
+export function hintNudge(ms:number){
+ const t=ms-HINT_FADE_IN_MS;if(t<0)return 0;
+ const phase=t%HINT_NUDGE_CYCLE_MS,bump=320;
+ if(phase>=bump*2)return 0;
+ return Math.sin(Math.PI*(phase%bump)/bump)**2*(phase<bump?1:.6);
+}
+/**
+ * The outer contour of a group of cells as closed loops of grid corners (in cell units, clockwise),
+ * so the whole match can be traced with one line instead of a frame per tile.
+ */
+export function matchOutline(cells:readonly number[],columns:number):Array<Array<[number,number]>>{
+ const inside=new Set(cells),key=(x:number,y:number)=>`${x},${y}`,next=new Map<string,[number,number]>();
+ const has=(x:number,y:number)=>x>=0&&x<columns&&inside.has(y*columns+x);
+ for(const at of inside){const x=at%columns,y=Math.floor(at/columns);
+  if(!has(x,y-1))next.set(key(x,y),[x+1,y]);
+  if(!has(x+1,y))next.set(key(x+1,y),[x+1,y+1]);
+  if(!has(x,y+1))next.set(key(x+1,y+1),[x,y+1]);
+  if(!has(x-1,y))next.set(key(x,y+1),[x,y]);
+ }
+ const loops:Array<Array<[number,number]>>=[];
+ while(next.size){
+  const [startKey,first]=next.entries().next().value as [string,[number,number]];next.delete(startKey);
+  const start=startKey.split(',').map(Number) as [number,number],loop:Array<[number,number]>=[start];let at=first;
+  while(key(...at)!==startKey){loop.push(at);const step=next.get(key(...at));if(!step)break;next.delete(key(...at));at=step;}
+  // Keep only the corners: drop points that sit in the middle of a straight run.
+  loops.push(loop.filter((point,i)=>{const a=loop[(i+loop.length-1)%loop.length]!,b=loop[(i+1)%loop.length]!;return (point[0]-a[0])*(b[1]-point[1])!==(point[1]-a[1])*(b[0]-point[0]);}));
+ }
+ return loops;
 }

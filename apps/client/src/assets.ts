@@ -1,6 +1,11 @@
+import {homeIconUrls} from './home-icon-art';
+import {mobileObstacleArt} from './mobile-obstacle-art';
+import {isSiegeObstacle,gardenSiegeArt} from '../../../packages/contracts/src/garden-siege';
+import {isVariedObstacle,variedObstacleArt} from '../../../packages/contracts/src/varied-obstacles';
 import missionsIcon from '../../../packages/assets/garden-v51/runtime/missions.webp';
 import rankingIcon from '../../../packages/assets/garden-v51/runtime/ranking.webp';
 import levelCompletedIcon from '../../../packages/assets/level-v61/runtime/level-completed.webp';
+import tutorialHandBack from '../../../packages/assets/tutorial-hand-v121/runtime/hand-back.webp';
 import {assets as bundledAssets} from '../../../packages/assets/asset-manifest.json';
 import {COLORS,supportsVisibleTargets,type Obstacle} from '@garden/contracts';
 import gardenDog from '../../../packages/garden-world/art/runtime/residents-v22/dog-0.png';
@@ -20,6 +25,7 @@ const admissionFrames = new Map<string, AssetEntry>(bundledAssets
 let manifest:Manifest;
 const metadata=new Map<string,AssetEntry>();
 const urls=new Map<string,string>([
+ ...Object.entries(homeIconUrls),
  ['missions_menu_v51',missionsIcon],['ranking_trophy_v51',rankingIcon],['level_completed_v61',levelCompletedIcon],
  ['garden-route',gardenRabbit],['dog-route',gardenDog],
  ...guildEmblems.map(({icon,url})=>[icon,url] as const),
@@ -50,7 +56,7 @@ function prepareTileGlows(){
   textures.set(`${id}-glow`,Texture.from(canvas));
  }
 }
-const obstacleSprites=import.meta.glob('../../../packages/assets/breakable-obstacles/runtime/*.webp',{eager:true,query:'?url',import:'default'}) as Record<string,string>;
+const obstacleSprites={...import.meta.glob('../../../packages/assets/obstacle-redesign/runtime/*.webp',{eager:true,query:'?url',import:'default'}),...import.meta.glob('../../../packages/assets/breakable-obstacles/runtime/*.webp',{eager:true,query:'?url',import:'default'}),...import.meta.glob('../../../packages/assets/garden-siege/runtime/*.webp',{eager:true,query:'?url',import:'default'}),...import.meta.glob('../../../packages/assets/varied-obstacles/runtime/*.webp',{eager:true,query:'?url',import:'default'})} as Record<string,string>;
 let obstacleTextures:Promise<void>|undefined;
 function prepareObstacleTextures(){
  if(!obstacleTextures){
@@ -90,6 +96,12 @@ export async function prepareAssets(progress:(n:number)=>void){
  const files=new Map<string,ReturnType<typeof verifiedImage>>();
  let complete=0;const total=essentials.length+(manifest.sequences?.reduce((n,s)=>n+s.frames.length,0)||0)+1;
  await Promise.all(essentials.map(async asset=>{
+  // Pin the tutorial hand to this client build, including with an older cached pack.
+  if(asset.id==='hand'){
+   const image=new Image();image.src=tutorialHandBack;await image.decode();
+   urls.set(asset.id,tutorialHandBack);textures.set(asset.id,Texture.from(image));images.set(asset.id,image);
+   progress(++complete/total);return;
+  }
   const fileKey=asset.runtimePath+'#'+asset.contentHash;
   let file=files.get(fileKey);if(!file){file=verifiedImage(asset.runtimePath,asset.contentHash);files.set(fileKey,file);}
   const loaded=await file;
@@ -114,6 +126,9 @@ export function releaseSceneTexture(id:string){const remaining=Math.max(0,(textu
 export const POWER_RAINBOW_ART='rainbow_enhanced';
 export const tileArt=(kind:string,color?:string,powered=false)=>kind==='normal'?`tile_${color}`:kind==='rainbow'&&powered?POWER_RAINBOW_ART:kind;
 export function goalArt(kind:string,board?:{obstacles:Record<string,Obstacle>|Obstacle[];engineVersion?:string}){
+ const revised=kind==='frost'?'mobile-frost-0':kind==='device'?'mobile-garden-gate-0':mobileObstacleArt({kind:kind as Obstacle['kind'],hp:1,maxHp:1});if(revised&&hasArt(revised))return revised;
+ if(isSiegeObstacle(kind))return gardenSiegeArt({kind,hp:1,maxHp:1})!;
+ if(isVariedObstacle(kind))return variedObstacleArt({kind,hp:1,maxHp:1})!;
  if(kind==='starlight-lantern')return 'starlight-lantern-open';
  if(kind==='device')return 'stage_mud_gate_v33';
  if(kind==='pipe'&&board&&Object.values(board.obstacles).some(obstacle=>obstacle.endOnly))return 'magnet_rail_end_v39';

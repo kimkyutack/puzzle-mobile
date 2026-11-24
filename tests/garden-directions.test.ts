@@ -8,8 +8,10 @@ import {GardenResidents} from '../apps/client/src/garden-world/residents';
 const bench=DECORATIONS.find(d=>d.id==='garden-bench')!,grid={tileWidth:96,tileHeight:48},camera={x:250,y:-300,zoom:.68};
 function owned(itemId='garden-bench',ids=['bench']){return applyTrustedDecorationGrant(createGardenWorld('garden-owner'),{ownerId:'garden-owner',grantId:'grant-'+ids[0],itemId,variant:'classic',source:'shop',instanceIds:ids});}
 describe('four-direction garden decorations',()=>{
- it('offers four directions for every item and loops back to the first',()=>{
-  expect(DECORATIONS.every(item=>item.rotations.join(',')==='0,90,180,270')).toBe(true);
+ it('offers four directions for rotatable items and keeps the fixed invitation pavilion facing forward',()=>{
+  expect(DECORATIONS.filter(item=>item.id!=='garden-starlight-wish-pavilion').every(item=>item.rotations.join(',')==='0,90,180,270')).toBe(true);
+  const fixed=DECORATIONS.find(item=>item.id==='garden-starlight-wish-pavilion')!;expect(fixed.rotations).toEqual([0]);expect(gardenDirectionArt(WORLD_ART,fixed.id,'classic',0).art).toBeTruthy();
+  expect(()=>decorationFootprint(fixed,90)).toThrow('UNSUPPORTED_ROTATION');
   let direction:GardenRotation=0;const sequence:GardenRotation[]=[direction];for(let i=0;i<4;i++){direction=nextGardenRotation(direction);sequence.push(direction);}expect(sequence).toEqual([0,90,180,270,0]);
  });
  it('uses authored front and rear images with different mirrored companions, including festival styles',()=>{
@@ -21,7 +23,7 @@ describe('four-direction garden decorations',()=>{
   expect(()=>gardenDirectionArt({'garden-bench':'front'},bench.id,'classic',180)).toThrow('Missing garden direction art');
  });
  it('loads a distinct reverse sprite for every fixed installation style',()=>{
-  for(const item of DECORATIONS.filter(d=>d.layer==='object'&&d.category!=='animal'))for(const variant of item.variants){
+  for(const item of DECORATIONS.filter(d=>d.layer==='object'&&d.category!=='animal'&&d.rotations.length>1))for(const variant of item.variants){
    const [front,side,rear,reverseSide]=GARDEN_ROTATIONS.map(rotation=>gardenDirectionArt(WORLD_ART,item.id,variant,rotation));
    expect(front!.art).toBeTruthy();
    expect(rear!.art).toBeTruthy();
@@ -45,7 +47,7 @@ describe('four-direction garden decorations',()=>{
   }
  });
  it('rotates each footprint without sliding sideways or drifting across four turns',()=>{
-  for(const item of DECORATIONS){
+  for(const item of DECORATIONS.filter(item=>item.rotations.length>1)){
    const initial:GardenPlacement={instanceId:item.id,x:12,y:12,rotation:0};
    const bounds=(placed:GardenPlacement)=>gardenObjectBounds(item,placed,{width:640,height:624},camera,grid);
    const first=bounds(initial);

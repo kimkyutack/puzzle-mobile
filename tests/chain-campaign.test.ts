@@ -22,7 +22,7 @@ describe('campaign levels with preplaced power-ups',()=>{
   expect(inserted).toEqual(Array.from({length:200},(_,i)=>39+i*100));
   expect(publishedLevel(39,GREENHOUSE_ENGINE_VERSION).version).not.toBe(CHAIN_CAMPAIGN_VERSION);
   for(const id of [38,40,138,140,2390,2401])expect(publishedLevel(id,ENGINE_VERSION).version).not.toBe(CHAIN_CAMPAIGN_VERSION);
-  expect(publishedLevel(19939,ENGINE_VERSION).version).toBe(CHAIN_CAMPAIGN_VERSION);
+  expect(publishedLevel(19939,OBSTACLE_GARDEN_ENGINE_VERSION).version).toBe(CHAIN_CAMPAIGN_VERSION);
  });
 
  for(let layout=0;layout<CHAIN_LAYOUT_COUNT;layout++)it(`clears the authored layout and random starts for variation ${layout+1} without spending a booster`,()=>{
@@ -51,8 +51,9 @@ describe('campaign levels with preplaced power-ups',()=>{
   expect(legalActions(createGame(level)).length).toBeGreaterThanOrEqual(3);
  });
 
+ // The single-move certificate belongs to the original authored HP, before campaign pressure.
  it('starts the first arrangement with a deliberate fusion that chains into the prepared pieces',()=>{
-  const level=publishedLevel(39,ENGINE_VERSION),action={type:'swap',from:22,to:31} as const;
+  const level=publishedLevel(39,OBSTACLE_GARDEN_ENGINE_VERSION),action={type:'swap',from:22,to:31} as const;
   const result=replay(level,[action]);
   expect(result.events.some(e=>e.kind==='bomb+bomb')).toBe(true);
   expect(result.events.filter(e=>e.type==='special').length).toBeGreaterThanOrEqual(6);

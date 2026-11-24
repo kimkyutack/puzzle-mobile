@@ -1,0 +1,31 @@
+{
+  "width": 859,
+  "height": 648,
+  "groundAnchor": {
+    "x": 429.5,
+    "y": 644
+  },
+  "frames": [
+    {
+      "name": "potted-flowers",
+      "alphaBounds": {
+        "left": 58,
+        "top": 4,
+        "width": 744,
+        "height": 640
+      },
+      "transparentPixelPercent": 36.11
+    },
+    {
+      "name": "potted-flowers-rear",
+      "alphaBounds": {
+        "left": 5,
+        "top": 4,
+        "width": 850,
+        "height": 640
+      },
+      "transparentPixelPercent": 22.96
+    }
+  ],
+  "originalGeneratedSource": "/Users/kimkyutack/.codex/generated_images/01a1fd64-1e8c-7050-980e-d2c98828f7a0/exec-cee027cd-4f5a-4f14-9d5e-fd73f9065c88.png"
+}

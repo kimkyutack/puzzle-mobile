@@ -1,0 +1,5 @@
+{
+  "source": "packages/assets/home-polish-v82/runtime/footer-panel.webp",
+  "rimMetadata": "packages/assets/home-contours-v81/extraction.json",
+  "method": "Original source rim and interior retained. Baked outer backdrop replaced by alpha for reuse on all page backgrounds."
+}

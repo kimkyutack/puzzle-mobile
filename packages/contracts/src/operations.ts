@@ -1,4 +1,5 @@
 import type {ExclusiveExpeditionAnimal} from './content-events';
+import {isWeeklyEvent,weeklyEvent} from './weekly-events';
 import {defaultStartBoosterSchedule,type StartBoosterSchedule} from './start-booster-rush';
 import {GARDEN_GAMES,type GardenGamePrize} from './garden-games';
 export const OP_FEATURES=['shop','missions','treasure','powerFestival','flowerlight','animalExpedition','pass','daily','friends','guild','ads','purchases','offers',...GARDEN_GAMES] as const;
@@ -37,4 +38,4 @@ export interface AdminIdentity {id:string;email:string;role:AdminRole}
 
 export function defaultOperationsRuntime():RuntimeSettings {const policy={latest:"0.0.0",minimum:"0.0.0",storeUrl:"",message:"새로운 버전으로 업데이트해 주세요."};return {maintenance:{enabled:false,title:"정원을 가꾸는 중이에요",message:"더 나은 플레이를 위해 잠시 점검하고 있어요.",startsAt:0,endsAt:null,allowActiveRuns:true},versions:{ios:{...policy},android:{...policy},web:{...policy}},features:Object.fromEntries(OP_FEATURES.map(k=>[k,true])) as Record<OpsFeature,boolean>,prices:{},startBoosterRush:defaultStartBoosterSchedule(),gameEvents:defaultGameEventControls()};}
 export function gameEventConfig<K extends GameEventFeature>(feature:K,settings?:Pick<RuntimeSettings,'gameEvents'>|null):GameEventControls[K]{return settings?.gameEvents?.[feature]??defaultGameEventControls()[feature];}
-export function gameEventAvailable(feature:GameEventFeature,settings:Pick<RuntimeSettings,'gameEvents'|'features'>|null|undefined,now:number){const schedule=gameEventConfig(feature,settings);return settings?.features[feature]!==false&&now>=schedule.startsAt&&(schedule.endsAt===null||now<schedule.endsAt);}
+export function gameEventAvailable(feature:GameEventFeature,settings:Pick<RuntimeSettings,'gameEvents'|'features'>|null|undefined,now:number){const schedule=gameEventConfig(feature,settings),weeklyId=feature==='animalExpedition'?'animal-expedition':feature;return (!isWeeklyEvent(weeklyId)||weeklyEvent(now).id===weeklyId)&&settings?.features[feature]!==false&&now>=schedule.startsAt&&(schedule.endsAt===null||now<schedule.endsAt);}

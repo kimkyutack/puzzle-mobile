@@ -1,0 +1,17 @@
+{
+  "tool": "built-in image_gen",
+  "prompts": {
+    "tools": "Edit the provided existing mobile garden game workshop background. Remove ONLY the large blank blue title plaque at the very top (including its silver rim and bolts, x around220-790 y35-190). Inpaint a seamless continuation of the same existing wooden workshop wall and beam behind it. Keep the entire rest of the image EXACTLY unchanged: same dimensions and camera, same window, same red panda character and wrench, identical four-cell blue tool board positions and gauge holes, the cream caption pill, all five empty reward cabinets and all their tabs, the green action button at bottom, plants, lighting and colors. Do NOT remove the big functional four-cell blue tool board. No text. No new decorations. Localized removal of top title plaque only.",
+    "season": "Edit this provided existing mobile garden game seasonal floating gardens background. Remove ONLY (1) the blank blue flower-decorated TITLE plaque at the very top including its rim, two pink flowers and shadow, replacing it with matching uninterrupted blue sky; and (2) the large blank green PLAY BUTTON at the bottom, replacing it with a seamless continuation of the same soft distant garden landscape, hills and foreground flowers. Keep the cream clock/timer capsule immediately below the removed title plaque EXACTLY unchanged, including its clock icon and its original coordinates. Preserve both floating islands, gazebo, bench arch, two cream progress plaques and two lower cream reward cards including all sizes, positions, divider lines, and backgrounds EXACTLY. Same image dimensions and perspective. No text, no new controls, no title plaque, no bottom green button. Change only these two localized areas."
+  },
+  "sources": {
+    "tools": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-09dbf357-14a0-4446-a3f0-19b13190fda7.png",
+    "season": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-848a1819-fdce-4dce-b085-7b5b9e3ed6ea.png"
+  },
+  "outputs": [
+    "packages/assets/event-design-v62/tools-scene-v70.webp",
+    "packages/assets/event-design-v62/season-scene-v70.webp"
+  ],
+  "preparation": "Generated edits resized to original 992x1462. Local patches replace the title regions and bottom button regions. Season sky strip is blended through y225 to remove the old title shadow; functional control positions remain unchanged. Original v65 assets and generated sources retained.",
+  "followup": "tools-buttonless-v70-followup.json"
+}

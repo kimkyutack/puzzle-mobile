@@ -1,0 +1,24 @@
+{
+  "tool": "built-in image_gen",
+  "scope": "v66 source-faithful correction",
+  "assets": [
+    {
+      "key": "lock",
+      "prompt": "Use case: stylized-concept. Asset: one small silver padlock UI icon. Match the attached mobile gardening game's tool reward cabinet lock: front-facing simple silver/light blue shackle, rounded rectangular silver body with a small dark navy keyhole, soft warm bevel, restrained polished illustrated casual puzzle game style. Center one single padlock large on a genuinely transparent background, no gold, no leaves, no frame, no text, no cast background shadow. The icon will be displayed at 26px; clear silhouette, clean edges, like the lock on the blue reward cabinet in the user's reference.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-0a336664-fbbb-4052-8975-5382870e4ea0.png",
+      "path": "packages/assets/event-design-v62/lock-v66.webp"
+    },
+    {
+      "key": "leaf",
+      "prompt": "Use case: stylized-concept. Asset: one paired green leaf emblem for a tiny progress bar. Two small glossy leaves on one short green stem, left leaf round and slightly lower, right leaf taller and gently pointed, emerald and lime shaded surfaces, narrow dark green outline, soft mobile gardening puzzle illustration. Center isolated on genuinely transparent background. No coin, no pot, no border, no circle, no text. Readable at 20px.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-496a2044-a507-438e-9ec3-f2eadaac7895.png",
+      "path": "packages/assets/event-design-v62/leaf-v66.webp"
+    },
+    {
+      "key": "meter",
+      "prompt": "Use case: stylized-concept. Asset: one horizontal capsule progress fill for a mobile garden puzzle game, wide aspect 10:1. Dark forest green towards right and bottom, warm lighter green at left and upper highlight, subtle restrained softly painted glossy beveled surface. Single complete rounded pill silhouette, isolated transparent outside pill. No rim, no background track, no text, no icons, no sparkles. Match the green season progress gauge in the user's provided reference, avoid bright neon lime.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-4b5d6183-4c47-4c08-baaa-515c70d406ec.png",
+      "path": "packages/assets/event-design-v62/meter-v66.webp"
+    }
+  ]
+}

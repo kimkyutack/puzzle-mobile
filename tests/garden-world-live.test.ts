@@ -35,9 +35,9 @@ describe('live home migration',()=>{
   expect(next.owned['restored-sky-bench']).toBeTruthy();expect(next.placements['restored-sky-bench']).toBeUndefined();
  });
  it('does not migrate a foreign account world',()=>{expect(()=>projectLiveGarden({...player,id:'other'},projectLiveGarden(player))).toThrow('owner mismatch')});
- it('publishes 32 eligible items and requires levels for facilities within the price cap',()=>{
+ it('publishes 39 eligible items and requires levels for facilities within the price cap',()=>{
   const items=liveShopItems(),facilities=items.filter(i=>i.category==='building'),animals=items.filter(i=>i.category==='animal');
-  expect(items).toHaveLength(32);expect(facilities).toHaveLength(11);expect(animals).toHaveLength(5);
+  expect(items).toHaveLength(39);expect(facilities).toHaveLength(11);expect(animals).toHaveLength(5);
   expect(items.every(i=>i.futureShop&&GARDEN_SHOP_PRICES[i.id]!>0)).toBe(true);
   expect(facilities.every(i=>GARDEN_SHOP_PRICES[i.id]!<=10000&&GARDEN_SHOP_LEVELS[i.id]!>5)).toBe(true);
   expect(GARDEN_SHOP_PRICES['garden-fountain']).toBeUndefined();

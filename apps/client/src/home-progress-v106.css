@@ -1,0 +1,70 @@
+/* Home progress cards, plain white panel and gold-edged fold handle. */
+.home-command-home.home-progress-v106 .home-command-dock{--home-panel-content-inset:8px;padding-top:22px;padding-bottom:2px}
+.home-command-home.home-progress-v106 .home-command-dock .hub-main-actions{width:100%;box-sizing:border-box;padding:0 var(--home-panel-content-inset) 2px;gap:6px}
+/* The plain white panel extends behind the footer's rounded upper corners. */
+.home-command-home.home-progress-v106 .home-command-dock>.home-dock-face{top:0;bottom:-30px;background:var(--home-ivory);border-radius:22px 22px 0 0;box-shadow:inset 0 2px 1px #fff}
+.home-command-home.home-progress-v106 .home-command-dock .home-utility-menu{padding-inline:0}
+.home-command-home.home-progress-v106 .home-command-dock>.hub-map-hint{position:absolute;left:12px;right:12px;bottom:calc(100% + 38px);z-index:1;margin:0;font-size:10px;line-height:16px}
+@media(max-height:660px){.home-command-home.home-progress-v106 .home-command-dock[data-collapsed="false"]>.hub-map-hint{right:84px}}
+.home-command-home.home-progress-v106 .home-command-dock>.home-dock-toggle{top:-30px;left:calc(50% - 52px);width:104px;height:44px;min-height:44px;padding:0;z-index:4;border-radius:0;background:none}
+.home-command-home.home-progress-v106 .home-toggle-tab{position:absolute;inset:7px 6px 8px;pointer-events:none;background:url('../../../packages/assets/home-toggle-v119/runtime/closed-tab.webp') center/contain no-repeat}
+.home-command-home.home-progress-v106 .home-toggle-chevron{position:relative;width:24px;height:17px;background:url('../../../packages/assets/home-progress-v106/runtime/chevron.webp') center/contain no-repeat;transform:translateY(-.5px);transition:transform .16s ease}
+.home-command-home.home-progress-v106 .home-command-dock[data-collapsed="true"]>.home-dock-toggle{top:-30px}
+.home-command-home.home-progress-v106 [data-collapsed="true"] .home-toggle-chevron{transform:translateY(-.5px) rotate(180deg)}
+.home-command-home.home-progress-v106 .home-command-dock[data-collapsed="true"]{padding-top:13px}
+.home-command-home.home-progress-v106 .home-rewards-row{display:grid;grid-template-columns:minmax(136px,.59fr) minmax(0,1fr);grid-template-rows:42px 42px;align-items:stretch;gap:6px;min-height:0;margin:0 0 5px;transform:none}
+.home-command-home.home-progress-v106 .home-streak-rainbow{display:contents}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip.is-compact{grid-column:1;grid-row:1/3;display:grid;grid-template-columns:53px minmax(0,1fr);grid-template-rows:24px 36px;align-content:center;align-items:center;justify-items:center;gap:1px 3px;width:auto;height:auto;min-height:0;padding:7px 8px;isolation:isolate;color:#193b66}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip>.streak-gift-home-frame{inset:0;border:0!important;border-image:none!important;background:url('../../../packages/assets/home-progress-v107/runtime/gift-sunny.webp') center/100% 100% no-repeat;border-radius:0;filter:none;opacity:1}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip>.icon{grid-column:1;grid-row:1/3;width:64px;height:70px;object-fit:contain}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip-title{grid-column:2;grid-row:1;font-size:16px;line-height:19px;white-space:normal;word-break:keep-all;text-align:center;-webkit-text-stroke:0}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip-stage{grid-column:2;grid-row:2;min-width:48px;padding:0 3px;font-size:26px;line-height:30px;color:#554626}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip-stage::before{inset:-2px -2px -1px}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip-stage>span{top:1px}
+.home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip .streak-gift-powers{display:none}
+.home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip{grid-column:2;grid-row:1;display:grid;grid-template-columns:29px minmax(0,1fr) auto;align-items:center;gap:5px;width:auto;min-width:0;min-height:0;height:auto;padding:3px 9px 3px 6px;background:none;border:0;box-shadow:none;isolation:isolate}
+.home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip::before{inset:0;filter:none;opacity:1;border:0;border-image:none;background:url('../../../packages/assets/home-progress-v107/runtime/rainbow-sky.webp') center/100% 100% no-repeat}
+.home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip>.icon{width:29px;height:34px;object-fit:contain}
+.home-command-home.home-progress-v106 .home-rainbow-title{font-family:var(--home-reference-ui);font-size:15px;line-height:17px;text-align:left;color:#193b66;word-break:keep-all;overflow-wrap:anywhere}
+.home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip>strong{position:relative;isolation:isolate;padding:4px 7px;font-size:13px;line-height:17px;text-align:center;color:#193b66}
+.home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip>strong::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:url('../../../packages/assets/home-contours-v81/runtime/gift-stage.webp') center/100% 100% no-repeat;filter:grayscale(1) brightness(1.09)}
+.home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip[data-rainbow-open="true"]>strong{font-size:17px;min-width:51px}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut{grid-column:2;grid-row:2;display:grid;grid-template-columns:29px minmax(0,1fr) auto;grid-template-rows:auto;align-items:center;gap:5px;width:auto;min-width:0;min-height:0;height:auto;padding:3px 10px 3px 6px}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>.raster-frame-face{inset:0;border:8px solid transparent!important;border-image:url('../../../packages/assets/home-progress-v106/runtime/festival-row.webp') 55 fill / 1 stretch!important;background:none;border-radius:0}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>.icon{grid-column:1;grid-row:1;width:29px;height:32px;object-fit:contain}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>span:not(.raster-frame-face):not(.reward-dot){grid-column:2;grid-row:1;font-size:15px;line-height:18px;text-align:left;text-shadow:0 1px 0 #155090}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>small{grid-column:3;grid-row:1;justify-self:end;min-width:58px;padding:4px 5px;font-size:13px;line-height:17px;text-shadow:0 1px 0 #155090}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>small::before{inset:0;background-size:100% 100%}
+.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>.reward-dot{top:-3px;right:-3px}
+/* Unlocks and operation switches may remove either card; never leave an empty slot. */
+.home-command-home.home-progress-v106 .home-rewards-row:not(:has(.home-gift-chip)){grid-template-columns:minmax(0,1fr)}
+.home-command-home.home-progress-v106 .home-rewards-row:not(:has(.home-gift-chip)) :is(.home-rainbow-chip,.hub-festival-shortcut){grid-column:1}
+.home-command-home.home-progress-v106 .home-rewards-row:not(:has(.hub-festival-shortcut)){grid-template-rows:90px}
+.home-command-home.home-progress-v106 .home-rewards-row:not(:has(.hub-festival-shortcut)) .home-gift-chip{grid-row:1}
+.home-command-home.home-progress-v106 .home-rewards-row:not(:has(.hub-festival-shortcut)):not(:has(.home-gift-chip)){grid-template-rows:42px}
+@media(max-width:359px){
+ .home-command-home.home-progress-v106 .home-rewards-row{grid-template-columns:108px minmax(0,1fr)}
+ .home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip.is-compact{grid-template-columns:33px minmax(0,1fr);padding-inline:6px;gap:1px}
+ .home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip>.icon{width:35px;height:45px}
+ .home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip-title{font-size:12px;line-height:14px}
+ .home-command-home.home-progress-v106 .home-rewards-row .home-gift-chip-stage{min-width:43px;font-size:21px}
+ .home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip,.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut{grid-template-columns:24px minmax(0,1fr) auto;gap:3px;padding-inline:5px}
+ .home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip>.icon,.home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>.icon{width:24px;height:29px}
+ .home-command-home.home-progress-v106 .home-rainbow-title{font-size:11px;line-height:14px}
+ .home-command-home.home-progress-v106 .home-streak-rainbow>.home-rainbow-chip>strong{font-size:10px;padding-inline:5px}
+ .home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>span:not(.raster-frame-face):not(.reward-dot){font-size:11px;line-height:14px}
+ .home-command-home.home-progress-v106 .home-rewards-row>.hub-festival-shortcut>small{min-width:0;padding-inline:4px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.home-command-home.home-progress-v106 .home-toggle-chevron{transition:none}}
+
+/* Keep the panel mounted so its height can slide in either direction. */
+.home-command-home.home-progress-v106 .home-command-dock{transition:padding-top .32s cubic-bezier(.22,.7,.2,1)}
+.home-command-home.home-progress-v106 .home-dock-extras{display:grid;grid-template-rows:1fr;transition:grid-template-rows .32s cubic-bezier(.22,.7,.2,1)}
+.home-command-home.home-progress-v106 .home-dock-extras-content{min-height:0;box-sizing:border-box;padding-inline:var(--home-panel-content-inset);overflow:hidden;position:relative;z-index:1;transform:translateY(0);transition:transform .32s cubic-bezier(.22,.7,.2,1)}
+.home-command-home.home-progress-v106 [data-collapsed="true"]>.home-dock-extras{grid-template-rows:0fr}
+.home-command-home.home-progress-v106 [data-collapsed="true"] .home-dock-extras-content{transform:translateY(24px)}
+@media(prefers-reduced-motion:reduce){
+ .home-command-home.home-progress-v106 .home-command-dock,
+ .home-command-home.home-progress-v106 .home-dock-extras,
+ .home-command-home.home-progress-v106 .home-dock-extras-content{transition:none}
+}

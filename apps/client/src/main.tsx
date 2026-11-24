@@ -1,4 +1,10 @@
 import {OperationsProvider} from './OperationsUI';
+// TEMP-FREEZE-PROBE: shows runtime errors on screen while diagnosing the rocket freeze. Remove after.
+{const report=(text:string)=>{try{let box=document.getElementById('freeze-probe');if(!box){box=document.createElement('pre');box.id='freeze-probe';box.style.cssText='position:fixed;left:0;right:0;bottom:0;max-height:50vh;overflow:auto;margin:0;padding:8px;background:#5a0000ee;color:#fff;font:10px/1.3 monospace;white-space:pre-wrap;z-index:2147483647;pointer-events:auto';document.body.appendChild(box);}box.textContent=(box.textContent??'')+new Date().toISOString().slice(11,19)+' '+text+'\n---\n';}catch{}};
+ window.addEventListener('error',e=>report('ERROR '+(e.error?.stack||e.message)+' @'+e.filename?.split('/').pop()+':'+e.lineno+':'+e.colno));
+ window.addEventListener('unhandledrejection',e=>report('REJECT '+((e.reason as Error)?.stack||String(e.reason))));
+ document.addEventListener('webglcontextlost',()=>report('WEBGL CONTEXT LOST'),true);
+ document.addEventListener('webglcontextrestored',()=>report('WEBGL CONTEXT RESTORED'),true);}
 import React from 'react';
 import {createRoot} from 'react-dom/client';
 import {Capacitor} from '@capacitor/core';

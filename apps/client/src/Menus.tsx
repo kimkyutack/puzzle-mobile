@@ -1,9 +1,11 @@
 import {useOperations} from './OperationsUI';
+import GiftInbox from './GiftInbox';
+import {homeIcon} from './home-icon-art';
 import {tr,formatLocale} from "./i18n";
 import {useEffect,useRef,useState} from 'react';
 import {Capacitor} from '@capacitor/core';
 import {App as NativeApp} from '@capacitor/app';
-import type {Player,Product,Gift,Booster,RewardIntent,AdRewardQuota,AdRewardQuotas,AuthResponse} from '@garden/contracts';
+import type {Player,Product,Booster,RewardIntent,AdRewardQuota,AdRewardQuotas,AuthResponse} from '@garden/contracts';
 import {request,key,duration,serverNow,installSession,clearSession,getLocalFeatures,refillLocalHearts} from './api';
 import {Button,Icon,IconButton,Row,Card,Amount,Poster,LinkAction,names} from './ui';
 import {purchases,rewardedAds,signIn,identityAvailable,pendingAppleChallenge,clearAppleChallenge} from './platform';
@@ -43,8 +45,6 @@ export default function Menus({page,player,mutate,refresh,notify,onPage,onLogout
   return()=>{active=false;};
  },[]);
  const [catalog,setCatalog]=useState<{products:Product[];restorations:Array<{id:string;area:string;name:string;cost:number;asset:string}>;season?:{endsAt:number}}>({products:[],restorations:[]});
- const [gifts,setGifts]=useState<Gift[]>([]);
- const loadGifts=async()=>{const result=await request<{gifts:Gift[]}>('/gifts');setGifts(result.gifts);activity.updateData(data=>({...data,giftCounts:{hearts:result.gifts.filter(g=>g.quantity>0&&g.kind==='heart').length,items:result.gifts.filter(g=>g.quantity>0&&g.kind!=='heart').length}}));};
  const [localHearts,setLocalHearts]=useState(false);
  useEffect(()=>{void getLocalFeatures().then(value=>setLocalHearts(value.freeHeartRefill)).catch(()=>{});},[]);
  const [nickname,setNickname]=useState(player.nickname);
@@ -65,7 +65,6 @@ export default function Menus({page,player,mutate,refresh,notify,onPage,onLogout
  const purchaseStatus=(value:string)=>setStatus(({loading:tr("상품을 불러오는 중"),ready:tr("구매 준비 완료"),purchasing:tr("스토어에서 구매 진행 중"),pending:tr("구매 승인 대기 중"),verifying:tr("구매 확인 중"),complete:tr("구매 완료"),cancelled:tr("구매를 취소했어요"),error:tr("구매를 확인하지 못했어요"),unavailable:tr("이 기기에서 구매할 수 없어요")} as Record<string,string>)[value]||value);
  const run=async(fn:()=>Promise<unknown>)=>{if(working)return;setWorking(true);onWorkingChange?.(true);try{await fn()}catch(e){notify(e instanceof Error?e.message:tr("잠시 후 다시 시도해 주세요."))}finally{setWorking(false);onWorkingChange?.(false)}};
  useEffect(()=>{if(page==='settings')void request<typeof catalog>('/catalog').then(setCatalog).catch(()=>{});},[page]);
- useEffect(()=>{if(page==='gifts')void loadGifts().catch(e=>notify(e.message));},[page,player.id]);
  useEffect(()=>{if(page==='settings')void loadLinks().catch(()=>{});},[page,player.id]);
  useEffect(()=>{
   setEditingAppearance(false);setDecorations([]);
@@ -105,7 +104,7 @@ export default function Menus({page,player,mutate,refresh,notify,onPage,onLogout
  if(page==='events')return <CommunityMenus page={page} player={player} mutate={mutate} refresh={refresh} notify={notify} onPage={onPage}/>;
  if(page==='shop')return <ShopMenu player={player} mutate={mutate} refresh={refresh} notify={notify} onPage={onPage}/>;
  if(page==='hearts')return <><Poster id="poster_hearts_v5" className="heart-poster" label={tr("하트 열기구를 타고 날아가는 루미")}><figcaption className="poster-caption" data-frame="event_badge" data-frame-scale="0.1"><Amount kind="heart" value={player.hearts+' / 5'}/></figcaption></Poster><p className="intro">{player.unlimitedUntil>serverNow()?tr("무제한 ")+duration(player.unlimitedUntil-serverNow()):player.hearts<5?tr("다음 하트까지 ")+duration(player.heartAt+3600000-serverNow()):tr("하트가 가득 찼어요")}</p><Button tone="green" icon="heart" disabled={working||player.hearts>=5} onClick={()=>void run(()=>mutate('/hearts/buy',{amount:'full'}))}>{tr("가득 채우기")}{' '}<Amount kind="coin" value={(5-player.hearts)*100}/></Button>{localHearts&&<Button className="local-heart-button" tone="gold" icon="heart" disabled={working||player.hearts>=5} onClick={()=>void run(async()=>{await refillLocalHearts(key());await refresh();notify(tr("하트가 가득 찼어요!"))})}>{tr("무료 충전")}{' '}<small>{tr("로컬")}</small></Button>}<section className="offer-strip" data-content-group data-frame="card_gold_v4"><h3>{tr("하트 걱정 없는 30분")}</h3>{player.level>=5&&player.freeClaimAt<=serverNow()?<Button tone="green" icon="heart" disabled={working} onClick={()=>void run(()=>mutate('/hearts/free'))}>{tr("무료로 시작")}</Button>:<div className="offer-status"><Icon id="heart" size={33}/><span>{player.level<5?tr("4판 완료 후 열려요"):duration(player.freeClaimAt-serverNow())+tr(" 후 다시 받아요")}</span></div>}<p className="fine">{tr("무료 무제한은 수령 후 4시간마다 받을 수 있어요.")}</p></section>{player.level>4&&<details className="auxiliary-options"><summary>{tr("다른 방법으로 하트 받기")}</summary><Card tone="green">{canWatchAds&&<><HeartAdButton quota={heartAdQuota} error={adQuotaError} disabled={working||player.hearts>=5||player.unlimitedUntil>serverNow()||!!pendingAd&&['reserved','pending','review'].includes(pendingAd.status)} onClick={()=>void run(watchAd)}/>{ad!=='idle'&&<p role="status">{{loading:tr("광고 준비 중"),showing:tr("시청 중"),pending:tr("보상 확인 중 — 정원으로 돌아가도 안전해요"),granted:tr("하트 지급 완료"),cancelled:tr("시청을 종료했어요"),'no-fill':tr("지금 볼 수 있는 광고가 없어요"),error:tr("광고를 불러오지 못했어요"),unavailable:tr("광고가 연결된 모바일 앱에서 이용할 수 있어요")}[ad]}</p>}{pendingAd&&<LinkAction icon="mail" onClick={()=>void run(checkAd)}>{tr("보상 상태 확인")}</LinkAction>}</>}{!restricted&&<><LinkAction icon="guild" onClick={()=>onPage('guild')}>{tr("길드에 하트 요청")}</LinkAction><LinkAction icon="lumi_happy" onClick={()=>onPage('friends')}>{tr("친구에게 하트 요청")}</LinkAction></>}<LinkAction icon="mail" onClick={()=>onPage('gifts')}>{tr("보관된 선물 보기")}</LinkAction></Card></details>}<p className="fine">{tr("퍼즐을 클리어하면 하트가 유지돼요. 실패하거나 포기할 때만 1개를 사용해요.")}</p></>;
- if(page==='gifts')return <><p className="intro">{tr("마음을 담은 정원 우편함")}</p>{gifts.length?gifts.map(g=><Row key={g.id} icon={g.kind==='heart'?'heart':g.kind} title={tr("{0}님의 {1} {2}개",{0:(g.senderName),1:(g.kind==='heart'?tr("하트"):names[g.kind]),2:(g.quantity)})}><Button attention={g.kind!=='heart'||player.hearts<5?1:0} disabled={working||g.kind==='heart'&&player.hearts>=5} onClick={()=>void run(async()=>{await mutate(`/gifts/${g.id}/claim`);await loadGifts()})}>{tr("받기")}</Button></Row>):<Card className="empty"><Icon id="mail" size={100}/><p>{tr("아직 도착한 선물이 없어요.")}</p><Button secondary onClick={()=>onPage('guild')}>{tr("길드에서 도움 나누기")}</Button></Card>}<p className="fine">{tr("가득 찬 하트는 우편함에 안전하게 보관돼요.")}</p></>;
+ if(page==='gifts')return <GiftInbox player={player} mutate={mutate} onPage={onPage}/>;
  if(page==='friends')return <FriendsMenu player={player} refresh={refresh} notify={notify}/>;
  if(page==='ranking')return <RankingMenu player={player} onGuild={()=>onPage('guild')}/>;
  if(page==='pass'||page==='guild'||isGuildSubpage(page))return <CommunityMenus page={page} player={player} mutate={mutate} refresh={refresh} notify={notify} onPage={onPage}/>;
@@ -128,7 +127,7 @@ export default function Menus({page,player,mutate,refresh,notify,onPage,onLogout
    <h3 className="settings-section-title" id="settings-help-title">{tr('운영 소식과 도움')}</h3>
    <Button className="settings-row settings-link" rasterFrame={false} secondary attention={operations.unread} icon="mail" onClick={()=>onPage('notices')}>{tr('공지사항')}</Button>
    {!restricted&&<Button className="settings-row settings-link" rasterFrame={false} secondary attention={operations.data?.supportUnread??0} icon="lumi" onClick={()=>onPage('support')}>{tr('고객센터')}</Button>}
-   <Button className="settings-row settings-link" rasterFrame={false} secondary attention={attention.liveEvents} icon="chest" onClick={()=>onPage('live-events')}>{tr('이벤트 보상')}</Button>
+   <Button className="settings-row settings-link" rasterFrame={false} secondary attention={attention.counts.gifts+attention.liveEvents} icon={homeIcon('mailbox','mail')} onClick={()=>onPage('gifts')}>{tr('선물함')}</Button>
   </section>
   <section aria-labelledby="settings-play-title">
    <h3 className="settings-section-title" id="settings-play-title">{t('settings.comfort')}</h3>

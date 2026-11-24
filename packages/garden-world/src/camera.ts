@@ -1,5 +1,6 @@
 export interface GardenPoint {x:number;y:number}
 export interface GardenCamera {x:number;y:number;zoom:number}
+export interface GardenViewportInsets {top?:number;bottom?:number;left?:number;right?:number}
 export interface IsometricGrid {tileWidth:number;tileHeight:number}
 export const ISOMETRIC_GRID:IsometricGrid={tileWidth:128,tileHeight:64};
 export const GARDEN_ZOOM={min:.04,max:1.8} as const;
@@ -37,13 +38,19 @@ export function fitGardenView(bounds:{left:number;top:number;right:number;bottom
  return {zoom,x:view.left+view.width/2-(bounds.left+bounds.right)/2*zoom,y:view.top+view.height/2-(bounds.top+bounds.bottom)/2*zoom};
 }
 /** Keep the map's projected bounding rectangle within reach, including when it is smaller than the viewport. */
-export function constrainGardenCamera(camera:GardenCamera,map:{width:number;height:number},viewport:{width:number;height:number},margin=48,grid:IsometricGrid=ISOMETRIC_GRID):GardenCamera {
+export function constrainGardenCamera(camera:GardenCamera,map:{width:number;height:number},viewport:{width:number;height:number},margin=48,grid:IsometricGrid=ISOMETRIC_GRID,insets:GardenViewportInsets={}):GardenCamera {
  validateCamera(camera);validateGrid(grid);finite(map.width,map.height,viewport.width,viewport.height,margin);
  if(map.width<=0||map.height<=0||viewport.width<=0||viewport.height<=0||margin<0)throw new RangeError('Invalid garden bounds');
+ const {top=0,bottom:coveredBottom=0,left:coveredLeft=0,right:coveredRight=0}=insets;
+ finite(top,coveredBottom,coveredLeft,coveredRight);
+ if(Math.min(top,coveredBottom,coveredLeft,coveredRight)<0)throw new RangeError('Invalid garden viewport insets');
+ const startX=Math.min(coveredLeft,viewport.width-1),startY=Math.min(top,viewport.height-1);
+ const width=Math.max(1,viewport.width-startX-coveredRight),height=Math.max(1,viewport.height-startY-coveredBottom);
  const left=-map.height*grid.tileWidth/2*camera.zoom,right=map.width*grid.tileWidth/2*camera.zoom,bottom=(map.width+map.height)*grid.tileHeight/2*camera.zoom;
- function clampOffset(offset:number,min:number,max:number,extent:number){
-  if(max-min+margin*2<=extent)return (extent-min-max)/2;
-  return Math.max(extent-margin-max,Math.min(margin-min,offset));
+ function clampOffset(offset:number,min:number,max:number,start:number,extent:number){
+  const padding=Math.min(margin,extent/2);
+  if(max-min+padding*2<=extent)return start+(extent-min-max)/2;
+  return Math.max(start+extent-padding-max,Math.min(start+padding-min,offset));
  }
- return {...camera,x:clampOffset(camera.x,left,right,viewport.width),y:clampOffset(camera.y,0,bottom,viewport.height)};
+ return {...camera,x:clampOffset(camera.x,left,right,startX,width),y:clampOffset(camera.y,0,bottom,startY,height)};
 }

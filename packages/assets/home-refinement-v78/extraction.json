@@ -1,0 +1,399 @@
+{
+  "source": "/Users/kimkyutack/.codex/generated_images/01a19a0c-6a0f-7292-88a9-af1911f52d1b/exec-ae916851-2232-471b-8997-69fe65fd0dbe.png",
+  "normalizedPixels": [
+    780,
+    1688
+  ],
+  "icons": [
+    {
+      "name": "journal",
+      "rect": [
+        17,
+        592,
+        54,
+        44
+      ],
+      "body": [
+        92,
+        75
+      ],
+      "packed": [
+        120,
+        98
+      ]
+    },
+    {
+      "name": "pass",
+      "rect": [
+        80,
+        590,
+        51,
+        44
+      ],
+      "body": [
+        91,
+        77
+      ],
+      "packed": [
+        120,
+        102
+      ]
+    },
+    {
+      "name": "ranking",
+      "rect": [
+        144,
+        591,
+        47,
+        45
+      ],
+      "body": [
+        83,
+        79
+      ],
+      "packed": [
+        120,
+        114
+      ]
+    },
+    {
+      "name": "missions",
+      "rect": [
+        205,
+        587,
+        43,
+        48
+      ],
+      "body": [
+        77,
+        89
+      ],
+      "packed": [
+        104,
+        120
+      ]
+    },
+    {
+      "name": "unlimited",
+      "rect": [
+        285,
+        591,
+        39,
+        39
+      ],
+      "body": [
+        65,
+        64
+      ],
+      "packed": [
+        120,
+        118
+      ]
+    },
+    {
+      "name": "rescue",
+      "rect": [
+        331,
+        591,
+        44,
+        40
+      ],
+      "body": [
+        74,
+        65
+      ],
+      "packed": [
+        120,
+        105
+      ]
+    },
+    {
+      "name": "shop",
+      "rect": [
+        19,
+        758,
+        49,
+        47
+      ],
+      "body": [
+        85,
+        77
+      ],
+      "packed": [
+        120,
+        109
+      ]
+    },
+    {
+      "name": "friends",
+      "rect": [
+        95,
+        755,
+        49,
+        51
+      ],
+      "body": [
+        84,
+        82
+      ],
+      "packed": [
+        120,
+        117
+      ]
+    },
+    {
+      "name": "home",
+      "rect": [
+        227,
+        676,
+        43,
+        49
+      ],
+      "body": [
+        86,
+        92
+      ],
+      "packed": [
+        112,
+        120
+      ]
+    },
+    {
+      "name": "home-nav",
+      "rect": [
+        171,
+        754,
+        51,
+        51
+      ],
+      "body": [
+        102,
+        98
+      ],
+      "packed": [
+        120,
+        115
+      ]
+    },
+    {
+      "name": "guild",
+      "rect": [
+        249,
+        756,
+        46,
+        49
+      ],
+      "body": [
+        80,
+        83
+      ],
+      "packed": [
+        116,
+        120
+      ]
+    },
+    {
+      "name": "events",
+      "rect": [
+        324,
+        755,
+        48,
+        50
+      ],
+      "body": [
+        82,
+        82
+      ],
+      "packed": [
+        120,
+        120
+      ]
+    },
+    {
+      "name": "settings",
+      "rect": [
+        345,
+        24,
+        38,
+        39
+      ],
+      "body": [
+        72,
+        72
+      ],
+      "packed": [
+        120,
+        120
+      ]
+    },
+    {
+      "name": "avatar",
+      "rect": [
+        12,
+        19,
+        46,
+        49
+      ],
+      "body": [
+        92,
+        96
+      ],
+      "packed": [
+        115,
+        120
+      ]
+    },
+    {
+      "name": "header-coin",
+      "rect": [
+        60,
+        26,
+        33,
+        35
+      ],
+      "body": [
+        59,
+        53
+      ],
+      "packed": [
+        120,
+        108
+      ]
+    },
+    {
+      "name": "header-heart",
+      "rect": [
+        159,
+        24,
+        35,
+        37
+      ],
+      "body": [
+        64,
+        52
+      ],
+      "packed": [
+        120,
+        98
+      ]
+    },
+    {
+      "name": "header-star",
+      "rect": [
+        249,
+        26,
+        34,
+        35
+      ],
+      "body": [
+        65,
+        60
+      ],
+      "packed": [
+        120,
+        111
+      ]
+    },
+    {
+      "name": "mail",
+      "rect": [
+        337,
+        471,
+        41,
+        40
+      ],
+      "body": [
+        79,
+        72
+      ],
+      "packed": [
+        120,
+        109
+      ]
+    },
+    {
+      "name": "gift",
+      "rect": [
+        13,
+        546,
+        31,
+        37
+      ],
+      "body": [
+        62,
+        74
+      ],
+      "packed": [
+        101,
+        120
+      ]
+    },
+    {
+      "name": "festival",
+      "rect": [
+        300,
+        548,
+        34,
+        32
+      ],
+      "body": [
+        68,
+        64
+      ],
+      "packed": [
+        120,
+        113
+      ]
+    },
+    {
+      "name": "play",
+      "rect": [
+        153,
+        689,
+        23,
+        26
+      ],
+      "body": [
+        37,
+        50
+      ],
+      "packed": [
+        89,
+        120
+      ]
+    },
+    {
+      "name": "lime-button",
+      "rect": [
+        10,
+        668,
+        193,
+        72
+      ],
+      "kind": "original source surface, foreground removed by local row interpolation"
+    },
+    {
+      "name": "coral-button",
+      "rect": [
+        208,
+        668,
+        174,
+        72
+      ],
+      "kind": "original source surface, foreground removed by local row interpolation"
+    },
+    {
+      "name": "active-home",
+      "rect": [
+        154,
+        751,
+        82,
+        78
+      ],
+      "strip": 164,
+      "leftCap": 14,
+      "rightCap": 14,
+      "kind": "source nine-slice surface"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "key": "season-clockless",
+      "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/event-design-v62/season-scene-v70.webp",
+      "prompt": "Edit the provided existing garden game seasonal background. Remove ONLY the cream timer capsule and its brown clock icon in the top sky (around x320-678 y185-270 in 992x1462). Inpaint matching uninterrupted soft blue sky and clouds. Do not add a new timer anywhere; timer is a separate live UI component. Keep all other pixels/composition unchanged: islands, gazebo, bench, two progress panels, two cream reward cards, distant garden and bottom foliage, and no title or play button. Same dimensions. Localized timer-plaque removal only.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-12f849d8-a346-471f-8ab2-796f5f1cc91c.png"
+    },
+    {
+      "key": "unlimited",
+      "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/output/playwright/event-scenes-v71/unlimited-reference.png",
+      "prompt": "Edit this selected mobile gardening puzzle game event reference into a production blank backplate at the SAME portrait aspect and layout. Keep the restrained teal greenhouse, softly lit window, plants, wooden table, large teal-and-gold hourglass with gold infinity emblem, exactly three blue round tool sockets with small cream infinity badges, cream schedule panel and three empty small clock capsules. Keep static decorative gold infinity emblems inside the three badges. Remove ALL other letters, words, digits, all three foreground tool icons, and remove the large green button at the bottom entirely; continue the teal greenhouse/flowers there. Keep top teal status pill but blank, and keep schedule panel blank, including blank areas after its three small clock icons. No global event header or tabs/dock. No painted button, no other UI added. All editable labels and actual game icons will be rendered separately. Match the reference's polished warm casual game illustration, no extra ornate decoration.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-367fd208-5acb-4e2e-8a77-c1c4df7309eb.png"
+    },
+    {
+      "key": "mailbox",
+      "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/output/playwright/event-scenes-v71/rewards-reference.png",
+      "prompt": "Use this approved mobile gardening game reward-mailbox screen as the exact art/style reference. Create ONLY its full-bleed portrait BACKGROUND at the same aspect ratio: soft green garden path at the upper third with the small red postal mailbox at upper right, wooden terrace/table planks extending through the middle and lower area, soft foliage/flowers at corners. Remove all lettering and all cream reward lists/cards, envelopes, reward icons, lower blue summary panel, and all green buttons. Leave open readable natural wood space where dynamic real reward postcards and a summary will be laid out. No text, no interface controls, no title plaque. Same bright restrained polished casual garden-game art style and camera; avoid adding props or sparkles.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-8b96d5ca-c872-4dfe-85a7-205cb90109ac.png"
+    },
+    {
+      "key": "postcard",
+      "reference": "/Users/kimkyutack/Desktop/puzzle-mobile/output/playwright/event-scenes-v71/rewards-reference.png",
+      "prompt": "Extract the visual material of one cream reward postcard from this garden-game reference as a reusable standalone UI frame. One single wide horizontal cream parchment/card panel, aspect ratio about 3:1, soft warm ivory center, thin pale-gold bevel and rim, gently rounded corners, subtle warm shadow, restrained polished mobile puzzle game illustration. Blank surface. No envelope, no text, no stamp, no reward icons, no buttons, no scenery. Transparent background outside the panel. Plenty of plain center area for live content. Keep corners clear so the real raster can be used with nine-slice scaling.",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-79bb4ddf-3629-45c4-86ea-0b856f9f4124.png"
+    }
+  ],
+  "additional": "Clock plaque cropped from the preserved v65 bitmap. The clockless season only patches the former clock region; other functional geometry is preserved."
+}

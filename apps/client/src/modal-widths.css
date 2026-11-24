@@ -1,0 +1,52 @@
+/* Every popup follows the chain package: 9px side gutters, capped at 440px.
+   Keep this contract above theme-specific sizing, including portal dialogs. */
+:root {
+ --game-modal-width: 440px;
+ --game-modal-gutter: 9px;
+}
+
+:root .modal-layer[role="dialog"][aria-modal="true"] {
+ padding-inline: var(--game-modal-gutter) !important;
+}
+
+:root .modal-layer[role="dialog"][aria-modal="true"] > :is(.modal, .power-rainbow-reveal-content) {
+ width: min(100%, var(--game-modal-width));
+ max-width: var(--game-modal-width);
+ min-width: 0;
+ margin-inline: auto;
+}
+
+/* Scene posters keep their full width and scroll when a short screen cannot
+   accommodate their authored aspect ratio. Their artwork is never squashed. */
+:root .modal-layer.unlimited-tools-modal[role="dialog"] > .modal {
+ max-height: calc(100dvh - var(--safe-top, 0px) - var(--safe-bottom, 0px) - 32px);
+ min-height: 0;
+}
+:root .modal-layer[role="dialog"]:is(.unlimited-tools-modal, .power-festival-modal) > .modal > .modal-content {
+ flex: 1 1 auto;
+ overflow-y: auto;
+}
+:root .modal-layer.power-festival-modal[role="dialog"] > .modal > .modal-content {
+ align-items: flex-start;
+}
+
+/* The native reward reveal and blocking service notice do not use Modal. */
+:root dialog.treasure-reveal:not(.is-legacy) {
+ width: min(var(--game-modal-width), calc(100vw - 2 * var(--game-modal-gutter)));
+ max-width: var(--game-modal-width);
+}
+:root dialog.treasure-reveal.is-legacy {
+ padding-inline: var(--game-modal-gutter);
+}
+:root dialog.treasure-reveal > .treasure-reveal-content {
+ width: 100%;
+ max-width: var(--game-modal-width);
+}
+:root .operations-gate[role="dialog"][aria-modal="true"] {
+ padding-inline: var(--game-modal-gutter);
+}
+:root .operations-gate[role="dialog"][aria-modal="true"] > .operations-gate-panel {
+ width: min(100%, var(--game-modal-width));
+ max-width: var(--game-modal-width);
+ min-width: 0;
+}

@@ -1,3 +1,5 @@
+import {refinedEventArt} from './event-refinement-art';
+import './event-refinement-v74.css';
 import {useEffect,useMemo,useRef,useState,type CSSProperties} from 'react';
 import type {Player} from '@garden/contracts';
 import {PINBALL_PHYSICS_VERSION,type GardenGameAttempt,type GardenGameId,type GardenGameResult,type GardenGameReward} from '../../../packages/contracts/src/garden-games';
@@ -13,6 +15,7 @@ import {WORLD_ART} from './garden-world/assets';
 import {arcadeArt,arcadeIcons} from './garden-arcade-art';
 import {sound} from './sound';
 import './garden-game.css';
+import {eventDesignArt} from './event-design-art';
 
 const draftKey=(id:string)=>'garden-game-actions:'+id;
 function readDraft(id:string):number[]{
@@ -32,7 +35,7 @@ function Reward({reward}:{reward:GardenGameReward}){
  </span>;
 }
 
-export default function GardenGameMenu({game,player,settings,onPlayer,onPuzzle}:{game:GardenGameId;player:Player;settings?:RuntimeSettings;onPlayer:(player:Player)=>void;onPuzzle:()=>void}){
+export default function GardenGameMenu({game,player,settings,onPlayer,onPuzzle,variant}:{game:GardenGameId;player:Player;settings?:RuntimeSettings;onPlayer:(player:Player)=>void;onPuzzle:()=>void;variant?:'weekly'}){
  const [busy,setBusy]=useState(false),[message,setMessage]=useState(''),[result,setResult]=useState<GardenGameResult>();
  const working=useRef(false),startKey=useRef<{roundId:string;value:string}|null>(null);
  const status=gardenGameStatus(game,player,serverNow(),settings);
@@ -63,12 +66,27 @@ export default function GardenGameMenu({game,player,settings,onPlayer,onPuzzle}:
   }catch(error){setMessage(error instanceof Error?error.message:tr('다시 연결'));}
   finally{working.current=false;setBusy(false);}
  }
+ if(variant==='weekly')return <section className="weekly-game-layout" data-game={game} data-playing={!!attempt} aria-label={tr(GARDEN_GAME_TITLES[game])}>
+  {attempt?<GardenGamePlay weekly key={attempt.id} game={game} attempt={attempt} busy={busy} reduced={player.settings.reducedMotion} onFinish={finish}/>:<div className="weekly-game-preview" aria-hidden="true">
+   {game==='acorn-pinball'?<><Pinball weekly board={pinballBoard(Math.min(10,status.completed+1),62,PINBALL_PHYSICS_VERSION)} actions={[]} onMove={()=>{}} disabled reduced/><img className="weekly-preview-acorn" src={arcadeArt.acorn} alt=""/></>:<WaterPuzzle weekly board={waterBoard(Math.min(10,status.completed+1),62)} actions={[]} onMove={()=>{}} disabled reduced/>}
+  </div>}
+  <div className="weekly-game-ticket">{game==='acorn-pinball'?<><img src={arcadeArt.acorn} alt=""/>{tr('입장권 {0}장',{0:status.tickets})}</>:tr('{0}/{1}단계 완료',{0:status.completed,1:GARDEN_GAME_STAGES})}</div>
+  <section className="weekly-game-loot" aria-label={tr('다음 단계 보상')}>
+   <h2>{tr(game==='greenhouse-water'?'온실 완성 보상':displayed?.reward?'받은 보상':'이번 도전 보상')}</h2>
+   <Reward reward={displayed?.reward??next}/>
+   {game==='greenhouse-water'&&<div className="weekly-water-prizes">{Array.from({length:5},(_,i)=>Math.min(5,Math.floor(status.completed/5)*5)+i+1).map((stage,i)=><div key={stage} data-complete={status.completed>=stage}><img src={refinedEventArt.plants[i]} alt=""/>{status.completed>=stage&&<img className="weekly-water-check" src={eventDesignArt.attendanceCheck} alt=""/>}<b>{stage}</b><small><Icon id="coin" size={15}/>{gardenGameReward(game,stage,status.grandPrize).coins}</small></div>)}</div>}
+  </section>
+  {!attempt&&(status.canStart?<Button rasterFrame={false} className="weekly-scene-cta" onClick={()=>void start()} disabled={busy}>{tr(busy?'준비 중':game==='acorn-pinball'?'도전 시작':'물길 도전')}</Button>:status.completed<GARDEN_GAME_STAGES?<Button rasterFrame={false} className="weekly-scene-cta" onClick={onPuzzle}>{tr('퍼즐로 입장권 모으기')}</Button>:<Button rasterFrame={false} className="weekly-scene-cta" onClick={onPuzzle}>{tr('퍼즐 플레이')}</Button>)}
+  {!attempt&&status.free&&status.completed<GARDEN_GAME_STAGES&&<small className="weekly-free-note">{tr('오늘 무료 도전 1회')}</small>}
+  {attempt&&<span className="weekly-ongoing-label">{tr(game==='acorn-pinball'?'발사 위치를 골라 주세요':'수로를 눌러 돌려요')}</span>}
+  {message&&<p className="weekly-scene-error" role="alert">{message}</p>}
+ </section>;
  return <section className="garden-game" data-game={game} aria-label={tr(GARDEN_GAME_TITLES[game])}>
   <header className="garden-game-head">
    <img src={arcadeIcons[game]} alt="" draggable={false}/><h2>{tr(GARDEN_GAME_TITLES[game])}</h2>
    <span>{attempt?tr('{0}단계',{0:attempt.stage}):tr('{0}/{1}단계 완료',{0:status.completed,1:GARDEN_GAME_STAGES})}</span>
   </header>
-  {!attempt&&<progress value={status.completed} max={GARDEN_GAME_STAGES} aria-label={tr('회차 진행률')}/>}
+  {!attempt&&<ol className="garden-game-route" aria-label={tr('회차 진행률')}>{Array.from({length:GARDEN_GAME_STAGES},(_,i)=><li key={i} data-complete={i<status.completed} aria-current={i===status.completed?'step':undefined}><span>{i<status.completed?'✓':i+1}</span></li>)}</ol>}
   {attempt?<GardenGamePlay key={attempt.id} game={game} attempt={attempt} busy={busy} reduced={player.settings.reducedMotion} onFinish={finish}/>:<>
    <div className="garden-game-hero" style={{'--arcade-scene':`url(${game==='acorn-pinball'?arcadeArt.cabinet:arcadeArt.workbench})`} as CSSProperties}>
     <img src={WORLD_ART[status.grandPrize]} alt="" className="garden-game-prize-art"/>
@@ -84,7 +102,7 @@ export default function GardenGameMenu({game,player,settings,onPlayer,onPuzzle}:
  </section>;
 }
 
-function GardenGamePlay({game,attempt,busy,reduced,onFinish}:{game:GardenGameId;attempt:GardenGameAttempt;busy:boolean;reduced:boolean;onFinish:(attempt:GardenGameAttempt,actions:number[])=>void}){
+function GardenGamePlay({game,attempt,busy,reduced,onFinish,weekly=false}:{game:GardenGameId;attempt:GardenGameAttempt;busy:boolean;reduced:boolean;onFinish:(attempt:GardenGameAttempt,actions:number[])=>void;weekly?:boolean}){
  const pinball=useMemo(()=>game==='acorn-pinball'?pinballBoard(attempt.stage,attempt.seed,attempt.pinballPhysics):null,[game,attempt]);
  const water=useMemo(()=>game==='greenhouse-water'?waterBoard(attempt.stage,attempt.seed):null,[game,attempt]);
  const replay=(actions:readonly number[])=>pinball?replayPinball(pinball,actions):replayWater(water!,actions);
@@ -100,14 +118,17 @@ function GardenGamePlay({game,attempt,busy,reduced,onFinish}:{game:GardenGameId;
   if(updated==='won'||updated==='lost')onFinish(attempt,steps);
  }
  return <>
-  {pinball?<Pinball board={pinball} actions={actions} disabled={busy||terminal} reduced={reduced} onMove={move}/>:<WaterPuzzle board={water!} actions={actions} disabled={busy||terminal} reduced={reduced} onMove={move}/>}
+  {pinball?<Pinball weekly={weekly} board={pinball} actions={actions} disabled={busy||terminal} reduced={reduced} onMove={move}/>:<WaterPuzzle weekly={weekly} board={water!} actions={actions} disabled={busy||terminal} reduced={reduced} onMove={move}/>}
   <p className="garden-game-help">{tr(help[game])}</p>
   {terminal&&<Button disabled={busy} onClick={()=>onFinish(attempt,actions)}>{tr(busy?'결과 확인 중':'결과 확인')}</Button>}
  </>;
 }
 
 const pct=(value:number,size:number)=>value/size*100+'%';
-function Pinball({board,actions,onMove,disabled,reduced}:{board:PinballBoard;actions:number[];onMove:(slot:number)=>void;disabled:boolean;reduced:boolean}){
+function Pinball({board,actions,onMove,disabled,reduced,weekly=false}:{board:PinballBoard;actions:number[];onMove:(slot:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
+ // Artwork leaves a taller pocket region. Apply the same display projection to pegs and ball;
+ // physics, collision coordinates and the replay log remain unchanged.
+ const displayY=(y:number)=>pct(weekly?(y<=270?y*.78:210.6+(y-270)*2.188):y,PINBALL_HEIGHT);
  const result=useMemo(()=>replayPinball(board,actions),[board,actions]);
  const [flight,setFlight]=useState<{shot:PinballShot;tick:number;slot:number;landed:boolean}|null>(null);
  const frame=useRef(0),launching=useRef(false);
@@ -130,7 +151,7 @@ function Pinball({board,actions,onMove,disabled,reduced}:{board:PinballBoard;act
   const {path}=flight.shot,index=Math.floor(flight.tick),between=flight.tick-index;
   const from=path[index]!,to=path[index+1]??from;
   const x=from.x+(to.x-from.x)*between,y=from.y+(to.y-from.y)*between;
-  ballStyle={left:pct(x,PINBALL_WIDTH),top:pct(y,PINBALL_HEIGHT),'--pinball-angle':(x-path[0]!.x)*3+'deg'} as CSSProperties;
+  ballStyle={left:pct(x,PINBALL_WIDTH),top:displayY(y),'--pinball-angle':(x-path[0]!.x)*3+'deg'} as CSSProperties;
  }
  const remaining=PINBALL_BALLS-actions.length-Number(!!flight);
  return <div className="acorn-pinball arcade-machine">
@@ -143,12 +164,13 @@ function Pinball({board,actions,onMove,disabled,reduced}:{board:PinballBoard;act
   <div className="pinball-board" role="group" aria-label={tr('도토리 발사판')}>
    <div className="pinball-launch-rail" aria-hidden="true"/>
    {PINBALL_LAUNCHES.map((x,slot)=><button key={slot} className="pinball-launch" data-selected={flight?.slot===slot} style={{left:pct(x,PINBALL_WIDTH)}} onClick={()=>fire(slot)} disabled={disabled||!!flight} aria-label={tr('{0}번 위치에서 발사',{0:slot+1})}><img src={arcadeArt.launch} alt="" draggable={false}/></button>)}
-   {board.pegs.map((peg,i)=><img key={i} src={arcadeArt.bumper} alt="" draggable={false} data-lit={flight?.shot.hits.some(hit=>hit.peg===i&&flight.tick>=hit.tick&&flight.tick-hit.tick<12)||undefined} className="pinball-peg" style={{left:pct(peg.x,PINBALL_WIDTH),top:pct(peg.y,PINBALL_HEIGHT),width:pct(peg.r*2,PINBALL_WIDTH)}}/>)}
+   {board.pegs.map((peg,i)=><img key={i} src={weekly?eventDesignArt.goldPeg:arcadeArt.bumper} alt="" draggable={false} data-lit={flight?.shot.hits.some(hit=>hit.peg===i&&flight.tick>=hit.tick&&flight.tick-hit.tick<12)||undefined} className="pinball-peg" style={{left:pct(peg.x,PINBALL_WIDTH),top:displayY(peg.y),width:pct(peg.r*2*(weekly?1.7:1),PINBALL_WIDTH)}}/>)}
    <div className="pinball-pockets" aria-hidden="true">{Array.from({length:PINBALL_POCKETS},(_,i)=>{
     const target=board.targets.includes(i),hit=result.reached.has(i),catching=flight?.landed&&flight.shot.pocket===i;
     return <div key={i} className="pinball-pocket" data-target={target} data-hit={hit} data-catching={catching||undefined}>
      <img src={arcadeArt.pocket} className="pinball-pocket-body" alt="" draggable={false}/>
      {(target||hit)&&<span>{hit?<img src={arcadeArt.acorn} alt="" draggable={false}/>:<Icon id="star" size={21}/>}</span>}
+     {weekly&&<b className="weekly-pocket-score">+{target?50:5}</b>}
     </div>;
    })}</div>
    {flight&&<img className="pinball-ball" data-landed={flight.landed} src={arcadeArt.acorn} alt="" draggable={false} style={ballStyle}/>}
@@ -156,14 +178,14 @@ function Pinball({board,actions,onMove,disabled,reduced}:{board:PinballBoard;act
  </div>;
 }
 
-function WaterPuzzle({board,actions,onMove,disabled,reduced}:{board:WaterBoard;actions:number[];onMove:(at:number)=>void;disabled:boolean;reduced:boolean}){
+function WaterPuzzle({board,actions,onMove,disabled,reduced,weekly=false}:{board:WaterBoard;actions:number[];onMove:(at:number)=>void;disabled:boolean;reduced:boolean;weekly?:boolean}){
  const {wet}=useMemo(()=>replayWater(board,actions),[board,actions]);
  const turns=Array<number>(board.pipes.length).fill(0);
  for(const at of actions)turns[at]=turns[at]!+1;
  return <>
   <p className="water-meter" role="status">
-   <span>{tr('남은 회전 {0}회',{0:board.moves-actions.length})}</span>
-   <span>{tr('물 준 화분 {0}/3',{0:board.targets.filter(at=>wet.has(at)).length})}</span>
+   <span>{weekly&&<Icon id="shuffle" size={17}/>} {tr('남은 회전 {0}회',{0:board.moves-actions.length})}</span>
+   <span>{weekly&&<img src={arcadeArt.flower} alt=""/>} {tr('물 준 화분 {0}/{1}',{0:board.targets.filter(at=>wet.has(at)).length,1:board.targets.length})}</span>
   </p>
   <div className="greenhouse-water arcade-machine" data-reduced={reduced}>
    <img className="arcade-machine-art" src={arcadeArt.workbench} alt="" draggable={false}/>
@@ -173,12 +195,12 @@ function WaterPuzzle({board,actions,onMove,disabled,reduced}:{board:WaterBoard;a
      const cellName=source?'수원':target?'화분':'수로';
      const position=tr('{0}행 {1}열',{0:Math.floor(at/WATER_WIDTH)+1,1:at%WATER_WIDTH+1});
      return <button className="water-cell" data-wet={flowing} data-endpoint={source||target} key={at} disabled={disabled||source||target} onClick={()=>{sound('button');onMove(at);}} aria-label={`${position} ${tr(cellName)}${flowing?' · '+tr('물길 연결됨'):''}`}>
-      <img className="water-tile" src={arcadeArt.tile} alt="" draggable={false}/>
+      <img className="water-tile" src={weekly?eventDesignArt.waterTile:arcadeArt.tile} alt="" draggable={false}/>
       <span className="water-pipes" style={{transform:`rotate(${turns[at]!*90}deg)`}} aria-hidden="true">
-       {[1,2,4,8].map((bit,i)=>mask&bit?<span key={bit} className="water-arm" style={{transform:`rotate(${i*90}deg)`}}><img src={arcadeArt.pipe} alt="" draggable={false}/></span>:null)}
-       <img className="water-joint" src={arcadeArt.joint} alt="" draggable={false}/>
+       {[1,2,4,8].map((bit,i)=>mask&bit?<span key={bit} className="water-arm" style={{transform:`rotate(${i*90}deg)`}}><img src={weekly?(flowing?eventDesignArt.waterArmWet:eventDesignArt.waterArmDry):arcadeArt.pipe} alt="" draggable={false}/></span>:null)}
+       <img className="water-joint" src={weekly?(flowing?eventDesignArt.waterJointWet:eventDesignArt.waterJointDry):arcadeArt.joint} alt="" draggable={false}/>
       </span>
-      {source?<Icon className="water-source" id="stage_spring_v33" size={44}/>:target?<img className="water-flower" src={arcadeArt.flower} alt="" draggable={false}/>:null}
+      {source?<Icon className="water-source" id="stage_spring_v33" size={44}/>:target?<img className="water-flower" src={weekly?refinedEventArt.plants[4]:arcadeArt.flower} alt="" draggable={false}/>:null}
      </button>;
     })}
    </div>

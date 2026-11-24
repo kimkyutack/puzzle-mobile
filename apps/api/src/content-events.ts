@@ -11,6 +11,7 @@ import {grantActivityReward} from './activity';
 import {actionSchema} from './validation';
 import {ensure,mutate,operationKey,uid,one,type ApiEnv,type MutationContext} from './db';
 import {runtime} from './operations';
+import {weeklyEvent} from '../../../packages/contracts/src/weekly-events';
 
 function compatibleExpeditionLevel(level:LevelDefinition):LevelDefinition{
  if(level.engineVersion!==SEED_DELIVERY_ENGINE_VERSION||level.gardenStage?.kind!=='animal')return level;
@@ -66,10 +67,11 @@ export async function startAnimalExpedition(env:ApiEnv,userId:string,body:Record
  const input=z.object({roundId:z.string().min(1).max(100).optional(),restart:z.boolean().optional(),attemptId:z.string().min(1).max(100).optional()}).parse(body);
  const controls=settings??(await runtime(env)).settings,config=controls.gameEvents.animalExpedition;
  return mutate(env,userId,operationKey(body),'animal-expedition:start:'+JSON.stringify(input),tx=>{
-  const configured=configuredExpeditionRound(controls),saved=tx.player.animalExpedition;
+  const configured=configuredExpeditionRound(controls,tx.now),saved=tx.player.animalExpedition;
   // Older installed clients omit roundId; keep their unfinished round stable.
+  ensure(weeklyEvent(tx.now).id==='animal-expedition','EVENT_NOT_OPEN','이번 주 이벤트가 바뀌었어요. 홈에서 다시 열어 주세요.',409);
   const active=expeditionRounds(saved)[0],roundId=input.roundId??(active&&active.completedStages<ANIMAL_EXPEDITION_STAGES.length?active.roundId:configured.roundId),known=expeditionRound(saved,roundId);
-  ensure(roundId===configured.roundId||!!known,'EXPEDITION_CHANGED','이 원정은 시작할 수 없어요. 다시 열어 주세요.',409);
+  ensure(roundId===configured.roundId||!!known,'EXPEDITION_CHANGED','이번 주 원정이 바뀌었어요. 홈에서 다시 열어 주세요.',409);
   const progress=tx.player.animalExpedition=selectExpeditionRound(saved,known??configured);
   ensure(progress.completedStages<ANIMAL_EXPEDITION_STAGES.length,'EXPEDITION_COMPLETE','친구들을 모두 구했어요. 정원에서 만나 보세요!',409);
   if(progress.attempt&&!input.restart)return {player:tx.player};
@@ -87,6 +89,7 @@ export async function startAnimalExpedition(env:ApiEnv,userId:string,body:Record
 export function finishAnimalExpedition(env:ApiEnv,userId:string,body:Record<string,unknown>){
  const input=z.object({attemptId:z.string().min(1).max(100),actions:z.array(actionSchema.refine(action=>action.type==='swap'||action.type==='tap')).min(1).max(120)}).parse(body);
  return mutate(env,userId,operationKey(body),'animal-expedition:finish:'+JSON.stringify(input),async tx=>{
+  ensure(weeklyEvent(tx.now).id==='animal-expedition','EVENT_NOT_OPEN','이번 주 이벤트가 바뀌었어요. 홈에서 다시 열어 주세요.',409);
   const saved=tx.player.animalExpedition,rounds=expeditionRounds(saved);
   if(rounds.some(round=>round.completedAttempts.includes(input.attemptId)))return {player:tx.player,granted:false};
   const round=rounds.find(round=>round.attempt?.id===input.attemptId),progress=round?(saved?.roundId===round.roundId||!saved?.roundId&&round.animal==='dog'?saved:saved?.pastRounds?.find(value=>value.roundId===round.roundId)):undefined;

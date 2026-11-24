@@ -1,4 +1,5 @@
 import {finishGoldGarden,goldGardenStatus} from './gold-garden';
+import * as gardenInvite from './garden-invite';
 import {adminApi,serveAdmin} from './admin';
 import {serveOfficialSite} from './official-site';
 import {serveStudioSite} from './studio-site';
@@ -31,6 +32,8 @@ import * as gardenWorld from './garden-world';
 import {compatibleGardenArt,gardenArtCapabilities} from './garden-art-compat';
 import {localFeatures,refillLocalHearts} from './local-tools';
 import { bodyOf } from './validation';
+import {resetWeeklyEvents} from '../../../packages/contracts/src/weekly-events';
+import type {Player} from '@garden/contracts';
 import { assertPurchaseProviderReady, finishPurchase, revokeAppleAuthorization, ProviderError, type VerifiedPurchase } from './providers';
 import { GuildRoom } from './guild-room';
 import {requestTiming} from './request-timing';
@@ -43,8 +46,10 @@ function response(data:unknown,request:Request,env:ApiEnv,status=200){
   const origin=request.headers.get('Origin');if(origin&&env.CLIENT_ORIGINS.split(',').includes(origin)){headers.set('Access-Control-Allow-Origin',origin);headers.set('Vary','Origin');}
   const params=new URL(request.url).searchParams;
   const art=gardenArtCapabilities(params.get('gardenArt'));
-  const playerData=compatibleExpeditionPlayer(data,params.get('expeditionEngine'));
-  return Response.json({data:compatibleGardenArt(playerData,art.flowerlight,art.expedition,art.festival,art.showcase,art.minigames,art.market),serverNow:Date.now(),stateVersion:obj?.player?.version??0},{status,headers});
+  const payload=data as {player?:Player};
+  const currentData=payload?.player?{...payload,player:resetWeeklyEvents(payload.player,Date.now())}:data;
+  const playerData=compatibleExpeditionPlayer(currentData,params.get('expeditionEngine'));
+  return Response.json({data:compatibleGardenArt(playerData,art.flowerlight,art.expedition,art.festival,art.showcase,art.minigames,art.market,art.botanical,art.invitation),serverNow:Date.now(),stateVersion:obj?.player?.version??0},{status,headers});
 }
 export async function flushOutbox(env:ApiEnv){
   const pending=await rows<{id:string;topic:string;payload:string}>(env.DB,'SELECT id,topic,payload FROM outbox WHERE delivered_at IS NULL ORDER BY attempts,created_at LIMIT 40');
@@ -174,9 +179,17 @@ async function route(request:Request,env:ApiEnv,ctx:ExecutionContext,backgroundE
   else if(path==='/garden/restore'&&method==='POST')data=await economy.restore(env,userId,body);
   else if(path==='/garden/world'&&method==='GET'){
     const art=gardenArtCapabilities(url.searchParams.get('gardenArt'));
-    data=await gardenWorld.gardenWorld(env,userId,url.searchParams.get('shopVersion')==='2'&&art.showcase,art.market);
+    data=await gardenWorld.gardenWorld(env,userId,url.searchParams.get('shopVersion')==='2'&&art.showcase,art.market,art.botanical);
   }
   else if(/^\/garden\/visits\/[^/]+$/.test(path)&&method==='GET')data=await gardenWorld.visitGarden(env,userId,path.split('/')[3]!);
+  else if(path==='/garden/invite'&&method==='GET')data=await gardenInvite.gardenInvite(env,userId);
+  else if(path==='/garden/invite/prepare'&&method==='POST')data=await gardenInvite.prepareGardenInvite(env,userId,body);
+  else if(path==='/garden/invite/share'&&method==='POST'){
+    ensure(operationsSettings.features.guild!==false,'FEATURE_DISABLED','길드 기능이 잠시 쉬고 있어요.',403);
+    data=await gardenInvite.shareGardenInvite(env,userId,body);
+  }
+  else if(path==='/garden/invite/visit'&&method==='POST')data=await gardenInvite.recordGardenInviteVisit(env,userId,body);
+  else if(path==='/garden/invite/claim'&&method==='POST')data=await gardenInvite.claimGardenInvite(env,userId,body);
   else if(path==='/garden/world/commands'&&method==='POST')data=await gardenWorld.gardenCommand(env,userId,body);
   else if(path==='/garden/world/expand'&&method==='POST')data=await gardenWorld.expandGarden(env,userId,body);
   else if(path==='/garden/shop/buy'&&method==='POST')data=await gardenWorld.buyDecoration(env,userId,body);

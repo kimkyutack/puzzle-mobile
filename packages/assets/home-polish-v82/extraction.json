@@ -1,0 +1,30 @@
+{
+  "source": "packages/garden-world/art/home-v78/source/selected-original.png",
+  "normalizedPixels": [
+    780,
+    1688
+  ],
+  "records": [
+    {
+      "name": "footer",
+      "rect": [
+        0,
+        735,
+        390,
+        109
+      ],
+      "materialColumn": 80,
+      "method": "Retain original rim; interior comes from a clean column below the flat rim, without copying the horizontal rim into the raised center."
+    },
+    {
+      "name": "festival-status",
+      "rect": [
+        326,
+        563,
+        56,
+        20
+      ],
+      "method": "Visible source cap reflected to replace the chest-occluded cap; all interior pixels replaced from clean blue samples, alpha-matted edges, no retained digit shadows."
+    }
+  ]
+}

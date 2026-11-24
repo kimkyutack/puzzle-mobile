@@ -6,7 +6,7 @@ import {GOLD_GARDEN_INTERVAL,GOLD_GARDEN_VERSION,goldGardenCoins,type GoldGarden
 import {request} from './api';
 import ArtSurface from './ArtSurface';
 import CascadeBoard from './CascadeBoard';
-import {goldGardenCacheKey,isRefillGoldGardenVersion,loadGoldGarden,type RefillGoldGardenVersion} from './gold-garden-progress';
+import {goldGardenCacheKey,isRefillGoldGardenVersion,loadGoldGarden,pendingGoldGardenMilestone,type RefillGoldGardenVersion} from './gold-garden-progress';
 import {rememberHomeReward} from './home-rewards';
 import {t,tr} from './i18n';
 import {Amount,Button,Icon,IconButton} from './ui';
@@ -14,6 +14,7 @@ import './gold-garden.css';
 
 interface RoundProps {player:Player;milestone:number;version:RefillGoldGardenVersion;onClose:()=>void;onClaim:(player:Player)=>void}
 interface GoldGardenStatus {milestones:number[];version?:GoldGardenVersion}
+const claimedEvent='garden:gold-garden-claimed';
 function GoldGardenRound({player,milestone,version,onClose,onClaim}:RoundProps){
  const [initial]=useState(()=>loadGoldGarden(milestone,version,savedVersion=>{
   try{return localStorage.getItem(goldGardenCacheKey(player.id,milestone,savedVersion));}
@@ -96,18 +97,31 @@ export default function GoldGardenEntry({player,onPlayer,milestone,onRoundOpenCh
 }){
  const [status,setStatus]=useState<GoldGardenStatus|null>(null),[open,setOpen]=useState<number>();
  const [failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);
+ const settled=useRef(new Set<number>());
  const canEarn=player.level>GOLD_GARDEN_INTERVAL;
  useEffect(()=>()=>onRoundOpenChange?.(false),[onRoundOpenChange]);
+ useEffect(()=>{
+  settled.current.clear();
+  // The home and victory entries can coexist. Settle both before a stale lookup returns.
+  const claimed=(event:Event)=>{
+   const detail=(event as CustomEvent<{playerId:string;milestone:number}>).detail;
+   if(detail?.playerId!==player.id)return;
+   settled.current.add(detail.milestone);
+   setStatus(current=>current&&{...current,milestones:current.milestones.filter(level=>level!==detail.milestone)});
+  };
+  window.addEventListener(claimedEvent,claimed);
+  return()=>window.removeEventListener(claimedEvent,claimed);
+ },[player.id]);
  useEffect(()=>{
   if(!canEarn)return;
   let current=true;
   void request<GoldGardenStatus>(`/gold-garden?version=${GOLD_GARDEN_VERSION}`).then(result=>{
-   if(current)setStatus(result);
+   if(current)setStatus({...result,milestones:result.milestones.filter(level=>!settled.current.has(level))});
   }).catch(()=>{if(current)setFailed(true);});
   return()=>{current=false;};
  },[player.id,canEarn,attempt]);
  if(!canEarn)return fallback;
- const next=milestone===undefined?status?.milestones[0]:status?.milestones.includes(milestone)?milestone:undefined;
+ const next=status?pendingGoldGardenMilestone(player.level,status.milestones,milestone):undefined;
  const version=status?.version;
  const needsRuleUpdate=next!==undefined&&!isRefillGoldGardenVersion(version);
  if(!status||needsRuleUpdate)return <Button className={buttonClassName+' gold-garden-lookup'} tone="green"
@@ -121,6 +135,6 @@ export default function GoldGardenEntry({player,onPlayer,milestone,onRoundOpenCh
    tone="gold" icon="coin" onClick={()=>showRound(next)}>{tr('황금 정원')}</Button>}
   {open!==undefined&&<GoldGardenRound key={player.id+':'+open} player={player} milestone={open}
    version={version} onClose={()=>showRound(undefined)}
-   onClaim={result=>{setStatus(current=>current&&{...current,milestones:current.milestones.filter(level=>level!==open)});onPlayer(result);}}/>}
+   onClaim={result=>{onPlayer(result);window.dispatchEvent(new CustomEvent(claimedEvent,{detail:{playerId:player.id,milestone:open}}));}}/>}
  </>;
 }

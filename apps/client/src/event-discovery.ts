@@ -11,9 +11,7 @@ export function eventIntroductionIds(player:Player|null,operations:OperationsSna
  const available=(feature:'flowerlight'|'animalExpedition'|'powerFestival'|'treasure')=>player.level>=gameEventConfig(feature,settings).minLevel&&gameEventAvailable(feature,settings,now);
  if(available('flowerlight'))ids.push('flowerlight:'+FLOWERLIGHT_ID);
  if(available('animalExpedition'))ids.push('animal-expedition:'+configuredExpeditionRound(settings).roundId);
- if(available('powerFestival'))ids.push('power-festival:v1');
  if(available('treasure'))ids.push('treasure:v1');
- if(settings.startBoosterRush.enabled)ids.push('start-rush:v1');
  if(season&&now<season.ends_at)ids.push('season:'+season.id);
  for(const event of operations.events)if(event.kind==='reward'&&event.status==='published'&&event.startsAt<=now&&now<event.endsAt)ids.push('operations:'+event.id);
  return [...new Set(ids)].sort();

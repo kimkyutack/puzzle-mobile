@@ -1,0 +1,12 @@
+{
+  "tea-caddy": "packages/assets/varied-obstacles/source/tea-caddy.png",
+  "honeycomb": "packages/assets/varied-obstacles/source/honeycomb.png",
+  "bellows": "packages/assets/varied-obstacles/source/bellows.png",
+  "sun-gate": "packages/assets/varied-obstacles/source/sun-gate.png",
+  "acorn-nest": "packages/assets/varied-obstacles/source/acorn-nest.png",
+  "cloud-pillow": "packages/assets/varied-obstacles/source/cloud-pillow.png",
+  "mushroom": "packages/assets/varied-obstacles/source/mushroom.png",
+  "crystal-geode": "packages/assets/varied-obstacles/source/crystal-geode.png",
+  "star-core": "packages/assets/varied-obstacles/source/star-core.png",
+  "petal-disc": "packages/assets/varied-obstacles/source/petal-disc.png"
+}

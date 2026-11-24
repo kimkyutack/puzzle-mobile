@@ -1,0 +1,60 @@
+/* Full-body event scenes. Paint lives in bitmap assets; values/actions stay live. */
+.unlimited-scene-v71{position:relative;isolation:isolate;container-type:inline-size;width:100%;height:100%;min-height:130cqw;overflow:hidden;color:#203e62}
+.unlimited-scene-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.unlimited-scene-status{position:absolute;left:21%;top:3.2%;width:58%;height:12.8%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1cqw;color:#fff8ed;text-shadow:0 2px 1px #145460}
+:is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-status>h2{margin:0!important;font-size:6.5cqw;line-height:1.1;font-weight:400;white-space:nowrap}
+.unlimited-scene-status>strong{font-family:var(--font-game-number);font-size:10cqw;line-height:1;font-weight:400;font-variant-numeric:tabular-nums}
+.unlimited-scene-tools{position:absolute;top:52%;left:12%;width:76%;height:12.5%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8%}
+.unlimited-scene-tools>span{display:grid;place-items:start center;min-width:0}
+.unlimited-scene-tools .icon{width:18cqw;height:16cqw;object-fit:contain}
+:is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-schedule-title{position:absolute;top:69.2%;left:9%;width:82%;height:6%;display:grid;place-items:center;margin:0!important;font-size:6.5cqw;line-height:1;font-weight:400;transform:translateY(.08em)}
+.unlimited-scene-times{position:absolute;left:10%;top:76.2%;width:80%;height:6%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4%}
+.unlimited-scene-times>strong{display:grid;place-items:center;padding-left:5.5cqw;font-size:4.6cqw;line-height:1;font-weight:400;font-variant-numeric:tabular-nums;transform:translateY(.08em)}
+:is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-note{position:absolute;top:84%;left:5%;width:90%;margin:0!important;text-align:center;font-size:3cqw;line-height:1.2;color:#204e56!important}
+:is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-play{position:absolute;left:16%;top:88%;width:68%;height:9.5%;min-height:0!important;margin:0;padding:0 2cqw .6cqw!important;font-size:7cqw!important;line-height:1}
+.unlimited-scene-play>.button-label{transform:translateY(.08em);line-height:1.1}
+html:not([lang="ko"]) :is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-status>h2{font-size:4.8cqw}
+html:not([lang="ko"]) :is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-schedule-title{font-size:5cqw}
+html:not([lang="ko"]) :is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-play{font-size:5.8cqw!important}
+.mail-scene-v71{position:relative;isolation:isolate;container-type:inline-size;min-height:100%;width:100%;display:flex;flex-direction:column;gap:2.5cqw;padding:0 3cqw 4cqw;color:#563523}
+.mail-scene-art{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;object-position:center top;pointer-events:none}
+.mail-scene-heading{position:relative;flex:none;min-height:28cqw}
+.game-page[data-page="events"] .mail-scene-heading>h2{position:absolute;top:9cqw;left:2%;width:67%;margin:0!important;font-size:7cqw;line-height:1.15;font-weight:400;color:#fff8df;text-shadow:0 2px 1px #5d3b20,-1px 0 #5d3b20,1px 0 #5d3b20}
+.mail-scene-list{display:flex;flex:1;flex-direction:column;justify-content:flex-start;gap:2cqw;min-width:0}
+.mail-scene-list[data-count="1"]{justify-content:center}
+.mail-scene-postcard,.mail-scene-summary,.mail-scene-empty{border:12px solid transparent;border-image-source:url('../../../packages/assets/event-design-v62/reward-postcard-v71.webp');border-image-slice:48 fill;border-image-width:1}
+.mail-scene-postcard{display:grid;grid-template-columns:18% minmax(0,1fr) 23%;align-items:center;gap:2cqw;min-width:0;min-height:25cqw}
+.mail-scene-envelope,.mail-scene-postcard>.icon{width:100%;height:15cqw;object-fit:contain}
+.mail-scene-copy{min-width:0}
+.game-page[data-page="events"] .mail-scene-copy>h3{margin:0 0 .5cqw!important;font-size:4.5cqw;line-height:1.1;color:#203e62;font-weight:400;overflow-wrap:anywhere}
+.game-page[data-page="events"] .mail-scene-copy>p{margin:0 0 1cqw!important;font-size:3cqw;line-height:1.25;color:#65422e!important;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.mail-scene-copy>small{display:block;margin-top:1cqw;color:#76583b;font-size:2.8cqw;line-height:1}
+.mail-scene-rewards{display:flex;flex-wrap:wrap;align-items:center;gap:1cqw 2cqw;color:#563523}
+.mail-scene-rewards>span{display:flex;align-items:center;min-width:0;gap:0;white-space:nowrap}
+.mail-scene-rewards .icon{width:6.5cqw;height:6.5cqw;object-fit:contain}
+.mail-scene-rewards strong{font-size:3.9cqw;line-height:1;font-weight:400}
+.game-page[data-page="events"] .events-v17 .mail-scene-claim{width:100%;min-height:10cqw!important;margin:0;padding:1cqw 1cqw 2cqw!important;font-size:4.6cqw!important;line-height:1.1}
+.mail-scene-claim>.button-label{line-height:1.1;white-space:normal;overflow-wrap:normal}
+.game-page[data-page="events"] .events-v17 .mail-scene-claim:disabled>.button-label{font-size:3.5cqw}
+.mail-scene-postcard[data-claimed="true"]>.mail-scene-envelope,.mail-scene-postcard[data-claimed="true"]>.mail-scene-copy{opacity:.7}
+.mail-scene-summary{flex:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5cqw}
+.game-page[data-page="events"] .mail-scene-summary>h3{margin:0!important;font-size:5cqw;line-height:1.1;color:#203e62;font-weight:400}
+.game-page[data-page="events"] .mail-scene-summary>p{margin:0!important;font-size:3.5cqw;line-height:1.2;color:#65422e!important}
+.mail-scene-summary>.mail-scene-rewards{justify-content:center}
+.game-page[data-page="events"] .events-v17 .mail-scene-summary>.game-button{width:85%;min-height:11cqw!important;margin:0;padding:1cqw 2cqw 2cqw!important;font-size:6cqw!important;line-height:1.1}
+.mail-scene-empty{display:grid;place-items:center;min-height:30cqw;text-align:center}
+.mail-scene-empty>.icon{width:17cqw;height:17cqw;object-fit:contain}
+.game-page[data-page="events"] .mail-scene-empty>p{font-size:4cqw;color:#563523!important}
+.mail-scene-error{padding:2cqw;margin:0;background:#fff1db;border-radius:6px;color:#a52d26;font-size:3.5cqw;line-height:1.2}
+html:not([lang="ko"]) .game-page[data-page="events"] .mail-scene-heading>h2{font-size:6cqw}
+
+/* Custom schedules retain every configured window; swipe the extra time capsules. */
+.unlimited-scene-times[data-variable="true"]{top:75.6%;left:8%;width:84%;height:7.5%;display:flex;align-items:center;overflow-x:auto;gap:2cqw;padding:1cqw;background-image:url('../../../packages/assets/event-design-v62/reward-postcard-v71.webp');background-size:100% 100%}
+.unlimited-scene-times[data-variable="true"]>strong{flex:0 0 26cqw;height:6cqw;padding-left:5cqw;background-image:url('../../../packages/assets/event-design-v62/season-clock-v71.webp');background-size:100% 100%;border-radius:999px;overflow:hidden;font-size:4cqw;transform:none}
+
+:is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-schedule-title{color:#203e62!important}
+:is(.game-page[data-page="events"],.unlimited-tools-modal) .unlimited-scene-note{color:#123f49!important;font-size:3.2cqw;text-shadow:0 1px #d3eee888}
+.game-page[data-page="events"] .mail-scene-copy>small{color:#76583b!important}
+
+.mail-scene-summary{position:relative;isolation:isolate;border-image:none}
+.mail-scene-summary>.raster-frame-face{inset:-12px}

@@ -1,0 +1,19 @@
+All four images were generated with the built-in imagegen tool. Runtime WebP files are saved alongside this document. Icon alpha channels are preserved.
+
+[garden-pass.webp](/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/weekly-events/garden-pass.webp)
+
+Create ONE finished mobile casual puzzle game UI icon, square canvas, genuinely transparent background. A garden season pass represented by a thick premium golden ticket/booklet with a turquoise enamel inset, a single raised green leaf and tiny five-petal coral blossom emblem, ornamental gold bevel edging and a short purple ribbon tab. Friendly polished 3D painted mobile game asset, rounded soft toy shapes, warm honey gold lighting, rich turquoise and mint and coral accents, strong readable silhouette at 54 px. One centered object fills 84 percent of canvas, 8 percent transparent padding all edges, front three-quarter view, orthographic, very crisp edges, no separate ground shadow, no text, no letters, no numbers, no lantern, no rainbow orb, no character. This is a garden pass entry icon for a colorful garden match-three game.
+
+[unlimited-tools.webp](/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/weekly-events/unlimited-tools.webp)
+
+ONE centered production-ready icon for unlimited starting powerups in a polished colorful garden match-three mobile game. A thick golden infinity symbol, made from smooth beveled honey-gold metal, floats above a compact teal cushion with two tiny game tools at its base: one red coral flower bud bomb and one blue red golden rocket. Dominant infinity silhouette is very clearly readable at 54 pixels. Rich warm gold, saturated turquoise, coral and cobalt, friendly soft rounded 3D painted casual mobile game rendering. Square composition, genuinely transparent background, 8 percent clear padding all around, crisp alpha edges, no ground plane, no text, no numbers, no letters, no lantern or rainbow orb, no characters. Single compact unified object.
+
+[acorn-fairground.webp](/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/weekly-events/acorn-fairground.webp)
+
+Production environment background illustration for a portrait mobile casual garden game, tall 2:3 aspect ratio. A charming enchanted woodland fairground at late golden afternoon, warm honey wood, little acorn lanterns hanging from arched leafy branches at the upper corners, mushroom roofs and ferns in lower corners, a dreamy softly lit clearing in the central 65 percent with subtle blue-violet atmosphere. At bottom a curved warm wooden stage edged with golden leaves. Colorful polished hand-painted 3D casual mobile puzzle game aesthetic, inviting and tactile, lush sculpted details only around the perimeter, strong depth, rich soft light, soft central calm area for game interface overlay. No text, no UI, no buttons, no numbers, no animals, no people, no game board. Distinctly a magical acorn carnival setting.
+
+[sunlit-greenhouse.webp](/Users/kimkyutack/Desktop/puzzle-mobile/packages/assets/weekly-events/sunlit-greenhouse.webp)
+
+Production environment background illustration for a portrait mobile casual garden game, tall 2:3 aspect ratio. Inside a magical sunlit greenhouse with curved gold-and-mint framing along the side edges and top, trailing purple wisteria and tiny blossoms at upper corners, turquoise glass, warm sunbeams, terracotta flower pots and lush green leaves only in bottom corners, a softly lit mint-green central clearing in the central 65 percent for a game interface overlay. Rich painted toy-like 3D casual puzzle game aesthetic, smooth rounded friendly shapes, tactile crafted gold edges and inviting daylight. Full bleed highly polished game environment. No text, no letters, no numbers, no buttons or UI, no game board, no people or animals.
+
+The icons are 384 by 384 pixels. The backgrounds are 768 by 1152 pixels.

@@ -1,3 +1,4 @@
+import {StartGiftSummary} from './StartGift';
 import GoldGardenEntry from './GoldGarden';
 import {isGoldGardenMilestone} from '../../../packages/content/src/gold-garden';
 import {POWER_RAINBOW_WINS,type Player,type Run} from '@garden/contracts';
@@ -31,7 +32,7 @@ function PowerRainbowUnlock({reduced,onContinue}:{reduced:boolean;onContinue:()=
  </section>;
 }
 
-export default function WinModal({run,player,busy,preparingNext=false,showAd=true,onClose,onNext,onHome,onDouble,onPlayer,children}:{run:Run;player:Player;busy:boolean;preparingNext?:boolean;showAd?:boolean;onClose:()=>void;onNext:()=>void;onHome:()=>void;onDouble:()=>void;onPlayer?:(player:Player)=>void;children?:ReactNode}){
+export default function WinModal({run,player,busy,preparingNext=false,showAd=true,firstGarden=false,onClose,onNext,onHome,onDouble,onPlayer,children}:{run:Run;player:Player;busy:boolean;preparingNext?:boolean;showAd?:boolean;firstGarden?:boolean;onClose:()=>void;onNext:()=>void;onHome:()=>void;onDouble:()=>void;onPlayer?:(player:Player)=>void;children?:ReactNode}){
  const confirming=needsFinish(run),reward=completionReward(run);
  const [seenUnlock,setSeenUnlock]=useState<string>();
  const awaitingUnlock=confirming&&player.winStreak===POWER_RAINBOW_WINS-1;
@@ -39,16 +40,17 @@ export default function WinModal({run,player,busy,preparingNext=false,showAd=tru
  if(run.reward?.powerRainbowUnlocked&&seenUnlock!==run.id){
   return <PowerRainbowUnlock reduced={player.settings.reducedMotion} onContinue={()=>setSeenUnlock(run.id)}/>;
  }
- const nextButton=<Button tone="green" icon="lumi" disabled={busy||preparingNext||awaitingUnlock||goldMilestone&&confirming} onClick={onNext}>{tr(preparingNext?'퍼즐 준비 중…':'다음 레벨')}</Button>;
- return <Modal theme="result" title={tr('정원이 활짝 피었어요!')} onClose={onClose}>
+ const nextButton=<Button tone="green" icon={firstGarden?'home':'lumi'} disabled={busy||preparingNext||awaitingUnlock||(goldMilestone||firstGarden)&&confirming} onClick={onNext}>{tr(preparingNext?'퍼즐 준비 중…':firstGarden?'정원 복구하러 가기':'다음 레벨')}</Button>;
+ return <Modal theme="result" className="win-level-modal" title={tr('정원이 활짝 피었어요!')} onClose={firstGarden?undefined:onClose}>
   <Poster id="poster_victory_v5" className="victory-poster" label={tr('꽃별을 들어 올리며 기뻐하는 루미')}/>
   <div className="result-payout" data-content-group data-frame="card_gold_v4"><Amount kind="coin" value={'+'+reward.coins}/><Amount kind="star" value={'+'+reward.stars}/></div>
+  {run.reward?.startGiftStage!==undefined&&<StartGiftSummary player={{...player,startGiftStreak:run.reward.startGiftStage}} result compact/>}
   {confirming&&<p className="result-confirming" role="status">{tr('보상을 확인하고 있어요.')}</p>}
   {!!reward.items?.['world-bomb']&&<div className="world-bomb-earned"><Icon id="world-bomb" size={74}/><strong>+{reward.items['world-bomb']}</strong><span>{tr('10판 완성 선물!')}</span></div>}
   {!!run.reward?.flowerPetals&&<p className="flowerlight-clear-reward"><Icon id="stage_flower_bloom_v33" size={28}/>{tr('꽃빛축제 꽃잎 +{0}',{0:run.reward.flowerPetals})}</p>}
   <p className="result-level">{tr('레벨')}{' '}{run.level.id}{' '}{tr('완료')}</p>
   {onPlayer&&goldMilestone&&run.reward?<GoldGardenEntry key={run.id} player={player} milestone={run.level.id} onPlayer={onPlayer} fallback={nextButton}/>:nextButton}
-  <LinkAction className="result-return" icon="home" onClick={onHome}>{tr('정원으로')}</LinkAction>
+  {!firstGarden&&<LinkAction className="result-return" icon="home" onClick={onHome}>{tr('정원으로')}</LinkAction>}
   {showAd&&player.level>5&&run.reward&&<LinkAction icon="coin" disabled={busy||confirming} onClick={onDouble}>{tr('광고 보고 보상 2배')}{' '}<Amount kind="coin" value={'+'+run.reward.coins}/></LinkAction>}
   {children}
  </Modal>;

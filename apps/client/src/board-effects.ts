@@ -1,3 +1,7 @@
+import {CIRCUIT_BEATS} from '../../../packages/contracts/src/garden-circuit';
+import {FRONTIER_BEATS} from '../../../packages/contracts/src/garden-frontier';
+import {ASSAULT_BEATS} from '../../../packages/contracts/src/garden-assault';
+import {SIEGE_BEATS} from '../../../packages/contracts/src/garden-siege';
 import {AnimatedSprite,type Application,type Container,type Texture} from 'pixi.js';
 import type {Action,GameEvent,GameState,Special,Tile} from '@garden/contracts';
 import {perimeterCells} from '@garden/core';
@@ -368,7 +372,7 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
  function flight(from:number,to:number,delay:number,payload?:Special,compact=false){
   const origin=layout.position(from),target=layout.position(to),cell=layout.cellSize(),dx=target.x-origin.x,dy=target.y-origin.y,distance=Math.hypot(dx,dy)||1,bend=Math.min(cell*1.4,distance*.3+cell*.35),launch=delay+VISUAL_BEATS.charge;
   const takeoff=origin.y-cell*itemWindupPose('glider',1).lift;
-  const path=(u:number)=>({x:lerp(origin.x,target.x,u)-dy/distance*Math.sin(Math.PI*u)*bend,y:lerp(takeoff,target.y,u)+dx/distance*Math.sin(Math.PI*u)*bend});
+  const path=(u:number)=>({x:lerp(origin.x,target.x,u)-dy/distance*Math.sin(Math.PI*u)*bend*.45,y:lerp(takeoff,target.y,u)-Math.sin(Math.PI*u)*bend});
   const travel=VISUAL_BEATS.gliderFlight,point=(t:number)=>path(smooth(t));
   if(!compact){
    flightTrail(point,launch,travel,0x8df0d9);
@@ -394,7 +398,7 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
   bloom(origin,delay+BEE_BEATS.charge,cell*3.25,0xffbe56,265);emberFan(origin,delay+BEE_BEATS.charge,5,0xffdf8a,5,1.15);
   itemWindup(origin,'beehive',delay,BEE_BEATS.charge,140);
  }
- function windSeed(from:Point,to:Point,launch:number){
+ function windSeed(from:Point,to:Point,launch:number,petal=false){
   const cell=layout.cellSize(),point=(t:number)=>{
    const u=easeOut(t);
    return {x:lerp(from.x,to.x,u),y:lerp(from.y,to.y,u)-cell*Math.sin(Math.PI*u)*1.1};
@@ -403,10 +407,10 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
    const at=point(t);sprite.position.set(at.x,at.y);sprite.scale.set(base);
    sprite.alpha=Math.sin(Math.PI*t)*.8;
   },true,0xffdd81,5);
-  emit(images(['wind-seed-projectile','sparkle']),launch,WIND_SEED_FLIGHT,cell*.72,from,(sprite,t,base)=>{
+  emit(images([petal?'petal-disc':'wind-seed-projectile','sparkle']),launch,WIND_SEED_FLIGHT,cell*.72,from,(sprite,t,base)=>{
    const at=point(t);sprite.position.set(at.x,at.y);
    sprite.scale.set(base*(.8+.22*Math.sin(Math.PI*t)));
-   sprite.rotation=(to.x<from.x?-1:1)*.8*t;
+   sprite.rotation=(to.x<from.x?-1:1)*(petal?Math.PI*4:.8)*t;
    sprite.alpha=Math.min(1,2*(1-t)+.25);
   },false,0xffffff,16);
   const arrival=launch+WIND_SEED_FLIGHT;
@@ -460,10 +464,10 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
   const tint=selection.replacement==='bomb'||selection.replacement==='beehive'?0xffbf6c:selection.replacement==='glider'?0x8fffd6:0xb2eaff;
   focus(delay+120,360,release-delay-390,330,double?.42:powered?.36:.3);
   const lanternFrames=images([tileArt('rainbow',undefined,powered)]);
-  // The lantern spins so fast its glass smears into stripes (imagegen motion-blur sheet, ~45 ms per frame), like a disco ball.
+  // The lantern spins so fast its glass smears into stripes (imagegen motion-blur sheet, ~90 ms per frame), like a disco ball.
   const sheet=powered?'power_rainbow_spin_blur_sheet':'rainbow_spin_blur_sheet';
   const turn=[0,1,2,3].map(i=>layout.fxArt?.(`${sheet}_${i}`)).filter((frame):frame is Texture=>!!frame);
-  if(turn.length===4){const spin=Array.from({length:Math.max(1,Math.ceil(duration/180))},()=>turn).flat();
+  if(turn.length===4){const spin=Array.from({length:Math.max(1,Math.ceil(duration/360))},()=>turn).flat();
    emit(spin,delay,duration,cell*1.15*1.22*powerArtScale,origin,(sprite,t,base)=>{const pose=rainbowHeroPose(t*duration,origin,cell,face,charge,travel);sprite.position.set(pose.x,pose.y);sprite.rotation=pose.rotation;sprite.scale.set(base*pose.scale);sprite.alpha=pose.alpha;},false,0xffffff,20);}
   else for(const charged of [false,true])emit(lanternFrames,delay,duration,cell*1.15*powerArtScale,origin,(sprite,t,base)=>{
    const ms=t*duration,pose=rainbowHeroPose(ms,origin,cell,face,charge,travel),blend=smooth(Math.min(1,Math.max(0,(ms-220)/350)));
@@ -528,10 +532,11 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
    },true,0xfff8df,7);
    if(selection.replacement){
     contactFlash(target,arrival,powered?1.62:1.36);
+    const replacement=selection.replacements.get(at)??selection.replacement;
     const child=childAt.get(at),readyAt=child===undefined?release:timing.delays[child]!;
     const ignition=Math.max(arrival+155,readyAt-120+i%6*19);
-    const launchAt=readyAt+specialCharge(selection.replacement)+(selection.replacement==='bomb'?BOMB_BEATS.ignition:0);
-    convertedPower(selection.replacement,at,arrival,ignition,launchAt);
+    const launchAt=readyAt+specialCharge(replacement)+(replacement==='bomb'?BOMB_BEATS.ignition:0);
+    convertedPower(replacement,at,arrival,ignition,launchAt);
    }else contactFlash(target,arrival,1.05);
   }
   bloom(anchor,impact,cell*(powered?6.3:5.1),0xffdd8b,375,true);
@@ -611,6 +616,79 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
     flash(target,cell*1.8,impact);fragments('sprout',target,3,impact+20,1.2,350);
    }
    impulse(impact,1.65,130);contactFlash(origin,impact,3.25);bloom(origin,impact,cell*4,0xadc9fb,315,true);ring(origin,cell*3.6,impact,430);
+  }
+ }
+ function circuitEffect(event:GameEvent,delay:number,state:GameState){
+  const cell=layout.cellSize();
+  if((event.kind==='petal-boomerang-flight'||event.kind==='petal-boomerang-return')&&event.from!==undefined&&event.to!==undefined){
+   const from=layout.position(event.from),to=layout.position(event.to),returning=event.kind==='petal-boomerang-return';
+   const flight=returning?CIRCUIT_BEATS.returnFlight:event.step===0?CIRCUIT_BEATS.firstFlight:CIRCUIT_BEATS.nextFlight,total=flight+(returning?0:CIRCUIT_BEATS.pause);
+   emit(images(['siege-petal-boomerang']),delay,total,cell*.86,from,(sprite,t,base)=>{
+    const u=Math.min(1,t*total/flight),p=curvedPoint(from,to,smooth(u),cell*(event.step===0?.85:.45));sprite.position.set(p.x,p.y);sprite.rotation=u*Math.PI*5;
+    sprite.scale.set(base*(.92+.12*Math.sin(Math.PI*u)));sprite.alpha=returning?Math.min(1,(1-t)*5):1;
+   },false,0xffffff,17);
+   if(!returning){pulse(['siege-garden-pulse'],to,cell*1.65,delay+flight,280);impulse(delay+flight,1.7,110);}
+  }
+  if(event.kind==='crystal-chain'&&event.from!==undefined){
+   const from=layout.position(event.from);
+   for(const at of event.cells){const to=layout.position(at),steps=Math.abs(at%state.width-event.from%state.width)+Math.abs(Math.floor(at/state.width)-Math.floor(event.from/state.width)),travel=steps*CIRCUIT_BEATS.crystalStep;
+    beam(from,to,delay,travel+150,.15,0xffa1e9,travel);pulse(['siege-garden-pulse'],to,cell*1.55,delay+travel,270);
+   }
+  }
+  if(event.kind==='rail-clear')for(const [i,at]of event.cells.entries())if(i%3===0)pulse(['siege-garden-pulse'],layout.position(at),cell*1.7,delay+i*9,340);
+ }
+ function siegeEffect(event:GameEvent,delay:number){
+  if(event.from===undefined)return;
+  const cell=layout.cellSize(),from=layout.position(event.from);
+  const center=(cells:readonly number[])=>cells.map(layout.position).reduce((p,c)=>({x:p.x+c.x/cells.length,y:p.y+c.y/cells.length}),{x:0,y:0});
+  const transfer=(art:string,to:Point,start:number,duration:number,size:number)=>{
+   emit(images([art]),start,duration,cell*size,from,(sprite,t,base)=>{
+    const p=curvedPoint(from,to,smooth(t),cell*.7);sprite.position.set(p.x,p.y);sprite.rotation=Math.sin(t*Math.PI)*.5;
+    sprite.scale.set(base*(.8+.28*Math.sin(Math.PI*t)));sprite.alpha=Math.min(1,t*12)*Math.min(1,(1-t)*10);
+   },false,0xffffff,15);
+  };
+  if(event.kind==='dandelion-seed-flight'&&event.to!==undefined){
+   const to=layout.position(event.to);
+   transfer('siege-dandelion-seed',to,delay,ASSAULT_BEATS.seedFlight,.63);
+   pulse(['siege-garden-pulse'],to,cell*1.5,delay+ASSAULT_BEATS.seedFlight,280);
+   impulse(delay+ASSAULT_BEATS.seedFlight,1.45,100);
+  }
+  if(event.kind==='roller-pin-flight'&&event.to!==undefined){
+   const to=center(event.cells);
+   transfer('siege-roller-pin-2',to,delay,SIEGE_BEATS.collect,.64);
+  }
+  if(event.kind==='roller-roll'&&event.obstacleAfter){
+   const host=event.obstacleAfter,origin=center(host.footprint),target=center(event.cells);
+   const direction=Math.sign(target.x-origin.x),edge={x:target.x+direction*cell*1.45,y:origin.y};
+   emit(images(['siege-garden-roller-2']),delay,SIEGE_BEATS.roll,cell*1.94,origin,(sprite,t,base)=>{
+    const forward=Math.min(1,t/.68),back=Math.max(0,(t-.68)/.32),returning=host.hp>1;
+    const distance=returning?smooth(forward)*(1-smooth(back)):smooth(t);
+    sprite.position.set(lerp(origin.x,edge.x,distance),origin.y-cell*.065*Math.sin(forward*Math.PI*7));
+    sprite.scale.set(base,base*(1-.045*Math.sin(forward*Math.PI*8)));sprite.rotation=direction*.035*Math.sin(forward*Math.PI*6);
+    sprite.alpha=returning?1:Math.min(1,(1-t)*7);
+   },false,0xffffff,18);
+   event.cells.forEach((at,i)=>{const p=layout.position(at),hit=delay+140+Math.floor(i/2)*140;
+    pulse(['siege-garden-pulse'],p,cell*1.15,hit,260);if(i%2===0)impulse(hit,1.8,90);
+   });
+  }
+  if(event.kind==='beacon-charge'){
+   const target=center(event.cells),launch=delay-SIEGE_BEATS.collect;
+   transfer('siege-dew-orb',target,launch,SIEGE_BEATS.collect,.58);
+   pulse(['siege-garden-pulse'],target,cell*1.45,delay,260);
+  }
+  if(event.kind==='bloom-unlock'){
+   const target=center(event.cells);
+   transfer('siege-bloom-bud-2',target,delay-SIEGE_BEATS.unlock,SIEGE_BEATS.unlock,.43);
+   pulse(['siege-garden-pulse'],target,cell*1.8,delay,360);
+  }
+  if(event.kind==='beacon-pulse'){
+   const origin={x:from.x+cell*.5,y:from.y+cell*.5};
+   pulse(['siege-garden-pulse'],origin,cell*8.4,delay,SIEGE_BEATS.pulse);
+   impulse(delay+160,3.4,210);ripple(origin,delay+140,cell*7,420,.5);
+   for(const at of event.cells){const target=layout.position(at),travel=160+Math.hypot(target.x-from.x,target.y-from.y)/cell*24;
+    beam(origin,target,delay,travel+140,.12,0xa4f6ed,travel);
+    pulse(['siege-garden-pulse'],target,cell*1.2,delay+travel,220);
+   }
   }
  }
  function celebrate(after:GameState,delay:number){const cell=layout.cellSize(),keys=Object.values(fragmentColors),face=bounds(after);for(let i=0;i<14;i++){const origin={x:face.x+face.width*(.1+((i*7)%17)/21),y:face.y+cell*(.5+(i%3)*.2)},drift=((i%5)-2)*cell*.6;emit(images([`fragment_${keys[i%keys.length]}`,'fx_starburst','sparkle']),delay+(i%4)*25,760,cell*(.2+(i%3)*.055),origin,(sprite,t,base)=>{sprite.position.set(origin.x+drift*t+Math.sin(t*6+i)*cell*.15,origin.y+cell*(after.height*.65)*t*t-cell*.7*Math.sin(Math.PI*t));sprite.rotation=i*.7+t*(i%2?5:-5);sprite.scale.set(base*(1-.25*t));sprite.alpha=Math.min(1,(1-t)*4);});}}
@@ -717,7 +795,7 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
    // A removal carries its effect id, so shards can follow the very rocket or bomb that broke them.
    const sources=new Map(events.flatMap(event=>{const at=event.from??event.cells.at(-1);return event.type==='special'&&event.effectId!==undefined&&at!==undefined?[[event.effectId,{origin:layout.position(at),rocket:(event.kind??'').includes('wind')}] as const]:[];}));
    const nearestBlast=(point:Point)=>blasts.reduce<Point|undefined>((best,at)=>!best||Math.hypot(at.x-point.x,at.y-point.y)<Math.hypot(best.x-point.x,best.y-point.y)?at:best,undefined);
-   const windTargets=new Map(events.flatMap(event=>event.type==='hit'&&event.kind==='windmill'&&event.effectId!==undefined?
+   const windTargets=new Map(events.flatMap(event=>event.type==='hit'&&(event.kind==='windmill'||event.kind==='sun-gate')&&event.effectId!==undefined?
     [[event.effectId,event.cells] as const]:[]));
    let refilled=false;
    const magnetPull=action?.type==='booster'&&action.item==='color-magnet';
@@ -731,7 +809,7 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
     if(event.kind==='twin-release'&&event.from!==undefined&&event.to!==undefined){
      beam(layout.position(event.from),layout.position(event.to),delay,215,.3,0xffdd9e);
     }
-    if(event.kind==='fuse-blast'&&event.from!==undefined){
+    if((event.kind==='fuse-blast'||event.kind==='mushroom-pulse')&&event.from!==undefined){
      const from=layout.position(event.from);
      bloom(from,delay,cell*2.8,0xffa55a,260,true);
      ring(from,cell*2.35,delay,230);
@@ -742,13 +820,40 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
     if(event.kind==='chapter-compost'||event.kind==='chapter-color-wave'||event.kind==='chapter-reseal'){
      for(const at of event.cells)flash(layout.position(at),cell*.72,delay);
     }
-    if(event.kind==='wind-seed-flight'&&event.from!==undefined&&event.effectId!==undefined){
+    if(['petal-boomerang-flight','petal-boomerang-return','crystal-chain','rail-clear'].includes(event.kind??''))circuitEffect(event,delay,after);
+    if(['dandelion-seed-flight','roller-pin-flight','roller-roll','beacon-charge','bloom-unlock','beacon-pulse'].includes(event.kind??''))siegeEffect(event,delay);
+    if((event.kind==='wind-seed-flight'||event.kind==='petal-disc-flight')&&event.from!==undefined&&event.effectId!==undefined){
      const cells=windTargets.get(event.effectId);
      if(cells?.length){
       const points=cells.map(layout.position);
       const center=points.reduce((p,at)=>({x:p.x+at.x/points.length,y:p.y+at.y/points.length}),{x:0,y:0});
-      windSeed(layout.position(event.from),center,delay);
+      windSeed(layout.position(event.from),center,delay,event.kind==='petal-disc-flight');
      }
+    }
+    if(event.kind==='shelf-collapse'&&event.cells.length){
+     const points=event.cells.map(layout.position),origin=points.reduce((p,c)=>({x:p.x+c.x/points.length,y:p.y+c.y/points.length}),{x:0,y:0});
+     emit(images(['siege-rack-frame']),delay,FRONTIER_BEATS.shelfCollapse,cell*4,origin,(sprite,t,base)=>{
+      sprite.position.set(origin.x,origin.y+cell*.7*t*t);sprite.scale.set(base*(1+.1*t));sprite.rotation=.05*Math.sin(Math.PI*t);sprite.alpha=1-smooth(t);
+     },false,0xffffff,10);debris?.burst('rack-frame',origin,cell,epoch+delay,epoch+timing.settleAt,true,event.cells[0]??0);impulse(delay+70,2.4,160);
+     for(const at of event.cells)pulse(['siege-garden-pulse'],layout.position(at),cell*1.6,delay+40,310);
+    }
+    if(event.kind==='canopy-open'&&event.from!==undefined){
+     const origin=layout.position(event.from),points=event.cells.map(layout.position),target=points.reduce((p,c)=>({x:p.x+c.x/points.length,y:p.y+c.y/points.length}),{x:0,y:0});
+     beam(origin,target,delay,FRONTIER_BEATS.unroll,.12,0xd6eaa0);
+     pulse(['siege-garden-pulse'],target,cell*2,delay+FRONTIER_BEATS.unroll-90,280);
+    }
+    if(event.type==='hit'&&event.kind==='boomerang-pod'&&event.obstacleAfter===null){
+     const origin=layout.position(event.cells[0]!);emit(images(['siege-boomerang-pod-2']),delay,140,cell*.98,origin,(sprite,t,base)=>{sprite.scale.set(base*(1+.18*Math.sin(Math.PI*t)));sprite.alpha=1-smooth(t);},false,0xffffff,9);
+    }
+    if(event.type==='hit'&&event.kind==='dandelion-turret'){
+     const from=layout.position(event.cells[0]!);
+     pulse(['siege-garden-pulse'],from,cell*1.15,delay,210);
+    }
+    if(event.type==='hit'&&event.kind==='pottery-nest'&&event.obstacleAfter===null){
+     const points=event.cells.map(layout.position),from=points.reduce((p,c)=>({x:p.x+c.x/points.length,y:p.y+c.y/points.length}),{x:0,y:0});
+     emit(images(['siege-pottery-nest-2']),delay,ASSAULT_BEATS.reveal+100,cell*1.98,from,(sprite,t,base)=>{
+      sprite.position.set(from.x,from.y-cell*.4*smooth(t));sprite.scale.set(base*(1+.08*t));sprite.alpha=1-smooth(t);
+     },false,0xffffff,12);
     }
     if(event.kind==='starlight-lantern'&&event.obstacleAfter?.hp===1){
      for(const at of event.cells)flash(layout.position(at),cell*1.28,delay);
@@ -828,7 +933,7 @@ export function createBoardEffects(app:Application,layer:Container,layout:BoardE
      if(pops++>=32)break;
      powerShatter(kind,at,delay);
     }
-    if(!matched&&event.type==='hit'&&event.kind!=='windmill'&&event.kind!=='planter-reveal'&&hits++<12){
+    if(!matched&&event.type==='hit'&&event.kind!=='windmill'&&event.kind!=='sun-gate'&&event.kind!=='planter-reveal'&&hits++<12){
      const at=rocketAt??event.cells[0];
      if(at!==undefined){
       const origin=layout.position(at);

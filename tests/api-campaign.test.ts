@@ -43,9 +43,9 @@ describe('campaign API negotiation and publication boundaries',()=>{
   expect(retry.run.level.tutorial).toBeUndefined();expect(retry.run.level.initial).not.toEqual(template.initial);
  });
  it('starts new mechanics with the same deterministic state as local play and no entry heart cost',async()=>{
-  scope.tx.player.level=201;
+  scope.tx.player.level=501;
   const result=await startRun({} as ApiEnv,'campaign-qa',{engineVersion:ENGINE_VERSION,preBoosters:[],idempotencyKey:'campaign-check'});
-  expect(result.run.level.id).toBe(201);expect(result.run.level.obstacles.some(o=>o.kind==='wind-pod')).toBe(true);expect(result.run.state.engineVersion).toBe(ENGINE_VERSION);expect(stateHash(result.run.state)).toBe(stateHash(createGame(result.run.level)));expect(result.player.hearts).toBe(5);expect(result.run.heartSpent).toBe(false);
+  expect(result.run.level.id).toBe(501);expect(result.run.level.obstacles.some(o=>o.kind==='petal-launcher')).toBe(true);expect(result.run.state.engineVersion).toBe(ENGINE_VERSION);expect(stateHash(result.run.state)).toBe(stateHash(createGame(result.run.level)));expect(result.player.hearts).toBe(5);expect(result.run.heartSpent).toBe(false);
  });
  it('preserves old-client content and rejects unknown engines',async()=>{
   const result=await startRun({} as ApiEnv,'campaign-qa',{engineVersion:SCULPTED_ENGINE_VERSION,preBoosters:[],idempotencyKey:'classic-check'});
@@ -75,7 +75,7 @@ describe('campaign API negotiation and publication boundaries',()=>{
   expect(result.run).toEqual(before);expect(scope.tx.statements).toHaveLength(0);
  });
  it('keeps a saved current-engine board when new difficulty data changes the next start',async()=>{
-  scope.tx.player.level=201;const level=getLevel(201),existing={id:'saved-before-rotation',level,state:createGame(level),expiresAt:99999} as Run,snapshot=structuredClone(existing);
+  scope.tx.player.level=501;const level=getLevel(201),existing={id:'saved-before-rotation',level,state:createGame(level),expiresAt:99999} as Run,snapshot=structuredClone(existing);
   expect(publishedLevel(201,ENGINE_VERSION)).not.toEqual(level);vi.mocked(activeRun).mockResolvedValue(existing);
   const result=await startRun({} as ApiEnv,'campaign-qa',{engineVersion:ENGINE_VERSION,supportedEngineVersions:SUPPORTED_ENGINE_VERSIONS,idempotencyKey:'resume-before-curve'});
   expect(result.run).toEqual(snapshot);expect(scope.tx.statements).toHaveLength(0);

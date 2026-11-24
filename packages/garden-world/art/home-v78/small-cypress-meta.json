@@ -1,0 +1,70 @@
+[
+  {
+    "id": "small-cypress",
+    "cell": {
+      "left": 0,
+      "top": 0,
+      "width": 768,
+      "height": 1024
+    },
+    "canvas": {
+      "width": 512,
+      "height": 640
+    },
+    "anchor": {
+      "x": 256,
+      "y": 628
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "body": {
+      "width": 318,
+      "height": 592,
+      "left": 97,
+      "top": 36
+    },
+    "alphaBounds": {
+      "x": 97,
+      "y": 36,
+      "width": 318,
+      "height": 592
+    },
+    "bytes": 55066
+  },
+  {
+    "id": "small-cypress-rear",
+    "cell": {
+      "left": 768,
+      "top": 0,
+      "width": 768,
+      "height": 1024
+    },
+    "canvas": {
+      "width": 512,
+      "height": 640
+    },
+    "anchor": {
+      "x": 256,
+      "y": 628
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "body": {
+      "width": 320,
+      "height": 592,
+      "left": 96,
+      "top": 36
+    },
+    "alphaBounds": {
+      "x": 96,
+      "y": 36,
+      "width": 320,
+      "height": 592
+    },
+    "bytes": 53782
+  }
+]

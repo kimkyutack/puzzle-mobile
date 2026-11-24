@@ -1,0 +1,6 @@
+.modal-layer.unlimited-tools-modal>.modal{width:min(92vw,400px);max-width:400px;min-height:0;max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 40px);padding:76px 22px 22px!important;overflow:visible}
+.unlimited-tools-modal .modal-content{width:100%;max-height:none;margin:0;padding:0!important;overflow:hidden;border-radius:12px}
+.unlimited-tools-modal .unlimited-scene-v71{height:auto;min-height:0;aspect-ratio:992/1462}
+.unlimited-tools-modal .unlimited-scene-art{z-index:0}
+.unlimited-tools-modal .unlimited-scene-v71>:not(.unlimited-scene-art){z-index:1}
+.modal-layer.unlimited-tools-modal .unlimited-scene-v71 .unlimited-scene-note{font-size:max(11px,3.2cqw)!important;line-height:1.2;top:84%;color:#fffef0!important;text-shadow:0 1px 2px #123f49}

@@ -358,7 +358,7 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = App/Simulator.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 85NYTV836Q;
 				GOOGLE_REVERSED_CLIENT_ID = "com.googleusercontent.apps.340736621536-gldihfkfalvc6n4b83i3ll0shi615v2s";
 				INFOPLIST_FILE = App/Info.Debug.plist;
@@ -369,7 +369,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.23;
+				MARKETING_VERSION = 1.26;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cloudgarden.match;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -392,7 +392,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 85NYTV836Q;
 				GOOGLE_REVERSED_CLIENT_ID = "com.googleusercontent.apps.340736621536-gldihfkfalvc6n4b83i3ll0shi615v2s";
@@ -404,7 +404,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.23;
+				MARKETING_VERSION = 1.26;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cloudgarden.match;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

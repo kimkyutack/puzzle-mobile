@@ -1,0 +1,127 @@
+{
+  "thorn-barricade": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/thorn-barricade.png"
+  },
+  "roller-pin": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/roller-pin.png"
+  },
+  "garden-roller": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/garden-roller.png"
+  },
+  "dew-cache": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/dew-cache.png"
+  },
+  "garden-beacon": {
+    "count": 6,
+    "path": "packages/assets/garden-siege/source/garden-beacon.png"
+  },
+  "bloom-bud": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/bloom-bud.png"
+  },
+  "bloom-shield": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/bloom-shield.png"
+  },
+  "garden-pulse": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/garden-pulse.png"
+  },
+  "restored-bed": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/restored-bed.png"
+  },
+  "thorn-shield": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/thorn-shield.png"
+  },
+  "dew-orb": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/dew-orb.png"
+  },
+  "seed-cocoon": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/seed-cocoon.png"
+  },
+  "dandelion-turret": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/dandelion-turret.png"
+  },
+  "pottery-nest": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/pottery-nest.png"
+  },
+  "ceramic-pot": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/ceramic-pot.png"
+  },
+  "dandelion-seed": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/dandelion-seed.png"
+  },
+  "shelf-vase": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/shelf-vase.png"
+  },
+  "rack-frame": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/rack-frame.png"
+  },
+  "awning-row": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/awning-row.png"
+  },
+  "canopy-orchid": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/canopy-orchid.png"
+  },
+  "awning-crank": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/awning-crank.png"
+  },
+  "journey-vine": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/journey-vine.png"
+  },
+  "journey-relic": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/journey-relic.png"
+  },
+  "journey-gate": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/journey-gate.png"
+  },
+  "rail-pot": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/circuit-v3/rail-pot.png"
+  },
+  "rail-deck": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/circuit-v3/rail-deck.png",
+    "frameSize": 512
+  },
+  "boomerang-pod": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/circuit-v3/boomerang-pod.png"
+  },
+  "boomerang-bell": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/circuit-v3/boomerang-bell.png"
+  },
+  "petal-boomerang": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/circuit-v3/petal-boomerang.png"
+  },
+  "linked-crystal": {
+    "count": 3,
+    "path": "packages/assets/garden-siege/source/circuit-v3/linked-crystal.png"
+  },
+  "crystal-link": {
+    "count": 1,
+    "path": "packages/assets/garden-siege/source/circuit-v3/crystal-link.png"
+  }
+}

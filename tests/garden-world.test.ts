@@ -155,6 +155,25 @@ describe('large garden isometric camera',()=>{
   expect(()=>zoomGardenAt({x:0,y:0,zoom:1},{x:NaN,y:2},1)).toThrow(RangeError);
   expect(()=>constrainGardenCamera({x:0,y:0,zoom:1},GARDEN_WORLD,{width:0,height:100})).toThrow(RangeError);
  });
+ it('lets the garden edges reach the unobscured area above a tall home dock',()=>{
+  const viewport={width:390,height:844},insets={top:112,bottom:320},margin=80,grid={tileWidth:128,tileHeight:64};
+  for(const zoom of [.5,1,1.8]){
+   const lower=constrainGardenCamera({x:0,y:-1e6,zoom},GARDEN_WORLD,viewport,margin,grid,insets);
+   const upper=constrainGardenCamera({x:0,y:1e6,zoom},GARDEN_WORLD,viewport,margin,grid,insets);
+   expect(gardenGridToScreen({x:GARDEN_WORLD.width,y:GARDEN_WORLD.height},lower,grid).y).toBeCloseTo(viewport.height-insets.bottom-margin);
+   expect(gardenGridToScreen({x:0,y:0},upper,grid).y).toBeCloseTo(insets.top+margin);
+   const collapsed=constrainGardenCamera({x:0,y:-1e6,zoom},GARDEN_WORLD,viewport,margin,grid,{...insets,bottom:200});
+   expect(collapsed.y-lower.y).toBeCloseTo(120);
+  }
+ });
+ it('centers small gardens in the visible area and tolerates a fully covered tiny viewport',()=>{
+  const grid={tileWidth:128,tileHeight:64},camera={x:1e6,y:-1e6,zoom:1};
+  const small=constrainGardenCamera(camera,{width:1,height:1},{width:390,height:844},80,grid,{top:112,bottom:320});
+  expect(gardenGridToScreen({x:.5,y:.5},small,grid)).toEqual({x:195,y:318});
+  const covered=constrainGardenCamera(camera,GARDEN_WORLD,{width:320,height:240},80,grid,{top:112,bottom:320});
+  expect(Number.isFinite(covered.x)&&Number.isFinite(covered.y)).toBe(true);
+  expect(()=>constrainGardenCamera(camera,GARDEN_WORLD,{width:390,height:844},80,grid,{bottom:-1})).toThrow(RangeError);
+ });
 });
 
 it('fits a fully expanded garden into a phone overview and preserves pinch anchors below the old minimum',()=>{

@@ -1,0 +1,5 @@
+{
+  "prompt": "Edit the provided mobile garden game workshop background. Remove ONLY the large blank green button at the very bottom (around x160-830, y1280-1430 in the 992x1462 input). Replace it with the same natural wooden workshop wall/planks continuing seamlessly behind it, retaining the original corner foliage. This image must contain NO bottom play/start/action button and NO title plaque at the top. Keep the rest unchanged: same window, red panda and wrench, same functional four-cell blue tool board and gauge holes, cream caption pill, five empty reward cabinets and their number tabs. Keep their exact original sizes and coordinates. Same dimensions and overall composition. No text, no new controls or decoration. This is only the background; functional buttons will be separate live UI.",
+  "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-4b61edfe-97ed-4794-aab1-93498bd25913.png",
+  "decision": "User confirmed removing only the painted background button, retaining the live game start/navigation button."
+}

@@ -2,6 +2,7 @@ import {DatabaseSync,type SQLInputValue} from 'node:sqlite';
 import {readFileSync,readdirSync} from 'node:fs';
 import {afterEach,beforeEach,describe,it,expect,vi} from 'vitest';
 import {newPlayer,readPlayer,type ApiEnv} from '../apps/api/src/db';
+import {events,eventClaim} from '../apps/api/src/economy';
 import {startPowerFestival,claimPowerFestival} from '../apps/api/src/power-festival';
 import {closeRun,runActions} from '../apps/api/src/runs';
 import {updateHiddenPowerMission} from '../apps/api/src/hidden-power-missions';
@@ -52,8 +53,8 @@ describe('power festival transactions with the real API functions',()=>{
   expect(response.run.powerUses).toEqual(expected);expect(response.player.powerFestival!.counts).toEqual(addPowerUses(p.powerFestival!.counts,expected));
   await runActions(env,user,run.id,body);expect((await readPlayer(env.DB,user)).powerFestival!.counts).toEqual(response.player.powerFestival!.counts);
   const claim={eventId:p.powerFestival!.id,stage:1},results=await Promise.all([claimPowerFestival(env,user,{...claim,key:'first-claim-key'}),claimPowerFestival(env,user,{...claim,key:'second-claim-key'})]);
-  expect(results.filter(r=>r.granted)).toHaveLength(1);const saved=await readPlayer(env.DB,user);expect(saved.coins).toBe(600);expect(saved.inventory.hammer.bound).toBe(1);expect(saved.powerFestival!.claimedStages).toBe(1);
-  expect(db.prepare("SELECT count(*) n FROM ledger WHERE user_id=? AND reason LIKE 'power-festival:claim:%'").get(user)?.n).toBe(2);
+  expect(results.filter(r=>r.granted)).toHaveLength(1);const saved=await readPlayer(env.DB,user);expect(saved.coins).toBe(600);expect(saved.inventory.hammer.bound).toBe(0);expect(saved.powerFestival!.claimedStages).toBe(1);
+  expect(db.prepare("SELECT count(*) n FROM ledger WHERE user_id=? AND reason LIKE 'power-festival:claim:%'").get(user)?.n).toBe(1);
  });
  it('rejects early and out-of-order claims without changing any balance',async()=>{
   const p=(await startPowerFestival(env,user,{key:'festival-start-key'})).player;
@@ -67,10 +68,10 @@ describe('power festival transactions with the real API functions',()=>{
   vi.mocked(Date.now).mockReturnValue(now+86400000);await expect(startPowerFestival(env,user,{key:'next-day-start-key'})).rejects.toMatchObject({code:'FESTIVAL_UNCLAIMED'});
   await claimPowerFestival(env,user,{key:'expired-prize-key',eventId:p.powerFestival!.id,stage:1});const next=await startPowerFestival(env,user,{key:'next-day-start-key'});expect(next.player.powerFestival!.id).not.toBe(p.powerFestival!.id);
  });
- it('awards all five stages in order, including the full-board bomb, and limits starts to one per day',async()=>{
+ it('awards the selected coin, hammer and rainbow stage rewards in order, and limits starts to one per day',async()=>{
   const p=(await startPowerFestival(env,user,{key:'festival-start-key'})).player;p.powerFestival!.counts=POWER_FESTIVAL_STAGES.reduce((sum,stage)=>addPowerUses(sum,stage.targets),emptyPowerUses());store(p);
   for(let stage=1;stage<=5;stage++)await claimPowerFestival(env,user,{key:'stage-reward-'+stage,eventId:p.powerFestival!.id,stage});
-  const final=await readPlayer(env.DB,user);expect(final.inventory['world-bomb'].bound).toBe(1);expect(final.coins).toBe(1700);expect(final.powerFestival!.claimedStages).toBe(5);
+  const final=await readPlayer(env.DB,user);expect(final.inventory.hammer.bound).toBe(1);expect(final.inventory.rainbow.bound).toBe(2);expect(final.inventory['world-bomb'].bound).toBe(0);expect(final.coins).toBe(1500);expect(final.powerFestival!.claimedStages).toBe(5);
   await expect(startPowerFestival(env,user,{key:'same-day-start-key'})).rejects.toMatchObject({code:'FESTIVAL_ALREADY_PLAYED'});
  });
 });
@@ -116,5 +117,34 @@ describe('hidden power missions',()=>{
   expect(saved.hiddenPowerMission?.claimedStages).toBe(1);
   expect(saved.coins).toBe(player.coins+stage.reward.coins);
   expect(saved.inventory['wind-row'].bound).toBe(player.inventory['wind-row'].bound+1);
+ });
+});
+
+// Selected season card amounts must match authoritative grants, including non-coin rewards.
+describe('season scene reward contracts',()=>{
+ async function seasonClears(count:number,guild=false){
+  db.prepare('DELETE FROM seasons').run();db.prepare('INSERT INTO seasons VALUES(?,?,?)').run('scene-season',now-1000,now+86400000);
+  if(guild){db.prepare('INSERT INTO guilds(id,name,description,mode,min_level,emblem,created_at) VALUES(?,?,?,?,?,?,?)').run('scene-guild','Scene garden','','open',5,0,now-1000);db.prepare('INSERT INTO guild_members(user_id,guild_id,role,joined_at) VALUES(?,?,?,?)').run(user,'scene-guild','leader',now-1000);const member=await readPlayer(env.DB,user);member.guildId='scene-guild';store(member);}
+  for(let i=1;i<=count;i++){const run=await seedRun('season-clear-'+i,i);db.prepare("UPDATE runs SET status='won' WHERE id=?").run(run.id);db.prepare('INSERT INTO level_rewards(user_id,level_id,run_id,coins,stars,created_at) VALUES(?,?,?,?,?,?)').run(user,i,run.id,0,0,now);}
+ }
+ it('publishes and grants the 200-coin personal card exactly once',async()=>{
+  await seasonClears(10);const displayed=(await events(env,user)).personal;
+  expect(displayed.reward).toEqual({coins:200,stars:0,items:{}});expect(displayed.coins).toBe(200);
+  const claim={key:'scene-personal-claim',kind:'personal'},result=await eventClaim(env,user,claim);
+  expect(result.player.coins).toBe(700);expect(result.reward).toEqual(displayed.reward);
+  await eventClaim(env,user,claim);await expect(eventClaim(env,user,{...claim,key:'scene-personal-repeat'})).rejects.toMatchObject({code:'EVENT_NOT_READY'});
+  expect((await readPlayer(env.DB,user)).coins).toBe(700);
+ });
+ it('grants the guild card as two rockets and three restoration stars, without coins or duplicate grants',async()=>{
+  await seasonClears(30,true);const displayed=(await events(env,user)).guild;
+  expect(displayed.reward).toEqual({coins:0,stars:3,items:{'wind-row':2}});
+  const before=await readPlayer(env.DB,user),results=await Promise.allSettled([eventClaim(env,user,{kind:'guild',key:'scene-guild-a'}),eventClaim(env,user,{kind:'guild',key:'scene-guild-b'})]);
+  expect(results.filter(result=>result.status==='fulfilled'),JSON.stringify(results.map(result=>result.status==='rejected'?{reason:String(result.reason),code:result.reason?.code}:result.status))).toHaveLength(1);
+  const after=await readPlayer(env.DB,user);expect(after.coins).toBe(before.coins);expect(after.stars).toBe(before.stars+3);expect(after.inventory['wind-row'].bound).toBe(before.inventory['wind-row'].bound+2);
+  expect((await events(env,user)).guild.claimed).toBe(true);
+ });
+ it('rejects incomplete, non-member and expired claims without changing balances',async()=>{
+  await seasonClears(9);await expect(eventClaim(env,user,{kind:'personal',key:'scene-early'})).rejects.toMatchObject({code:'EVENT_NOT_READY'});await expect(eventClaim(env,user,{kind:'guild',key:'scene-no-guild'})).rejects.toMatchObject({code:'EVENT_NOT_READY'});
+  vi.mocked(Date.now).mockReturnValue(now+86400001);await expect(eventClaim(env,user,{kind:'personal',key:'scene-expired'})).rejects.toMatchObject({code:'SEASON_ENDED'});expect((await readPlayer(env.DB,user)).coins).toBe(500);
  });
 });

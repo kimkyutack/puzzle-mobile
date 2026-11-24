@@ -1,0 +1,4297 @@
+{
+  "version": "open-silhouette-2026.11.20",
+  "mode": "built-in imagegen",
+  "frames": [
+    {
+      "id": "mobile-crate-0",
+      "family": "crate",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crate-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png"
+    },
+    {
+      "id": "mobile-crate-1",
+      "family": "crate",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crate-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png"
+    },
+    {
+      "id": "mobile-crate-2",
+      "family": "crate",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crate-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png"
+    },
+    {
+      "id": "mobile-crate-debris-0",
+      "family": "crate",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crate-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png"
+    },
+    {
+      "id": "mobile-crate-debris-1",
+      "family": "crate",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crate-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png"
+    },
+    {
+      "id": "mobile-crate-debris-2",
+      "family": "crate",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crate-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png"
+    },
+    {
+      "id": "mobile-vine-0",
+      "family": "vine",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png"
+    },
+    {
+      "id": "mobile-vine-1",
+      "family": "vine",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png"
+    },
+    {
+      "id": "mobile-vine-2",
+      "family": "vine",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png"
+    },
+    {
+      "id": "mobile-vine-debris-0",
+      "family": "vine",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png"
+    },
+    {
+      "id": "mobile-vine-debris-1",
+      "family": "vine",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png"
+    },
+    {
+      "id": "mobile-vine-debris-2",
+      "family": "vine",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png"
+    },
+    {
+      "id": "mobile-pot-0",
+      "family": "pot",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pot-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png"
+    },
+    {
+      "id": "mobile-pot-1",
+      "family": "pot",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pot-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png"
+    },
+    {
+      "id": "mobile-pot-2",
+      "family": "pot",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pot-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png"
+    },
+    {
+      "id": "mobile-pot-debris-0",
+      "family": "pot",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pot-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png"
+    },
+    {
+      "id": "mobile-pot-debris-1",
+      "family": "pot",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pot-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png"
+    },
+    {
+      "id": "mobile-pot-debris-2",
+      "family": "pot",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pot-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png"
+    },
+    {
+      "id": "mobile-moss-0",
+      "family": "moss",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-moss-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png"
+    },
+    {
+      "id": "mobile-moss-1",
+      "family": "moss",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-moss-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png"
+    },
+    {
+      "id": "mobile-moss-2",
+      "family": "moss",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-moss-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png"
+    },
+    {
+      "id": "mobile-moss-debris-0",
+      "family": "moss",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-moss-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png"
+    },
+    {
+      "id": "mobile-moss-debris-1",
+      "family": "moss",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-moss-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png"
+    },
+    {
+      "id": "mobile-moss-debris-2",
+      "family": "moss",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-moss-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png"
+    },
+    {
+      "id": "mobile-bud-0",
+      "family": "bud",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bud-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png"
+    },
+    {
+      "id": "mobile-bud-1",
+      "family": "bud",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bud-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png"
+    },
+    {
+      "id": "mobile-bud-2",
+      "family": "bud",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bud-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png"
+    },
+    {
+      "id": "mobile-bud-debris-0",
+      "family": "bud",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bud-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png"
+    },
+    {
+      "id": "mobile-bud-debris-1",
+      "family": "bud",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bud-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png"
+    },
+    {
+      "id": "mobile-bud-debris-2",
+      "family": "bud",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bud-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png"
+    },
+    {
+      "id": "mobile-carousel-0",
+      "family": "carousel",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-carousel-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png"
+    },
+    {
+      "id": "mobile-carousel-1",
+      "family": "carousel",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-carousel-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png"
+    },
+    {
+      "id": "mobile-carousel-2",
+      "family": "carousel",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-carousel-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png"
+    },
+    {
+      "id": "mobile-carousel-debris-0",
+      "family": "carousel",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-carousel-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png"
+    },
+    {
+      "id": "mobile-carousel-debris-1",
+      "family": "carousel",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-carousel-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png"
+    },
+    {
+      "id": "mobile-carousel-debris-2",
+      "family": "carousel",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-carousel-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png"
+    },
+    {
+      "id": "mobile-curtain-0",
+      "family": "curtain",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-curtain-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png"
+    },
+    {
+      "id": "mobile-curtain-1",
+      "family": "curtain",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-curtain-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png"
+    },
+    {
+      "id": "mobile-curtain-2",
+      "family": "curtain",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-curtain-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png"
+    },
+    {
+      "id": "mobile-curtain-debris-0",
+      "family": "curtain",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-curtain-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png"
+    },
+    {
+      "id": "mobile-curtain-debris-1",
+      "family": "curtain",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-curtain-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png"
+    },
+    {
+      "id": "mobile-curtain-debris-2",
+      "family": "curtain",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-curtain-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png"
+    },
+    {
+      "id": "mobile-rail-pot-0",
+      "family": "rail-pot",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-pot-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png"
+    },
+    {
+      "id": "mobile-rail-pot-1",
+      "family": "rail-pot",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-pot-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png"
+    },
+    {
+      "id": "mobile-rail-pot-2",
+      "family": "rail-pot",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-pot-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png"
+    },
+    {
+      "id": "mobile-rail-pot-debris-0",
+      "family": "rail-pot",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-pot-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png"
+    },
+    {
+      "id": "mobile-rail-pot-debris-1",
+      "family": "rail-pot",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-pot-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png"
+    },
+    {
+      "id": "mobile-rail-pot-debris-2",
+      "family": "rail-pot",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-pot-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png"
+    },
+    {
+      "id": "mobile-boomerang-pod-0",
+      "family": "boomerang-pod",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-pod-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png"
+    },
+    {
+      "id": "mobile-boomerang-pod-1",
+      "family": "boomerang-pod",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-pod-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png"
+    },
+    {
+      "id": "mobile-boomerang-pod-2",
+      "family": "boomerang-pod",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-pod-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png"
+    },
+    {
+      "id": "mobile-boomerang-pod-debris-0",
+      "family": "boomerang-pod",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-pod-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png"
+    },
+    {
+      "id": "mobile-boomerang-pod-debris-1",
+      "family": "boomerang-pod",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-pod-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png"
+    },
+    {
+      "id": "mobile-boomerang-pod-debris-2",
+      "family": "boomerang-pod",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-pod-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png"
+    },
+    {
+      "id": "mobile-boomerang-bell-0",
+      "family": "boomerang-bell",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-bell-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png"
+    },
+    {
+      "id": "mobile-boomerang-bell-1",
+      "family": "boomerang-bell",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-bell-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png"
+    },
+    {
+      "id": "mobile-boomerang-bell-2",
+      "family": "boomerang-bell",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-bell-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png"
+    },
+    {
+      "id": "mobile-boomerang-bell-debris-0",
+      "family": "boomerang-bell",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-bell-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png"
+    },
+    {
+      "id": "mobile-boomerang-bell-debris-1",
+      "family": "boomerang-bell",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-bell-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png"
+    },
+    {
+      "id": "mobile-boomerang-bell-debris-2",
+      "family": "boomerang-bell",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-boomerang-bell-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png"
+    },
+    {
+      "id": "mobile-linked-crystal-0",
+      "family": "linked-crystal",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-linked-crystal-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png"
+    },
+    {
+      "id": "mobile-linked-crystal-1",
+      "family": "linked-crystal",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-linked-crystal-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png"
+    },
+    {
+      "id": "mobile-linked-crystal-2",
+      "family": "linked-crystal",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-linked-crystal-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png"
+    },
+    {
+      "id": "mobile-linked-crystal-debris-0",
+      "family": "linked-crystal",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-linked-crystal-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png"
+    },
+    {
+      "id": "mobile-linked-crystal-debris-1",
+      "family": "linked-crystal",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-linked-crystal-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png"
+    },
+    {
+      "id": "mobile-linked-crystal-debris-2",
+      "family": "linked-crystal",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-linked-crystal-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png"
+    },
+    {
+      "id": "mobile-shelf-vase-0",
+      "family": "shelf-vase",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shelf-vase-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png"
+    },
+    {
+      "id": "mobile-shelf-vase-1",
+      "family": "shelf-vase",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shelf-vase-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png"
+    },
+    {
+      "id": "mobile-shelf-vase-2",
+      "family": "shelf-vase",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shelf-vase-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png"
+    },
+    {
+      "id": "mobile-shelf-vase-debris-0",
+      "family": "shelf-vase",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shelf-vase-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png"
+    },
+    {
+      "id": "mobile-shelf-vase-debris-1",
+      "family": "shelf-vase",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shelf-vase-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png"
+    },
+    {
+      "id": "mobile-shelf-vase-debris-2",
+      "family": "shelf-vase",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shelf-vase-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png"
+    },
+    {
+      "id": "mobile-canopy-orchid-0",
+      "family": "canopy-orchid",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-canopy-orchid-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png"
+    },
+    {
+      "id": "mobile-canopy-orchid-1",
+      "family": "canopy-orchid",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-canopy-orchid-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png"
+    },
+    {
+      "id": "mobile-canopy-orchid-2",
+      "family": "canopy-orchid",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-canopy-orchid-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png"
+    },
+    {
+      "id": "mobile-canopy-orchid-debris-0",
+      "family": "canopy-orchid",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-canopy-orchid-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png"
+    },
+    {
+      "id": "mobile-canopy-orchid-debris-1",
+      "family": "canopy-orchid",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-canopy-orchid-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png"
+    },
+    {
+      "id": "mobile-canopy-orchid-debris-2",
+      "family": "canopy-orchid",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-canopy-orchid-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png"
+    },
+    {
+      "id": "mobile-awning-crank-0",
+      "family": "awning-crank",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-crank-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png"
+    },
+    {
+      "id": "mobile-awning-crank-1",
+      "family": "awning-crank",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-crank-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png"
+    },
+    {
+      "id": "mobile-awning-crank-2",
+      "family": "awning-crank",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-crank-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png"
+    },
+    {
+      "id": "mobile-awning-crank-debris-0",
+      "family": "awning-crank",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-crank-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png"
+    },
+    {
+      "id": "mobile-awning-crank-debris-1",
+      "family": "awning-crank",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-crank-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png"
+    },
+    {
+      "id": "mobile-awning-crank-debris-2",
+      "family": "awning-crank",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-crank-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png"
+    },
+    {
+      "id": "mobile-journey-vine-0",
+      "family": "journey-vine",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-vine-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png"
+    },
+    {
+      "id": "mobile-journey-vine-1",
+      "family": "journey-vine",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-vine-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png"
+    },
+    {
+      "id": "mobile-journey-vine-2",
+      "family": "journey-vine",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-vine-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png"
+    },
+    {
+      "id": "mobile-journey-vine-debris-0",
+      "family": "journey-vine",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-vine-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png"
+    },
+    {
+      "id": "mobile-journey-vine-debris-1",
+      "family": "journey-vine",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-vine-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png"
+    },
+    {
+      "id": "mobile-journey-vine-debris-2",
+      "family": "journey-vine",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-vine-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png"
+    },
+    {
+      "id": "mobile-journey-relic-0",
+      "family": "journey-relic",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-relic-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png"
+    },
+    {
+      "id": "mobile-journey-relic-1",
+      "family": "journey-relic",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-relic-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png"
+    },
+    {
+      "id": "mobile-journey-relic-2",
+      "family": "journey-relic",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-relic-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png"
+    },
+    {
+      "id": "mobile-journey-relic-debris-0",
+      "family": "journey-relic",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-relic-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png"
+    },
+    {
+      "id": "mobile-journey-relic-debris-1",
+      "family": "journey-relic",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-relic-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png"
+    },
+    {
+      "id": "mobile-journey-relic-debris-2",
+      "family": "journey-relic",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-journey-relic-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png"
+    },
+    {
+      "id": "mobile-seed-cocoon-0",
+      "family": "seed-cocoon",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-seed-cocoon-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png"
+    },
+    {
+      "id": "mobile-seed-cocoon-1",
+      "family": "seed-cocoon",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-seed-cocoon-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png"
+    },
+    {
+      "id": "mobile-seed-cocoon-2",
+      "family": "seed-cocoon",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-seed-cocoon-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png"
+    },
+    {
+      "id": "mobile-seed-cocoon-debris-0",
+      "family": "seed-cocoon",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-seed-cocoon-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png"
+    },
+    {
+      "id": "mobile-seed-cocoon-debris-1",
+      "family": "seed-cocoon",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-seed-cocoon-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png"
+    },
+    {
+      "id": "mobile-seed-cocoon-debris-2",
+      "family": "seed-cocoon",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-seed-cocoon-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png"
+    },
+    {
+      "id": "mobile-dandelion-turret-0",
+      "family": "dandelion-turret",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dandelion-turret-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png"
+    },
+    {
+      "id": "mobile-dandelion-turret-1",
+      "family": "dandelion-turret",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dandelion-turret-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png"
+    },
+    {
+      "id": "mobile-dandelion-turret-2",
+      "family": "dandelion-turret",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dandelion-turret-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png"
+    },
+    {
+      "id": "mobile-dandelion-turret-debris-0",
+      "family": "dandelion-turret",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dandelion-turret-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png"
+    },
+    {
+      "id": "mobile-dandelion-turret-debris-1",
+      "family": "dandelion-turret",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dandelion-turret-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png"
+    },
+    {
+      "id": "mobile-dandelion-turret-debris-2",
+      "family": "dandelion-turret",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dandelion-turret-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png"
+    },
+    {
+      "id": "mobile-ceramic-pot-0",
+      "family": "ceramic-pot",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-ceramic-pot-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png"
+    },
+    {
+      "id": "mobile-ceramic-pot-1",
+      "family": "ceramic-pot",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-ceramic-pot-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png"
+    },
+    {
+      "id": "mobile-ceramic-pot-2",
+      "family": "ceramic-pot",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-ceramic-pot-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png"
+    },
+    {
+      "id": "mobile-ceramic-pot-debris-0",
+      "family": "ceramic-pot",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-ceramic-pot-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png"
+    },
+    {
+      "id": "mobile-ceramic-pot-debris-1",
+      "family": "ceramic-pot",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-ceramic-pot-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png"
+    },
+    {
+      "id": "mobile-ceramic-pot-debris-2",
+      "family": "ceramic-pot",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-ceramic-pot-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png"
+    },
+    {
+      "id": "mobile-thorn-barricade-0",
+      "family": "thorn-barricade",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-barricade-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png"
+    },
+    {
+      "id": "mobile-thorn-barricade-1",
+      "family": "thorn-barricade",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-barricade-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png"
+    },
+    {
+      "id": "mobile-thorn-barricade-2",
+      "family": "thorn-barricade",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-barricade-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png"
+    },
+    {
+      "id": "mobile-thorn-barricade-debris-0",
+      "family": "thorn-barricade",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-barricade-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png"
+    },
+    {
+      "id": "mobile-thorn-barricade-debris-1",
+      "family": "thorn-barricade",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-barricade-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png"
+    },
+    {
+      "id": "mobile-thorn-barricade-debris-2",
+      "family": "thorn-barricade",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-barricade-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png"
+    },
+    {
+      "id": "mobile-roller-pin-0",
+      "family": "roller-pin",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-roller-pin-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png"
+    },
+    {
+      "id": "mobile-roller-pin-1",
+      "family": "roller-pin",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-roller-pin-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png"
+    },
+    {
+      "id": "mobile-roller-pin-2",
+      "family": "roller-pin",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-roller-pin-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png"
+    },
+    {
+      "id": "mobile-roller-pin-debris-0",
+      "family": "roller-pin",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-roller-pin-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png"
+    },
+    {
+      "id": "mobile-roller-pin-debris-1",
+      "family": "roller-pin",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-roller-pin-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png"
+    },
+    {
+      "id": "mobile-roller-pin-debris-2",
+      "family": "roller-pin",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-roller-pin-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png"
+    },
+    {
+      "id": "mobile-garden-roller-0",
+      "family": "garden-roller",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-roller-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png"
+    },
+    {
+      "id": "mobile-garden-roller-1",
+      "family": "garden-roller",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-roller-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png"
+    },
+    {
+      "id": "mobile-garden-roller-2",
+      "family": "garden-roller",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-roller-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png"
+    },
+    {
+      "id": "mobile-garden-roller-debris-0",
+      "family": "garden-roller",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-roller-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png"
+    },
+    {
+      "id": "mobile-garden-roller-debris-1",
+      "family": "garden-roller",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-roller-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png"
+    },
+    {
+      "id": "mobile-garden-roller-debris-2",
+      "family": "garden-roller",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-roller-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png"
+    },
+    {
+      "id": "mobile-garden-beacon-0",
+      "family": "garden-beacon",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-beacon-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png"
+    },
+    {
+      "id": "mobile-garden-beacon-1",
+      "family": "garden-beacon",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-beacon-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png"
+    },
+    {
+      "id": "mobile-garden-beacon-2",
+      "family": "garden-beacon",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-beacon-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png"
+    },
+    {
+      "id": "mobile-garden-beacon-debris-0",
+      "family": "garden-beacon",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-beacon-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png"
+    },
+    {
+      "id": "mobile-garden-beacon-debris-1",
+      "family": "garden-beacon",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-beacon-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png"
+    },
+    {
+      "id": "mobile-garden-beacon-debris-2",
+      "family": "garden-beacon",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-beacon-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png"
+    },
+    {
+      "id": "mobile-bloom-bud-0",
+      "family": "bloom-bud",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bud-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png"
+    },
+    {
+      "id": "mobile-bloom-bud-1",
+      "family": "bloom-bud",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bud-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png"
+    },
+    {
+      "id": "mobile-bloom-bud-2",
+      "family": "bloom-bud",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bud-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png"
+    },
+    {
+      "id": "mobile-bloom-bud-debris-0",
+      "family": "bloom-bud",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bud-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png"
+    },
+    {
+      "id": "mobile-bloom-bud-debris-1",
+      "family": "bloom-bud",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bud-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png"
+    },
+    {
+      "id": "mobile-bloom-bud-debris-2",
+      "family": "bloom-bud",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bud-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png"
+    },
+    {
+      "id": "mobile-tea-caddy-0",
+      "family": "tea-caddy",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-tea-caddy-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png"
+    },
+    {
+      "id": "mobile-tea-caddy-1",
+      "family": "tea-caddy",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-tea-caddy-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png"
+    },
+    {
+      "id": "mobile-tea-caddy-2",
+      "family": "tea-caddy",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-tea-caddy-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png"
+    },
+    {
+      "id": "mobile-tea-caddy-debris-0",
+      "family": "tea-caddy",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-tea-caddy-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png"
+    },
+    {
+      "id": "mobile-tea-caddy-debris-1",
+      "family": "tea-caddy",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-tea-caddy-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png"
+    },
+    {
+      "id": "mobile-tea-caddy-debris-2",
+      "family": "tea-caddy",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-tea-caddy-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png"
+    },
+    {
+      "id": "mobile-honeycomb-0",
+      "family": "honeycomb",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-honeycomb-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png"
+    },
+    {
+      "id": "mobile-honeycomb-1",
+      "family": "honeycomb",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-honeycomb-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png"
+    },
+    {
+      "id": "mobile-honeycomb-2",
+      "family": "honeycomb",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-honeycomb-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png"
+    },
+    {
+      "id": "mobile-honeycomb-debris-0",
+      "family": "honeycomb",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-honeycomb-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png"
+    },
+    {
+      "id": "mobile-honeycomb-debris-1",
+      "family": "honeycomb",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-honeycomb-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png"
+    },
+    {
+      "id": "mobile-honeycomb-debris-2",
+      "family": "honeycomb",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-honeycomb-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png"
+    },
+    {
+      "id": "mobile-acorn-nest-0",
+      "family": "acorn-nest",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-acorn-nest-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png"
+    },
+    {
+      "id": "mobile-acorn-nest-1",
+      "family": "acorn-nest",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-acorn-nest-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png"
+    },
+    {
+      "id": "mobile-acorn-nest-2",
+      "family": "acorn-nest",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-acorn-nest-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png"
+    },
+    {
+      "id": "mobile-acorn-nest-debris-0",
+      "family": "acorn-nest",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-acorn-nest-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png"
+    },
+    {
+      "id": "mobile-acorn-nest-debris-1",
+      "family": "acorn-nest",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-acorn-nest-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png"
+    },
+    {
+      "id": "mobile-acorn-nest-debris-2",
+      "family": "acorn-nest",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-acorn-nest-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png"
+    },
+    {
+      "id": "mobile-cloud-pillow-0",
+      "family": "cloud-pillow",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cloud-pillow-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png"
+    },
+    {
+      "id": "mobile-cloud-pillow-1",
+      "family": "cloud-pillow",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cloud-pillow-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png"
+    },
+    {
+      "id": "mobile-cloud-pillow-2",
+      "family": "cloud-pillow",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cloud-pillow-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png"
+    },
+    {
+      "id": "mobile-cloud-pillow-debris-0",
+      "family": "cloud-pillow",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cloud-pillow-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png"
+    },
+    {
+      "id": "mobile-cloud-pillow-debris-1",
+      "family": "cloud-pillow",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cloud-pillow-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png"
+    },
+    {
+      "id": "mobile-cloud-pillow-debris-2",
+      "family": "cloud-pillow",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cloud-pillow-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png"
+    },
+    {
+      "id": "mobile-petal-launcher-0",
+      "family": "petal-launcher",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-petal-launcher-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png"
+    },
+    {
+      "id": "mobile-petal-launcher-1",
+      "family": "petal-launcher",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-petal-launcher-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png"
+    },
+    {
+      "id": "mobile-petal-launcher-2",
+      "family": "petal-launcher",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-petal-launcher-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png"
+    },
+    {
+      "id": "mobile-petal-launcher-debris-0",
+      "family": "petal-launcher",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-petal-launcher-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png"
+    },
+    {
+      "id": "mobile-petal-launcher-debris-1",
+      "family": "petal-launcher",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-petal-launcher-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png"
+    },
+    {
+      "id": "mobile-petal-launcher-debris-2",
+      "family": "petal-launcher",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-petal-launcher-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png"
+    },
+    {
+      "id": "mobile-sun-gate-0",
+      "family": "sun-gate",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-sun-gate-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png"
+    },
+    {
+      "id": "mobile-sun-gate-1",
+      "family": "sun-gate",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-sun-gate-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png"
+    },
+    {
+      "id": "mobile-sun-gate-2",
+      "family": "sun-gate",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-sun-gate-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png"
+    },
+    {
+      "id": "mobile-sun-gate-debris-0",
+      "family": "sun-gate",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-sun-gate-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png"
+    },
+    {
+      "id": "mobile-sun-gate-debris-1",
+      "family": "sun-gate",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-sun-gate-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png"
+    },
+    {
+      "id": "mobile-sun-gate-debris-2",
+      "family": "sun-gate",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-sun-gate-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png"
+    },
+    {
+      "id": "mobile-mushroom-cluster-0",
+      "family": "mushroom-cluster",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-mushroom-cluster-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png"
+    },
+    {
+      "id": "mobile-mushroom-cluster-1",
+      "family": "mushroom-cluster",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-mushroom-cluster-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png"
+    },
+    {
+      "id": "mobile-mushroom-cluster-2",
+      "family": "mushroom-cluster",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-mushroom-cluster-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png"
+    },
+    {
+      "id": "mobile-mushroom-cluster-debris-0",
+      "family": "mushroom-cluster",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-mushroom-cluster-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png"
+    },
+    {
+      "id": "mobile-mushroom-cluster-debris-1",
+      "family": "mushroom-cluster",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-mushroom-cluster-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png"
+    },
+    {
+      "id": "mobile-mushroom-cluster-debris-2",
+      "family": "mushroom-cluster",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-mushroom-cluster-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png"
+    },
+    {
+      "id": "mobile-crystal-geode-0",
+      "family": "crystal-geode",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-geode-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png"
+    },
+    {
+      "id": "mobile-crystal-geode-1",
+      "family": "crystal-geode",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-geode-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png"
+    },
+    {
+      "id": "mobile-crystal-geode-2",
+      "family": "crystal-geode",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-geode-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png"
+    },
+    {
+      "id": "mobile-crystal-geode-debris-0",
+      "family": "crystal-geode",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-geode-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png"
+    },
+    {
+      "id": "mobile-crystal-geode-debris-1",
+      "family": "crystal-geode",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-geode-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png"
+    },
+    {
+      "id": "mobile-crystal-geode-debris-2",
+      "family": "crystal-geode",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-geode-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png"
+    },
+    {
+      "id": "mobile-star-core-0",
+      "family": "star-core",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-star-core-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png"
+    },
+    {
+      "id": "mobile-star-core-1",
+      "family": "star-core",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-star-core-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png"
+    },
+    {
+      "id": "mobile-star-core-2",
+      "family": "star-core",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-star-core-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png"
+    },
+    {
+      "id": "mobile-star-core-debris-0",
+      "family": "star-core",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-star-core-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png"
+    },
+    {
+      "id": "mobile-star-core-debris-1",
+      "family": "star-core",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-star-core-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png"
+    },
+    {
+      "id": "mobile-star-core-debris-2",
+      "family": "star-core",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-star-core-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png"
+    },
+    {
+      "id": "mobile-urn-0",
+      "family": "urn",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-urn-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png"
+    },
+    {
+      "id": "mobile-urn-1",
+      "family": "urn",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-urn-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png"
+    },
+    {
+      "id": "mobile-urn-2",
+      "family": "urn",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-urn-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png"
+    },
+    {
+      "id": "mobile-urn-debris-0",
+      "family": "urn",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-urn-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png"
+    },
+    {
+      "id": "mobile-urn-debris-1",
+      "family": "urn",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-urn-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png"
+    },
+    {
+      "id": "mobile-urn-debris-2",
+      "family": "urn",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-urn-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png"
+    },
+    {
+      "id": "mobile-statue-0",
+      "family": "statue",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-statue-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png"
+    },
+    {
+      "id": "mobile-statue-1",
+      "family": "statue",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-statue-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png"
+    },
+    {
+      "id": "mobile-statue-2",
+      "family": "statue",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-statue-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png"
+    },
+    {
+      "id": "mobile-statue-debris-0",
+      "family": "statue",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-statue-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png"
+    },
+    {
+      "id": "mobile-statue-debris-1",
+      "family": "statue",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-statue-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png"
+    },
+    {
+      "id": "mobile-statue-debris-2",
+      "family": "statue",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-statue-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png"
+    },
+    {
+      "id": "mobile-supply-crate-0",
+      "family": "supply-crate",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-supply-crate-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png"
+    },
+    {
+      "id": "mobile-supply-crate-1",
+      "family": "supply-crate",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-supply-crate-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png"
+    },
+    {
+      "id": "mobile-supply-crate-2",
+      "family": "supply-crate",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-supply-crate-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png"
+    },
+    {
+      "id": "mobile-supply-crate-debris-0",
+      "family": "supply-crate",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-supply-crate-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png"
+    },
+    {
+      "id": "mobile-supply-crate-debris-1",
+      "family": "supply-crate",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-supply-crate-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png"
+    },
+    {
+      "id": "mobile-supply-crate-debris-2",
+      "family": "supply-crate",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-supply-crate-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png"
+    },
+    {
+      "id": "mobile-crystal-0",
+      "family": "crystal",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png"
+    },
+    {
+      "id": "mobile-crystal-1",
+      "family": "crystal",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png"
+    },
+    {
+      "id": "mobile-crystal-2",
+      "family": "crystal",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png"
+    },
+    {
+      "id": "mobile-crystal-debris-0",
+      "family": "crystal",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png"
+    },
+    {
+      "id": "mobile-crystal-debris-1",
+      "family": "crystal",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png"
+    },
+    {
+      "id": "mobile-crystal-debris-2",
+      "family": "crystal",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-crystal-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png"
+    },
+    {
+      "id": "mobile-flower-seal-0",
+      "family": "flower-seal",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-flower-seal-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png"
+    },
+    {
+      "id": "mobile-flower-seal-1",
+      "family": "flower-seal",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-flower-seal-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png"
+    },
+    {
+      "id": "mobile-flower-seal-2",
+      "family": "flower-seal",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-flower-seal-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png"
+    },
+    {
+      "id": "mobile-flower-seal-debris-0",
+      "family": "flower-seal",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-flower-seal-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png"
+    },
+    {
+      "id": "mobile-flower-seal-debris-1",
+      "family": "flower-seal",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-flower-seal-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png"
+    },
+    {
+      "id": "mobile-flower-seal-debris-2",
+      "family": "flower-seal",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-flower-seal-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png"
+    },
+    {
+      "id": "mobile-starlight-lantern-0",
+      "family": "starlight-lantern",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-starlight-lantern-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png"
+    },
+    {
+      "id": "mobile-starlight-lantern-1",
+      "family": "starlight-lantern",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-starlight-lantern-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png"
+    },
+    {
+      "id": "mobile-starlight-lantern-2",
+      "family": "starlight-lantern",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-starlight-lantern-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png"
+    },
+    {
+      "id": "mobile-starlight-lantern-debris-0",
+      "family": "starlight-lantern",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-starlight-lantern-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png"
+    },
+    {
+      "id": "mobile-starlight-lantern-debris-1",
+      "family": "starlight-lantern",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-starlight-lantern-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png"
+    },
+    {
+      "id": "mobile-starlight-lantern-debris-2",
+      "family": "starlight-lantern",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-starlight-lantern-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png"
+    },
+    {
+      "id": "mobile-wind-pod-0",
+      "family": "wind-pod",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wind-pod-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png"
+    },
+    {
+      "id": "mobile-wind-pod-1",
+      "family": "wind-pod",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wind-pod-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png"
+    },
+    {
+      "id": "mobile-wind-pod-2",
+      "family": "wind-pod",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wind-pod-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png"
+    },
+    {
+      "id": "mobile-wind-pod-debris-0",
+      "family": "wind-pod",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wind-pod-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png"
+    },
+    {
+      "id": "mobile-wind-pod-debris-1",
+      "family": "wind-pod",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wind-pod-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png"
+    },
+    {
+      "id": "mobile-wind-pod-debris-2",
+      "family": "wind-pod",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wind-pod-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png"
+    },
+    {
+      "id": "mobile-windmill-0",
+      "family": "windmill",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-windmill-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png"
+    },
+    {
+      "id": "mobile-windmill-1",
+      "family": "windmill",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-windmill-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png"
+    },
+    {
+      "id": "mobile-windmill-2",
+      "family": "windmill",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-windmill-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png"
+    },
+    {
+      "id": "mobile-windmill-debris-0",
+      "family": "windmill",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-windmill-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png"
+    },
+    {
+      "id": "mobile-windmill-debris-1",
+      "family": "windmill",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-windmill-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png"
+    },
+    {
+      "id": "mobile-windmill-debris-2",
+      "family": "windmill",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-windmill-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png"
+    },
+    {
+      "id": "mobile-greenhouse-sluice-0",
+      "family": "greenhouse-sluice",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-greenhouse-sluice-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png"
+    },
+    {
+      "id": "mobile-greenhouse-sluice-1",
+      "family": "greenhouse-sluice",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-greenhouse-sluice-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png"
+    },
+    {
+      "id": "mobile-greenhouse-sluice-2",
+      "family": "greenhouse-sluice",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-greenhouse-sluice-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png"
+    },
+    {
+      "id": "mobile-greenhouse-sluice-debris-0",
+      "family": "greenhouse-sluice",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-greenhouse-sluice-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png"
+    },
+    {
+      "id": "mobile-greenhouse-sluice-debris-1",
+      "family": "greenhouse-sluice",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-greenhouse-sluice-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png"
+    },
+    {
+      "id": "mobile-greenhouse-sluice-debris-2",
+      "family": "greenhouse-sluice",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-greenhouse-sluice-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png"
+    },
+    {
+      "id": "mobile-vine-knot-0",
+      "family": "vine-knot",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-knot-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png"
+    },
+    {
+      "id": "mobile-vine-knot-1",
+      "family": "vine-knot",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-knot-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png"
+    },
+    {
+      "id": "mobile-vine-knot-2",
+      "family": "vine-knot",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-knot-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png"
+    },
+    {
+      "id": "mobile-vine-knot-debris-0",
+      "family": "vine-knot",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-knot-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png"
+    },
+    {
+      "id": "mobile-vine-knot-debris-1",
+      "family": "vine-knot",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-knot-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png"
+    },
+    {
+      "id": "mobile-vine-knot-debris-2",
+      "family": "vine-knot",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-vine-knot-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png"
+    },
+    {
+      "id": "mobile-rotating-shelf-0",
+      "family": "rotating-shelf",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rotating-shelf-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png"
+    },
+    {
+      "id": "mobile-rotating-shelf-1",
+      "family": "rotating-shelf",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rotating-shelf-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png"
+    },
+    {
+      "id": "mobile-rotating-shelf-2",
+      "family": "rotating-shelf",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rotating-shelf-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png"
+    },
+    {
+      "id": "mobile-rotating-shelf-debris-0",
+      "family": "rotating-shelf",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rotating-shelf-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png"
+    },
+    {
+      "id": "mobile-rotating-shelf-debris-1",
+      "family": "rotating-shelf",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rotating-shelf-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png"
+    },
+    {
+      "id": "mobile-rotating-shelf-debris-2",
+      "family": "rotating-shelf",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rotating-shelf-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png"
+    },
+    {
+      "id": "mobile-garden-planter-0",
+      "family": "garden-planter",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-planter-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png"
+    },
+    {
+      "id": "mobile-garden-planter-1",
+      "family": "garden-planter",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-planter-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png"
+    },
+    {
+      "id": "mobile-garden-planter-2",
+      "family": "garden-planter",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-planter-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png"
+    },
+    {
+      "id": "mobile-garden-planter-debris-0",
+      "family": "garden-planter",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-planter-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png"
+    },
+    {
+      "id": "mobile-garden-planter-debris-1",
+      "family": "garden-planter",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-planter-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png"
+    },
+    {
+      "id": "mobile-garden-planter-debris-2",
+      "family": "garden-planter",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-planter-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png"
+    },
+    {
+      "id": "mobile-domino-slat-0",
+      "family": "domino-slat",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-domino-slat-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png"
+    },
+    {
+      "id": "mobile-domino-slat-1",
+      "family": "domino-slat",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-domino-slat-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png"
+    },
+    {
+      "id": "mobile-domino-slat-2",
+      "family": "domino-slat",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-domino-slat-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png"
+    },
+    {
+      "id": "mobile-domino-slat-debris-0",
+      "family": "domino-slat",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-domino-slat-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png"
+    },
+    {
+      "id": "mobile-domino-slat-debris-1",
+      "family": "domino-slat",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-domino-slat-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png"
+    },
+    {
+      "id": "mobile-domino-slat-debris-2",
+      "family": "domino-slat",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-domino-slat-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png"
+    },
+    {
+      "id": "mobile-harvest-cart-0",
+      "family": "harvest-cart",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-harvest-cart-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png"
+    },
+    {
+      "id": "mobile-harvest-cart-1",
+      "family": "harvest-cart",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-harvest-cart-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png"
+    },
+    {
+      "id": "mobile-harvest-cart-2",
+      "family": "harvest-cart",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-harvest-cart-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png"
+    },
+    {
+      "id": "mobile-harvest-cart-debris-0",
+      "family": "harvest-cart",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-harvest-cart-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png"
+    },
+    {
+      "id": "mobile-harvest-cart-debris-1",
+      "family": "harvest-cart",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-harvest-cart-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png"
+    },
+    {
+      "id": "mobile-harvest-cart-debris-2",
+      "family": "harvest-cart",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-harvest-cart-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png"
+    },
+    {
+      "id": "mobile-soil-clod-0",
+      "family": "soil-clod",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-clod-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png"
+    },
+    {
+      "id": "mobile-soil-clod-1",
+      "family": "soil-clod",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-clod-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png"
+    },
+    {
+      "id": "mobile-soil-clod-2",
+      "family": "soil-clod",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-clod-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png"
+    },
+    {
+      "id": "mobile-soil-clod-debris-0",
+      "family": "soil-clod",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-clod-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png"
+    },
+    {
+      "id": "mobile-soil-clod-debris-1",
+      "family": "soil-clod",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-clod-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png"
+    },
+    {
+      "id": "mobile-soil-clod-debris-2",
+      "family": "soil-clod",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-clod-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png"
+    },
+    {
+      "id": "mobile-soil-chip-0",
+      "family": "soil-chip",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-chip-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png"
+    },
+    {
+      "id": "mobile-soil-chip-1",
+      "family": "soil-chip",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-chip-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png"
+    },
+    {
+      "id": "mobile-soil-chip-2",
+      "family": "soil-chip",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-chip-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png"
+    },
+    {
+      "id": "mobile-soil-chip-debris-0",
+      "family": "soil-chip",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-chip-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png"
+    },
+    {
+      "id": "mobile-soil-chip-debris-1",
+      "family": "soil-chip",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-chip-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png"
+    },
+    {
+      "id": "mobile-soil-chip-debris-2",
+      "family": "soil-chip",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-soil-chip-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png"
+    },
+    {
+      "id": "mobile-garden-light-0",
+      "family": "garden-light",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-light-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png"
+    },
+    {
+      "id": "mobile-garden-light-1",
+      "family": "garden-light",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-light-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png"
+    },
+    {
+      "id": "mobile-garden-light-2",
+      "family": "garden-light",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-light-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png"
+    },
+    {
+      "id": "mobile-garden-light-debris-0",
+      "family": "garden-light",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-light-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png"
+    },
+    {
+      "id": "mobile-garden-light-debris-1",
+      "family": "garden-light",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-light-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png"
+    },
+    {
+      "id": "mobile-garden-light-debris-2",
+      "family": "garden-light",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-light-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png"
+    },
+    {
+      "id": "mobile-shadow-bud-0",
+      "family": "shadow-bud",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-bud-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png"
+    },
+    {
+      "id": "mobile-shadow-bud-1",
+      "family": "shadow-bud",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-bud-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png"
+    },
+    {
+      "id": "mobile-shadow-bud-2",
+      "family": "shadow-bud",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-bud-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png"
+    },
+    {
+      "id": "mobile-shadow-bud-debris-0",
+      "family": "shadow-bud",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-bud-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png"
+    },
+    {
+      "id": "mobile-shadow-bud-debris-1",
+      "family": "shadow-bud",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-bud-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png"
+    },
+    {
+      "id": "mobile-shadow-bud-debris-2",
+      "family": "shadow-bud",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-bud-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png"
+    },
+    {
+      "id": "mobile-wire-planter-0",
+      "family": "wire-planter",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wire-planter-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png"
+    },
+    {
+      "id": "mobile-wire-planter-1",
+      "family": "wire-planter",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wire-planter-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png"
+    },
+    {
+      "id": "mobile-wire-planter-2",
+      "family": "wire-planter",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wire-planter-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png"
+    },
+    {
+      "id": "mobile-wire-planter-debris-0",
+      "family": "wire-planter",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wire-planter-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png"
+    },
+    {
+      "id": "mobile-wire-planter-debris-1",
+      "family": "wire-planter",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wire-planter-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png"
+    },
+    {
+      "id": "mobile-wire-planter-debris-2",
+      "family": "wire-planter",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-wire-planter-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png"
+    },
+    {
+      "id": "mobile-fence-thicket-0",
+      "family": "fence-thicket",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-fence-thicket-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png"
+    },
+    {
+      "id": "mobile-fence-thicket-1",
+      "family": "fence-thicket",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-fence-thicket-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png"
+    },
+    {
+      "id": "mobile-fence-thicket-2",
+      "family": "fence-thicket",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-fence-thicket-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png"
+    },
+    {
+      "id": "mobile-fence-thicket-debris-0",
+      "family": "fence-thicket",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-fence-thicket-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png"
+    },
+    {
+      "id": "mobile-fence-thicket-debris-1",
+      "family": "fence-thicket",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-fence-thicket-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png"
+    },
+    {
+      "id": "mobile-fence-thicket-debris-2",
+      "family": "fence-thicket",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-fence-thicket-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png"
+    },
+    {
+      "id": "mobile-garden-gate-0",
+      "family": "garden-gate",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-gate-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png"
+    },
+    {
+      "id": "mobile-garden-gate-1",
+      "family": "garden-gate",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-gate-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png"
+    },
+    {
+      "id": "mobile-garden-gate-2",
+      "family": "garden-gate",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-gate-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png"
+    },
+    {
+      "id": "mobile-garden-gate-debris-0",
+      "family": "garden-gate",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-gate-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png"
+    },
+    {
+      "id": "mobile-garden-gate-debris-1",
+      "family": "garden-gate",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-gate-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png"
+    },
+    {
+      "id": "mobile-garden-gate-debris-2",
+      "family": "garden-gate",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-garden-gate-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png"
+    },
+    {
+      "id": "mobile-beacon-lit-0",
+      "family": "beacon-lit",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-beacon-lit-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png"
+    },
+    {
+      "id": "mobile-beacon-lit-1",
+      "family": "beacon-lit",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-beacon-lit-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png"
+    },
+    {
+      "id": "mobile-beacon-lit-2",
+      "family": "beacon-lit",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-beacon-lit-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png"
+    },
+    {
+      "id": "mobile-beacon-lit-debris-0",
+      "family": "beacon-lit",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-beacon-lit-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png"
+    },
+    {
+      "id": "mobile-beacon-lit-debris-1",
+      "family": "beacon-lit",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-beacon-lit-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png"
+    },
+    {
+      "id": "mobile-beacon-lit-debris-2",
+      "family": "beacon-lit",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-beacon-lit-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png"
+    },
+    {
+      "id": "mobile-thorn-guard-0",
+      "family": "thorn-guard",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-guard-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png"
+    },
+    {
+      "id": "mobile-thorn-guard-1",
+      "family": "thorn-guard",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-guard-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png"
+    },
+    {
+      "id": "mobile-thorn-guard-2",
+      "family": "thorn-guard",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-guard-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png"
+    },
+    {
+      "id": "mobile-thorn-guard-debris-0",
+      "family": "thorn-guard",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-guard-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png"
+    },
+    {
+      "id": "mobile-thorn-guard-debris-1",
+      "family": "thorn-guard",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-guard-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png"
+    },
+    {
+      "id": "mobile-thorn-guard-debris-2",
+      "family": "thorn-guard",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-thorn-guard-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png"
+    },
+    {
+      "id": "mobile-bloom-shield-0",
+      "family": "bloom-shield",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-shield-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png"
+    },
+    {
+      "id": "mobile-bloom-shield-1",
+      "family": "bloom-shield",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-shield-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png"
+    },
+    {
+      "id": "mobile-bloom-shield-2",
+      "family": "bloom-shield",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-shield-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png"
+    },
+    {
+      "id": "mobile-bloom-shield-debris-0",
+      "family": "bloom-shield",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-shield-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png"
+    },
+    {
+      "id": "mobile-bloom-shield-debris-1",
+      "family": "bloom-shield",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-shield-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png"
+    },
+    {
+      "id": "mobile-bloom-shield-debris-2",
+      "family": "bloom-shield",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-shield-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png"
+    },
+    {
+      "id": "mobile-shadow-covered-0",
+      "family": "shadow-covered",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-covered-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png"
+    },
+    {
+      "id": "mobile-shadow-covered-1",
+      "family": "shadow-covered",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-covered-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png"
+    },
+    {
+      "id": "mobile-shadow-covered-2",
+      "family": "shadow-covered",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-covered-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png"
+    },
+    {
+      "id": "mobile-shadow-covered-debris-0",
+      "family": "shadow-covered",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-covered-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png"
+    },
+    {
+      "id": "mobile-shadow-covered-debris-1",
+      "family": "shadow-covered",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-covered-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png"
+    },
+    {
+      "id": "mobile-shadow-covered-debris-2",
+      "family": "shadow-covered",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-shadow-covered-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png"
+    },
+    {
+      "id": "mobile-rail-deck-0",
+      "family": "rail-deck",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-deck-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png"
+    },
+    {
+      "id": "mobile-rail-deck-1",
+      "family": "rail-deck",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-deck-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png"
+    },
+    {
+      "id": "mobile-rail-deck-2",
+      "family": "rail-deck",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-deck-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png"
+    },
+    {
+      "id": "mobile-rail-deck-debris-0",
+      "family": "rail-deck",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-deck-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png"
+    },
+    {
+      "id": "mobile-rail-deck-debris-1",
+      "family": "rail-deck",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-deck-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png"
+    },
+    {
+      "id": "mobile-rail-deck-debris-2",
+      "family": "rail-deck",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rail-deck-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png"
+    },
+    {
+      "id": "mobile-rack-frame-0",
+      "family": "rack-frame",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rack-frame-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png"
+    },
+    {
+      "id": "mobile-rack-frame-1",
+      "family": "rack-frame",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rack-frame-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png"
+    },
+    {
+      "id": "mobile-rack-frame-2",
+      "family": "rack-frame",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rack-frame-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png"
+    },
+    {
+      "id": "mobile-rack-frame-debris-0",
+      "family": "rack-frame",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rack-frame-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png"
+    },
+    {
+      "id": "mobile-rack-frame-debris-1",
+      "family": "rack-frame",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rack-frame-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png"
+    },
+    {
+      "id": "mobile-rack-frame-debris-2",
+      "family": "rack-frame",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-rack-frame-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png"
+    },
+    {
+      "id": "mobile-awning-row-0",
+      "family": "awning-row",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-row-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png"
+    },
+    {
+      "id": "mobile-awning-row-1",
+      "family": "awning-row",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-row-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png"
+    },
+    {
+      "id": "mobile-awning-row-2",
+      "family": "awning-row",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-row-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png"
+    },
+    {
+      "id": "mobile-awning-row-debris-0",
+      "family": "awning-row",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-row-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png"
+    },
+    {
+      "id": "mobile-awning-row-debris-1",
+      "family": "awning-row",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-row-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png"
+    },
+    {
+      "id": "mobile-awning-row-debris-2",
+      "family": "awning-row",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-awning-row-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png"
+    },
+    {
+      "id": "mobile-bloom-bed-0",
+      "family": "bloom-bed",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bed-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png"
+    },
+    {
+      "id": "mobile-bloom-bed-1",
+      "family": "bloom-bed",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bed-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png"
+    },
+    {
+      "id": "mobile-bloom-bed-2",
+      "family": "bloom-bed",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bed-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png"
+    },
+    {
+      "id": "mobile-bloom-bed-debris-0",
+      "family": "bloom-bed",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bed-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png"
+    },
+    {
+      "id": "mobile-bloom-bed-debris-1",
+      "family": "bloom-bed",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bed-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png"
+    },
+    {
+      "id": "mobile-bloom-bed-debris-2",
+      "family": "bloom-bed",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-bloom-bed-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png"
+    },
+    {
+      "id": "mobile-dew-cache-0",
+      "family": "dew-cache",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dew-cache-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png"
+    },
+    {
+      "id": "mobile-dew-cache-1",
+      "family": "dew-cache",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dew-cache-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png"
+    },
+    {
+      "id": "mobile-dew-cache-2",
+      "family": "dew-cache",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dew-cache-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png"
+    },
+    {
+      "id": "mobile-dew-cache-debris-0",
+      "family": "dew-cache",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dew-cache-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png"
+    },
+    {
+      "id": "mobile-dew-cache-debris-1",
+      "family": "dew-cache",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dew-cache-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png"
+    },
+    {
+      "id": "mobile-dew-cache-debris-2",
+      "family": "dew-cache",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-dew-cache-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png"
+    },
+    {
+      "id": "mobile-cabinet-0",
+      "family": "cabinet",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cabinet-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png"
+    },
+    {
+      "id": "mobile-cabinet-1",
+      "family": "cabinet",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cabinet-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png"
+    },
+    {
+      "id": "mobile-cabinet-2",
+      "family": "cabinet",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cabinet-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png"
+    },
+    {
+      "id": "mobile-cabinet-debris-0",
+      "family": "cabinet",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cabinet-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png"
+    },
+    {
+      "id": "mobile-cabinet-debris-1",
+      "family": "cabinet",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cabinet-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png"
+    },
+    {
+      "id": "mobile-cabinet-debris-2",
+      "family": "cabinet",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-cabinet-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png"
+    },
+    {
+      "id": "mobile-pottery-nest-0",
+      "family": "pottery-nest",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pottery-nest-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png"
+    },
+    {
+      "id": "mobile-pottery-nest-1",
+      "family": "pottery-nest",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pottery-nest-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png"
+    },
+    {
+      "id": "mobile-pottery-nest-2",
+      "family": "pottery-nest",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pottery-nest-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png"
+    },
+    {
+      "id": "mobile-pottery-nest-debris-0",
+      "family": "pottery-nest",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pottery-nest-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png"
+    },
+    {
+      "id": "mobile-pottery-nest-debris-1",
+      "family": "pottery-nest",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pottery-nest-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png"
+    },
+    {
+      "id": "mobile-pottery-nest-debris-2",
+      "family": "pottery-nest",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pottery-nest-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png"
+    },
+    {
+      "id": "mobile-pipe-0",
+      "family": "pipe",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pipe-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png"
+    },
+    {
+      "id": "mobile-pipe-1",
+      "family": "pipe",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pipe-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png"
+    },
+    {
+      "id": "mobile-pipe-2",
+      "family": "pipe",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pipe-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png"
+    },
+    {
+      "id": "mobile-pipe-debris-0",
+      "family": "pipe",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pipe-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png"
+    },
+    {
+      "id": "mobile-pipe-debris-1",
+      "family": "pipe",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pipe-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png"
+    },
+    {
+      "id": "mobile-pipe-debris-2",
+      "family": "pipe",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-pipe-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png"
+    },
+    {
+      "id": "mobile-frost-0",
+      "family": "frost",
+      "role": "obstacle",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-frost-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png"
+    },
+    {
+      "id": "mobile-frost-1",
+      "family": "frost",
+      "role": "obstacle",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-frost-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png"
+    },
+    {
+      "id": "mobile-frost-2",
+      "family": "frost",
+      "role": "obstacle",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-frost-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png"
+    },
+    {
+      "id": "mobile-frost-debris-0",
+      "family": "frost",
+      "role": "debris",
+      "stage": 0,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-frost-debris-0.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png"
+    },
+    {
+      "id": "mobile-frost-debris-1",
+      "family": "frost",
+      "role": "debris",
+      "stage": 1,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-frost-debris-1.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png"
+    },
+    {
+      "id": "mobile-frost-debris-2",
+      "family": "frost",
+      "role": "debris",
+      "stage": 2,
+      "path": "packages/assets/obstacle-redesign/runtime/mobile-frost-debris-2.webp",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png"
+    }
+  ],
+  "missing": [],
+  "diagnostics": [
+    {
+      "family": "crate",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crate.png",
+      "rowBoundary": 587,
+      "nominalBoundary": 512,
+      "clearGutter": 74,
+      "gutterAlpha": 0.034505208333333336,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 7,
+        "top": 51,
+        "right": 504,
+        "bottom": 552
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "vine",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine.png",
+      "rowBoundary": 565,
+      "nominalBoundary": 512,
+      "clearGutter": 157,
+      "gutterAlpha": 0.0390625,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 23,
+        "top": 65,
+        "right": 486,
+        "bottom": 489
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "pot",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pot.png",
+      "rowBoundary": 567,
+      "nominalBoundary": 512,
+      "clearGutter": 128,
+      "gutterAlpha": 0.0026041666666666665,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 22,
+        "top": 64,
+        "right": 489,
+        "bottom": 505
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "moss",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/moss.png",
+      "rowBoundary": 540,
+      "nominalBoundary": 512,
+      "clearGutter": 122,
+      "gutterAlpha": 0.016276041666666668,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 17,
+        "top": 70,
+        "right": 496,
+        "bottom": 482
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "bud",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bud.png",
+      "rowBoundary": 609,
+      "nominalBoundary": 512,
+      "clearGutter": 70,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 12,
+        "top": 42,
+        "right": 496,
+        "bottom": 577
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "carousel",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/carousel.png",
+      "rowBoundary": 590,
+      "nominalBoundary": 512,
+      "clearGutter": 72,
+      "gutterAlpha": 0.083984375,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 0,
+        "top": 34,
+        "right": 512,
+        "bottom": 556
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "curtain",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/curtain.png",
+      "rowBoundary": 554,
+      "nominalBoundary": 512,
+      "clearGutter": 110,
+      "gutterAlpha": 0.004557291666666667,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 19,
+        "top": 80,
+        "right": 492,
+        "bottom": 501
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "rail-pot",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-pot.png",
+      "rowBoundary": 582,
+      "nominalBoundary": 512,
+      "clearGutter": 44,
+      "gutterAlpha": 0.0078125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 21,
+        "top": 11,
+        "right": 493,
+        "bottom": 562
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "boomerang-pod",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-pod.png",
+      "rowBoundary": 587,
+      "nominalBoundary": 512,
+      "clearGutter": 79,
+      "gutterAlpha": 0.0032552083333333335,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 9,
+        "top": 25,
+        "right": 493,
+        "bottom": 549
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "boomerang-bell",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/boomerang-bell.png",
+      "rowBoundary": 628,
+      "nominalBoundary": 512,
+      "clearGutter": 104,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 4,
+        "top": 30,
+        "right": 509,
+        "bottom": 578
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "linked-crystal",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/linked-crystal.png",
+      "rowBoundary": 591,
+      "nominalBoundary": 512,
+      "clearGutter": 109,
+      "gutterAlpha": 0.015625,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 22,
+        "top": 25,
+        "right": 494,
+        "bottom": 538
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "shelf-vase",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shelf-vase.png",
+      "rowBoundary": 630,
+      "nominalBoundary": 512,
+      "clearGutter": 91,
+      "gutterAlpha": 0.0006510416666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 3,
+        "top": 16,
+        "right": 482,
+        "bottom": 586
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "canopy-orchid",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/canopy-orchid.png",
+      "rowBoundary": 606,
+      "nominalBoundary": 512,
+      "clearGutter": 37,
+      "gutterAlpha": 0.004557291666666667,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 44,
+        "top": 16,
+        "right": 463,
+        "bottom": 589
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "awning-crank",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-crank.png",
+      "rowBoundary": 551,
+      "nominalBoundary": 512,
+      "clearGutter": 116,
+      "gutterAlpha": 0.18294270833333334,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 17,
+        "top": 54,
+        "right": 489,
+        "bottom": 495
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "journey-vine",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-vine.png",
+      "rowBoundary": 587,
+      "nominalBoundary": 512,
+      "clearGutter": 99,
+      "gutterAlpha": 0.010416666666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 4,
+        "top": 43,
+        "right": 508,
+        "bottom": 539
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "journey-relic",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/journey-relic.png",
+      "rowBoundary": 541,
+      "nominalBoundary": 512,
+      "clearGutter": 89,
+      "gutterAlpha": 0.07877604166666667,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 12,
+        "top": 39,
+        "right": 505,
+        "bottom": 498
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "seed-cocoon",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/seed-cocoon.png",
+      "rowBoundary": 606,
+      "nominalBoundary": 512,
+      "clearGutter": 61,
+      "gutterAlpha": 0.007161458333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 31,
+        "top": 39,
+        "right": 479,
+        "bottom": 577
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "dandelion-turret",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dandelion-turret.png",
+      "rowBoundary": 623,
+      "nominalBoundary": 512,
+      "clearGutter": 63,
+      "gutterAlpha": 0.10677083333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 39,
+        "top": 12,
+        "right": 502,
+        "bottom": 593
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "ceramic-pot",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/ceramic-pot.png",
+      "rowBoundary": 637,
+      "nominalBoundary": 512,
+      "clearGutter": 56,
+      "gutterAlpha": 0.006510416666666667,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 3,
+        "top": 28,
+        "right": 494,
+        "bottom": 611
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "thorn-barricade",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-barricade.png",
+      "rowBoundary": 539,
+      "nominalBoundary": 512,
+      "clearGutter": 84,
+      "gutterAlpha": 0.007161458333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 20,
+        "top": 33,
+        "right": 485,
+        "bottom": 500
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "roller-pin",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/roller-pin.png",
+      "rowBoundary": 592,
+      "nominalBoundary": 512,
+      "clearGutter": 97,
+      "gutterAlpha": 0.0013020833333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 44,
+        "top": 40,
+        "right": 453,
+        "bottom": 545
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "garden-roller",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-roller.png",
+      "rowBoundary": 509,
+      "nominalBoundary": 512,
+      "clearGutter": 170,
+      "gutterAlpha": 0.027994791666666668,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 18,
+        "top": 82,
+        "right": 495,
+        "bottom": 426
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "garden-beacon",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-beacon.png",
+      "rowBoundary": 616,
+      "nominalBoundary": 512,
+      "clearGutter": 52,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 18,
+        "top": 12,
+        "right": 494,
+        "bottom": 592
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "bloom-bud",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bud.png",
+      "rowBoundary": 553,
+      "nominalBoundary": 512,
+      "clearGutter": 87,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 0,
+        "top": 17,
+        "right": 512,
+        "bottom": 511
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "tea-caddy",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/tea-caddy.png",
+      "rowBoundary": 596,
+      "nominalBoundary": 512,
+      "clearGutter": 80,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 14,
+        "top": 25,
+        "right": 492,
+        "bottom": 558
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "honeycomb",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/honeycomb.png",
+      "rowBoundary": 591,
+      "nominalBoundary": 512,
+      "clearGutter": 81,
+      "gutterAlpha": 0.0032552083333333335,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 0,
+        "top": 68,
+        "right": 509,
+        "bottom": 552
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "acorn-nest",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/acorn-nest.png",
+      "rowBoundary": 570,
+      "nominalBoundary": 512,
+      "clearGutter": 81,
+      "gutterAlpha": 0.0006510416666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 0,
+        "top": 68,
+        "right": 512,
+        "bottom": 531
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "cloud-pillow",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cloud-pillow.png",
+      "rowBoundary": 545,
+      "nominalBoundary": 512,
+      "clearGutter": 132,
+      "gutterAlpha": 0.01171875,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 11,
+        "top": 71,
+        "right": 503,
+        "bottom": 481
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "petal-launcher",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/petal-launcher.png",
+      "rowBoundary": 563,
+      "nominalBoundary": 512,
+      "clearGutter": 122,
+      "gutterAlpha": 0.0703125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 40,
+        "top": 69,
+        "right": 491,
+        "bottom": 504
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "sun-gate",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/sun-gate.png",
+      "rowBoundary": 548,
+      "nominalBoundary": 512,
+      "clearGutter": 79,
+      "gutterAlpha": 0.001953125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 15,
+        "top": 36,
+        "right": 497,
+        "bottom": 510
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "mushroom-cluster",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/mushroom-cluster.png",
+      "rowBoundary": 599,
+      "nominalBoundary": 512,
+      "clearGutter": 76,
+      "gutterAlpha": 0.2994791666666667,
+      "cornerAlpha": 1,
+      "bodyBounds": {
+        "left": 0,
+        "top": 49,
+        "right": 512,
+        "bottom": 563
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "crystal-geode",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal-geode.png",
+      "rowBoundary": 586,
+      "nominalBoundary": 512,
+      "clearGutter": 95,
+      "gutterAlpha": 0.23567708333333334,
+      "cornerAlpha": 1,
+      "bodyBounds": {
+        "left": 0,
+        "top": 68,
+        "right": 504,
+        "bottom": 540
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "star-core",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/star-core.png",
+      "rowBoundary": 539,
+      "nominalBoundary": 512,
+      "clearGutter": 82,
+      "gutterAlpha": 0.009114583333333334,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 9,
+        "top": 44,
+        "right": 496,
+        "bottom": 500
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "urn",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/urn.png",
+      "rowBoundary": 577,
+      "nominalBoundary": 512,
+      "clearGutter": 101,
+      "gutterAlpha": 0.19270833333333334,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 18,
+        "top": 46,
+        "right": 491,
+        "bottom": 528
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "statue",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/statue.png",
+      "rowBoundary": 654,
+      "nominalBoundary": 512,
+      "clearGutter": 67,
+      "gutterAlpha": 0.072265625,
+      "cornerAlpha": 1,
+      "bodyBounds": {
+        "left": 63,
+        "top": 13,
+        "right": 469,
+        "bottom": 622
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "supply-crate",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/supply-crate.png",
+      "rowBoundary": 551,
+      "nominalBoundary": 512,
+      "clearGutter": 111,
+      "gutterAlpha": 0.013671875,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 12,
+        "top": 73,
+        "right": 500,
+        "bottom": 497
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "crystal",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/crystal.png",
+      "rowBoundary": 553,
+      "nominalBoundary": 512,
+      "clearGutter": 52,
+      "gutterAlpha": 0.1953125,
+      "cornerAlpha": 1,
+      "bodyBounds": {
+        "left": 30,
+        "top": 28,
+        "right": 494,
+        "bottom": 529
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "flower-seal",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/flower-seal.png",
+      "rowBoundary": 582,
+      "nominalBoundary": 512,
+      "clearGutter": 75,
+      "gutterAlpha": 0.022135416666666668,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 2,
+        "top": 67,
+        "right": 501,
+        "bottom": 546
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "starlight-lantern",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/starlight-lantern.png",
+      "rowBoundary": 636,
+      "nominalBoundary": 512,
+      "clearGutter": 55,
+      "gutterAlpha": 0.001953125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 28,
+        "top": 14,
+        "right": 484,
+        "bottom": 610
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "wind-pod",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wind-pod.png",
+      "rowBoundary": 554,
+      "nominalBoundary": 512,
+      "clearGutter": 83,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 20,
+        "top": 37,
+        "right": 494,
+        "bottom": 514
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "windmill",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/windmill.png",
+      "rowBoundary": 619,
+      "nominalBoundary": 512,
+      "clearGutter": 60,
+      "gutterAlpha": 0.053385416666666664,
+      "cornerAlpha": 1,
+      "bodyBounds": {
+        "left": 24,
+        "top": 23,
+        "right": 484,
+        "bottom": 591
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "greenhouse-sluice",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/greenhouse-sluice.png",
+      "rowBoundary": 542,
+      "nominalBoundary": 512,
+      "clearGutter": 99,
+      "gutterAlpha": 0.09114583333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 17,
+        "top": 40,
+        "right": 499,
+        "bottom": 494
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "vine-knot",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/vine-knot.png",
+      "rowBoundary": 570,
+      "nominalBoundary": 512,
+      "clearGutter": 117,
+      "gutterAlpha": 0.009114583333333334,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 29,
+        "top": 75,
+        "right": 483,
+        "bottom": 513
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "rotating-shelf",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rotating-shelf.png",
+      "rowBoundary": 571,
+      "nominalBoundary": 512,
+      "clearGutter": 97,
+      "gutterAlpha": 0.01171875,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 22,
+        "top": 68,
+        "right": 493,
+        "bottom": 524
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "garden-planter",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-planter.png",
+      "rowBoundary": 574,
+      "nominalBoundary": 512,
+      "clearGutter": 82,
+      "gutterAlpha": 0,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 14,
+        "top": 29,
+        "right": 495,
+        "bottom": 535
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "domino-slat",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/domino-slat.png",
+      "rowBoundary": 591,
+      "nominalBoundary": 512,
+      "clearGutter": 74,
+      "gutterAlpha": 0.0006510416666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 69,
+        "top": 26,
+        "right": 449,
+        "bottom": 556
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "harvest-cart",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/harvest-cart.png",
+      "rowBoundary": 589,
+      "nominalBoundary": 512,
+      "clearGutter": 78,
+      "gutterAlpha": 0.17447916666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 20,
+        "top": 41,
+        "right": 493,
+        "bottom": 552
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "soil-clod",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-clod.png",
+      "rowBoundary": 540,
+      "nominalBoundary": 512,
+      "clearGutter": 127,
+      "gutterAlpha": 0.09049479166666667,
+      "cornerAlpha": 5,
+      "bodyBounds": {
+        "left": 3,
+        "top": 75,
+        "right": 502,
+        "bottom": 478
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "soil-chip",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/soil-chip.png",
+      "rowBoundary": 554,
+      "nominalBoundary": 512,
+      "clearGutter": 102,
+      "gutterAlpha": 0.0078125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 17,
+        "top": 73,
+        "right": 493,
+        "bottom": 505
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "garden-light",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-light.png",
+      "rowBoundary": 581,
+      "nominalBoundary": 512,
+      "clearGutter": 73,
+      "gutterAlpha": 0.014322916666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 28,
+        "top": 22,
+        "right": 495,
+        "bottom": 546
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "shadow-bud",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-bud.png",
+      "rowBoundary": 574,
+      "nominalBoundary": 512,
+      "clearGutter": 79,
+      "gutterAlpha": 0.0078125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 0,
+        "top": 42,
+        "right": 512,
+        "bottom": 537
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "wire-planter",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/wire-planter.png",
+      "rowBoundary": 583,
+      "nominalBoundary": 512,
+      "clearGutter": 99,
+      "gutterAlpha": 0.03515625,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 9,
+        "top": 53,
+        "right": 494,
+        "bottom": 535
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "fence-thicket",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/fence-thicket.png",
+      "rowBoundary": 531,
+      "nominalBoundary": 512,
+      "clearGutter": 76,
+      "gutterAlpha": 0.005208333333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 18,
+        "top": 48,
+        "right": 487,
+        "bottom": 495
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "garden-gate",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/garden-gate.png",
+      "rowBoundary": 516,
+      "nominalBoundary": 512,
+      "clearGutter": 136,
+      "gutterAlpha": 0.028645833333333332,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 18,
+        "top": 50,
+        "right": 495,
+        "bottom": 450
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "beacon-lit",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/beacon-lit.png",
+      "rowBoundary": 608,
+      "nominalBoundary": 512,
+      "clearGutter": 23,
+      "gutterAlpha": 0.053385416666666664,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 32,
+        "top": 7,
+        "right": 470,
+        "bottom": 598
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "thorn-guard",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/thorn-guard.png",
+      "rowBoundary": 548,
+      "nominalBoundary": 512,
+      "clearGutter": 106,
+      "gutterAlpha": 0.01171875,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 20,
+        "top": 16,
+        "right": 486,
+        "bottom": 498
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "bloom-shield",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-shield.png",
+      "rowBoundary": 549,
+      "nominalBoundary": 512,
+      "clearGutter": 100,
+      "gutterAlpha": 0.0013020833333333333,
+      "cornerAlpha": 8,
+      "bodyBounds": {
+        "left": 22,
+        "top": 31,
+        "right": 490,
+        "bottom": 501
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "shadow-covered",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/shadow-covered.png",
+      "rowBoundary": 575,
+      "nominalBoundary": 512,
+      "clearGutter": 78,
+      "gutterAlpha": 0.004557291666666667,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 25,
+        "top": 30,
+        "right": 495,
+        "bottom": 538
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "rail-deck",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rail-deck.png",
+      "rowBoundary": 536,
+      "nominalBoundary": 512,
+      "clearGutter": 88,
+      "gutterAlpha": 0.026041666666666668,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 1,
+        "top": 92,
+        "right": 507,
+        "bottom": 494
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "rack-frame",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/rack-frame.png",
+      "rowBoundary": 547,
+      "nominalBoundary": 512,
+      "clearGutter": 120,
+      "gutterAlpha": 0.018229166666666668,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 23,
+        "top": 140,
+        "right": 490,
+        "bottom": 489
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "awning-row",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/awning-row.png",
+      "rowBoundary": 427,
+      "nominalBoundary": 362,
+      "clearGutter": 7,
+      "gutterAlpha": 0.43232044198895025,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 24,
+        "top": 53,
+        "right": 701,
+        "bottom": 426
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "bloom-bed",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/bloom-bed.png",
+      "rowBoundary": 558,
+      "nominalBoundary": 512,
+      "clearGutter": 90,
+      "gutterAlpha": 0.0006510416666666666,
+      "cornerAlpha": 1,
+      "bodyBounds": {
+        "left": 11,
+        "top": 30,
+        "right": 502,
+        "bottom": 515
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "dew-cache",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/dew-cache.png",
+      "rowBoundary": 556,
+      "nominalBoundary": 512,
+      "clearGutter": 119,
+      "gutterAlpha": 0.007161458333333333,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 26,
+        "top": 52,
+        "right": 487,
+        "bottom": 498
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "cabinet",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/cabinet.png",
+      "rowBoundary": 564,
+      "nominalBoundary": 512,
+      "clearGutter": 99,
+      "gutterAlpha": 0.0078125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 18,
+        "top": 59,
+        "right": 489,
+        "bottom": 516
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "pottery-nest",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pottery-nest.png",
+      "rowBoundary": 557,
+      "nominalBoundary": 512,
+      "clearGutter": 114,
+      "gutterAlpha": 0.08658854166666667,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 25,
+        "top": 46,
+        "right": 485,
+        "bottom": 502
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "pipe",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/pipe.png",
+      "rowBoundary": 540,
+      "nominalBoundary": 512,
+      "clearGutter": 131,
+      "gutterAlpha": 0.0006510416666666666,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 12,
+        "top": 74,
+        "right": 504,
+        "bottom": 476
+      },
+      "minAlpha": 0
+    },
+    {
+      "family": "frost",
+      "source": "packages/assets/obstacle-redesign/source/open-silhouette/frost.png",
+      "rowBoundary": 520,
+      "nominalBoundary": 512,
+      "clearGutter": 91,
+      "gutterAlpha": 0.111328125,
+      "cornerAlpha": 0,
+      "bodyBounds": {
+        "left": 32,
+        "top": 36,
+        "right": 480,
+        "bottom": 476
+      },
+      "minAlpha": 0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "events-v3-tools-season-unlimited.png",
+  "assets": [
+    {
+      "id": "tools",
+      "file": "tools-scene-v65.webp",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-f2ddd3ce-8392-4f89-a305-2d437b854cdf.png",
+      "prompt": "Use case: precise-object-edit. Production mobile game UI BACKPLATE, not a redesign. Preserve the supplied exact496x731 portrait tool-festival content reference, same geometry, wood workshop, window/ivy, SMALL Lumi with wrench at left, blue2x2 toolboard, blue top title plaque, mid cream caption plaque, five lower reward cabinets/cards alternating gold/blue/gold/blue/gold (fifth wide), green button. Remove ALL editable UI lettering and numbers, all4 large tool icons, all progress gold fills/count text (keep the4 empty dark-blue rounded meter tracks with pale rim), all5 stage numbers, all reward icons/coins/locks and quantities, and button lettering. Keep blank raster surfaces in identical positions and sizes. No new lettering or numbers. No additional props or ornaments. Keep Lumi face, outfit, wrench, cabinet metal/wood texture and background unchanged. Edge-to-edge scene, no white outer frame, no device chrome/header/tabs/navigation. Exact496:731 aspect ratio. The actual game will overlay its OWN existing tool and coin assets, stage counts, gold progress fills and dynamic rewards."
+    },
+    {
+      "id": "season",
+      "file": "season-scene-v65.webp",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-f596be06-ff1f-41ea-81f3-69e0893733aa.png",
+      "prompt": "Use case: precise-object-edit. Production mobile game UI BACKPLATE, not a redesign. Preserve the supplied exact496x731 portrait seasonal-event content reference: same soft blue sky, TWO floating garden islands (left gazebo, right floral bench arch), garden valley, restrained flowers, blank blue top title plaque with2small pinkflowers, small cream timer plaque, two cream progress/name panels below islands, TWO cream reward cards below them with footer divider, original green rounded button. Remove ALL editable UI lettering/numbers, all coin/rocket/star reward icons and quantities. Preserve the small static clock inside timer plaque. For the two green progress meters remove their fill/leaf icons and numeric labels, leaving two EMPTY pale green recessed meter tracks with their rims in same positions. Keep the reward card surfaces completely empty. Keep every island, flower/landscape detail, surface shape, palette and coordinate unchanged. No extra props, no glows or new lettering. No white frame/device chrome/header/tabs/nav. Exact496:731 aspect ratio; edge-to-edge scene. Real progress fill, labels, our own leaf coin and actual live rewards will be overlaid by the game."
+    },
+    {
+      "id": "meter",
+      "file": "meter-gold-v65.webp",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-49bfd6dd-4128-4ad6-a6aa-ba9e3b9cb418.png",
+      "prompt": "Use case: background-extraction. Production game UI asset: ONE horizontal slim warm GOLD/YELLOW progress-fill capsule on a truly transparent background, about6:1 ratio. Match the golden progress fill in the provided tool-festival reference (first tool3/5 and lower tool4/5). Bright warm honey yellow, softly glossy lighter upper edge, golden amber lower edge; rounded capsule ends, no outer blue track, no white outline, no text, no numbers, no icons, no shadow blob, no scene. Restrained existing mobile puzzle-game UI raster finish, no neon glow. Fill canvas with about5% alpha padding. It will be used as the live fill inside an existing dark-blue track at16px height."
+    }
+  ],
+  "preparation": "Backplates resized992x1462/WebP92; meter alpha-content bounds extracted and resized480x48/WebP94; originals preserved.",
+  "liveData": "Game's existing coin/tool identities, actual stage rewards/targets, season rewards/claim callbacks, and provider request handling remain authoritative."
+}

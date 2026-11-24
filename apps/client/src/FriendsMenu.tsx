@@ -3,24 +3,29 @@ import type {FriendProfile,FriendsResponse,Player} from '@garden/contracts';
 import {ApiFailure,duration,key,request,serverNow} from './api';
 import {tr} from './i18n';
 import {Button,Card,Icon} from './ui';
+import {ProfilePortrait} from './GardenerProfile';
 import RankingMenu from './RankingMenu';
 import {useFriendProfiles} from './FriendProfiles';
 import {useActivity} from './Activity';
 import './friends.css';
+import HubLoading from './HubLoading';
+import {usePageSnapshot} from './page-snapshots';
 
 type Tab='list'|'recommend'|'help'|'ranking';
 export default function FriendsMenu({player,refresh,notify}:{player:Player;refresh:()=>Promise<void>;notify:(message:string)=>void}){
- const [tab,setTab]=useState<Tab>('list'),[data,setData]=useState<FriendsResponse|null>(null),[error,setError]=useState(''),[busy,setBusy]=useState(false),[,tick]=useState(0);
+ const [data,setData]=usePageSnapshot<FriendsResponse>(player.id,'friends');
+ const [tab,setTab]=useState<Tab>('list'),[error,setError]=useState(''),[mutationBusy,setBusy]=useState(false),[confirmed,setConfirmed]=useState(''),[loading,setLoading]=useState(false),[,tick]=useState(0);
+ const busy=mutationBusy||confirmed!==player.id;
  const [sending,setSending]=useState<string|null>(null);
  const guard=useRef(false),mounted=useRef(true),loadSequence=useRef(0);
  const requestKeys=useRef(new Map<string,string>());
  const {openProfile,revision,changed}=useFriendProfiles(),{updateData}=useActivity();
- const load=useCallback(async()=>{const sequence=++loadSequence.current;try{const result=await request<FriendsResponse>('/friends');if(mounted.current&&sequence===loadSequence.current){setData(result);updateData(data=>({...data,notifications:{...data.notifications,friends:result.incoming.length}}));setError('')}}catch(e){if(mounted.current&&sequence===loadSequence.current)setError(e instanceof Error?e.message:tr('친구를 불러오지 못했어요.'));}},[player.id,updateData]);
+ const load=useCallback(async()=>{const sequence=++loadSequence.current;setLoading(true);try{const result=await request<FriendsResponse>('/friends');if(mounted.current&&sequence===loadSequence.current){setData(result);setConfirmed(player.id);updateData(data=>({...data,notifications:{...data.notifications,friends:result.incoming.length}}));setError('')}}catch(e){if(mounted.current&&sequence===loadSequence.current)setError(e instanceof Error?e.message:tr('친구를 불러오지 못했어요.'));}finally{if(mounted.current&&sequence===loadSequence.current)setLoading(false);}},[player.id,updateData,setData]);
  useEffect(()=>{mounted.current=true;void load();const timer=setInterval(()=>{tick(n=>n+1);if(document.visibilityState==='visible')void load()},15000);const focus=()=>void load();window.addEventListener('focus',focus);return()=>{mounted.current=false;loadSequence.current++;clearInterval(timer);window.removeEventListener('focus',focus)}},[load,revision]);
  useEffect(()=>{const timer=setInterval(()=>tick(n=>n+1),1000);return()=>clearInterval(timer)},[]);
- async function perform(path:string,body:Record<string,unknown>={},message?:string){if(guard.current)return;guard.current=true;setBusy(true);setError('');try{await request(path,{key:key(),...body});await refresh();await load();changed();if(message)notify(message);}catch(e){setError(e instanceof Error?e.message:tr('잠시 후 다시 시도해 주세요.'));}finally{guard.current=false;if(mounted.current)setBusy(false);}}
+ async function perform(path:string,body:Record<string,unknown>={},message?:string){if(guard.current||confirmed!==player.id)return;guard.current=true;setBusy(true);setError('');try{await request(path,{key:key(),...body});await refresh();await load();changed();if(message)notify(message);}catch(e){setError(e instanceof Error?e.message:tr('잠시 후 다시 시도해 주세요.'));}finally{guard.current=false;if(mounted.current)setBusy(false);}}
  async function sendFriend(profile:FriendProfile){
-  if(guard.current)return;
+  if(guard.current||confirmed!==player.id)return;
   guard.current=true;setBusy(true);setSending(profile.userId);setError('');
   const targetKey=player.id+'/'+profile.userId,idempotencyKey=requestKeys.current.get(targetKey)??key();
   requestKeys.current.set(targetKey,idempotencyKey);
@@ -51,12 +56,12 @@ export default function FriendsMenu({player,refresh,notify}:{player:Player;refre
    if(mounted.current){setBusy(false);setSending(null);}
   }
  }
- function person(p:FriendProfile,actions?:ReactNode){return <li key={p.userId} className="friend-person" data-frame="card_ice_v9" data-content-group><button className="friend-person-profile" onClick={()=>openProfile(p.userId)} aria-label={p.nickname+' '+tr('프로필 보기')}><Icon id="lumi" size={48}/><span><strong>{p.nickname}</strong><small>{tr('레벨')} {p.level}{p.guildName?' · '+p.guildName:''}</small></span></button><div className="friend-person-actions">{actions??<span className="friend-connected"><Icon id="guild" size={25}/>{tr('친구')}</span>}</div></li>}
+ function person(p:FriendProfile,actions?:ReactNode){return <li key={p.userId} className="friend-person" data-frame="card_ice_v9" data-content-group><button className="friend-person-profile" onClick={()=>openProfile(p.userId)} aria-label={p.nickname+' '+tr('프로필 보기')}><ProfilePortrait appearance={p.profileAppearance} size={48}/><span><strong>{p.nickname}</strong><small>{tr('레벨')} {p.level}{p.guildName?' · '+p.guildName:''}</small></span></button><div className="friend-person-actions">{actions??<span className="friend-connected"><Icon id="guild" size={25}/>{tr('친구')}</span>}</div></li>}
  return <div className="friends-menu">
-  <div className="friend-tabs" role="tablist" aria-label={tr('친구 메뉴')}>{([['list','lumi','친구'],['recommend','telescope','추천'],['help','heart','하트'],['ranking','ranking_trophy_v51','랭킹']] as const).map(([id,icon,label])=><button key={id} role="tab" aria-selected={tab===id} aria-controls="friend-tab-panel" data-frame={tab===id?'button_mint_v6':'card_sage_v6'} data-frame-scale="0.1" onClick={()=>setTab(id)}><Icon id={icon} size={32}/><span>{tr(label)}{id==='list'&&!!data?.incoming.length&&<b>{data.incoming.length}</b>}</span></button>)}</div>
-  {error&&<Card><p role="alert">{error}</p><Button secondary onClick={()=>void load()}>{tr('다시 불러오기')}</Button></Card>}
+  <div className="friend-tabs" role="tablist" aria-label={tr('친구 메뉴')}>{([['list','lumi','친구'],['recommend','telescope','추천'],['help','heart','하트'],['ranking','ranking_trophy_v51','랭킹']] as const).map(([id,icon,label])=><button key={id} role="tab" aria-selected={tab===id} aria-controls="friend-tab-panel" data-frame={tab===id?'button_secondary':'card_ice_v9'} data-frame-scale="0.1" onClick={()=>setTab(id)}><Icon id={icon} size={32}/><span>{tr(label)}{id==='list'&&!!data?.incoming.length&&<b>{data.incoming.length}</b>}</span></button>)}</div>
+  {error&&!!data&&<Card><p role="alert">{error}</p><Button secondary onClick={()=>void load()}>{tr('다시 불러오기')}</Button></Card>}
   <section id="friend-tab-panel" role="tabpanel" aria-label={tr(({list:'친구 목록',recommend:'친구 추천',help:'하트 도움',ranking:'친구 랭킹'})[tab])}>
-  {!data?<p role="status">{tr('친구를 불러오는 중…')}</p>:tab==='ranking'?<RankingMenu key={revision} player={player} friendsOnly/>:tab==='list'?<>
+  {!data?<HubLoading reducedMotion={player.settings.reducedMotion} kind="friends" error={error} retrying={loading} onRetry={()=>void load()}/>:tab==='ranking'?<RankingMenu key={revision} player={player} friendsOnly/>:tab==='list'?<>
    {!!data.incoming.length&&<><h3>{tr('받은 친구 요청')} <span>{data.incoming.length}</span></h3><ul className="friend-list">{data.incoming.map(p=>person(p,<><Button tone="green" disabled={busy} onClick={()=>void perform('/friends/respond',{userId:p.userId,accept:true},tr('친구가 되었어요!'))}>{tr('수락')}</Button><Button secondary disabled={busy} onClick={()=>void perform('/friends/respond',{userId:p.userId,accept:false})}>{tr('거절')}</Button></>))}</ul></>}
    <h3>{tr('내 친구')} <span>{data.friends.length}</span></h3>{data.friends.length?<ul className="friend-list">{data.friends.map(p=>person(p))}</ul>:<Card className="friend-empty" tone="gold"><div className="friend-empty-message"><Icon id="lumi_happy" size={94}/><div><h3>{tr('함께할 친구를 만나보세요')}</h3><p>{tr('친구와 하트를 나누고 순위를 비교해요.')}</p></div></div><Button icon="telescope" onClick={()=>setTab('recommend')}>{tr('친구 추천 보기')}</Button></Card>}
   </>:tab==='recommend'?<>

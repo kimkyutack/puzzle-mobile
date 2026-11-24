@@ -1,0 +1,9 @@
+{
+  "mode": "built-in image_gen",
+  "reference": "output/playwright/flowerlight-v64/selected-content-source.png",
+  "prompt": "Use case: precise-object-edit. Production game UI backplate extraction, NOT a redesign. Edit the supplied exact 512x698 portrait flower festival content reference. Preserve the SAME Lumi red panda planting a petal beside a wooden flower bed, garden scenery, sky, tree, fence and gazebo, colors and all proportions/positions. Preserve the SAME compact plum progress plaque at top including its static PINK PETAL ICON on the left, but remove all lettering and numbers from plaque leaving blank plum space. Preserve SAME lower cream reward tray, THREE inset reward cards with SAME blank coral pill bases at top, SAME large green rounded rectangular button at bottom. Remove ALL foreground editable UI and reward images from that lower tray: remove threshold labels10/20/30, amount numbers200/1/2, coin, rocket, star and button lettering. Leave the three cards empty clean cream. No other new lettering, numbers, icons or objects. Do NOT erase the petal held by Lumi or the small petal icon integrated in upper plaque. Do NOT alter flower bed or Lumi outfit/face. Keep exact 512:698 content aspect ratio, full bleed edge-to-edge garden, no white side border, no device bezel, no navigation/header/tabs. Text, our own leaf coin, game tool icons and real garden reward images will be interactive live elements rendered separately by the application. No glow or extra ornaments.",
+  "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-0a0bba14-8343-4379-b431-58b1e95547a4.png",
+  "runtime": "flowerlight-scene-v64.webp",
+  "preparation": "Resized to1024x1396, WebP quality92; generated original preserved.",
+  "liveForegrounds": "Petal progress, three next real milestones, garden art, coins via existing Icon id coin, existing tool icons, quantities, claim checks and primary action. Rewards unchanged."
+}

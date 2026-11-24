@@ -1,0 +1,14 @@
+{
+  "reference": "output/design/footer-pages-v90/01-sky-surface.png",
+  "background": {
+    "left": 766,
+    "top": 16,
+    "width": 3,
+    "height": 420
+  },
+  "banner": {
+    "source": "packages/assets/shop-reference-v91/source/starter-banner.png",
+    "tool": "built-in image_gen",
+    "purpose": "Inline shop only. Existing package-modal posters retained."
+  }
+}

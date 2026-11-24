@@ -1,0 +1,18 @@
+{
+  "width": 128,
+  "height": 128,
+  "body": {
+    "width": 120,
+    "height": 100,
+    "left": 4,
+    "top": 14
+  },
+  "alphaBounds": {
+    "x": 4,
+    "y": 14,
+    "width": 120,
+    "height": 100
+  },
+  "nonTransparentPixels": 10556,
+  "bytes": 7126
+}

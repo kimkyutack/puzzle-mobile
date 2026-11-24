@@ -7,7 +7,7 @@ import {APPROVED_LEVEL_COUNT} from '@garden/content';
 import {GOLD_GARDEN_INTERVAL,GOLD_GARDEN_MOVES,GOLD_GARDEN_VERSION,LEGACY_GOLD_GARDEN_VERSION,REFILL_GOLD_GARDEN_VERSION,goldGardenCoins,goldGardenLevel,type GoldGardenVersion} from '../packages/content/src/gold-garden';
 import {finishGoldGarden,goldGardenStatus} from '../apps/api/src/gold-garden';
 import {newPlayer,readPlayer,type ApiEnv} from '../apps/api/src/db';
-import {goldGardenCacheKey,isRefillGoldGardenVersion,loadGoldGarden,restoreGoldGarden} from '../apps/client/src/gold-garden-progress';
+import {goldGardenCacheKey,isRefillGoldGardenVersion,loadGoldGarden,pendingGoldGardenMilestone,restoreGoldGarden} from '../apps/client/src/gold-garden-progress';
 import {tileOrigins} from '../apps/client/src/tile-origins';
 import {impactOverlays} from '../apps/client/src/impact-overlays';
 import {effectTiming} from '../apps/client/src/visual-timing';
@@ -73,13 +73,16 @@ describe('Legacy Golden Garden',()=>{
   }
  });
  it('unlocks each account milestone only when a normal clear is recorded',async()=>{
+  const player={...await readPlayer(env.DB,user),level:101};
+  db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(player),user);
   cleared(99);cleared(100);cleared(101);
   expect(await goldGardenStatus(env,user)).toEqual({milestones:[100],version:REFILL_GOLD_GARDEN_VERSION});
   expect(await goldGardenStatus(env,user,String(GOLD_GARDEN_VERSION))).toEqual({milestones:[100],version:GOLD_GARDEN_VERSION});
   const {actions}=trace(200);
   await expect(finishGoldGarden(env,user,{milestone:200,actions})).rejects.toMatchObject({code:'GOLD_GARDEN_LOCKED'});
+  player.level=201;db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(player),user);
   cleared(200);
-  expect(await goldGardenStatus(env,user)).toEqual({milestones:[200,100],version:REFILL_GOLD_GARDEN_VERSION});
+  expect(await goldGardenStatus(env,user)).toEqual({milestones:[200],version:REFILL_GOLD_GARDEN_VERSION});
  });
  it('pays partial collection on exhaustion once, including concurrent claims and a lost response',async()=>{
   cleared(100);const {state,actions}=trace(100);
@@ -138,6 +141,39 @@ function playPowerRound(milestone:number,version:GoldGardenVersion=GOLD_GARDEN_V
 }
 
 describe('Golden Garden with refillable coins',()=>{
+ it('returns to stage 544 after the current bonus, even when old bonuses remain unclaimed',async()=>{
+  const player={...await readPlayer(env.DB,user),level:544};
+  db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(player),user);
+  for(const milestone of [100,200,300,400,500])cleared(milestone);
+  const before=await goldGardenStatus(env,user,String(GOLD_GARDEN_VERSION));
+  expect(before.milestones).toEqual([500]);
+  expect(pendingGoldGardenMilestone(player.level,before.milestones)).toBe(500);
+  const {actions,collected}=playPowerRound(500),payload={milestone:500,version:GOLD_GARDEN_VERSION,actions};
+  const paid=await finishGoldGarden(env,user,payload);
+  expect(paid.player).toMatchObject({level:544,coins:500+collected});
+  const reloaded=await goldGardenStatus(env,user,String(GOLD_GARDEN_VERSION));
+  expect(reloaded.milestones).toEqual([]);
+  expect(db.prepare('SELECT count(*) AS n FROM level_rewards WHERE user_id=?').get(user)).toEqual({n:5});
+  expect(pendingGoldGardenMilestone(paid.player.level,reloaded.milestones)).toBeUndefined();
+  await finishGoldGarden(env,user,payload);
+  expect((await readPlayer(env.DB,user)).coins).toBe(500+collected);
+  const next={...await readPlayer(env.DB,user),level:601};
+  db.prepare('UPDATE players SET data=? WHERE id=?').run(JSON.stringify(next),user);cleared(600);
+  const nextStatus=await goldGardenStatus(env,user,String(GOLD_GARDEN_VERSION));
+  expect(nextStatus.milestones).toEqual([600]);
+  expect(pendingGoldGardenMilestone(601,nextStatus.milestones)).toBe(600);
+ });
+ it('only replaces the campaign button with an eligible bonus from the current hundred-level band',()=>{
+  expect(pendingGoldGardenMilestone(100,[100])).toBeUndefined();
+  expect(pendingGoldGardenMilestone(101,[100])).toBe(100);
+  expect(pendingGoldGardenMilestone(200,[100])).toBe(100);
+  expect(pendingGoldGardenMilestone(201,[100])).toBeUndefined();
+  expect(pendingGoldGardenMilestone(544,[400,300,200,100])).toBeUndefined();
+  expect(pendingGoldGardenMilestone(544,[500,400],400)).toBeUndefined();
+  expect(pendingGoldGardenMilestone(544,[500,400],500)).toBe(500);
+  expect(pendingGoldGardenMilestone(601,[500,600,400])).toBe(600);
+  expect(pendingGoldGardenMilestone(544,[])).toBeUndefined();
+ });
  it('starts with the previous layout and expands the coin lanes at 500, 1000 and 2000',()=>{
   const counts=[[100,40,8],[400,40,8],[500,48,8],[900,48,8],[1000,54,9],[1900,54,9],[2000,72,9],[APPROVED_LEVEL_COUNT,72,9]] as const;
   for(const [milestone,coins,powers] of counts){

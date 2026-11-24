@@ -1,4 +1,5 @@
 export const powerFestivalCopy:Record<string,string>={
+ '축제 시작하기':'Start festival','퍼즐로 이동':'Go to puzzle','진행 중':'In progress','시작 전':'Not started','시간 종료':'Time up',
  '도구 축제':'Power Festival',
  '도구 축제 진행 상황':'Power Festival progress',
  '도구 축제 보상을 받았어요!':'Power Festival reward claimed!',

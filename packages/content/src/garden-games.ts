@@ -2,6 +2,7 @@ import type {Player} from '@garden/contracts';
 import type {GardenGameId,GardenGamePrize,GardenGameProgress,GardenGameReward,GardenGameRound} from '../../contracts/src/garden-games';
 import {gameEventAvailable,gameEventConfig,type RuntimeSettings} from '../../contracts/src/operations';
 import {missionPeriod} from './missions';
+import {weeklyRoundId} from '../../contracts/src/weekly-events';
 
 export const GARDEN_GAME_STAGES=10;
 export const GARDEN_GAME_FINISH_GRACE=15*60*1000;
@@ -19,15 +20,12 @@ export function gardenGameRound(progress:GardenGameProgress|undefined,roundId:st
 }
 
 export function gardenGameStatus(game:GardenGameId,player:Pick<Player,'level'|'gardenGames'>,now:number,settings?:RuntimeSettings|null){
- const config=gameEventConfig(game,settings),progress=player.gardenGames?.[game],configured=gardenGameRound(progress,config.roundId);
- const resume=Object.entries(progress?.rounds??{}).find(([,round])=>round.attempt&&round.attempt.expiresAt>now);
- const roundId=resume?.[0]??config.roundId,round=resume?.[1]??configured;
+ const config=gameEventConfig(game,settings),roundId=weeklyRoundId(config.roundId,now),progress=player.gardenGames?.[game],round=gardenGameRound(progress,roundId);
  const day=missionPeriod('daily',now);
  const available=player.level>=config.minLevel&&gameEventAvailable(game,settings,now);
- const enabled=settings?.features[game]!==false,completed=round?.completed??0,tickets=round?.tickets??0,free=progress?.freeDay!==day.id;
- const attempt=enabled?resume?.[1].attempt:undefined;
- const canStart=available&&completed<GARDEN_GAME_STAGES&&roundId===config.roundId&&(free||tickets>0);
- const justFinished=!!round?.result&&now-round.result.finishedAt<GARDEN_GAME_FINISH_GRACE;
- return {roundId,completed,tickets,free,attempt,available,canStart,visible:available||!!attempt||enabled&&justFinished,
+ const completed=round?.completed??0,tickets=round?.tickets??0,free=progress?.freeDay!==day.id;
+ const attempt=available&&round?.attempt&&round.attempt.expiresAt>now?round.attempt:undefined;
+ const canStart=available&&completed<GARDEN_GAME_STAGES&&(free||tickets>0);
+ return {roundId,completed,tickets,free,attempt,available,canStart,visible:available,
   nextReset:day.endsAt,grandPrize:round?.grandPrize??config.grandPrize,result:round?.result};
 }

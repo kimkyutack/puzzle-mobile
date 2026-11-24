@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {CHAPTER_OBSTACLE_ENGINE_VERSION,ENGINE_VERSION,LAYERED_OBSTACLE_ENGINE_VERSION,type GameEvent,type LevelDefinition} from '@garden/contracts';
+import {CHAPTER_OBSTACLE_ENGINE_VERSION,CONTINUOUS_REFILL_ENGINE_VERSION as ENGINE_VERSION,LAYERED_OBSTACLE_ENGINE_VERSION,type GameEvent,type LevelDefinition} from '@garden/contracts';
 import {applyAction,createGame,findMatches,legalActions,validateLevel} from '@garden/core';
 import {publishedLevel} from '../apps/api/src/level-content';
 import {prepareRunInitial} from '../apps/api/src/run-initial';

@@ -1,0 +1,82 @@
+{
+  "weekly": {
+    "common": "Create ONE production mobile game raster background asset, portrait1024x2048 (aspect1:2), for an interactive UI recreation. Image1 is the SELECTED exact three-panel visual reference. Recreate ONLY the specified panel as its own full-screen production scene, matching its composition, original rich 3D painted art, colors, materials, positions. NOT another mockup sheet. NO phone chrome, NO text, letters, numerals, symbols, watermarks, UI icons, home/back/X controls. All title letters and changing values will be rendered by live app, so their surfaces must be BLANK. Keep ornamental art appropriate to chosen source; do NOT simplify into flat website. Maintain correct normalized areas described below so code overlays align. NO duplication of gameplay assets inside designated blank play surfaces.",
+    "jobs": [
+      {
+        "id": "rescue-scene",
+        "prompt": "Create ONE production mobile game raster background asset, portrait1024x2048 (aspect1:2), for an interactive UI recreation. Image1 is the SELECTED exact three-panel visual reference. Recreate ONLY the specified panel as its own full-screen production scene, matching its composition, original rich 3D painted art, colors, materials, positions. NOT another mockup sheet. NO phone chrome, NO text, letters, numerals, symbols, watermarks, UI icons, home/back/X controls. All title letters and changing values will be rendered by live app, so their surfaces must be BLANK. Keep ornamental art appropriate to chosen source; do NOT simplify into flat website. Maintain correct normalized areas described below so code overlays align. NO duplication of gameplay assets inside designated blank play surfaces.Recreate LEFT woodland adventure: lush green forest, waterfall on right, winding tan paw trail, orange red panda Lumi in teal overalls at lower-left of map. Large blank CREAM PARCHMENT title banner at x8%-93%,y7%-15%, binocular ornament left. Small blank honey pill below at x34%-68%,y16%-20%. Trail fills y21%-64% with THREE broad flat steppingstones at (57%,55%),(49%,41%),(44%,31%) ready for HTML stage numbers. No printed numbers, noflagscoveringstones. Top goal clearing at x46%-70%,y23%-30%, leave space for live animal art (DO NOT draw panda or any rescued animal; Lumi remains). At y64%-89% a large blank warm parchment rewards board with leafy corners and delicate TWO empty horizontal inset rows at y70%-77% and79%-86%, ample blankspace for live rewardicons and numbers. Blank GREEN gold-rimmed wide game CTA button x18%-81%,y89%-96%, no words. Continue forest to all edges. Top5% unobstructed for real homeandX buttons."
+      },
+      {
+        "id": "pinball-scene",
+        "prompt": "Create ONE production mobile game raster background asset, portrait1024x2048 (aspect1:2), for an interactive UI recreation. Image1 is the SELECTED exact three-panel visual reference. Recreate ONLY the specified panel as its own full-screen production scene, matching its composition, original rich 3D painted art, colors, materials, positions. NOT another mockup sheet. NO phone chrome, NO text, letters, numerals, symbols, watermarks, UI icons, home/back/X controls. All title letters and changing values will be rendered by live app, so their surfaces must be BLANK. Keep ornamental art appropriate to chosen source; do NOT simplify into flat website. Maintain correct normalized areas described below so code overlays align. NO duplication of gameplay assets inside designated blank play surfaces.Recreate CENTER autumn fairground RED PINBALL MACHINE. Golden acorn ornaments and red/gold lightbulb title marquee at x11%-90%,y4%-17%, completely BLANK TITLE area. Body glossy cherry-red lacquer, warmgold, amber wood. Core EMPTY WOODEN PLAY SURFACE x12%-88%,y21%-58%, front-facing, flat enough for livephysics pegs/ball. DO NOT draw pegs, balls, ramps, pockets, ballstock, scores, projectile, jewels or rewards inside that surface: all live assets will be rendered separately. Leave lower board area x12%-88% y50%-61% clear for live5pockets. Blank cream ticket capsule x25%-76%,y62%-67%. Red/gold lightbulb-bordered CREAM REWARD DISPLAY x10%-91%,y69%-83%, with small blank centered gold plaque heading at y68%-72%, no content. Blank broad RED DOMED PRESS BUTTON x26%-76%,y85%-95%, matching exact source raised red arcade startbutton, no label. Keep autumn leaves and bunting at sides/top, scene perspective and polished materials exactly source. Top5% corners empty for livebackandX."
+      },
+      {
+        "id": "water-scene",
+        "prompt": "Create ONE production mobile game raster background asset, portrait1024x2048 (aspect1:2), for an interactive UI recreation. Image1 is the SELECTED exact three-panel visual reference. Recreate ONLY the specified panel as its own full-screen production scene, matching its composition, original rich 3D painted art, colors, materials, positions. NOT another mockup sheet. NO phone chrome, NO text, letters, numerals, symbols, watermarks, UI icons, home/back/X controls. All title letters and changing values will be rendered by live app, so their surfaces must be BLANK. Keep ornamental art appropriate to chosen source; do NOT simplify into flat website. Maintain correct normalized areas described below so code overlays align. NO duplication of gameplay assets inside designated blank play surfaces.Recreate RIGHT cool aqua GLASS GREENHOUSE WORKBENCH scene. Glass ceiling, orchids, copperplumbing atedges. White glass title plaque with thin goldtrim at x16%-86%,y7%-17%, waterdroplet ornament on top but BLANK title. TWO EMPTY WHITE STAT CHIPS x10%-49% and51%-91%,y18%-23%. Main brass-rimmed pale cool-gray square puzzle board x10%-92%,y25%-63%, perfectly front-facing blank interior, no pipes, no grid lines, no tiles, no water, no flowers INSIDE, because the live5x5interactiveboard will render. At y65%-85% white enamel reward rack panel with thin brasscorners and blank centered cream headerplate y64%-69%; leave5subtle blank low wooden pedestals at y75%-83%, NO plants/icons/numbers on them. Broad blank CYAN glass gamebutton at x23%-85%,y87%-95%, dropletornamentonleft allowed but NO text. Sides have modest glassbottles andgreenhouse furniture. Match source camera/framing/colors exactly. Upper5%corners clear for livebackandX."
+      }
+    ],
+    "reference": "/Users/kimkyutack/Downloads/ChatGPT 이미지 2026년 11월 20일 오후 12_59_35.png"
+  },
+  "supporting": [
+    {
+      "id": "picnic",
+      "ref": "/Users/kimkyutack/.codex/visualizations/2026/11/20/01a1f6b7-3697-7370-848d-5e7b955f50b6/events-v3-calendar-flower-cards.png",
+      "prompt": "Create a production background asset ONLY for LEFT attendance page content from reference, portrait1024x1536. Soft warm cream/peach checked picnic cloth covering lower80%, softly blurred green garden at top20%, tinybasketoneuppercorner only. No characters, calendar, envelopes, buttons, numbers, text, icons, UI, navigation, flagsorlights. Calm existingmobilegarden art. Empty usablearea for interactive7daycalendar. Avoidwhiteblankwebpage orheavydecoration."
+    },
+    {
+      "id": "flowerbed",
+      "ref": "/Users/kimkyutack/.codex/visualizations/2026/11/20/01a1f6b7-3697-7370-848d-5e7b955f50b6/events-v3-calendar-flower-cards.png",
+      "prompt": "Create ONE production illustration asset matching CENTER content: orange redpanda Lumi in teal gardeningoveralls and coral scarf standing at LEFT of a cheerful wooden raisedflowerbed filledwithpinkflowers, holdingonepinkpetal. Simple gardenfence, softlyblurredgreeneryandglassgreenhousebackground. Landscape1536x1024. Fullscene fillsframe, samequalitycolors and character identity as reference but moderate detail. No UI, nolettering, numbers, progress, rewards, buttons, tabs or navigation. No enormous magical lotus or glowinggold."
+    },
+    {
+      "id": "season-islands",
+      "ref": "/Users/kimkyutack/.codex/visualizations/2026/11/20/01a1f6b7-3697-7370-848d-5e7b955f50b6/events-v3-tools-season-unlimited.png",
+      "prompt": "Create ONE production illustration asset matching CENTER floating garden scene fromreference. Landscape1536x1024, TWO separate floating gardenislands exactly balanced sidebyside: left hascreamgazebo withpinkrosevines, right hasrosearch andsmallbench. Softbluesky, smallclouds,mountainvalleybelow. Calm brightgardenpuzzlegame3Dpaintedstyle, no glitter, no glowinggoldribbons. NO TEXT, no labels, no buttons, noheader, noUI,rewardsorprogressbars. Bothislands keptclear separate withspacebelow forliveUI."
+    },
+    {
+      "id": "workshop",
+      "ref": "/Users/kimkyutack/.codex/visualizations/2026/11/20/01a1f6b7-3697-7370-848d-5e7b955f50b6/events-v3-tools-season-unlimited.png",
+      "prompt": "Create ONE portrait1024x1536 production BACKGROUNDmatching LEFTtoolworkshopfromreference. Simplewoodworkshop, blue painted pegboard occupying centralarea x8%-92%,y13%-73%, emptyboardwithout4compartments. Woodenbenchshelf y75%-87%, windowsmallleftandmodestgardenbluroutside. SMALL Lumi redpanda tealoveralls/coralscarf atlowerleftedge, doesn'toverlapmainboard. No tools hanging, noexistingUI,text,numbers,labels,progress,items,buttons or rewardchests. Calm mobilegardenpuzzlestyle, no ornateborderorlightshow."
+    },
+    {
+      "id": "pass-book",
+      "ref": "/Users/kimkyutack/.codex/visualizations/2026/11/20/01a1f6b7-3697-7370-848d-5e7b955f50b6/events-v3-rewards-pass.png",
+      "transparent": true,
+      "prompt": "Create ONE isolated production open gardenpassport BOOK FRAME asset, exactly matchingCENTERbookinreference, square1024x1024 transparentbackground. Openportraitproportionbook centeredtwoequalpages,leftpaleblueivory,rightwarmcreamgold, roundedbluebinding thin,subtlepapertexture,slimcenterfold. NO scallopedlace,noheavygold.NO TEXT,numbers,icons,characters,rows,grids,tabs,buttons,progressbarsorotherUI. CompletelyBLANK interiors for liveinteractivefree/premiumrewards, emptybookpages take90%canvas. Genuine transparency outsidebook; no shadowbackground."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "rescue-scene",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-c15993f4-4c53-49c7-bd38-9534e2a2d663.png"
+    },
+    {
+      "id": "pinball-scene",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-3b340d1d-dade-42e6-952f-9bf6a2d96c30.png"
+    },
+    {
+      "id": "water-scene",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-04a59842-b088-4434-9c33-6ff40bf3dde1.png"
+    },
+    {
+      "id": "picnic",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-7cd36e09-fe5a-4493-b9c3-4b2cc0fcd06a.png"
+    },
+    {
+      "id": "flowerbed",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-84033227-5370-4f02-9bc7-d34395654a07.png"
+    },
+    {
+      "id": "season-islands",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-99441332-9bc8-4bf5-99ae-7eee9e95ff60.png"
+    },
+    {
+      "id": "workshop",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-77c0678d-909c-47e7-bf74-09e5ca7e7910.png"
+    },
+    {
+      "id": "pass-book",
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-f5f0650a-590b-47d1-92d9-afb59f383003.png"
+    }
+  ]
+}

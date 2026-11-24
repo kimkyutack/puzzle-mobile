@@ -8,10 +8,13 @@ import {gardenDirectionArt,gardenObjectBounds} from './direction-art';
 import {placedAnimalArt,residentArtBounds,residentDirectionArt} from './resident-art';
 import {restorationPreview} from './restoration-preview';
 import {gardenObjectOccludes} from './depth';
+import {paintGardenLawn,gardenLandEdges} from './terrain-art';
+import {paintInvitationStarlight} from './invitation-starlight';
 import type {RestorationVisual} from '../GardenScene';
-export const MAP_GRID={tileWidth:96,tileHeight:48};
+export const MAP_GRID={tileWidth:128,tileHeight:64};
 export interface MapHandle {focus:(point:GardenPoint)=>void;framePlot:(plot:GardenExpansionPlot)=>void;zoom:(factor:number)=>void;overview:()=>void}
-interface Props {overviewInsets?:{top:number;bottom:number;left?:number;right?:number};world:GardenWorldState;images:Record<string,LoadedArt>;preview:GardenPlacement|null;previewValid:boolean;editable:boolean;onSelect:(id:string)=>void;onPreview:(point:GardenPoint)=>void;onZoom?:(zoom:number)=>void;reducedMotion?:boolean;paint?:boolean;onPaint?:(cells:GardenPoint[])=>void;expansionPreview?:GardenExpansionPlot|null;expansionValid?:boolean;expansionOptions?:GardenExpansionPlot[];onExpansionPreview?:(point:GardenPoint)=>void;restoration?:RestorationVisual|null}
+interface Props {initialZoom?:number;overviewInsets?:{top:number;bottom:number;left?:number;right?:number};world:GardenWorldState;images:Record<string,LoadedArt>;preview:GardenPlacement|null;previewValid:boolean;editable:boolean;onSelect:(id:string)=>void;onPreview:(point:GardenPoint)=>void;onZoom?:(zoom:number)=>void;reducedMotion?:boolean;paint?:boolean;onPaint?:(cells:GardenPoint[])=>void;expansionPreview?:GardenExpansionPlot|null;expansionValid?:boolean;expansionOptions?:GardenExpansionPlot[];onExpansionPreview?:(point:GardenPoint)=>void;restoration?:RestorationVisual|null}
+const viewportCenterY=(height:number,insets:Props['overviewInsets'])=>insets?insets.top+Math.max(80,height-insets.top-insets.bottom)/2:height*.45;
 interface Sprite {x:number;y:number;width:number;height:number;flipped:boolean;art:LoadedArt}
 interface ObjectSprite extends Sprite {id:string;footprint:GridRect;opacity:number}
 interface ResidentSprite extends Sprite {id?:string;feet:GardenPoint}
@@ -48,13 +51,19 @@ function spriteContains(sprite:Sprite,point:Pointer){
 }
 export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
  const canvas=useRef<HTMLCanvasElement>(null),residents=useRef(new GardenResidents()),measured=useRef({width:0,height:0}),hits=useRef<Hit[]>([]),pointers=useRef(new Map<number,Pointer>()),gesture=useRef<{start:Pointer;camera:GardenCamera;moved:boolean;pinch?:{distance:number;middle:Pointer};drag?:{offset:GardenPoint};expansion?:{offset:GardenPoint};paint?:GardenPoint}|null>(null);
- const [size,setSize]=useState({width:0,height:0}),[camera,setCamera]=useState<GardenCamera>({x:0,y:0,zoom:.68});
+ const [size,setSize]=useState({width:0,height:0}),[camera,setCamera]=useState<GardenCamera>({x:0,y:0,zoom:props.initialZoom??.68});
  const pendingFocus=useRef<GardenPoint|null>(null),pendingOverview=useRef(false);
+ const previousCenterY=useRef<number|null>(null);
  const live=useRef({props,camera,size});live.current={props,camera,size};
+ const constrain=(next:GardenCamera)=>{
+  const current=live.current;
+  return constrainGardenCamera(next,gardenBounds(current.props.world,GARDEN_WORLD,current.props.expansionPreview),current.size,80,MAP_GRID,current.props.overviewInsets);
+ };
  const focus=(point:GardenPoint)=>{
-  const {camera,size}=live.current;if(!size.width||!size.height){pendingFocus.current=point;return;}
+  const {camera,size,props}=live.current;if(!size.width||!size.height){pendingFocus.current=point;return;}
   const origin=gardenGridToScreen(point,{x:0,y:0,zoom:camera.zoom},MAP_GRID);
-  setCamera({...camera,x:size.width/2-origin.x,y:size.height*.45-origin.y});
+  const centerY=viewportCenterY(size.height,props.overviewInsets);
+  setCamera({...camera,x:size.width/2-origin.x,y:centerY-origin.y});
  };
  const overview=()=>{
   const {props,size}=live.current;if(!size.width||!size.height){pendingOverview.current=true;return;}pendingOverview.current=false;
@@ -70,22 +79,28 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
  useImperativeHandle(ref,()=>({focus,overview,framePlot:plot=>{
   const {size}=live.current;if(!size.width)return;const zoom=Math.min(.68,(size.width-40)/((plot.width+plot.height)*MAP_GRID.tileWidth/2)),point={x:plot.x+plot.width/2,y:plot.y+plot.height/2},origin=gardenGridToScreen(point,{x:0,y:0,zoom},MAP_GRID);setCamera({zoom,x:size.width/2-origin.x,y:size.height*.37-origin.y});
  },zoom:factor=>{
-  const {camera,size,props}=live.current;setCamera(constrainGardenCamera(zoomGardenAt(camera,{x:size.width/2,y:size.height*.45},camera.zoom*factor),gardenBounds(props.world,GARDEN_WORLD,props.expansionPreview),size,80,MAP_GRID));
+  const {camera,size,props}=live.current;setCamera(constrain(zoomGardenAt(camera,{x:size.width/2,y:viewportCenterY(size.height,props.overviewInsets)},camera.zoom*factor)));
  }}));
  useLayoutEffect(()=>{
   const el=canvas.current!,observer=new ResizeObserver(()=>{const width=el.clientWidth,height=el.clientHeight,old=measured.current;
    if(old.width===width&&old.height===height)return;
    measured.current={width,height};setSize({width,height});
    setCamera(previous=>{
-    if(!old.width){const point=pendingFocus.current||{x:16.5,y:16.5};pendingFocus.current=null;const at=gardenGridToScreen(point,{x:0,y:0,zoom:previous.zoom},MAP_GRID);return {...previous,x:width/2-at.x,y:height*.45-at.y};}
-    return {...previous,x:previous.x+(width-old.width)/2,y:previous.y+(height-old.height)*.45};
+    if(!old.width){const point=pendingFocus.current||{x:16.5,y:16.5};pendingFocus.current=null;const zoom=previous.zoom*(live.current.props.initialZoom?Math.min(1,width/390):1),at=gardenGridToScreen(point,{x:0,y:0,zoom},MAP_GRID);return {...previous,zoom,x:width/2-at.x,y:viewportCenterY(height,live.current.props.overviewInsets)-at.y};}
+    return {...previous,x:previous.x+(width-old.width)/2};
    });
   });observer.observe(el);return()=>observer.disconnect();
  },[]);
+ useLayoutEffect(()=>{
+  if(!size.width||!size.height)return;
+  const center=viewportCenterY(size.height,props.overviewInsets),delta=previousCenterY.current===null?0:center-previousCenterY.current;
+  previousCenterY.current=center;
+  setCamera(previous=>constrain({...previous,y:previous.y+delta}));
+ },[size.width,size.height,props.overviewInsets?.top,props.overviewInsets?.bottom,props.overviewInsets?.left,props.overviewInsets?.right]);
  useEffect(()=>props.onZoom?.(camera.zoom),[camera.zoom,props.onZoom]);
  useEffect(()=>{
   const el=canvas.current!;
-  const wheel=(event:WheelEvent)=>{event.preventDefault();const rect=el.getBoundingClientRect(),current=live.current;setCamera(constrainGardenCamera(zoomGardenAt(current.camera,{x:event.clientX-rect.left,y:event.clientY-rect.top},current.camera.zoom*Math.exp(-event.deltaY*.001)),gardenBounds(current.props.world,GARDEN_WORLD,current.props.expansionPreview),current.size,80,MAP_GRID));};
+  const wheel=(event:WheelEvent)=>{event.preventDefault();const rect=el.getBoundingClientRect(),current=live.current;setCamera(constrain(zoomGardenAt(current.camera,{x:event.clientX-rect.left,y:event.clientY-rect.top},current.camera.zoom*Math.exp(-event.deltaY*.001))));};
   el.addEventListener('wheel',wheel,{passive:false});return()=>el.removeEventListener('wheel',wheel);
  },[]);
  useEffect(()=>{
@@ -98,17 +113,34 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
   const land=gardenLandCells(props.world),mapBounds=gardenBounds(construction?.world??props.world,GARDEN_WORLD,props.expansionPreview),unlocked=(x:number,y:number)=>land.has(x+','+y);
   el.dataset.restoration=JSON.stringify(props.restoration?{...props.restoration,pending:construction?.pending??false,placement:construction?.placement??null}:null);
   el.dataset.unlockedCells=String(land.size);el.dataset.expansions=JSON.stringify(props.world.expansions??[]);el.dataset.expansionPreview=JSON.stringify(props.expansionPreview??null);el.dataset.expansionValid=String(props.expansionValid!==false);
-  for(let sum=0;sum<mapBounds.width+mapBounds.height;sum++)for(let y=0;y<mapBounds.height;y++){
-   const x=sum-y;if(x<0||x>=mapBounds.width)continue;const at=project({x:x+.5,y:y+.5});if(!visible(at.x-tw/2,at.y-th/2,tw,th))continue;
-   ctx.globalAlpha=unlocked(x,y)?1:.25;ctx.drawImage(props.images.ground!.image,at.x-tw*.525,at.y-th*.525,tw*1.05,th*1.05);
+  // The repeating backdrop is scenery, not buildable land. Paint owned cells at
+  // full brightness using the same land map as placement validation.
+  ctx.fillStyle='#647951';ctx.fillRect(0,0,size.width,size.height);
+  paintGardenLawn(ctx,props.images.ground!,camera,tw,th,size.width,size.height,.32);
+  ctx.save();ctx.beginPath();
+  for(const {x,y}of land.values()){
+   const at=project({x,y});if(!visible(at.x-tw/2,at.y,tw,th))continue;
+   ctx.moveTo(at.x,at.y);ctx.lineTo(at.x+tw/2,at.y+th/2);ctx.lineTo(at.x,at.y+th);ctx.lineTo(at.x-tw/2,at.y+th/2);ctx.closePath();
   }
+  ctx.clip();paintGardenLawn(ctx,props.images.ground!,camera,tw,th,size.width,size.height);ctx.restore();
+  ctx.save();ctx.beginPath();
+  for(const edge of gardenLandEdges(land)){const a=project(edge.from),b=project(edge.to);ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);}
+  ctx.lineJoin='round';ctx.lineCap='round';ctx.strokeStyle='#35552bc4';ctx.lineWidth=Math.max(3,Math.min(5,tw*.06));ctx.stroke();
+  ctx.strokeStyle='#dbe9a7cc';ctx.lineWidth=Math.max(1,Math.min(2,tw*.025));ctx.stroke();ctx.restore();
   ctx.globalAlpha=1;
   const objects=Object.values(props.world.placements).filter(p=>p.instanceId!==props.preview?.instanceId);
+  const paving=new Set(objects.filter(p=>props.world.owned[p.instanceId]?.itemId==='garden-path-stone').map(p=>p.x+','+p.y));
   function drawGround(placed:GardenPlacement,alpha=1,world=props.world){
    const item=definition(world.owned[placed.instanceId]!.itemId),at=project({x:placed.x+.5,y:placed.y+.5});if(!visible(at.x-tw/2,at.y-th/2,tw,th))return;
    ctx.save();ctx.globalAlpha=alpha;ctx.translate(at.x,at.y);
-   if(placed.rotation===90)ctx.transform(0,.5,-2,0,0,0);else if(placed.rotation===180)ctx.scale(-1,-1);else if(placed.rotation===270)ctx.transform(0,-.5,2,0,0,0);
-   ctx.drawImage(props.images[item.id]!.image,-tw*.504,-th*.504,tw*1.008,th*1.008);ctx.restore();
+   let turns=[placed.rotation];
+   if(item.id==='garden-path-stone'){
+    const alongX=paving.has((placed.x-1)+','+placed.y)||paving.has((placed.x+1)+','+placed.y),alongY=paving.has(placed.x+','+(placed.y-1))||paving.has(placed.x+','+(placed.y+1));
+    if(alongX||alongY)turns=[...(alongX?[0 as const]:[]),...(alongY?[90 as const]:[])];
+   }
+   for(const rotation of turns){ctx.save();if(rotation===90)ctx.transform(0,.5,-2,0,0,0);else if(rotation===180)ctx.scale(-1,-1);else if(rotation===270)ctx.transform(0,-.5,2,0,0,0);
+    ctx.drawImage(props.images[item.id]!.image,-tw*.504,-th*.504,tw*1.008,th*1.008);ctx.restore();}
+   ctx.restore();
   }
   for(const placed of objects){
    const owned=props.world.owned[placed.instanceId]!,item=definition(owned.itemId);if(item.layer!=='ground')continue;
@@ -155,6 +187,11 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
   });
   for(const building of buildings)paintSprite(ctx,building,building.opacity);
   const buildingHits=buildings.filter(building=>building.opacity===1);
+  const invitationPavilions=buildingHits.filter(building=>props.world.owned[building.id]?.itemId==='garden-starlight-wish-pavilion');
+  el.dataset.invitationPavilions=String(invitationPavilions.length);
+  const starlightLayer=invitationPavilions.length?document.createElement('canvas'):null;
+  if(starlightLayer){starlightLayer.width=el.width;starlightLayer.height=el.height;}
+  const starlightContext=starlightLayer?.getContext('2d');starlightContext?.setTransform(dpr,0,0,dpr,0,0);
   // Cache the stationary scene while residents move in front of and behind it.
   const backdrop=document.createElement('canvas');backdrop.width=el.width;backdrop.height=el.height;backdrop.getContext('2d')!.drawImage(el,0,0);
   const residentLayer=document.createElement('canvas');
@@ -195,6 +232,15 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
    const delta=(now-last)/1000;last=now;lastDraw=now;
    residents.current.step(delta,props.editable||props.reducedMotion||document.hidden);
    ctx.clearRect(0,0,size.width,size.height);ctx.drawImage(backdrop,0,0,size.width,size.height);
+   if(starlightLayer&&starlightContext)for(const pavilion of invitationPavilions){
+    starlightContext.clearRect(0,0,size.width,size.height);
+    starlightContext.globalCompositeOperation='source-over';
+    paintInvitationStarlight(starlightContext,props.images['invite-starlight-sparkle'],pavilion,now,props.reducedMotion);
+    // Foreground buildings cover the glints with their actual raster alpha.
+    starlightContext.globalCompositeOperation='destination-out';
+    for(const foreground of buildings.slice(buildings.indexOf(pavilion)+1))if(spritesOverlap(pavilion,foreground))paintSprite(starlightContext,foreground,foreground.opacity);
+    ctx.drawImage(starlightLayer,0,0,size.width,size.height);
+   }
    const nextHits:Hit[]=[...buildingHits],actors=[...placedAnimals];
    for(const actor of residents.current.actors){
     if(props.editable&&actor.animal)continue;
@@ -215,7 +261,7 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
     }
    }
    hits.current=nextHits;
-   if(!lastDebug||now-lastDebug>500){lastDebug=now;el.dataset.residents=JSON.stringify(residents.current.actors.map(actor=>{const {id,art,x,y,pose,frame,rear,placementRotation,walkDistance,facing}=actor,{assetId,direction}=residentDirectionArt(props.images,actor);return {id,art,x,y,pose,frame,rear,facing,placementRotation,walkDistance,assetId,direction};}));el.dataset.camera=JSON.stringify(camera);
+   if(!lastDebug||now-lastDebug>500){lastDebug=now;el.dataset.residents=JSON.stringify(residents.current.actors.map(actor=>{const {id,art,x,y,pose,frame,rear,placementRotation,walkDistance,facing}=actor,{assetId,direction}=residentDirectionArt(props.images,actor),{x:screenX,y:screenY,width,height}=walkingSprite(actor);return {id,art,x,y,pose,frame,rear,facing,placementRotation,walkDistance,assetId,direction,bounds:{x:screenX,y:screenY,width,height}};}));el.dataset.camera=JSON.stringify(camera);
     const describe=(placed:GardenPlacement)=>{const item=definition(props.world.owned[placed.instanceId]!.itemId),foot=decorationFootprint(item,placed.rotation);if(item.layer==='ground')return {...placed,foot,assetId:item.id};const {assetId,flipped,x,y,width,height}=objectView(props.world,props.images,placed,camera);return {...placed,foot,assetId,flipped,bounds:{x,y,width,height}};};
     el.dataset.placementDirections=JSON.stringify(objects.map(describe));el.dataset.previewPlacement=JSON.stringify(props.preview?describe(props.preview):null);
    }
@@ -243,12 +289,12 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
  }
  function move(event:React.PointerEvent<HTMLCanvasElement>){
   if(!pointers.current.has(event.pointerId))return;const at=point(event);pointers.current.set(event.pointerId,at);const g=gesture.current;if(!g)return;
-  if(pointers.current.size>=2&&g.pinch){const [a,b]=[...pointers.current.values()],middle={x:(a!.x+b!.x)/2,y:(a!.y+b!.y)/2};const zoomed=zoomGardenAt(g.camera,g.pinch.middle,g.camera.zoom*Math.hypot(a!.x-b!.x,a!.y-b!.y)/g.pinch.distance);setCamera(constrainGardenCamera({...zoomed,x:zoomed.x+middle.x-g.pinch.middle.x,y:zoomed.y+middle.y-g.pinch.middle.y},gardenBounds(live.current.props.world,GARDEN_WORLD,live.current.props.expansionPreview),live.current.size,80,MAP_GRID));return;}
+  if(pointers.current.size>=2&&g.pinch){const [a,b]=[...pointers.current.values()],middle={x:(a!.x+b!.x)/2,y:(a!.y+b!.y)/2};const zoomed=zoomGardenAt(g.camera,g.pinch.middle,g.camera.zoom*Math.hypot(a!.x-b!.x,a!.y-b!.y)/g.pinch.distance);setCamera(constrain({...zoomed,x:zoomed.x+middle.x-g.pinch.middle.x,y:zoomed.y+middle.y-g.pinch.middle.y}));return;}
   if(g.paint){if(!live.current.props.editable||!live.current.props.paint)return;const cell=gardenScreenToCell(at,live.current.camera,MAP_GRID);live.current.props.onPaint?.(gardenBrushLine(g.paint,cell));g.paint=cell;return;}
   const dx=at.x-g.start.x,dy=at.y-g.start.y;if(Math.hypot(dx,dy)>7)g.moved=true;if(!g.moved)return;
   if(g.expansion){const cell=gardenScreenToCell(at,live.current.camera,MAP_GRID);live.current.props.onExpansionPreview?.({x:cell.x-g.expansion.offset.x,y:cell.y-g.expansion.offset.y});return;}
   if(g.drag){const cell=gardenScreenToCell(at,live.current.camera,MAP_GRID);live.current.props.onPreview({x:cell.x-g.drag.offset.x,y:cell.y-g.drag.offset.y});}
-  else setCamera(constrainGardenCamera({...g.camera,x:g.camera.x+dx,y:g.camera.y+dy},gardenBounds(live.current.props.world,GARDEN_WORLD,live.current.props.expansionPreview),live.current.size,80,MAP_GRID));
+  else setCamera(constrain({...g.camera,x:g.camera.x+dx,y:g.camera.y+dy}));
  }
  function end(event:React.PointerEvent<HTMLCanvasElement>,cancel=false){
   const at=point(event),g=gesture.current;const existed=pointers.current.delete(event.pointerId);if(!existed)return;
@@ -266,6 +312,6 @@ export const WorldMap=forwardRef<MapHandle,Props>(function WorldMap(props,ref){
  }
  return <canvas ref={canvas} className="gw-map" role="application" aria-label={tr('정원 지도')} tabIndex={0} onPointerDown={down} onPointerMove={move} onPointerUp={event=>end(event)} onPointerCancel={event=>end(event,true)} onLostPointerCapture={event=>{if(pointers.current.has(event.pointerId))end(event,true);}} onKeyDown={event=>{
   const delta:Record<string,GardenPoint>={ArrowLeft:{x:48,y:0},ArrowRight:{x:-48,y:0},ArrowUp:{x:0,y:48},ArrowDown:{x:0,y:-48}};
-  if(delta[event.key]){event.preventDefault();const d=delta[event.key]!;setCamera(constrainGardenCamera({...live.current.camera,x:live.current.camera.x+d.x,y:live.current.camera.y+d.y},gardenBounds(live.current.props.world,GARDEN_WORLD,live.current.props.expansionPreview),live.current.size,80,MAP_GRID));}
+  if(delta[event.key]){event.preventDefault();const d=delta[event.key]!;setCamera(constrain({...live.current.camera,x:live.current.camera.x+d.x,y:live.current.camera.y+d.y}));}
  }}/>
 });

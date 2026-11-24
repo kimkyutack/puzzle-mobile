@@ -1,0 +1,14 @@
+/* Reuse the event workshop scene inside the existing modal chrome. */
+.modal-layer.power-festival-modal{padding:calc(var(--safe-top) + 12px) 12px calc(var(--safe-bottom) + 12px)}
+.modal-layer.power-festival-modal>.modal{
+ width:min(100%,calc((100dvh - var(--safe-top) - var(--safe-bottom) - 107px) * .66058 + 28px));max-width:420px;height:auto;
+ max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px);padding:65px 14px 18px;
+}
+.power-festival-modal>.modal>.modal-content{display:flex;flex:none;min-height:0;overflow:hidden;padding:0}
+.power-festival-modal .tools-scene-v65{flex:none;height:auto;min-height:0;aspect-ratio:390/590.390625}
+.power-festival-modal .event-scene-v65-action{
+ position:absolute;left:15%;top:auto;bottom:2cqw;width:70%;height:clamp(44px,14cqw,58px);
+ min-height:0!important;margin:0;padding:0 2cqw 1cqw!important;font-size:6cqw!important;line-height:1.2;
+}
+.power-festival-modal .event-scene-v65-action>.button-label{line-height:1.1!important;white-space:normal!important;text-align:center;transform:translateY(.06em)}
+.power-festival-modal .event-scene-v65-action:disabled>.button-label{font-size:4.8cqw}

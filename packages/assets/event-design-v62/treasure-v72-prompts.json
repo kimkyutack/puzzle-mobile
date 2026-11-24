@@ -1,0 +1,22 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "output/playwright/treasure-design-v72/reference-body.png",
+  "referenceSource": "/Users/kimkyutack/.codex/visualizations/2026/11/20/01a1f6b7-3697-7370-848d-5e7b955f50b6/events-v3-calendar-flower-cards.png",
+  "referenceCrop": {"left":1032,"top":204,"width":504,"height":698},
+  "assets": [
+    {
+      "outputs": ["treasure-scene-v72.webp"],
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-45e53116-632a-43a5-8144-c61546198962.png",
+      "transparent_background": false,
+      "prep": "Resize to width 992; WebP quality 90; keep original source.",
+      "prompt": "Edit the provided selected mobile gardening puzzle game screen into ONLY its reusable portrait background. Keep the exact deep teal woven-felt table material, gentle turquoise lighting and small leafy corners. Remove ALL title lettering, status plaque, all 12 cards, all reward panels, icons, digits, and the bottom green button; inpaint continuous matching teal felt. Flat frontal UI background, full bleed, no perspective, no board frame, no UI controls, no new props or decoration. Same restrained polished game art and same portrait aspect ratio as the reference. This is a blank production backplate beneath live UI."
+    },
+    {
+      "outputs": ["treasure-card-back-v72.webp","treasure-card-face-v72.webp"],
+      "source": "/Users/kimkyutack/.codex/generated_images/01a1f6b7-3697-7370-848d-5e7b955f50b6/exec-3d1a06a9-1df8-4ccd-a9ca-a9087f391cc1.png",
+      "transparent_background": true,
+      "prep": "1683x935 sheet: split at y467, alpha trim each region, resize each to width512; WebP quality92 with alpha preserved. Keep original source.",
+      "prompt": "Create a production UI sprite sheet from the exact card style in this approved game screen. TWO isolated horizontal playing-card faces stacked vertically with ample transparent gap, each same dimensions and proportions about 1.8:1. TOP: the closed card back, rich royal blue enamel/leather, thin rounded double gold bevel frame, subtle light-blue corner filigree, the small centered gold three-leaf garden emblem exactly as the reference. BOTTOM: matching revealed card, same gold frame and silhouette, warm blank ivory center, NO gem or any other icon, NO text. Crop neither card. Front-facing flat UI artwork, no tilt or perspective, identical widths, centered on transparent background, clean alpha outside each card, no surrounding scene, no text, no separate sockets, no extra decoration. Respect the reference's restrained bright casual gardening puzzle style."
+    }
+  ]
+}

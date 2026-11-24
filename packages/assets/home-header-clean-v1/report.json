@@ -1,0 +1,26 @@
+{
+  "input": "packages/assets/home-refinement-v78/runtime",
+  "report": [
+    {
+      "name": "header-coin",
+      "width": 128,
+      "height": 128,
+      "removedBackgroundPixels": 2669,
+      "method": "Alpha-only correction of border-connected cream backplate and lawn pixels; retain original RGB, canvas size and icon positions. No trim or resize."
+    },
+    {
+      "name": "header-heart",
+      "width": 128,
+      "height": 128,
+      "removedBackgroundPixels": 2437,
+      "method": "Alpha-only correction of border-connected cream backplate and lawn pixels; retain original RGB, canvas size and icon positions. No trim or resize."
+    },
+    {
+      "name": "header-star",
+      "width": 128,
+      "height": 128,
+      "removedBackgroundPixels": 3356,
+      "method": "Alpha-only correction of border-connected cream backplate and lawn pixels; retain original RGB, canvas size and icon positions. No trim or resize."
+    }
+  ]
+}

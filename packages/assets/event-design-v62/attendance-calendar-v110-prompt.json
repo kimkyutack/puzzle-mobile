@@ -1,0 +1,11 @@
+{
+  "editTarget": "attendance-calendar-v63.webp",
+  "change": "Remove only the painted green button and its shadow in the right half of the bottom cream reward tray. Preserve the tray, left inset rectangle, divider, seven envelopes and picnic background.",
+  "reason": "The real claim button is rendered by the shared Button component. Painting another button into the background causes a double outline.",
+  "export": {
+    "width": 1024,
+    "height": 1396,
+    "format": "webp",
+    "quality": 92
+  }
+}

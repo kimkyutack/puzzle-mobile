@@ -1,6 +1,7 @@
 import type {ActivityReward,LevelDefinition,AnimalExpeditionProgress,AnimalExpeditionRoundProgress,ExpeditionAnimal} from '@garden/contracts';
 import type {RuntimeSettings} from '../../contracts/src/operations';
 import {gameEventConfig} from '../../contracts/src/operations';
+import {weeklyEvent,weeklyRoundId} from '../../contracts/src/weekly-events';
 import {missionPeriod} from './missions';
 import {animalExpeditionCandidate} from './animal-expedition-candidates';
 import recipes from './animal-expedition-recipes.json';
@@ -37,7 +38,12 @@ export const EXPEDITION_ANIMALS={
  'red-panda':{name:'아기 레서판다',itemId:'animal-red-panda'},
 } as const;
 export const LEGACY_EXPEDITION_ROUND='legacy-dog-v1';
-export function configuredExpeditionRound(settings?:Pick<RuntimeSettings,'gameEvents'>|null){const config=gameEventConfig('animalExpedition',settings);return {roundId:`${config.animal??'panda'}:${config.roundId??'001'}`,animal:config.animal??'panda'};}
+export function configuredExpeditionRound(settings?:Pick<RuntimeSettings,'gameEvents'>|null,now=Date.now()){
+ const config=gameEventConfig('animalExpedition',settings),animals=['panda','fox','red-panda'] as const;
+ const index=animals.indexOf(config.animal??'panda')+weeklyEvent(now).cycle;
+ const animal=animals[((index%animals.length)+animals.length)%animals.length]!;
+ return {roundId:animal+':'+weeklyRoundId(config.roundId??'001',now),animal};
+}
 export function expeditionRounds(progress:AnimalExpeditionProgress|undefined):AnimalExpeditionRoundProgress[]{
  if(!progress)return [];
  const {pastRounds,dailyAttempts,...current}=progress;

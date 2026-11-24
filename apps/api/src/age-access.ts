@@ -51,7 +51,7 @@ export function guardAgeAccess(env: ApiEnv, age: AccountAge | null, path: string
   }
   if (age?.band !== 'child') return;
   const restricted = /^\/(guilds?|friends|rankings|players|support)(\/|$)/.test(path) ||
-    path.startsWith('/garden/visits/') || path.startsWith('/offers') || path === '/pass/guild-gift' ||
+    path.startsWith('/garden/visits/') || path.startsWith('/garden/invite') || path.startsWith('/offers') || path === '/pass/guild-gift' ||
     path === '/purchases/prepare' || path === '/auth/challenge' || path === '/auth/link' || path === '/auth/switch' ||
     (path === '/me' && method === 'PATCH' && body.nickname !== undefined);
   ensure(!restricted, 'CHILD_FEATURE_RESTRICTED', '이 계정에서는 해당 기능을 이용할 수 없어요.', 403);

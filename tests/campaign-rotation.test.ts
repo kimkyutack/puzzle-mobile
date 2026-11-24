@@ -58,9 +58,10 @@ describe('campaign mechanic rotation',()=>{
   expect(publishedLevel(401,SEED_DELIVERY_ENGINE_VERSION)).toEqual(previousBoard(401,SEED_DELIVERY_ENGINE_VERSION));
  });
 
- it('supports random starts, deterministic replay and clearing with board-created specials',()=>{
+ // Keep the original rotation certificates separate from the current pressure curve.
+ it('supports random starts, deterministic replay and clearing with board-created specials on retained rotation boards',()=>{
   for(const id of [104,201,207,211,301,308]){
-   const level=publishedLevel(id,ENGINE_VERSION);
+   const level=publishedLevel(id,GREENHOUSE_ENGINE_VERSION);
    const {level:attempt,state}=prepareRunInitial(level,[],true,17347);
    expect(attempt.obstacles).toEqual(level.obstacles);
    expect(attempt.exits).toEqual(level.exits);
@@ -70,7 +71,7 @@ describe('campaign mechanic rotation',()=>{
    expect(solution.status,String(id)).toBe('won');
    expect(replay(attempt,solution.actions).state.status).toBe('won');
   }
-  const level=publishedLevel(104,ENGINE_VERSION),guide=level.startBoosterGuide!;
+  const level=publishedLevel(104,GREENHOUSE_ENGINE_VERSION),guide=level.startBoosterGuide!;
   const start=createGame(level,[guide.item]);
   const hit=applyAction(start,{type:'tap',at:guide.cell});
   const first=hit.events.find(event=>event.type==='hit');

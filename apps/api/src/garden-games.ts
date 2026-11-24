@@ -8,8 +8,9 @@ import {waterBoard,replayWater} from '../../../packages/content/src/greenhouse-w
 import {ensure,mutate,operationKey,uid,type ApiEnv,type MutationContext} from './db';
 import {grantActivityReward,recordActivity} from './activity';
 import {grantEventDecoration} from './garden-world';
+import {weeklyEvent,weeklyRoundId} from '../../../packages/contracts/src/weekly-events';
 
-const roundSchema=z.string().min(1).max(40).regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/);
+const roundSchema=z.string().min(1).max(64).regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/);
 const physicsSchema=z.literal(PINBALL_PHYSICS_VERSION).optional();
 const expiry=24*60*60*1000;
 
@@ -30,7 +31,7 @@ export function recordGardenGameClear(tx:MutationContext,settings:RuntimeSetting
  for(const game of GARDEN_GAMES){
   const config=gameEventConfig(game,settings);
   if(tx.player.level<config.minLevel||!gameEventAvailable(game,settings,tx.now))continue;
-  const round=editableRound(tx,game,config.roundId);
+  const round=editableRound(tx,game,weeklyRoundId(config.roundId,tx.now));
   if(round.completed<GARDEN_GAME_STAGES&&round.tickets<config.ticketCap)round.tickets++;
  }
 }
@@ -40,7 +41,7 @@ export function startGardenGame(env:ApiEnv,userId:string,game:GardenGameId,body:
  const pinballPhysics=game==='acorn-pinball'?physicsSchema.parse(body.pinballPhysics):undefined;
  return mutate(env,userId,operationKey(body),`garden-game:start:${game}:${roundId}${pinballPhysics?':'+pinballPhysics:''}`,tx=>{
   const status=gardenGameStatus(game,tx.player,tx.now,settings);
-  ensure(roundId===config.roundId&&roundId===status.roundId,'GARDEN_GAME_CHANGED','이벤트 회차가 바뀌었어요. 다시 열어 주세요.',409);
+  ensure(roundId===status.roundId,'GARDEN_GAME_CHANGED','이벤트 회차가 바뀌었어요. 다시 열어 주세요.',409);
   if(status.attempt){ensurePinballPhysics(status.attempt,pinballPhysics);return {player:tx.player};}
   ensure(status.available,'EVENT_NOT_OPEN','지금은 이벤트 참여 시간이 아니에요.',409);
   ensure(status.completed<GARDEN_GAME_STAGES,'GARDEN_GAME_COMPLETE','이 회차의 미니게임을 모두 완료했어요.',409);
@@ -52,7 +53,7 @@ export function startGardenGame(env:ApiEnv,userId:string,game:GardenGameId,body:
   round.grandPrize??=config.grandPrize;
   const stage=round.completed+1;
   const seed=crypto.getRandomValues(new Uint32Array(1))[0]!||1;
-  round.attempt={id:uid(),stage,seed,expiresAt:Math.min(tx.now+expiry,(config.endsAt??Infinity)+GARDEN_GAME_FINISH_GRACE),...(pinballPhysics?{pinballPhysics}:{})};
+  round.attempt={id:uid(),stage,seed,expiresAt:Math.min(tx.now+expiry,weeklyEvent(tx.now).endsAt,(config.endsAt??Infinity)+GARDEN_GAME_FINISH_GRACE),...(pinballPhysics?{pinballPhysics}:{})};
   return {player:tx.player};
  });
 }
@@ -60,6 +61,7 @@ export function startGardenGame(env:ApiEnv,userId:string,game:GardenGameId,body:
 export function finishGardenGame(env:ApiEnv,userId:string,game:GardenGameId,body:Record<string,unknown>){
  const input=z.object({roundId:roundSchema,attemptId:z.string().uuid(),actions:z.array(z.number().int().min(0).max(24)).min(1).max(80),pinballPhysics:physicsSchema}).parse(body);
  return mutate(env,userId,operationKey(body),`garden-game:finish:${game}:${JSON.stringify(input)}`,async tx=>{
+  ensure(weeklyEvent(tx.now).id===game,'EVENT_NOT_OPEN','이번 주 이벤트가 바뀌었어요. 홈에서 새 이벤트를 확인해 주세요.',409);
   const round=gardenGameRound(tx.player.gardenGames?.[game],input.roundId);
   if(round?.result?.attemptId===input.attemptId)return {player:tx.player,result:round.result};
   const attempt=round?.attempt;

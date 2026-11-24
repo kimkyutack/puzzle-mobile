@@ -1,0 +1,28 @@
+{
+  "width": 223,
+  "height": 648,
+  "groundAnchor": {
+    "x": 111.5,
+    "y": 644
+  },
+  "frames": [
+    {
+      "name": "lamp",
+      "alphaBounds": {
+        "left": 4,
+        "top": 4,
+        "width": 215,
+        "height": 640
+      }
+    },
+    {
+      "name": "lamp-rear",
+      "alphaBounds": {
+        "left": 4,
+        "top": 4,
+        "width": 215,
+        "height": 640
+      }
+    }
+  ]
+}

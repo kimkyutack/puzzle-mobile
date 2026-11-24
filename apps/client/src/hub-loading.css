@@ -1,0 +1,33 @@
+/* Content stays within the existing page header, tabs and footer. */
+.hub-content-loading{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;flex:1;min-height:250px;padding:26px 20px;text-align:center;color:#173e61;font-family:var(--font-game-ui);isolation:isolate}
+.game-page>.page-content:has(>.hub-content-loading){display:flex;flex-direction:column}
+.hub-loading-art{position:relative;display:grid;place-items:center;width:176px;height:168px;flex:none}
+.hub-loading-art>.icon:first-child{width:132px;height:132px;object-fit:contain;animation:hub-gift-float 2s ease-in-out infinite;filter:drop-shadow(0 7px 4px #244c4733)}
+.hub-loading-art .hub-loading-spark{position:absolute;object-fit:contain;animation:hub-gift-glint 1.8s ease-in-out infinite}
+.hub-loading-spark-a{top:20px;right:8px}.hub-loading-spark-b{bottom:27px;left:5px;animation-delay:.8s!important}
+.game-page .hub-content-loading>p,.modal-layer .hub-content-loading>p{margin:0!important;max-width:310px;font-size:18px;line-height:1.5;color:#173e61;text-shadow:0 1px #ffffff80;word-break:keep-all;overflow-wrap:anywhere}
+.game-page .hub-content-loading>small{font-size:13px;line-height:1.5;color:#2f5573}
+.hub-content-loading .hub-loading-retry{width:min(230px,100%);min-height:44px;margin:5px 0 0;font-size:19px}
+.events-loading-panel{display:flex;flex-direction:column;background:#168f9b url('../../../packages/assets/event-design-v62/treasure-scene-v72.webp') center/cover no-repeat!important;padding:0!important}
+.events-loading-panel>.hub-content-loading{width:100%;height:100%;min-height:0;background:transparent}
+.events-loading-panel .hub-loading-art{width:196px;height:185px}
+.events-loading-panel .hub-loading-art>.icon:first-child{width:155px;height:155px}
+.guild-map-v109 .guild-initial-loading{min-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 140px)}
+.game-page .hub-refresh-notice{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:12px;line-height:1.4;color:#224971;padding:5px 10px;background:#d8edfa;margin:0}
+.hub-refresh-notice .game-button{width:auto;min-height:36px;font-size:13px;margin:0;padding:3px 10px 8px}
+@keyframes hub-gift-float{0%,100%{transform:translateY(3px) rotate(-2deg) scale(.98)}50%{transform:translateY(-5px) rotate(2deg) scale(1.02)}}
+@keyframes hub-gift-glint{0%,100%{opacity:.25;transform:scale(.72)}50%{opacity:1;transform:scale(1)}}
+@media(max-height:650px){.hub-content-loading{min-height:190px;padding:16px;gap:8px}.hub-loading-art,.events-loading-panel .hub-loading-art{height:132px}.hub-loading-art>.icon:first-child,.events-loading-panel .hub-loading-art>.icon:first-child{width:112px;height:112px}.game-page .hub-content-loading>p{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.hub-content-loading .hub-loading-art>.icon,.hub-content-loading .hub-loading-art .hub-loading-spark{animation:none}}
+[data-reduced-motion="true"] .hub-loading-art>.icon,[data-reduced-motion="true"] .hub-loading-art .hub-loading-spark{animation:none}
+
+.game-page .events-loading-panel .hub-content-loading>p,.game-page .events-loading-panel .hub-content-loading>small{color:#fff8de;text-shadow:0 1px 2px #12516a}
+.game-page.friends-sky-v102 .friends-menu:has(.hub-content-loading){height:100%;display:flex;flex-direction:column}
+.friends-sky-v102 .friends-menu:has(.hub-content-loading)>.friend-tabs{flex:none}
+.friends-sky-v102 .friends-menu>section[role="tabpanel"]:has(>.hub-content-loading){flex:1;display:flex;flex-direction:column}
+.guild-map-v109 .guild-initial-loading{display:flex;flex-direction:column}
+/* Bright page panels need dark copy even under older generic loading rules. */
+.game-page .modal-content .hub-content-loading:not(.hub-content-loading-events)>p,.game-page .modal-content .hub-content-loading:not(.hub-content-loading-events)>small{color:#173e61!important;text-shadow:none!important}
+.game-page .modal-content .hub-refresh-notice .game-button{width:auto;min-height:44px!important;height:44px;font-size:14px!important;padding:2px 10px 8px!important}
+
+.game-page .hub-refresh-notice{padding-block:2px}

@@ -6,6 +6,7 @@ import ArtSurface from './ArtSurface';
 import {sound,startMusic} from './sound';
 import {itemName,translateText,useI18n} from './i18n';
 import {BREAKABLE_OBSTACLES} from '../../../packages/contracts/src/breakable-obstacles';
+import './modal-widths.css';
 const itemIds=['garden-water','garden-route','berry','drop','sun','sprout','flower','acorn','crate','vine','frost','seed','pot','moss','cabinet','pipe','magnet-rail','bud','carousel','curtain','wind-row','wind-column','bomb','glider','rainbow','beehive','hammer','sweep-row','sweep-column','shuffle','sweep-border','world-bomb','cross-firework','color-magnet','move-hourglass','combo','special'];
 export const names:Record<string,string>=Object.defineProperties({},Object.fromEntries([...itemIds,...BREAKABLE_OBSTACLES].map(id=>[id,{enumerable:true,get:()=>itemName(id)}])));
 function localizeChildren(node:ReactNode):ReactNode {
@@ -14,7 +15,7 @@ function localizeChildren(node:ReactNode):ReactNode {
  if(isValidElement<{children?:ReactNode}>(node)&&typeof node.type==='string')return cloneElement(node,undefined,localizeChildren(node.props.children));
  return node;
 }
-export function Icon({id,size=36,className=''}:{id:string;size?:number;className?:string}){return <img className={`icon ${className}`} src={art(id)||undefined} width={size} height={size} alt="" draggable={false}/>}
+export function Icon({id,size=36,className=''}:{id:string;size?:number;className?:string}){return <img className={`icon ${className}`} src={art(id)||undefined} data-home-icon={id.startsWith('home-v76-')?id.slice(9):undefined} width={size} height={size} alt="" draggable={false}/>}
 /** A local PNG face for labels that overlap another DOM image. */
 export function FrameFace({id,scale=.1}:{id:string;scale?:number}){const inset=assetInfo(id)!.sliceInsets!;return <span className="raster-frame-face" aria-hidden="true" style={{borderStyle:'solid',borderColor:'transparent',borderWidth:`${inset.top*scale}px ${inset.right*scale}px ${inset.bottom*scale}px ${inset.left*scale}px`,borderImageSource:`url("${art(id)}")`,borderImageSlice:`${inset.top} ${inset.right} ${inset.bottom} ${inset.left} fill`,borderImageWidth:1,borderImageRepeat:'stretch'}}/>}
 type ModalTheme='garden'|'guild'|'pass'|'shop'|'result'|'sky';

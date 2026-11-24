@@ -30,3 +30,10 @@ export function setSceneChrome(darkSurface:boolean):Promise<void>{
   });
   return chromeUpdate;
 }
+
+/** Register only while a guided flow owns Android back; removing it restores the normal app behavior. */
+export async function onGuidedBack(callback:()=>void):Promise<()=>void>{
+ if(!Capacitor.isNativePlatform()||Capacitor.getPlatform()!=='android')return ()=>{};
+ const handle=await App.addListener('backButton',callback);
+ return ()=>{void handle.remove();};
+}

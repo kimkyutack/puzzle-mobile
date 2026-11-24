@@ -1,0 +1,92 @@
+[
+  {
+    "id": "fence",
+    "footprint": {
+      "width": 2,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 260
+    },
+    "measuredSourceFeet": [
+      {
+        "x": 280,
+        "y": 560
+      },
+      {
+        "x": 1440,
+        "y": 729
+      }
+    ],
+    "measuredSourceSlope": 0.1456896551724138,
+    "packingShear": 0.35431034482758617,
+    "runtimeGroundSlope": 0.5000587958607714,
+    "runtimeFeet": [
+      {
+        "x": 65.05349794238683,
+        "y": 164.64855483829112
+      },
+      {
+        "x": 446.94650205761315,
+        "y": 355.6175106238038
+      }
+    ],
+    "alphaBounds": {
+      "x": 16,
+      "y": 23,
+      "width": 480,
+      "height": 350
+    },
+    "bytes": 28374
+  },
+  {
+    "id": "fence-rear",
+    "footprint": {
+      "width": 2,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 260
+    },
+    "measuredSourceFeet": [
+      {
+        "x": 269,
+        "y": 780
+      },
+      {
+        "x": 1530,
+        "y": 595
+      }
+    ],
+    "measuredSourceSlope": -0.14670896114195084,
+    "packingShear": -0.35329103885804913,
+    "runtimeGroundSlope": -0.49996813933729817,
+    "runtimeFeet": [
+      {
+        "x": 63.756653992395435,
+        "y": 356.2560461987189
+      },
+      {
+        "x": 447.33079847908743,
+        "y": 164.48119488181152
+      }
+    ],
+    "alphaBounds": {
+      "x": 16,
+      "y": 8,
+      "width": 480,
+      "height": 358
+    },
+    "bytes": 29922
+  }
+]

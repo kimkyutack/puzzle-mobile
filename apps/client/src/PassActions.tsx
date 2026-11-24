@@ -1,3 +1,7 @@
+import {EventIcon} from './event-icons';
+import './event-refinement-v74.css';
+import './pass-modal-v122.css';
+import type {PassPrize} from '../../../packages/contracts/src/pass-rewards';
 import {formatLocale,tr} from "./i18n";
 import {useEffect,useRef,useState} from 'react';
 import type {Player,Product} from '@garden/contracts';
@@ -5,12 +9,12 @@ import {request,key} from './api';
 import {purchases} from './platform';
 import {childAccount} from './platform/account-age';
 import type {PurchaseState} from './platform/purchases';
-import {Amount,Button,Card,Icon,LinkAction} from './ui';
+import {Button,Icon,LinkAction} from './ui';
 import CommerceDialog from './CommerceDialog';
 import {passClaimState,type PassRewardProgress} from './pass-rewards';
 import './commerce-actions.css';
 
-interface PassDetails extends PassRewardProgress {tiers:Array<{tier:number;points:number;freeClaimed:boolean;premiumClaimed:boolean;premium:{coins:number;hammer:number;decoration:unknown;guildGift:unknown}}>}
+interface PassDetails extends PassRewardProgress {tiers:Array<{tier:number;points:number;freeClaimed:boolean;premiumClaimed:boolean;premium:{reward?:PassPrize;coins:number;hammer:number;decoration:unknown;guildGift:unknown}}>}
 interface Props {player:Player;seasonId:string;seasonEndsAt:number;pass:PassDetails;working:boolean;onClaimAll:()=>void;perform:(work:()=>Promise<unknown>)=>Promise<void>;onReload:()=>Promise<void>;onPage:(page:string)=>void}
 const statusText:Record<PurchaseState,string>={loading:'상품 확인 중',ready:'구매 준비 완료',purchasing:'스토어에서 구매 진행 중',pending:'스토어 승인 대기 중',verifying:'구매 확인 중',complete:'프리미엄 보상선이 열렸어요!',cancelled:'구매를 취소했어요',error:'구매 내역을 다시 확인해 주세요',unavailable:'스토어 연결 후 구매할 수 있어요'};
 
@@ -32,31 +36,33 @@ export default function PassActions({player,seasonId,seasonEndsAt,pass,working,o
   finally{setLoading(false);}
  };
  useEffect(()=>{setPrice('');stateRef.current=null;setPurchaseState(null);if(!owned&&!restricted)void loadProduct();},[player.id,seasonId,owned,restricted]);
- const ready=!!product&&!!price&&purchases.available();
+ const ready=!!product&&purchases.available();
  const close=()=>{if(!working&&!buying.current)setShowPremium(false);};
  async function buy(){
-  if(!product||!ready||owned||buying.current||stateRef.current==='pending'||stateRef.current==='complete')return;
+  if(!product||!ready||restricted||owned||buying.current||stateRef.current==='pending'||stateRef.current==='complete')return;
   buying.current=true;
   try{await perform(async()=>{
    await purchases.buy(product,player.id,{prepare:productId=>request('/purchases/prepare',{key:key(),productId}),verify:input=>request('/purchases/verify',input),cancel:id=>request('/purchases/intents/'+id+'/cancel',{key:key()}),pending:id=>request('/purchases/intents/'+id+'/pending',{key:key()})},updatePurchaseState);
    await onReload();
   });}finally{buying.current=false;}
  }
- const coins=pass.tiers.reduce((total,tier)=>total+tier.premium.coins,0),hammers=pass.tiers.reduce((total,tier)=>total+tier.premium.hammer,0);
+ const coins=pass.tiers.reduce((total,tier)=>total+tier.premium.coins,0),tools=pass.tiers.reduce((total,tier)=>total+(tier.premium.reward?.kind==='item'?tier.premium.reward.quantity:tier.premium.hammer),0),decorations=pass.tiers.filter(tier=>tier.premium.reward?.kind==='decoration').length;
  return <>
-  <div className="pass-compact-actions">
+  <div className="pass-compact-actions" data-owned={owned}>
    {claims.state==='available'
     ?<Button attention={claims.available.length} className="pass-claim-all" icon="chest" tone="green" disabled={working} onClick={onClaimAll}>{working?tr('확인 중…'):tr('모두 받기')}</Button>
     :<p className="pass-claim-state" role="status">{claims.state==='claimed'&&<Icon id="star" size={20}/>}<span>{claims.state==='claimed'?tr('모두 수령 완료'):tr('아직 열리지 않았어요')}</span></p>}
-   {owned?<p className="pass-owned-state" role="status"><Icon id="rainbow" size={23}/>{tr('이번 시즌 프리미엄 보상선 보유')}</p>
-    :!restricted&&<Button tone="gold" className="pass-premium-open" disabled={working} onClick={()=>setShowPremium(true)}>{tr('프리미엄 구매')}{price&&<small>{price}</small>}</Button>}
+   {owned?<p className="pass-owned-state" role="status"><EventIcon kind="pass" size={23}/>{tr('이번 시즌 프리미엄 보상선 보유')}</p>
+    :!restricted&&<Button tone="green" className="pass-premium-open" disabled={working} onClick={()=>{setShowPremium(true);if(!product&&!loading)void loadProduct();}}>{tr('프리미엄 보기')}{price&&<small>{price}</small>}</Button>}
   </div>
-  {showPremium&&<CommerceDialog title={tr("프리미엄 보상선")} onClose={close}><Card className="premium-purchase-summary" tone="gold"><Icon id="rainbow" size={105}/><h3>{tr("이번 시즌 추가 선물")}</h3><div className="premium-total"><Amount kind="coin" value={coins}/><Amount kind="hammer" value={hammers}/></div><p>{tr("30단계의 추가 보상과")}<br/>{tr("프로필 문장 · 길드 선물권")}</p><small>{tr("퍼즐을 완료해 열린 단계부터 받을 수 있어요.")}</small></Card>
+  {showPremium&&<CommerceDialog className="pass-premium-dialog" title={tr("프리미엄 정원 패스")} onClose={close}>
+   <section className="premium-purchase-summary" aria-label={tr('이번 시즌 추가 선물')}>
+    {[{id:'coin',count:coins,label:tr('코인')},{id:'bundle_tools_v7',count:tools,label:tr('도구')},{id:'home',count:decorations,label:tr('설치 장식')},{id:'star',count:pass.tiers.filter(tier=>!!tier.premium.decoration).length,label:tr('프로필 문장')},{id:'guild',count:pass.tiers.filter(tier=>!!tier.premium.guildGift).length,label:tr('길드 선물권')}].map(prize=><div key={prize.id}><Icon id={prize.id}/><strong>×{prize.count.toLocaleString(formatLocale())}</strong><small>{prize.label}</small></div>)}
+   </section><div className="pass-premium-controls">
    <p className="purchase-feedback">{tr("시즌 종료")}{' '}{new Date(seasonEndsAt).toLocaleString(formatLocale())}<br/>{tr("이번 시즌 1회 결제 · 자동 갱신 없음")}</p>
    {purchaseState&&<p className="purchase-feedback" role="status">{statusText[purchaseState]}</p>}
-   {owned?<><p className="purchase-feedback">{tr("프리미엄 보상선이 열렸어요.")}</p><Button tone="green" onClick={close}>{tr("선물 받으러 가기")}</Button></>:ready?<Button tone="gold" disabled={working||pending||confirmed} onClick={()=>void buy()}>{pending?tr("스토어 승인 대기 중"):confirmed?tr("구매 확인 완료"):working?tr("구매 확인 중…"):tr("구매하기")}{!working&&!pending&&!confirmed&&<small>{price}</small>}</Button>:<><p className="purchase-feedback">{loading?tr("스토어 상품을 확인하고 있어요."):loadError||(!purchases.available()?tr("이 앱의 스토어 연결 후 구매할 수 있어요."):tr("스토어 상품 가격을 확인하지 못했어요."))}</p>{loadError&&<Button secondary disabled={working||loading} onClick={()=>void loadProduct()}>{tr("상품 다시 확인")}</Button>}<Button secondary disabled={working} onClick={()=>{setShowPremium(false);onPage('shop')}}>{tr("상점에서 패스 상품 보기")}</Button></>}
+   {owned?<><p className="purchase-feedback">{tr("프리미엄 보상선이 열렸어요.")}</p><Button className="pass-premium-buy" tone="green" onClick={close}>{tr("선물 받으러 가기")}</Button></>:ready?<Button className="pass-premium-buy" tone="gold" disabled={working||pending||confirmed} onClick={()=>void buy()}>{pending?tr("스토어 승인 대기 중"):confirmed?tr("구매 확인 완료"):working?tr("구매 확인 중…"):tr("구매하기")}{!working&&!pending&&!confirmed&&<small>{price}</small>}</Button>:<><p className="purchase-feedback">{loading?tr("스토어 상품을 확인하고 있어요."):loadError||(!purchases.available()?tr("이 앱의 스토어 연결 후 구매할 수 있어요."):tr("스토어 상품 가격을 확인하지 못했어요."))}</p><Button secondary disabled={working||loading} onClick={()=>void loadProduct()}>{tr("상품 다시 확인")}</Button><Button secondary disabled={working} onClick={()=>{setShowPremium(false);onPage('shop')}}>{tr("상점에서 패스 상품 보기")}</Button></>}
    {(pending||confirmed)&&<LinkAction icon="shop" disabled={working} onClick={()=>{setShowPremium(false);onPage('settings')}}>{tr("구매 내역 확인")}</LinkAction>}
-   <Button secondary disabled={working} onClick={close}>{tr("돌아가기")}</Button>
-  </CommerceDialog>}
+  </div></CommerceDialog>}
  </>;
 }

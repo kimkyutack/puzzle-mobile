@@ -1,0 +1,68 @@
+/* The selected illustrated scenes supply the paint. Live controls share it. */
+.pass-book-lock{position:absolute;right:2%;top:12%;width:4.5cqw;height:5cqw;object-fit:contain}
+.pass-tier-arrow>img{width:100%;height:100%;object-fit:contain}.pass-tier-arrow:last-child>img{transform:scaleX(-1)}
+
+/* Weekly scene details use the reference's own material and geometry. */
+.weekly-rescue-friend{left:55%;width:22%}
+.weekly-rescue-sign{position:absolute;left:76%;top:22.2%;width:16%;height:9%;display:grid;place-items:center}
+.weekly-rescue-sign>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.weekly-rescue-sign>span{position:relative;font-size:3.3cqw;line-height:1.05;text-align:center;color:#4c2d16;padding-top:2cqw}
+.weekly-rescue-log{position:absolute;left:12%;top:65%;font-size:3.5cqw;color:#8a5830;transform:rotate(-6deg)}
+.weekly-trail-step>.weekly-trail-flag{position:absolute;left:48%;bottom:78%;width:11cqw;height:16cqw;object-fit:contain;pointer-events:none}
+.weekly-rescue-rewards>div>strong{flex-basis:30%;padding:1.8cqw 1cqw;background:url('../../../packages/assets/event-design-v62/reward-postcard-v71.webp') center/100% 100% no-repeat;text-align:center;font-size:3.8cqw;white-space:nowrap}
+.weekly-rescue-rewards{left:8%;right:7%;top:69%;height:15.5%;gap:4%}
+.weekly-rescue-rewards .activity-rewards{flex:1;gap:1cqw;justify-content:center;flex-wrap:nowrap}
+.weekly-rescue-rewards .activity-rewards .resource-amount{font-size:5.5cqw}
+.weekly-rescue-rewards .activity-rewards .icon{width:9cqw;height:9cqw}
+.weekly-rescue-rewards>div>img{width:13cqw;height:13cqw;object-fit:contain}
+.weekly-game-layout .pinball-board{left:8%;right:8%}
+.weekly-pocket-score{position:absolute;bottom:15%;left:0;width:100%;text-align:center;font-size:5cqw;line-height:1;color:#fff9e4;text-shadow:0 2px #533819;font-weight:400}
+.weekly-game-layout .pinball-pocket span{inset:12% 18% 36%}
+.weekly-game-layout .weekly-preview-acorn{width:10%;height:7%;left:45%;top:26%}
+.weekly-water-prizes>div{height:100%;justify-content:flex-end}
+.weekly-water-prizes>div>img:not(.weekly-water-check){height:15cqw;width:98%;object-fit:contain}
+.weekly-water-prizes .weekly-water-check{position:absolute;width:5cqw;height:5cqw;left:calc(50% - 2.5cqw);bottom:6cqw;object-fit:contain;z-index:2}
+.weekly-game-layout .water-flower{width:90%;height:100%;filter:none;object-fit:contain}
+
+.weekly-designed .weekly-scene-cta{font-size:6.3cqw}
+
+/* One pinned summary below a scrollable letter group. */
+.events-v62>.event-tab-panel[data-event-panel="live-events"]{overflow:hidden}
+.mail-scene-v71{height:100%;min-height:0;container-type:normal;gap:1.5cqw;padding:0 3cqw 1cqw}
+.mail-scene-heading{min-height:22cqw}
+.game-page[data-page="events"] .mail-scene-heading>h2{top:6cqw;font-size:6.8cqw}
+.mail-scene-list,.mail-scene-list[data-count="1"]{flex:0 1 auto;min-height:0;overflow-y:auto;justify-content:flex-start;gap:0;padding:0;border:9px solid transparent;border-image-source:url('../../../packages/assets/event-design-v62/reward-postcard-v71.webp');border-image-slice:48 fill;border-image-width:1;scrollbar-width:thin}
+.mail-scene-postcard{flex:none;min-height:22cqw;border-width:5px;grid-template-columns:19% minmax(0,1fr) 23%;gap:1.1cqw}
+.mail-scene-envelope,.mail-scene-postcard>.icon{height:14cqw;width:100%;object-fit:contain}
+.game-page[data-page="events"] .mail-scene-copy>h3{font-size:4.1cqw;line-height:1.1;margin-bottom:.5cqw!important}
+.game-page[data-page="events"] .mail-scene-copy>p{font-size:2.6cqw;line-height:1.15;-webkit-line-clamp:1;margin-bottom:.5cqw!important}
+.mail-scene-rewards{gap:.4cqw 1cqw}.mail-scene-rewards .icon{width:5.5cqw;height:5.5cqw}.mail-scene-rewards strong{font-size:3.7cqw}
+.mail-scene-copy>small{font-size:2.5cqw;margin-top:.4cqw}
+.game-page[data-page="events"] .events-v17 .mail-scene-claim{min-height:44px!important;height:44px;font-size:4.2cqw!important;padding:0 1cqw 1cqw!important}
+.mail-scene-summary{position:relative;flex:none;height:36cqw;margin-top:auto;padding:0!important;border:0;gap:0;display:block;isolation:isolate}
+.mail-summary-art{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:-1;pointer-events:none}
+.game-page[data-page="events"] .mail-scene-summary>h3{position:absolute;top:1%;left:15%;width:70%;height:16%;display:grid;place-items:center;font-size:4.8cqw;line-height:1;color:#203e62}
+.mail-scene-summary>.mail-scene-rewards,.game-page[data-page="events"] .mail-scene-summary>p{position:absolute;top:25%;left:5%;width:90%;height:25%;margin:0!important;display:flex;align-items:center;justify-content:center;font-size:3.1cqw;overflow-y:auto}
+.game-page[data-page="events"] .events-v17 .mail-scene-summary>.game-button{position:absolute;left:50%;bottom:1cqw;transform:translateX(-50%);width:70cqw;height:clamp(44px,14cqw,58px);min-height:0!important;padding:0 2cqw 1cqw!important;margin:0;font-size:6cqw!important}
+
+/* Start/play actions share a width, height and lower edge. Inline claim actions
+ * and the physical pinball button retain their distinct reference layouts. */
+.game-page[data-page="events"] .events-v17.events-v62 :is(.flowerlight-scene-action,.event-scene-v65-action,.treasure-scene-action){left:15%;top:auto;bottom:2cqw;width:70%!important;height:clamp(44px,14cqw,58px);min-height:0!important;margin:0;padding:0 2cqw 1cqw!important;font-size:6cqw!important}
+.game-page[data-page="events"] .events-v17.events-v62 .attendance-calendar-claim{height:clamp(44px,14cqw,58px);top:50%;transform:translateY(-50%);min-height:0!important;padding:0 1cqw 1cqw!important}
+.game-page[data-page="events"] .events-v17.events-v62 :is(.flowerlight-scene-action,.event-scene-v65-action,.treasure-scene-action)>.button-label{line-height:1.1;transform:translateY(.06em)}
+html:not([lang="ko"]) .garden-pass-modal .pass-book-head{font-size:4.6cqw!important}
+html:not([lang="ko"]) .weekly-rescue-sign>span{font-size:2.6cqw}
+html:not([lang="ko"]) .garden-pass-modal .pass-compact-actions>.game-button{font-size:4.8cqw!important}
+
+
+.pass-book-check{position:absolute;right:3%;top:12%;width:5cqw;height:5cqw;object-fit:contain}
+.pass-reward-book[data-slide="true"] .pass-book-row[data-current="true"]{animation:pass-row-arrive .28s ease-out}
+@keyframes pass-row-arrive{from{transform:translateX(10px);opacity:.5}to{transform:translateX(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.pass-reward-book[data-slide="true"] .pass-book-row[data-current="true"]{animation:none}}
+
+.weekly-game-layout[data-game="acorn-pinball"] .pinball-pocket>span{top:0!important;bottom:auto!important;left:18%!important;right:18%!important;height:7cqw!important}
+.weekly-game-layout[data-game="acorn-pinball"] .pinball-pocket>span>.icon{width:7cqw!important;height:7cqw!important}
+
+
+html:not([lang="ko"]) .weekly-event-navigation .weekly-home>.button-label{white-space:nowrap;font-size:4cqw;line-height:1}
+html:not([lang="ko"]) [data-weekly-event="greenhouse-water"] .weekly-scene-title{font-size:5.1cqw!important}

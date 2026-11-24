@@ -4,12 +4,13 @@ import {FLOWERLIGHT_STAGES,flowerlightClaimable} from './flowerlight';
 import {ANIMAL_EXPEDITION_STAGES,expeditionDailyStatus,configuredExpeditionRound,expeditionRound,expeditionRounds} from './animal-expedition';
 import {POWER_FESTIVAL_STAGES,festivalClaimable} from './power-festival';
 import {missionPeriod} from './missions';
+import {weeklyEvent} from '../../contracts/src/weekly-events';
 
 export function flowerlightAttention(player:Player,now:number,settings?:RuntimeSettings){
  const event=player.flowerFestival;
  return settings?.features.flowerlight!==false&&(player.level>=gameEventConfig('flowerlight',settings).minLevel||!!event)&&(!event?gameEventAvailable('flowerlight',settings,now):flowerlightClaimable(event)>0||event.restoredStages<FLOWERLIGHT_STAGES.length&&now<event.endsAt);
 }
-export function expeditionAttention(player:Player,now=Date.now(),settings?:RuntimeSettings,resumable?:boolean){const config=gameEventConfig('animalExpedition',settings),round=expeditionRound(player.animalExpedition,configuredExpeditionRound(settings).roundId),pending=resumable??expeditionRounds(player.animalExpedition).some(r=>!!r.attempt),remaining=expeditionDailyStatus(player.animalExpedition,now,config.dailyLimit).remaining;return settings?.features.animalExpedition!==false&&(player.level>=config.minLevel||pending)&&(pending||gameEventAvailable('animalExpedition',settings,now)&&remaining>0&&(round?.completedStages??0)<ANIMAL_EXPEDITION_STAGES.length);}
+export function expeditionAttention(player:Player,now=Date.now(),settings?:RuntimeSettings,resumable?:boolean){const config=gameEventConfig('animalExpedition',settings),round=expeditionRound(player.animalExpedition,configuredExpeditionRound(settings,now).roundId),pending=resumable??expeditionRounds(player.animalExpedition).some(r=>!!r.attempt),remaining=expeditionDailyStatus(player.animalExpedition,now,config.dailyLimit).remaining;return weeklyEvent(now).id==='animal-expedition'&&settings?.features.animalExpedition!==false&&(player.level>=config.minLevel||pending)&&(pending||gameEventAvailable('animalExpedition',settings,now)&&remaining>0&&(round?.completedStages??0)<ANIMAL_EXPEDITION_STAGES.length);}
 export function powerFestivalCanStart(player:Player,now:number,settings?:RuntimeSettings){
  const event=player.powerFestival;
  return player.level>=gameEventConfig('powerFestival',settings).minLevel&&gameEventAvailable('powerFestival',settings,now)&&(!event||event.endsAt<=now||event.claimedStages>=POWER_FESTIVAL_STAGES.length)&&event?.day!==missionPeriod('daily',now).id&&(!event||festivalClaimable(event)===0);

@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {CHAPTER_OBSTACLE_ENGINE_VERSION,COLORS,ENGINE_VERSION,OBJECTIVE_POWERS_ENGINE_VERSION,type Goal} from '@garden/contracts';
+import {CHAPTER_OBSTACLE_ENGINE_VERSION,CONTINUOUS_REFILL_ENGINE_VERSION,COLORS,ENGINE_VERSION,OBJECTIVE_POWERS_ENGINE_VERSION,type Goal} from '@garden/contracts';
 import {applyAction,createGame,validateLevel} from '@garden/core';
 import {publishedLevel} from '../apps/api/src/level-content';
 
@@ -30,7 +30,7 @@ describe('obstacle-first campaign',()=>{
  });
 
  it('exposes three distinct hit states for each lantern, counting only the final break',()=>{
-  let state=createGame(publishedLevel(227,ENGINE_VERSION));
+  let state=createGame(publishedLevel(227,CONTINUOUS_REFILL_ENGINE_VERSION));
   const lamp=Object.values(state.obstacles).find(obstacle=>obstacle.kind==='starlight-lantern')!;
   const remaining=state.goals.find(goal=>goal.kind==='starlight-lantern')!.remaining;
   for(const hp of [2,1,0]){

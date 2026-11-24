@@ -9,10 +9,11 @@ import {loadWorldArt,type LoadedArt} from './assets';
 import {WorldMap,type MapHandle} from './WorldMap';
 import './garden-visit.css';
 
-/** Separate from the editor: this screen has no mutation or placement callbacks. */
+/** Visiting never edits the owner's layout. A visible map can acknowledge a visit. */
 export default function GardenVisit({userId,onClose,reducedMotion=false}:{userId:string;onClose:()=>void;reducedMotion?:boolean}){
  const [data,setData]=useState<GardenVisitResponse|null>(null),[images,setImages]=useState<Record<string,LoadedArt>|null>(null),[error,setError]=useState(''),[retry,setRetry]=useState(0);
  const host=useRef<HTMLDivElement>(null),map=useRef<MapHandle>(null);
+ const [visitError,setVisitError]=useState(''),[visitRetry,setVisitRetry]=useState(0);
  useEffect(()=>{
   const root=document.getElementById('root'),wasInert=root?.inert??false,previous=document.activeElement instanceof HTMLElement?document.activeElement:null;
   if(root)root.inert=true;
@@ -29,6 +30,19 @@ export default function GardenVisit({userId,onClose,reducedMotion=false}:{userId
   return()=>{live=false;};
  },[userId,retry]);
  useEffect(()=>{if(data&&images)map.current?.overview();},[data,images]);
+ useEffect(()=>{
+  if(!data?.invitationVisits||!images)return;
+  let live=true,timer:ReturnType<typeof setTimeout>;setVisitError('');
+  const waitForPaint=()=>{
+   if(!live)return;
+   if(document.hidden||!host.current?.querySelector('canvas[data-camera]')){timer=setTimeout(waitForPaint,150);return;}
+   timer=setTimeout(()=>{
+    if(document.hidden){waitForPaint();return;}
+    void request('/garden/invite/visit',{ownerId:userId}).catch(()=>{if(live)setVisitError(tr('방문 기록을 저장하지 못했어요. 다시 시도해 주세요.'));});
+   },500);
+  };
+  waitForPaint();return()=>{live=false;clearTimeout(timer);};
+ },[data,images,userId,visitRetry]);
  function keyboard(event:KeyboardEvent){
   if(event.key==='Escape'){event.preventDefault();event.stopPropagation();onClose();return;}
   if(event.key!=='Tab')return;
@@ -46,5 +60,6 @@ export default function GardenVisit({userId,onClose,reducedMotion=false}:{userId
    <Button secondary disabled={!data||!images} onClick={()=>map.current?.overview()}>{tr('전체 보기')}</Button>
    <button className="garden-visit-zoom" data-frame="button_secondary" disabled={!data||!images} aria-label={tr('정원 확대')} onClick={()=>map.current?.zoom(1.25)}>+</button>
   </nav>
+  {visitError&&<div className="garden-visit-record-error" role="alert"><p>{visitError}</p><Button secondary onClick={()=>setVisitRetry(n=>n+1)}>{tr('다시 시도')}</Button></div>}
  </div>,document.body);
 }

@@ -40,8 +40,8 @@ describe('split wind campaign',()=>{
   expect(state.gravity.every(lane=>lane.every(at=>at<upper)||lane.every(at=>at>=lower))).toBe(true);
  });
 
- it('opens space above by combining the two gliders below',()=>{
-  const level=publishedLevel(357,ENGINE_VERSION);
+ it('opens space above by combining the two gliders below on the authored board',()=>{
+  const level=publishedLevel(357,OBSTACLE_GARDEN_ENGINE_VERSION);
   const state=createGame(level),upper=4*level.width,lower=5*level.width;
   expect(state.cells.slice(0,upper).every(cell=>!cell.tile&&cell.obstacleId)).toBe(true);
   const result=applyAction(state,{type:'swap',from:49,to:50});

@@ -1,0 +1,218 @@
+[
+  {
+    "id": "pink-flower-bed",
+    "kind": "pink-flower-bed",
+    "view": "front",
+    "cell": {
+      "left": 0,
+      "top": 0,
+      "width": 512,
+      "height": 512
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 372
+    },
+    "body": {
+      "width": 456,
+      "height": 318,
+      "left": 28,
+      "top": 54
+    },
+    "alphaBounds": {
+      "x": 28,
+      "y": 54,
+      "width": 456,
+      "height": 318
+    },
+    "bytes": 51114
+  },
+  {
+    "id": "daisy-bed",
+    "kind": "daisy-bed",
+    "view": "front",
+    "cell": {
+      "left": 512,
+      "top": 0,
+      "width": 512,
+      "height": 512
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 372
+    },
+    "body": {
+      "width": 456,
+      "height": 319,
+      "left": 28,
+      "top": 53
+    },
+    "alphaBounds": {
+      "x": 28,
+      "y": 53,
+      "width": 456,
+      "height": 319
+    },
+    "bytes": 50074
+  },
+  {
+    "id": "blue-hydrangea",
+    "kind": "blue-hydrangea",
+    "view": "front",
+    "cell": {
+      "left": 1024,
+      "top": 0,
+      "width": 512,
+      "height": 512
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 372
+    },
+    "body": {
+      "width": 456,
+      "height": 314,
+      "left": 28,
+      "top": 58
+    },
+    "alphaBounds": {
+      "x": 28,
+      "y": 58,
+      "width": 456,
+      "height": 314
+    },
+    "bytes": 50556
+  },
+  {
+    "id": "pink-flower-bed-rear",
+    "kind": "pink-flower-bed",
+    "view": "rear",
+    "cell": {
+      "left": 0,
+      "top": 512,
+      "width": 512,
+      "height": 512
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 372
+    },
+    "body": {
+      "width": 456,
+      "height": 307,
+      "left": 28,
+      "top": 65
+    },
+    "alphaBounds": {
+      "x": 28,
+      "y": 65,
+      "width": 456,
+      "height": 307
+    },
+    "bytes": 51302
+  },
+  {
+    "id": "daisy-bed-rear",
+    "kind": "daisy-bed",
+    "view": "rear",
+    "cell": {
+      "left": 512,
+      "top": 512,
+      "width": 512,
+      "height": 512
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 372
+    },
+    "body": {
+      "width": 456,
+      "height": 305,
+      "left": 28,
+      "top": 67
+    },
+    "alphaBounds": {
+      "x": 28,
+      "y": 67,
+      "width": 456,
+      "height": 305
+    },
+    "bytes": 53286
+  },
+  {
+    "id": "blue-hydrangea-rear",
+    "kind": "blue-hydrangea",
+    "view": "rear",
+    "cell": {
+      "left": 1024,
+      "top": 512,
+      "width": 512,
+      "height": 512
+    },
+    "footprint": {
+      "width": 1,
+      "height": 1
+    },
+    "canvas": {
+      "width": 512,
+      "height": 384
+    },
+    "anchor": {
+      "x": 256,
+      "y": 372
+    },
+    "body": {
+      "width": 456,
+      "height": 308,
+      "left": 28,
+      "top": 64
+    },
+    "alphaBounds": {
+      "x": 28,
+      "y": 64,
+      "width": 456,
+      "height": 308
+    },
+    "bytes": 46430
+  }
+]

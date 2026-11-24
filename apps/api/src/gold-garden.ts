@@ -13,10 +13,12 @@ const completion=z.object({
 }).strict();
 
 export async function goldGardenStatus(env:ApiEnv,userId:string,requestedVersion?:string|null){
- const pending=await rows<{level_id:number}>(env.DB,`SELECT r.level_id FROM level_rewards r
+ // Old clients also consume this list directly as the main play button. Never queue past bands.
+ const pending=await rows<{level_id:number}>(env.DB,`SELECT r.level_id FROM level_rewards r JOIN players p ON p.id=r.user_id
   WHERE r.user_id=? AND r.level_id>=? AND r.level_id % ?=0
+   AND p.deleted_at IS NULL AND r.level_id=CAST((json_extract(p.data,'$.level')-1)/? AS INTEGER)*?
    AND NOT EXISTS(SELECT 1 FROM reward_claims c WHERE c.user_id=r.user_id AND c.kind='gold-garden' AND c.source_id=CAST(r.level_id AS TEXT))
-  ORDER BY r.level_id DESC`,userId,GOLD_GARDEN_INTERVAL,GOLD_GARDEN_INTERVAL);
+  ORDER BY r.level_id DESC`,userId,GOLD_GARDEN_INTERVAL,GOLD_GARDEN_INTERVAL,GOLD_GARDEN_INTERVAL,GOLD_GARDEN_INTERVAL);
  const version=requestedVersion===String(GOLD_GARDEN_VERSION)?GOLD_GARDEN_VERSION:REFILL_GOLD_GARDEN_VERSION;
  return {milestones:pending.map(item=>item.level_id),version};
 }

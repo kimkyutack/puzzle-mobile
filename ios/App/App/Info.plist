@@ -4,6 +4,10 @@
 <dict>
 	<key>CAPACITOR_DEBUG</key>
 	<string>$(CAPACITOR_DEBUG)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>선택한 사진을 정원사 프로필 이미지로 사용해요.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>정원사 프로필에 사용할 사진을 촬영해요.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleLocalizations</key>

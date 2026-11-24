@@ -1,4 +1,5 @@
 import {decorationFootprint,gardenGridToScreen,type DecorationDefinition,type GardenCamera,type GardenPlacement,type GardenRotation} from '../../../../packages/garden-world/src';
+import {gardenObjectArtWidth} from './art-scale';
 
 // These source views run along the opposite grid diagonal from their footprint.
 const mirroredArt=new Set([
@@ -18,6 +19,8 @@ export function gardenObjectBounds(item:DecorationDefinition,placed:GardenPlacem
  const foot=decorationFootprint(item,placed.rotation);
  const center=gardenGridToScreen({x:placed.x+foot.width/2,y:placed.y+foot.height/2},camera,grid);
  const bottom=center.y+(foot.width+foot.height)*grid.tileHeight*camera.zoom/4;
- const width=(foot.width+foot.height)*grid.tileWidth*camera.zoom/2*.96,height=width*art.height/art.width;
- return {foot,x:center.x-width/2,y:bottom-height*.98,width,height};
+ const width=gardenObjectArtWidth(item,art,(foot.width+foot.height)*grid.tileWidth*camera.zoom/2*.96,grid.tileWidth*camera.zoom),height=width*art.height/art.width;
+ // The authored fence registers its ground midpoint at (256,260) in a 512×384 canvas.
+ const y=item.id==='garden-wood-fence'?center.y-height*(260/384):bottom-height*.98;
+ return {foot,x:center.x-width/2,y,width,height};
 }

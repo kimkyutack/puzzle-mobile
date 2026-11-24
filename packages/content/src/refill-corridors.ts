@@ -11,7 +11,7 @@ function boardFor(level:LevelDefinition){
  return {...level,cells,gravity:gravityLanes(level),gardenStage:level.gardenStage&&createGardenStage(level.gardenStage,level.width)};
 }
 export function unsuppliedTileCells(level:LevelDefinition):number[]{
- const board=boardFor(level),supplied=suppliedGravityCells(board),open=new Set(board.gardenStage?.connected);
+ const board=boardFor(level),supplied=suppliedGravityCells(board),open=new Set([...(board.gardenStage?.connected??[]),...(board.siege?.bank??[])]);
  return board.cells.flatMap((cell,at)=>cell.exists&&!cell.obstacleId&&!supplied.has(at)&&!open.has(at)?[at]:[]);
 }
 

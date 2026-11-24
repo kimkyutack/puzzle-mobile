@@ -1,0 +1,672 @@
+{
+  "crate": {
+    "form": "intrinsic box",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Box",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/351-box/"
+      }
+    ]
+  },
+  "vine": {
+    "form": "transparent living overlay",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Ivy",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/413-ivy/"
+      },
+      {
+        "name": "Chain",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/384-chain/"
+      }
+    ]
+  },
+  "pot": {
+    "form": "standalone vessel",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Vase",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/357-vase/"
+      },
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "moss": {
+    "form": "natural terrain",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Grass",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/352-grass/"
+      },
+      {
+        "name": "Mushroom",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/410-mushroom/"
+      }
+    ]
+  },
+  "cabinet": {
+    "form": "shared container",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Cupboard",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/353-cupboard/"
+      }
+    ]
+  },
+  "pipe": {
+    "form": "connected path",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Metal Tube",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/380-metal-tube/"
+      }
+    ]
+  },
+  "bud": {
+    "form": "standalone flower",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "carousel": {
+    "form": "actual rotary machine",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Color Mixer",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/643-color-mixer/"
+      }
+    ]
+  },
+  "curtain": {
+    "form": "shared area cover",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Curtain",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/367-curtain/"
+      },
+      {
+        "name": "Blinds",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/415-blinds/"
+      }
+    ]
+  },
+  "rail-pot": {
+    "form": "standalone flowerpot",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      },
+      {
+        "name": "Conveyor Belt",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/406-conveyor-belt/"
+      }
+    ]
+  },
+  "boomerang-pod": {
+    "form": "standalone natural capsule",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Boomerang",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/546-boomerang/"
+      }
+    ]
+  },
+  "boomerang-bell": {
+    "form": "standalone bell",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Lantern",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/386-lantern/"
+      }
+    ]
+  },
+  "linked-crystal": {
+    "form": "standalone mineral",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Rock",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/374-rock/"
+      },
+      {
+        "name": "Sapphire",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/493-sapphire/"
+      }
+    ]
+  },
+  "shelf-vase": {
+    "form": "standalone item on one shared group shelf",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Vase",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/357-vase/"
+      },
+      {
+        "name": "Shelf",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/372-shelf/"
+      }
+    ]
+  },
+  "canopy-orchid": {
+    "form": "standalone pot under shared awning",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      },
+      {
+        "name": "Blinds",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/415-blinds/"
+      }
+    ]
+  },
+  "awning-crank": {
+    "form": "actual crank mechanism",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Drill",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/377-drill/"
+      }
+    ]
+  },
+  "journey-vine": {
+    "form": "natural vines on intrinsic stone",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Ivy",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/413-ivy/"
+      },
+      {
+        "name": "Stone",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/370-stone/"
+      }
+    ]
+  },
+  "journey-relic": {
+    "form": "standalone relic",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Sapphire",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/493-sapphire/"
+      },
+      {
+        "name": "Monument",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/542-monument/"
+      }
+    ]
+  },
+  "seed-cocoon": {
+    "form": "standalone cocoon",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Pouch",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/385-pouch/"
+      }
+    ]
+  },
+  "dandelion-turret": {
+    "form": "actual freestanding machine",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Launcher",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/391-launcher/"
+      }
+    ]
+  },
+  "pottery-nest": {
+    "form": "shared display container",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Cupboard",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/353-cupboard/"
+      },
+      {
+        "name": "Potion Bottle",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/356-potion-bottle/"
+      }
+    ]
+  },
+  "ceramic-pot": {
+    "form": "standalone flowerpot",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "thorn-barricade": {
+    "form": "natural bush",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Bush",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/359-bush/"
+      },
+      {
+        "name": "Ivy",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/413-ivy/"
+      }
+    ]
+  },
+  "roller-pin": {
+    "form": "actual mechanical pin",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Log",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/427-log/"
+      }
+    ]
+  },
+  "garden-roller": {
+    "form": "actual freestanding machine",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Drill",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/377-drill/"
+      }
+    ]
+  },
+  "dew-cache": {
+    "form": "shared bottle tray",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Potion Bottle",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/356-potion-bottle/"
+      }
+    ]
+  },
+  "garden-beacon": {
+    "form": "actual freestanding lantern",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Lantern",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/386-lantern/"
+      },
+      {
+        "name": "Tesla Coil",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/408-tesla-coil/"
+      }
+    ]
+  },
+  "bloom-bud": {
+    "form": "standalone flower",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "tea-caddy": {
+    "form": "standalone vessel",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Jar",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/381-jar/"
+      },
+      {
+        "name": "Vase",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/357-vase/"
+      }
+    ]
+  },
+  "honeycomb": {
+    "form": "natural wax structure",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Honey",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/360-honey/"
+      }
+    ]
+  },
+  "acorn-nest": {
+    "form": "natural nest holding acorns",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Birdhouse",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/373-birdhouse/"
+      }
+    ]
+  },
+  "cloud-pillow": {
+    "form": "standalone fabric object",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Pouch",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/385-pouch/"
+      }
+    ]
+  },
+  "petal-launcher": {
+    "form": "actual freestanding machine",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Launcher",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/391-launcher/"
+      }
+    ]
+  },
+  "sun-gate": {
+    "form": "actual doorway structure",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Sapphire",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/493-sapphire/"
+      }
+    ]
+  },
+  "mushroom-cluster": {
+    "form": "natural mushroom cluster",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Mushroom",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/410-mushroom/"
+      }
+    ]
+  },
+  "crystal-geode": {
+    "form": "standalone mineral",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Rock",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/374-rock/"
+      }
+    ]
+  },
+  "star-core": {
+    "form": "standalone gem",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Sapphire",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/493-sapphire/"
+      }
+    ]
+  },
+  "urn": {
+    "form": "standalone vessel",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Vase",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/357-vase/"
+      },
+      {
+        "name": "Jar",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/381-jar/"
+      }
+    ]
+  },
+  "statue": {
+    "form": "intrinsic stone figure and plinth",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Owl Statue",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/358-owl-statue/"
+      },
+      {
+        "name": "Monument",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/542-monument/"
+      }
+    ]
+  },
+  "supply-crate": {
+    "form": "intrinsic chest",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Box",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/351-box/"
+      }
+    ]
+  },
+  "crystal": {
+    "form": "standalone mineral",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Rock",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/374-rock/"
+      },
+      {
+        "name": "Sapphire",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/493-sapphire/"
+      }
+    ]
+  },
+  "flower-seal": {
+    "form": "intrinsic carved stone",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Stone",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/370-stone/"
+      },
+      {
+        "name": "Tablet",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/411-tablet/"
+      }
+    ]
+  },
+  "starlight-lantern": {
+    "form": "actual standalone lantern",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Lantern",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/386-lantern/"
+      },
+      {
+        "name": "Magic Lantern",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/593-magic-lantern/"
+      }
+    ]
+  },
+  "wind-pod": {
+    "form": "standalone pouch",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Pouch",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/385-pouch/"
+      }
+    ]
+  },
+  "windmill": {
+    "form": "actual standalone machine",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Drill",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/377-drill/"
+      }
+    ]
+  },
+  "greenhouse-sluice": {
+    "form": "actual sluice gate",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Blinds",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/415-blinds/"
+      }
+    ]
+  },
+  "vine-knot": {
+    "form": "vines wrapping a standalone pot",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Ivy",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/413-ivy/"
+      },
+      {
+        "name": "Vase",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/357-vase/"
+      }
+    ]
+  },
+  "rotating-shelf": {
+    "form": "actual shelf mechanism",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Shelf",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/372-shelf/"
+      }
+    ]
+  },
+  "garden-planter": {
+    "form": "standalone planter body",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Seed Box",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/389-seed-box/"
+      },
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "domino-slat": {
+    "form": "intrinsic wooden panel",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Box",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/351-box/"
+      },
+      {
+        "name": "Royal Pins",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/428-royal-pins/"
+      }
+    ]
+  },
+  "harvest-cart": {
+    "form": "actual freestanding cart",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Toy Boat",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/634-toy-boat/"
+      }
+    ]
+  },
+  "soil-clod": {
+    "form": "natural terrain",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Soil",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/375-soil/"
+      },
+      {
+        "name": "Mushroom",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/410-mushroom/"
+      }
+    ]
+  },
+  "soil-chip": {
+    "form": "intrinsic ground slab",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Soil",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/375-soil/"
+      }
+    ]
+  },
+  "garden-light": {
+    "form": "actual standalone lamp",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Lantern",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/386-lantern/"
+      }
+    ]
+  },
+  "shadow-bud": {
+    "form": "standalone covered flower",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "wire-planter": {
+    "form": "wire overlay around a real pot",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Chain",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/384-chain/"
+      },
+      {
+        "name": "Flowerpot",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/376-flowerpot/"
+      }
+    ]
+  },
+  "fence-thicket": {
+    "form": "actual picket fence and vines",
+    "extraDecorativeFrame": false,
+    "references": [
+      {
+        "name": "Ivy",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/413-ivy/"
+      },
+      {
+        "name": "Wall",
+        "url": "https://dreamgames.helpshift.com/hc/en/3-royal-match/faq/404-wall/"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+/* Shared modal frames, normal content flow, one large prize per reward cell. */
+.modal-layer.garden-pass-modal>.modal{width:min(94vw,430px);max-width:430px;height:min(740px,calc(100dvh - var(--safe-top) - var(--safe-bottom) - 40px));max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 40px);min-height:0;padding:76px 20px 22px!important;display:flex;flex-direction:column;background:none;overflow:visible}
+.garden-pass-modal .modal .modal-content{position:relative;inset:auto;display:flex;flex:1;flex-direction:column;min-height:0;max-height:none!important;padding:0!important;margin:0;overflow:visible}
+.garden-pass-modal .garden-pass{position:relative;inset:auto;display:flex;flex:1;flex-direction:column;min-height:0;gap:7px;padding:0!important;background:none!important;color:#203b5f;border-radius:0}
+.garden-pass-modal .pass-scene-emblem{display:none}
+.garden-pass-modal .pass-season-line{order:0;min-height:22px;flex:none;font-size:11px;color:#fff8e9;text-shadow:0 1px #154b82;line-height:1.2;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.garden-pass-modal .pass-season-line>span:last-child{border-color:#b2e2ff}
+.garden-pass-modal .pass-progress-heading{order:1;position:relative;flex:none;height:26px;margin:0 8px 2px 16px;border:2px solid #e9b647;border-radius:20px;background:#1c5c9e;isolation:isolate}
+.garden-pass-modal .pass-progress-heading>.icon{position:absolute;left:-17px;top:-5px;width:34px;height:34px;z-index:3}
+.garden-pass-modal .pass-progress-fill{position:absolute;left:0;top:0;bottom:0;max-width:100%;overflow:hidden;border-radius:20px;z-index:0}
+.garden-pass-modal .pass-progress-fill>img{width:360px;height:100%;object-fit:fill;max-width:none}
+.garden-pass-modal .pass-progress-heading>strong{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:16px;line-height:1;text-shadow:0 1px #724b15;z-index:1}
+.garden-pass-modal .pass-reward-book{order:2;position:relative;inset:auto;flex:1;min-height:0!important;display:grid;grid-template-rows:32px repeat(var(--pass-visible-tiers,5),minmax(0,1fr));gap:3px;margin:0;padding:20px 12px 20px 0!important;background:url('../../../packages/assets/event-design-v62/pass-book.webp') right center/calc(100% - 32px) 100% no-repeat!important;color:#203b5f}
+.garden-pass-modal .pass-book-head,.garden-pass-modal .pass-book-row{display:grid;grid-template-columns:32px minmax(0,1fr) minmax(0,1fr);gap:5px;min-height:0;align-items:center}
+.garden-pass-modal .pass-book-head{padding:0;font-size:17px;line-height:1;text-align:center}
+.garden-pass-modal .pass-book-head>strong:first-child{grid-column:2;color:#20517d}
+.garden-pass-modal .pass-book-head>strong:last-child{grid-column:3;color:#805413}
+.garden-pass-modal .pass-book-number{display:grid;place-items:center;align-self:center;justify-self:center;width:28px;min-width:0;height:34px;min-height:0;padding:0;border:1px solid #d3a46d;border-radius:6px;background:#fff0cd;color:#644221;font:22px/1 var(--font-game-number);box-shadow:0 2px 0 #b7864b40}
+.garden-pass-modal .pass-book-number[aria-pressed=true]{color:#0878c7;background:#fff9df}
+.garden-pass-modal .pass-book-cell{position:relative;display:flex;align-items:center;justify-content:center;align-self:stretch;min-width:0;min-height:0;padding:4px 3px;gap:0;background:#afd5f966!important;border:1px solid #7ab7e550!important;border-radius:10px;box-shadow:none!important;outline:none!important;opacity:1!important;filter:none!important;overflow:visible}
+.garden-pass-modal .pass-book-cell:focus-visible{outline:2px solid #fff!important;outline-offset:1px}
+.garden-pass-modal .pass-book-cell[data-track=premium]{background:#ffd77966!important;border-color:#dca52c50!important}
+.garden-pass-modal .pass-single-prize{display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:4px;min-width:0;width:100%;white-space:nowrap}
+.garden-pass-modal .pass-single-prize>.icon{width:clamp(40px,11vw,50px)!important;height:clamp(40px,11vw,50px)!important;flex:none;object-fit:contain}
+.garden-pass-modal .pass-single-prize>.pass-prize-image{width:clamp(42px,13vw,60px);height:clamp(38px,12vw,56px);flex:none;object-fit:contain}
+.garden-pass-modal .pass-single-prize>strong{font-size:clamp(17px,4.8vw,23px);line-height:1;flex:none;color:#203b5f}
+.garden-pass-modal .pass-book-cell>small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.garden-pass-modal .pass-book-check,.garden-pass-modal .pass-book-lock{position:absolute;right:1px;top:1px;width:15px;height:15px;object-fit:contain}
+.garden-pass-modal .pass-tier-picker{order:3;display:flex;gap:4px;flex:none;min-height:34px;overflow-x:auto;scrollbar-width:none;margin:0;padding:1px 0 3px}
+.garden-pass-modal .pass-tier-picker>button{flex:1 0 auto;min-width:42px;min-height:30px;padding:2px 5px;border:1px solid #379bd1;border-radius:7px;background:#b9e4ff;color:#174d79;font-size:12px;line-height:1;white-space:nowrap}
+.garden-pass-modal .pass-tier-picker>button[aria-pressed=true]{background:#ffda5d;border-color:#bd8518;color:#664212}
+.garden-pass-modal .pass-compact-actions{order:4;position:relative;inset:auto;display:grid;flex:none;gap:5px;pointer-events:auto}
+.garden-pass-modal .pass-compact-actions>.game-button{position:relative;inset:auto;width:100%!important;min-height:44px;height:48px;margin:0;padding:4px 8px 9px!important;font-size:19px!important}
+.garden-pass-modal .pass-compact-actions>p{position:relative;inset:auto;width:auto;margin:0;min-height:25px;padding:3px;font-size:12px;line-height:1.2}
+.garden-pass-modal .pass-guild-gifts-open{position:relative;inset:auto;display:flex;align-self:flex-end;flex:none;height:44px;z-index:3}
+.pass-premium-dialog>.modal{width:min(94vw,420px);max-width:420px;min-height:0;max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 40px);padding:76px 24px 24px!important;background:none;overflow:visible}
+.pass-premium-dialog .modal-content{position:relative;inset:auto;display:grid;gap:12px;min-height:0;max-height:none!important;overflow-y:auto;padding:0!important;margin:0}
+.pass-premium-dialog .premium-purchase-summary{position:relative;inset:auto;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(85px,auto);gap:8px;padding:8px!important;border:0;background:#c8eaff;border-radius:12px;color:#244366}
+.pass-premium-dialog .premium-purchase-summary>div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;text-align:center}
+.pass-premium-dialog .premium-purchase-summary .icon{width:44px;height:44px;object-fit:contain}
+.pass-premium-dialog .premium-purchase-summary strong{font-size:19px;line-height:1}
+.pass-premium-dialog .premium-purchase-summary small{font-size:11px;line-height:1.2}
+.pass-premium-dialog .pass-premium-controls{position:relative;inset:auto;width:100%;display:grid;gap:8px;overflow:visible}
+.commerce-dialog-host .pass-premium-dialog .purchase-feedback{margin:0;padding:0;color:#244366;font-size:12px;line-height:1.4;text-align:center}
+.pass-premium-dialog .pass-premium-controls>.game-button{width:100%;min-height:44px;margin:0;padding:5px 8px 10px;font-size:17px}
+@media(max-height:740px){.garden-pass-modal .garden-pass{gap:5px}.garden-pass-modal .pass-reward-book{padding-top:13px!important;padding-bottom:13px!important;grid-template-rows:26px repeat(var(--pass-visible-tiers,3),minmax(0,1fr))}.garden-pass-modal .pass-single-prize>.icon{width:40px!important;height:40px!important}.garden-pass-modal .pass-single-prize>.pass-prize-image{width:42px;height:38px}.garden-pass-modal .pass-single-prize>strong{font-size:17px}.garden-pass-modal .pass-compact-actions>.game-button{height:44px;font-size:17px!important}.garden-pass-modal .pass-book-number{font-size:20px;height:30px}}

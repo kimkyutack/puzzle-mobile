@@ -3,7 +3,7 @@ import {z} from 'zod';
 import {assertSQL,day,ensure,mutate,one,operationKey,readPlayer,sql,uid,type ApiEnv,type MutationContext} from './db';
 
 import {publicPlayerAgeSQL} from './age-access';
-import {profileAppearanceSchema} from './profile-appearance';
+import {appearanceColumns,withAppearance} from './profile-appearance';
 
 const COOLDOWN=14_400_000,DAILY_HEARTS=10,MAX_FRIENDS=200;
 const pair=(a:string,b:string)=>a<b?[a,b]:[b,a];
@@ -19,19 +19,15 @@ async function relation(db:D1Database,me:string,target:string):Promise<FriendRel
  const row=await one<FriendshipRow>(db,'SELECT status,requested_by FROM friendships WHERE user_low=? AND user_high=?',...pair(me,target));
  return friendshipRelation(row,me);
 }
-const profileSelect=`SELECT p.id userId,json_extract(p.data,'$.nickname') nickname,p.level,COALESCE(s.highest_level,0) highestClear,g.name guildName
+const profileSelect=`SELECT p.id userId,json_extract(p.data,'$.nickname') nickname,p.level,COALESCE(s.highest_level,0) highestClear,g.name guildName,${appearanceColumns()}
  FROM players p LEFT JOIN ranking_scores s ON s.user_id=p.id LEFT JOIN guilds g ON g.id=p.guild_id`;
 export async function publicProfile(env:ApiEnv,userId:string,target:string){
  target=targetSchema.parse(target);
  const row=await one<Omit<FriendProfile,'relation'|'profileAppearance'>&{avatar:unknown;frame:unknown;backdrop:unknown}>(env.DB,
-  profileSelect.replace(' FROM players p',`,json_extract(p.data,'$.profileAppearance.avatar') avatar,
-    json_extract(p.data,'$.profileAppearance.frame') frame,json_extract(p.data,'$.profileAppearance.backdrop') backdrop FROM players p`)+
-  ` WHERE p.id=? AND p.deleted_at IS NULL AND ${publicPlayerAgeSQL(env)}`,target);
+  profileSelect+` WHERE p.id=? AND p.deleted_at IS NULL AND ${publicPlayerAgeSQL(env)}`,target);
  ensure(row,'PLAYER_NOT_FOUND','정원사를 찾을 수 없어요.',404);
  const state=await relation(env.DB,userId,target);ensure(state!=='blocked','PLAYER_UNAVAILABLE','이 정원사와 교류할 수 없어요.',403);
- const {avatar,frame,backdrop,...profile}=row;
- const appearance=profileAppearanceSchema.safeParse({avatar,frame,backdrop});
- return {profile:{...profile,relation:state,...(appearance.success?{profileAppearance:appearance.data}:{})} satisfies FriendProfile};
+ return {profile:{...withAppearance(row),relation:state} satisfies FriendProfile};
 }
 async function allowed(env:ApiEnv,tx:MutationContext,target:string){
  const userId=tx.player.id;
@@ -95,15 +91,16 @@ export async function friends(env:ApiEnv,userId:string):Promise<FriendsResponse>
   sql(db,"SELECT id,sender_name senderName,kind,quantity,bound,created_at createdAt FROM gifts WHERE user_id=? AND quantity>0 AND source_id LIKE 'friend-heart:%' ORDER BY created_at DESC LIMIT 20",userId),
   sql(db,"SELECT COALESCE(SUM(quantity),0) n FROM gifts WHERE user_id=? AND kind='heart' AND bound=0",userId),
  ]);
- const pairs=pairRows!.results as (Omit<FriendProfile,'relation'>&FriendshipRow)[];
- const mapped=pairs.map(({status,requested_by,...profile}):FriendProfile=>({...profile,relation:friendshipRelation({status,requested_by},userId)}));
- const recs=recommendationRows!.results as Omit<FriendProfile,'relation'>[];
+ type ProfileRow=Omit<FriendProfile,'relation'|'profileAppearance'>&{avatar:unknown;frame:unknown;backdrop:unknown};
+ const pairs=pairRows!.results as (ProfileRow&FriendshipRow)[];
+ const mapped=pairs.map(({status,requested_by,...profile}):FriendProfile=>({...withAppearance(profile),relation:friendshipRelation({status,requested_by},userId)}));
+ const recs=recommendationRows!.results as ProfileRow[];
  const latest=latestRows!.results[0] as {created_at:number}|undefined;
  const requests=requestRows!.results as FriendHeartRequest[];
  const counts=countRows!.results[0] as {sent:number;received:number}|undefined;
  const gifts=giftRows!.results as Gift[];
  const stored=storedRows!.results[0] as {n:number}|undefined;
- return {friends:mapped.filter(p=>p.relation==='friend'),incoming:mapped.filter(p=>p.relation==='incoming'),outgoing:mapped.filter(p=>p.relation==='outgoing'),recommendations:recs.map(p=>({...p,relation:'none'})),heartRequests:requests.filter(r=>r.userId!==userId).map(r=>({...r,helped:!!r.helped})),myRequest:requests.find(r=>r.userId===userId)??null,gifts,heartNextAt:latest?latest.created_at+COOLDOWN:0,heartsSent:counts?.sent??0,heartsReceived:counts?.received??0,storedHearts:stored?.n??0,nextReset:(today+1)*86_400_000};
+ return {friends:mapped.filter(p=>p.relation==='friend'),incoming:mapped.filter(p=>p.relation==='incoming'),outgoing:mapped.filter(p=>p.relation==='outgoing'),recommendations:recs.map(p=>({...withAppearance(p),relation:'none'})),heartRequests:requests.filter(r=>r.userId!==userId).map(r=>({...r,helped:!!r.helped})),myRequest:requests.find(r=>r.userId===userId)??null,gifts,heartNextAt:latest?latest.created_at+COOLDOWN:0,heartsSent:counts?.sent??0,heartsReceived:counts?.received??0,storedHearts:stored?.n??0,nextReset:(today+1)*86_400_000};
 }
 export async function requestHearts(env:ApiEnv,userId:string,body:Record<string,unknown>){
  return mutate(env,userId,operationKey(body),'friend:hearts:request',async tx=>{

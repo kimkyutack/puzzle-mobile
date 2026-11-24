@@ -11,10 +11,12 @@ import {getLevel} from '@garden/content';
 import {goalArt,POWER_RAINBOW_ART} from './assets';
 import {Amount,Button,Card,Icon,Modal,names} from './ui';
 import './start-level-modal.css';
+import {StartGiftInfoModal,StartGiftSummary} from './StartGift';
 interface Props {player:Player;levelId?:number;engineVersion?:string;reloadKey?:number;loadLevel?:(id:number)=>Promise<LevelDefinition>;peekLevel?:(id:number)=>LevelDefinition|undefined;error?:string;selected:PreBooster[];busy:boolean;unlimited:boolean;onToggle:(item:PreBooster)=>void;onPlay:()=>void;onClose:()=>void}
 export default function StartLevelModal({player,levelId=player.level,engineVersion,loadLevel,peekLevel,reloadKey,error,selected,busy,unlimited,onToggle,onPlay,onClose}:Props){
  const {data}=useOperations(),schedule=data?.settings.startBoosterRush,rush=startBoosterWindow(schedule,serverNow());
  const rainbowStatusId=useId();
+ const [giftInfo,setGiftInfo]=useState(false);
  const [remote,setRemote]=useState<LevelDefinition|null>(()=>peekLevel?.(levelId)??null),[previewError,setPreviewError]=useState(''),[loading,setLoading]=useState(!!loadLevel&&!peekLevel?.(levelId)),[attempt,setAttempt]=useState(0);
  useEffect(()=>{
   if(!loadLevel)return;let active=true;const cached=peekLevel?.(levelId);setLoading(!cached);setRemote(cached??null);setPreviewError('');
@@ -33,6 +35,7 @@ export default function StartLevelModal({player,levelId=player.level,engineVersi
  const rainbowStatus=powered?t('powerRainbow.ready'):t('powerRainbow.streak',{count:streak,target:POWER_RAINBOW_WINS});
  const guide=level.startBoosterGuide,trial=freeStartTrialItem(level,player);
  const guideHint=trial?t('start.trialHint'):guide?t(guide.item==='wind-row'?'start.rocketHint':'start.bombHint'):null;
+ if(giftInfo)return <StartGiftInfoModal player={player} onClose={()=>setGiftInfo(false)}/>;
  const playAction=<div className={'start-play-action'+(busy?' is-preparing':'')} aria-busy={busy||loading} aria-live="polite">
   {error&&!busy&&<p className="start-error" role="alert">{error}</p>}
   <Button tone="green" className="start-level-play" rasterFrame={false} icon={busy?'lumi':undefined} disabled={busy||loading} onClick={onPlay}>{busy?tr('퍼즐 준비 중…'):t('button.play')}</Button>
@@ -55,6 +58,7 @@ export default function StartLevelModal({player,levelId=player.level,engineVersi
     </>}
    </section>
    <section className="start-level-tools" aria-labelledby="start-tool-title">
+    <StartGiftSummary player={player} onInfo={()=>setGiftInfo(true)}/>
     {rainbowSupported&&<div className="start-rainbow-chip" data-powered={powered}>
      <Icon id={POWER_RAINBOW_ART} size={30}/>
      <div className="start-rainbow-chip-progress">
