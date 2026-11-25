@@ -1,4 +1,5 @@
 import {EventIcon} from './event-icons';
+import {PassSpecialRewardImage} from './PassSpecialRewardImage';
 import './event-refinement-v74.css';
 import './pass-modal-v122.css';
 import type {PassPrize} from '../../../packages/contracts/src/pass-rewards';
@@ -57,7 +58,7 @@ export default function PassActions({player,seasonId,seasonEndsAt,pass,working,o
   </div>
   {showPremium&&<CommerceDialog className="pass-premium-dialog" title={tr("프리미엄 정원 패스")} onClose={close}>
    <section className="premium-purchase-summary" aria-label={tr('이번 시즌 추가 선물')}>
-    {[{id:'coin',count:coins,label:tr('코인')},{id:'bundle_tools_v7',count:tools,label:tr('도구')},{id:'home',count:decorations,label:tr('설치 장식')},{id:'star',count:pass.tiers.filter(tier=>!!tier.premium.decoration).length,label:tr('프로필 문장')},{id:'guild',count:pass.tiers.filter(tier=>!!tier.premium.guildGift).length,label:tr('길드 선물권')}].map(prize=><div key={prize.id}><Icon id={prize.id}/><strong>×{prize.count.toLocaleString(formatLocale())}</strong><small>{prize.label}</small></div>)}
+    {[{id:'coin',count:coins,label:tr('코인')},{id:'bundle_tools_v7',count:tools,label:tr('도구')},{id:'home',count:decorations,label:tr('설치 장식')},{id:'profile',count:pass.tiers.filter(tier=>!!tier.premium.decoration).length,label:tr('프로필 문장')},{id:'guild-gift',count:pass.tiers.filter(tier=>!!tier.premium.guildGift).length,label:tr('길드 선물권')}].map(prize=><div key={prize.id}>{prize.id==='profile'||prize.id==='guild-gift'?<PassSpecialRewardImage kind={prize.id}/>:<Icon id={prize.id}/>}<strong>×{prize.count.toLocaleString(formatLocale())}</strong><small>{prize.label}</small></div>)}
    </section><div className="pass-premium-controls">
    <p className="purchase-feedback">{tr("시즌 종료")}{' '}{new Date(seasonEndsAt).toLocaleString(formatLocale())}<br/>{tr("이번 시즌 1회 결제 · 자동 갱신 없음")}</p>
    {purchaseState&&<p className="purchase-feedback" role="status">{statusText[purchaseState]}</p>}

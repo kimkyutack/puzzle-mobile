@@ -38,6 +38,7 @@
 .pass-premium-dialog .premium-purchase-summary{position:relative;inset:auto;width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(85px,auto);gap:8px;padding:8px!important;border:0;background:#c8eaff;border-radius:12px;color:#244366}
 .pass-premium-dialog .premium-purchase-summary>div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;text-align:center}
 .pass-premium-dialog .premium-purchase-summary .icon{width:44px;height:44px;object-fit:contain}
+.pass-premium-dialog .premium-purchase-summary .pass-special-reward-image{width:44px;height:44px;object-fit:contain;display:block;flex:none}
 .pass-premium-dialog .premium-purchase-summary strong{font-size:19px;line-height:1}
 .pass-premium-dialog .premium-purchase-summary small{font-size:11px;line-height:1.2}
 .pass-premium-dialog .pass-premium-controls{position:relative;inset:auto;width:100%;display:grid;gap:8px;overflow:visible}
