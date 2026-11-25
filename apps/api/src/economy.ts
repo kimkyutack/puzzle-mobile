@@ -140,8 +140,8 @@ function assertPassEligibility(tx:MutationContext,userId:string,season:Season,ti
   if(premium)tx.statements.push(assertSQL(tx.db,'SELECT EXISTS(SELECT 1 FROM season_owners WHERE user_id=? AND season_id=?)',userId,season.id));
 }
 function passRewardView(tier:number,track:PassTrack,claims:Array<{kind:string;source_id:string}>,seasonId:string|undefined){
- const source=`${seasonId}:${tier}`,claimed=claims.some(c=>c.kind===`pass:${track}`&&c.source_id===source),current=!claimed||claims.some(c=>c.kind===`pass:reward-v2:${track}`&&c.source_id===source);
- const reward:PassPrize=current?passPrize(tier,track):{kind:'coins',quantity:track==='free'?25:75};
+ const source=`${seasonId}:${tier}`,claimed=claims.some(c=>c.kind===`pass:${track}`&&c.source_id===source),revision3=claims.some(c=>c.kind===`pass:reward-v3:${track}`&&c.source_id===source),current=!claimed||revision3||claims.some(c=>c.kind===`pass:reward-v2:${track}`&&c.source_id===source);
+ const reward:PassPrize=current?passPrize(tier,track,claimed&&!revision3?2:3):{kind:'coins',quantity:track==='free'?25:75};
  return {reward,coins:reward.kind==='coins'?reward.quantity:0,hammer:reward.kind==='item'&&reward.item==='hammer'?reward.quantity:!current&&track==='premium'&&tier%5===0?1:0,decoration:reward.kind==='profile'||!current&&track==='premium'&&tier===15?{id:'season-gardener',name:'시즌 정원사 문장',asset:'star'}:null,guildGift:reward.kind==='guild-gift'||!current&&track==='premium'&&tier===30?{item:'hammer' as const,quantityPerMember:1}:null};
 }
 async function grantPassRewards(tx:MutationContext,userId:string,seasonId:string,claims:Array<{tier:number;track:PassTrack}>){
@@ -154,7 +154,7 @@ async function grantPassRewards(tx:MutationContext,userId:string,seasonId:string
    tx.statements.push(sql(tx.db,'INSERT INTO inventory_lots VALUES(?,?,?,?,?,?,?)',uid(),userId,reward.item,0,reward.quantity,`pass:${source}:${track}`,tx.now));
   }else if(reward.kind==='decoration')decorations.push({itemId:reward.itemId,grantId:`pass:${source}:${track}`});
   else tx.statements.push(sql(tx.db,'INSERT INTO ledger VALUES(?,?,?,?,?,?,?)',uid(),userId,reward.kind==='profile'?'profile:season-gardener':'pass:guild-gift-voucher',1,'pass:claim',source,tx.now));
-  tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:${track}`,source,tx.now),sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:reward-v2:${track}`,source,tx.now));
+  tx.statements.push(sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:${track}`,source,tx.now),sql(tx.db,'INSERT INTO reward_claims VALUES(?,?,?,?)',userId,`pass:reward-v3:${track}`,source,tx.now));
  }
  if(decorations.length){
   const row=await one<{revision:number;data:string}>(tx.db,'SELECT revision,data FROM garden_worlds WHERE user_id=?',userId);

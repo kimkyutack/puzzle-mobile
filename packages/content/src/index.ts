@@ -22,7 +22,7 @@ export const PRODUCTS:Product[]=[
  ...[1000,2500,6000,15000,40000,100000].map(coins=>({id:`garden.coins.${coins}`,kind:'coins' as const,coins,items:{},unlimitedSeconds:0,oneTime:false})),
  {id:'garden.starter',kind:'starter',coins:1500,items:{hammer:1,'wind-row':1,bomb:1},unlimitedSeconds:900,oneTime:true,referencePriceKrw:3300},
  {id:'garden.boosters',kind:'boosters',coins:2000,items:{hammer:1,'sweep-row':1,rainbow:1},unlimitedSeconds:900,oneTime:false,monthlyLimit:true,referencePriceKrw:5500},
- {id:'garden.pass',kind:'pass',coins:0,items:{},unlimitedSeconds:0,oneTime:false},
+ {id:'garden.pass',kind:'pass',coins:0,items:{},unlimitedSeconds:0,oneTime:false,referencePriceKrw:15000},
  ...OFFER_PRODUCTS,
 ];
 export interface RestorationTask {id:string;area:string;name:string;cost:number;asset:string;itemId?:string;position?:[number,number]}

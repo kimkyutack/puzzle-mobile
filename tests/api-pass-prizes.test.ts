@@ -24,13 +24,25 @@ afterEach(()=>{db.close();vi.restoreAllMocks()});
 describe('authoritative single-prize pass payout',()=>{
  it('grants all seven placeable decorations in one atomic claim-all without overwriting earlier grants',async()=>{
   const before=await readPlayer(env.DB,user,now),result=await passClaimAll(env,user,{key:'all-pass-prizes'});
-  expect(result.claimed).toHaveLength(60);expect(result.player.coins-before.coins).toBe(3000);
+  expect(result.claimed).toHaveLength(60);expect(result.player.coins-before.coins).toBe(6750);
   const world=JSON.parse((db.prepare('SELECT data FROM garden_worlds WHERE user_id=?').get(user)as{data:string}).data);
   const decorations=Object.values(world.owned).filter((item:any)=>item.id.startsWith('pass:'));expect(decorations).toHaveLength(7);
   for(let tier=1;tier<=30;tier++)for(const track of ['free','premium']as const){const prize=passPrize(tier,track);if(prize.kind==='decoration')expect(world.owned[`pass:${season}:${tier}:${track}`].itemId).toBe(prize.itemId)}
-  expect(result.player.inventory.hammer.normal-before.inventory.hammer.normal).toBe(7);
+  expect(result.player.inventory.hammer.normal-before.inventory.hammer.normal).toBe(15);
+  expect(Object.entries(result.player.inventory).reduce((sum,[id,stock])=>sum+stock.normal-before.inventory[id as keyof typeof before.inventory].normal,0)).toBe(34);
   const second=await passClaimAll(env,user,{key:'pass-again'});expect(second.reason).toBe('NOTHING_TO_CLAIM');expect(second.player.coins).toBe(result.player.coins);
   const retry=await passClaimAll(env,user,{key:'all-pass-prizes'});expect(retry.claimed).toHaveLength(60);expect((await readPlayer(env.DB,user,now)).coins).toBe(result.player.coins);
+ });
+ it('keeps previously paid revision2 amounts visible and never pays those tiers twice',async()=>{
+  for(const tier of [1,11])for(const kind of ['pass:premium','pass:reward-v2:premium'])db.prepare('INSERT INTO reward_claims VALUES(?,?,?,?)').run(user,kind,season+':'+tier,now-500);
+  const before=await readPlayer(env.DB,user,now),view=await events(env,user);
+  expect(view.pass.tiers[0].premium.reward).toEqual({kind:'coins',quantity:150});
+  expect(view.pass.tiers[10].premium.reward).toEqual({kind:'item',item:'hammer',quantity:2});
+  expect(view.pass.tiers[1].premium.reward).toEqual({kind:'coins',quantity:250});
+  const result=await passClaimAll(env,user,{key:'after-v2-repricing'});expect(result.claimed).toHaveLength(58);
+  expect(result.player.coins-before.coins).toBe(6550);expect(result.player.inventory.hammer.normal-before.inventory.hammer.normal).toBe(10);
+  const after=await events(env,user);expect(after.pass.tiers[0].premium.reward).toEqual(view.pass.tiers[0].premium.reward);expect(after.pass.tiers[10].premium.reward).toEqual(view.pass.tiers[10].premium.reward);
+  expect(after.pass.tiers[1].premium.reward).toEqual({kind:'coins',quantity:250});
  });
  it('shows and pays the same prize for each track and keeps independently claimed decorations',async()=>{
   const view=await events(env,user);expect(view.pass.tiers[5].premium.reward).toEqual(passPrize(6,'premium'));expect(view.pass.tiers[9].free.reward.kind).toBe('decoration');
